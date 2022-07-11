@@ -1,5 +1,6 @@
 import React from "react";
 import FooterDestop from "./footerDestop";
+import FooterMobile from "./footerMobile";
 
 
 const NutriFooter = () => {
@@ -28,7 +29,7 @@ const NutriFooter = () => {
             {/*toggleMenu || */ largeur > 500 ?
                 <FooterDestop/>
                 :
-                <button>je suis petit</button>
+                <FooterMobile/>
             }
         </>
     )
