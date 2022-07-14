@@ -1,34 +1,40 @@
 import React from "react";
 import './footerDestop.css'
-import { Button, IconButton } from '@chakra-ui/react'
-import {FaFacebook, FaTwitter, FaInstagram} from 'react-icons/fa'
+//import { Button, IconButton } from '@chakra-ui/react'
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
+//import{Icon} from '@chakra-ui/react'
+import { Link, Image, HStack} from '@chakra-ui/react';
+import logoNu3 from '../image/logo_nu3menu.png'
 
 
 const FooterDestop = () => {
 
+    const socialIconLink = [
+        { id: "fa", label: <FaFacebook />, to: "https://www.facebook.com", colori: "green.400" },
+        { id: "tw", label: <FaTwitter />, to: "https://www.facebook.com", colori: "green.400" },
+        { id: "in", label: <FaInstagram />, to: "https://www.facebook.com", colori: "green.400" }
+    ]
+
+    const divStyle = {
+        display : 'flex',  
+    }
+
     return (
-        <div className="container__footerDestop">
-            <Button background={"green.400"}/>
-            <IconButton
-                colorScheme='green'
-                aria-label='Search database'
-                icon={<FaFacebook />}
-            />
-            <IconButton
-                colorScheme='yellow'
-                aria-label='Search database'
-                icon={<FaTwitter />}
-            />
-            <IconButton
-                colorScheme='whatsapp'
-                aria-label='Search database'
-                icon={<FaInstagram />}
-            />
 
+        <HStack direction={'row'} bg={"gray.800"} h={"5%"} justify={"space-between"}>
 
-        </div>
+            <Image h={"150px"} src={logoNu3} alt="NU3MENU" />
+
+            <div style={divStyle}>
+                {socialIconLink.map((data) =>
+                    <Link key={data.id} href={data.to} color={data.colori}>{data.label}</Link>)}
+            </div>
+        </HStack>
+
 
     )
 }
 
 export default FooterDestop
+
+
