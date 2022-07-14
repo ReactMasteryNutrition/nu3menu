@@ -7,12 +7,13 @@ import {  FiPlusCircle} from 'react-icons/fi'
 const FooterMobile = () => {
 
     const nameIcon = [<IoHome/>, <BsListUl/>, <FiPlusCircle/>, <BsFillBookmarkFill/>, <BsFillPersonFill/> ]
+
     return (
 
         <div>
            { nameIcon.map((nom)=> <IconButton
                 variant='ghost'
-                colorScheme={'green.400'}
+                colorScheme="green"
                 aria-label='Call Sage'
                 fontSize='40px'
                 icon={nom}
