@@ -1,17 +1,24 @@
+import logo from './logo.svg';
 import './App.css';
-import { ChakraProvider } from '@chakra-ui/react'
-import {Routes, Route} from 'react-router-dom'
-import PageHome from './component/pageHome';
-import NutriFooter from './component/nutriFooter';
 
 function App() {
   return (
-    <ChakraProvider>
-      <Routes>
-        <Route path='/' element={<PageHome/>} />
-    </Routes>
-    <NutriFooter/>
-    </ChakraProvider>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
