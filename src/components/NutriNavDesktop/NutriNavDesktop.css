@@ -1,0 +1,140 @@
+#navVisitorDesktop,
+#navUserDesktop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+}
+
+#navVisitorDesktop img,
+#navUserDesktop img:nth-child(1) {
+  width: 15rem;
+}
+
+.navVisitorDesktop-buttons,
+.navUserDesktop-menu-links {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.navUserDesktop-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+}
+
+.navUserDesktop-menu-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  width: 7rem;
+}
+
+.navUserDesktop-menu-icons img:hover {
+  filter: brightness(0) saturate(100%) invert(94%) sepia(13%) saturate(319%)
+    hue-rotate(69deg) brightness(106%) contrast(101%);
+}
+
+.navUserDesktop-menu-icons a {
+  position: relative;
+}
+
+.navUserDesktop-menu-icons p {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  left: -35px;
+  top: 3rem;
+  width: 6.5rem;
+  text-align: center;
+  font-size: 0.7rem;
+  border-radius: 0.3rem;
+  background-color: #f0fff4;
+  color: #1a202c;
+}
+
+.navUserDesktop-menu-icons a:hover > p {
+  display: block;
+}
+
+.navVisitorDesktop-buttons button,
+.navUserDesktop-menu a {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #48bb78;
+}
+
+.navVisitorDesktop-buttons button:hover,
+.navUserDesktop-menu a:hover {
+  color: #f0fff4;
+}
+
+.navSeparatorDesktop {
+  position: relative;
+  bottom: 0.31rem;
+  height: 0.3rem;
+  width: 100%;
+  background-color: #48bb78;
+}
+
+/* Responsive design */
+
+@media screen and (max-width: 660px) {
+  .navUserDesktop-menu {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  #navUserDesktop img:nth-child(1) {
+    width: 12rem;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .navUserDesktop-menu-links {
+    gap: 1rem;
+  }
+  .navUserDesktop-menu-links a {
+    font-size: 1rem;
+  }
+  .navUserDesktop-menu-icons {
+    gap: 1rem;
+    width: 5rem;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  .navVisitorDesktop-buttons {
+    gap: 1rem;
+  }
+  .navVisitorDesktop-buttons button {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #navVisitorDesktop,
+  #navUserDesktop {
+    justify-content: center;
+  }
+  #navUserDesktop img:nth-child(1) {
+    justify-content: center;
+    width: 15rem;
+  }
+  .navVisitorDesktop-buttons,
+  .navUserDesktop-menu {
+    display: none;
+  }
+  .navSeparatorDesktop {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    border-radius: 3rem;
+  }
+}
