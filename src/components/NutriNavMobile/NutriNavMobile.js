@@ -85,7 +85,8 @@ const DrawerUserMobile = () => {
                         justifyContent="center"
                         textAlign="center"
                         gap="1rem"
-                        marginTop="2rem" >
+                        marginTop="2rem"
+                        fontWeight="bold" >
                         <a href='/' className='drawer_img--position'>
                             <img src='./images/avatar_account.svg' alt='Avatar' />
                             <p>John</p>
