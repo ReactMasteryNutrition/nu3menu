@@ -4,6 +4,8 @@ import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 //import Card from './components/Card/Card';
 import NutriNavDesktop from './components/NutriNavDesktop/NutriNavDesktop';
 import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
+import UserApp from './noUserApp';
+
 
 const theme = extendTheme({
   styles: {
@@ -40,10 +42,9 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-     <div className="App">
-         <NutriNavDesktop />
-         <NutriNavMobile />
-     </div>
+      <NutriNavDesktop />
+      <NutriNavMobile />
+      {/*<UserApp/> */}
     </ChakraProvider>
   );
 }

@@ -1,3 +1,4 @@
+
 #navVisitorDesktop,
 #navUserDesktop {
   display: flex;
@@ -12,37 +13,37 @@
   width: 15rem;
 }
 
-.navVisitorDesktop-buttons,
-.navUserDesktop-menu-links {
+.nav__buttons,
+.nav__links {
   display: flex;
   flex-direction: row;
   gap: 3rem;
 }
 
-.navUserDesktop-menu {
+.nav__menu {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 3rem;
 }
 
-.navUserDesktop-menu-icons {
+.nav__icons {
   display: flex;
   flex-direction: row;
   gap: 3rem;
   width: 7rem;
 }
 
-.navUserDesktop-menu-icons img:hover {
+.nav__icons img:hover {
   filter: brightness(0) saturate(100%) invert(94%) sepia(13%) saturate(319%)
-    hue-rotate(69deg) brightness(106%) contrast(101%);
+  hue-rotate(69deg) brightness(106%) contrast(101%);
 }
 
-.navUserDesktop-menu-icons a {
+.nav__icons a {
   position: relative;
 }
 
-.navUserDesktop-menu-icons p {
+.nav__icons p {
   display: none;
   position: absolute;
   z-index: 1;
@@ -56,23 +57,23 @@
   color: #1a202c;
 }
 
-.navUserDesktop-menu-icons a:hover > p {
+.nav__icons a:hover > p {
   display: block;
 }
 
-.navVisitorDesktop-buttons button,
-.navUserDesktop-menu a {
+.nav__buttons button,
+.nav__menu a {
   font-size: 1.2rem;
   font-weight: 700;
   color: #48bb78;
 }
 
-.navVisitorDesktop-buttons button:hover,
-.navUserDesktop-menu a:hover {
+.nav__buttons button:hover,
+.nav__menu a:hover {
   color: #f0fff4;
 }
 
-.navSeparatorDesktop {
+.nav__separator--bottom {
   position: relative;
   bottom: 0.31rem;
   height: 0.3rem;
@@ -83,7 +84,7 @@
 /* Responsive design */
 
 @media screen and (max-width: 660px) {
-  .navUserDesktop-menu {
+  .nav__menu {
     gap: 1rem;
   }
 }
@@ -95,23 +96,23 @@
 }
 
 @media screen and (max-width: 620px) {
-  .navUserDesktop-menu-links {
+  .nav__links {
     gap: 1rem;
   }
-  .navUserDesktop-menu-links a {
+  .nav__links a {
     font-size: 1rem;
   }
-  .navUserDesktop-menu-icons {
+  .nav__icons {
     gap: 1rem;
     width: 5rem;
   }
 }
 
 @media screen and (max-width: 545px) {
-  .navVisitorDesktop-buttons {
+  .nav__buttons {
     gap: 1rem;
   }
-  .navVisitorDesktop-buttons button {
+  .nav__buttons button {
     font-size: 1.1rem;
   }
 }
@@ -125,11 +126,11 @@
     justify-content: center;
     width: 15rem;
   }
-  .navVisitorDesktop-buttons,
-  .navUserDesktop-menu {
+  .nav__buttons,
+  .nav__menu {
     display: none;
   }
-  .navSeparatorDesktop {
+  .nav__separator--bottom {
     position: relative;
     top: 50%;
     left: 50%;
