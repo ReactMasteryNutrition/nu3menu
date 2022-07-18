@@ -6,7 +6,7 @@ import NutriFooter from './components/footer/nutriFooter'
 import { Routes, Route } from 'react-router-dom';
 
 
-const NoUserApp = () => {
+const UserApp = () => {
     return (
         <>
             <NutriNavDesktop />
@@ -28,4 +28,4 @@ const NoUserApp = () => {
 
 }
 
-export default NoUserApp;
+export default UserApp;
