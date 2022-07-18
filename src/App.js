@@ -1,10 +1,7 @@
 import './App.css';
 import * as React from 'react';
-import {Routes, Route} from 'react-router-dom'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
-import Card from './components/Card/Card';
-import NutriNavDesktop from './components/NutriNavDesktop/NutriNavDesktop';
-import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
+import NoUserApp from './noUserApp';
 
 const theme = extendTheme({
   styles: {
@@ -41,16 +38,7 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-
-     {/*  <div className="App">
-        
-      </div> */}
-      <NutriNavDesktop />
-      <Routes>
-        <Route path='/card' element={<Card/>}/> 
-        
-      </Routes>
-      <NutriNavMobile />
+      <NoUserApp/>
     </ChakraProvider>
   );
 }

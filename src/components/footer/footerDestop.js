@@ -4,7 +4,7 @@ import './footerDestop.css'
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
 //import{Icon} from '@chakra-ui/react'
 import { Link, Image, HStack} from '@chakra-ui/react';
-import logoNu3 from '../image/logo_nu3menu.png'
+//import logoNu3 from './image/logo_nu3menu.svg'
 
 
 const FooterDestop = () => {
@@ -23,7 +23,8 @@ const FooterDestop = () => {
 
         <HStack direction={'row'} bg={"gray.800"} h={"5%"} justify={"space-between"}>
 
-            <Image h={"150px"} src={logoNu3} alt="NU3MENU" />
+            <Image h={"60px"} src='./images/logo_nu3menu.svg' alt="NU3MENU" />
+            
 
             <div style={divStyle}>
                 {socialIconLink.map((data) =>
