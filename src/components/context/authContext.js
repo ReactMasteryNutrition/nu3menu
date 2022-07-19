@@ -1,78 +1,71 @@
-import {createContext, useContext, useEffect, useMemo, useState} from "react";
-import * as authApi from '../../api/authApi'
-import {useFetchData} from "../../hook/useFetchData";
-import {clientAuth} from "../../api/clientApi";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from '../../firebase-confg'
 
-const AuthContext = createContext()
+const AuthContext = createContext({
+    currentUser: null,
+    register: () => Promise,
+    login: () => Promise,
+    logout: () => Promise,
+})
 
-const useAuth = () => {
-    const context = useContext(AuthContext)
-    if (!context) {
-        throw new Error("useAuth() s'utilise avec <AuthContext.provider>")
-    }
-    return context
-}
+export const useAuth = () => useContext(AuthContext)
 
-const getUserByToken = async () => {
-    let user = null
-    const token = await authApi.getToken()
-    if (token) {
-        await clientAuth('me', {token}).then(res => res.json()).then(data => user = data.user)
-    }
-    return user
-}
+export default function AuthContextProvider({ children}) {
+    console.log("%cAuthContext", 'background: darkblue; color: white;')
+    const [currentUser, setCurrentUser] = useState(null)
+    const [loading, setLoading] = useState(true)
 
-const AuthProvider = props => {
-    const [authError, setAuthError] = useState()
-    const {data: authUser, execute, status, setData} = useFetchData()
     useEffect(() => {
-        execute(getUserByToken())
-    }, [execute])
-    const login = async(data) => {
-        await authApi
-            .login(data)
-            .then(user => {
-                setData(user)
-                setAuthError(null)
-            })
-            .catch(err => {
-                setAuthError(err)
-            })
-    }
-    const register = async(data) => {
-        await authApi
-            .register(data)
-            .then(user => setData(user))
-            .catch(err => setAuthError(err))
-    }
+        const unsuscribe = onAuthStateChanged(auth, user => {
+            console.log("%cAuthContext -- onAuthStateChanged -- Suscribed", 'background: lightblue; color: black;')
+            if(user){
+                const imgSrc = "//www.gravatar.com/avatar/28d8a1def414df109d3cdc226b381255?s=40&r=g&d=monsterid"
+                const title = user?.email === "admin@admin.com" ? "Maître des clefs" : "Participant"
+                const pseudo =  `${user?.email.substring(0, user?.email.indexOf("@")).substring(0,1).toUpperCase()}${user?.email.substring(0, user?.email.indexOf("@")).substring(1,)}`
+                setCurrentUser({
+                    user: user,
+                    pseudo: pseudo,
+                    title: title,
+                    imgSrc: imgSrc,
+                })
+            } else {
+                setCurrentUser(user)
+            }
+            // setLoading(false)
+        })
 
+        return () => {
+            console.log("%cAuthContext -- onAuthStateChanged -- Unsuscribed", 'background: lightblue; color: black;')
+            unsuscribe()
+        }
+    }, [])
 
-    const logout = () => {
-        authApi.logout()
-        setData(null)
-    }
-    const isUserExists = async (user) => {
-        return new Promise((resolve, reject) => clientAuth('user', {data: {user}})
-            .then(res => {
-                if (res.ok) {
-                    resolve()
-                } else {
-                    reject()
-                }
-            }))
-        // .catch(()=>false)
-    }
-    const value = useMemo(
-        () => ({authUser, login,register, logout, authError, isUserExists}),
-        [authError, authUser, login,register, logout, isUserExists],
-    )
-    if (status === 'fetching' || status === 'idle') {
-        return <div>Loading...</div>
-    }
+    const register = useCallback((email, password) => {
+        console.log("%cAuthContext -- Register", 'background: lightblue; color: black;')
+        return createUserWithEmailAndPassword(auth, email, password)
+    },[])
+    const login = useCallback((email, password) => {
+        console.log("%cAuthContext -- Login", 'background: lightblue; color: black;')
+        return signInWithEmailAndPassword(auth, email, password)
+    },[])
+    const logout = useCallback(() => {
+        console.log("%cAuthContext -- Logout", 'background: lightblue; color: black;')
+        return signOut(auth)
+    },[])
 
-    if (status === 'done') {
-        return <AuthContext.Provider value={value} {...props} />
-    }
+    const value = useMemo(() => ({
+        currentUser,
+        loading, setLoading,
+        register,
+        login,
+        logout
+    }),[currentUser, loading, register, login, logout])
+
+    return (
+        <AuthContext.Provider value={value}>
+            {/* {!loading && children} */}
+            {children}
+        </AuthContext.Provider>
+    ) 
 }
-
-export {AuthContext, useAuth, AuthProvider}
