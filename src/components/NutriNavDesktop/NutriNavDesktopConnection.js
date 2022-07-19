@@ -1,5 +1,6 @@
 import "./NutriNavDesktopConnection.css";
-import { useState } from "react";
+import { useState} from "react";
+import {Link} from "react-router-dom";
 import { CloseIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   FormControl,
@@ -9,10 +10,21 @@ import {
   InputGroup,
   Button,
 } from "@chakra-ui/react";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import {auth} from "firebaseConfig";
+
+
 
 const ModalForm = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const [loadingData, setLoadingData] = useState(true);
+
 
   return (
     <>
