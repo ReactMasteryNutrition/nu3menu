@@ -1,6 +1,4 @@
-
 import * as React from 'react';
-
 import { Routes, Route } from 'react-router-dom';
 import NutriNavDesktop from './components/NutriNavDesktop/NutriNavDesktop';
 import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
@@ -33,5 +31,6 @@ const UserApp = () => {
     )
 
 }
+
 
 export default UserApp;
