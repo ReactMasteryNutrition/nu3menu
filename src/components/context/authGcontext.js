@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleAuthProvider,getAuth, getRedirectResult } from "firebase/auth";
+//import { GoogleAuthProvider,getAuth, getRedirectResult } from "firebase/auth";
 import {app} from './firebaseConfig.js'
 
  const AuthContext = React.createContext();
