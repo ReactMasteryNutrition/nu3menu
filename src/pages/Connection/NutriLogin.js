@@ -114,6 +114,7 @@ const NutriLogin = () => {
         <>
             {login && <ModalDesktopLogin setLogin={setLogin} />}
             {minWidth501 ? (
+                // desktop screen
                 <Link to="/login">
                     <Button
                         bg="#1A202C"
@@ -123,6 +124,7 @@ const NutriLogin = () => {
                     </Button>
                 </Link>
             ) : (
+                // mobile screen
                 <Link to="/login">
                     <Button
                         bg="#f0fff4"
@@ -142,3 +144,4 @@ const NutriLogin = () => {
 }
 
 export default NutriLogin;
+

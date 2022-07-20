@@ -113,12 +113,14 @@ const NutriRegister = () => {
     <>
       {register && <ModalDesktopRegister setRegister={setRegister} />}
       {minWidth501 ? (
+        // desktop screen
         <Link to="/register">
           <Button bg="#1A202C" _hover={{ bg: "#1A202C" }} onClick={() => setRegister(true)}>
             S'inscrire
           </Button>
         </Link>
       ) : (
+        // mobile screen
         <Link to="/register">
           <Button 
           bg="#f0fff4" 
