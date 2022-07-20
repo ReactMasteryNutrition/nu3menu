@@ -1,9 +1,11 @@
 import './App.css';
 import * as React from 'react';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
-import { BrowserRouter as Router } from 'react-router-dom'
-
 import UserApp from './userApp';
+import { extendTheme, ChakraProvider } from '@chakra-ui/react'
+//import UserApp from './noUserApp';
+
+
 
 const theme = extendTheme({
   styles: {
@@ -40,9 +42,8 @@ const theme = extendTheme({
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Router>
         <UserApp />
-      </Router>
+       
     </ChakraProvider>
   );
 }
