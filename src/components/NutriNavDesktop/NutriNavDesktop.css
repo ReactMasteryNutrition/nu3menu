@@ -1,4 +1,3 @@
-
 #navVisitorDesktop,
 #navUserDesktop {
   display: flex;
@@ -36,7 +35,7 @@
 
 .nav__icons img:hover {
   filter: brightness(0) saturate(100%) invert(94%) sepia(13%) saturate(319%)
-  hue-rotate(69deg) brightness(106%) contrast(101%);
+    hue-rotate(69deg) brightness(106%) contrast(101%);
 }
 
 .nav__icons a {

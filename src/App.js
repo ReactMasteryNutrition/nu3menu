@@ -1,11 +1,9 @@
 import './App.css';
 import * as React from 'react';
-import { extendTheme, ChakraProvider } from '@chakra-ui/react'
-//import Card from './components/Card/Card';
-import NutriNavDesktop from './components/NutriNavDesktop/NutriNavDesktop';
-import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
-import UserApp from './noUserApp';
+import { extendTheme, ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter as Router } from 'react-router-dom'
 
+import UserApp from './userApp';
 
 const theme = extendTheme({
   styles: {
@@ -15,17 +13,17 @@ const theme = extendTheme({
       }
     }
   },
- /*  colors: {
-    green: {
-      700: "#276749",
-      400: "#48BB78",
-      50: "#F0FFF4"
-    },
-    gray: {
-      800: "#1A202C",
-      400: "#A0AEC0"
-    }
-  }, */
+  /*  colors: {
+     green: {
+       700: "#276749",
+       400: "#48BB78",
+       50: "#F0FFF4"
+     },
+     gray: {
+       800: "#1A202C",
+       400: "#A0AEC0"
+     }
+   }, */
   fonts: {
     body: "Poppins, sans-serif",
   },
@@ -41,12 +39,13 @@ const theme = extendTheme({
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <NutriNavDesktop />
-      <NutriNavMobile />
-      {/*<UserApp/> */}
-    </ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <Router>
+          <UserApp />
+        </Router>
+      </ChakraProvider>
   );
 }
 
 export default App;
+
