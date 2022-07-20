@@ -12,7 +12,9 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 
+
 const ModalForm = () => {
+
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
@@ -23,7 +25,7 @@ const ModalForm = () => {
         <Input placeholder='Prénom' bg='#f0fff4' />
       </FormControl>
       <FormControl isRequired marginBottom="1rem">
-        <Input type='email' placeholder='E-mail' bg='#f0fff4' />
+        <Input type='email' placeholder='E-mail' bg='#f0fff4' onChange={handleChange} value={email} />
       </FormControl >
       <InputGroup size='md'>
         <Input
@@ -84,7 +86,7 @@ const ModalForm = () => {
   )
 }
 
-const ModalDesktopRegister = ({ setRegister }) => {
+const ModalDesktopReister = ({ setRegister }) => {
   return (
     <>
       <div className="body__bg--gray"></div>
@@ -113,14 +115,12 @@ const NutriRegister = () => {
     <>
       {register && <ModalDesktopRegister setRegister={setRegister} />}
       {minWidth501 ? (
-        // desktop screen
         <Link to="/register">
           <Button bg="#1A202C" _hover={{ bg: "#1A202C" }} onClick={() => setRegister(true)}>
             S'inscrire
           </Button>
         </Link>
       ) : (
-        // mobile screen
         <Link to="/register">
           <Button 
           bg="#f0fff4" 

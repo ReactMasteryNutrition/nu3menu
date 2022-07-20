@@ -16,16 +16,13 @@ const FooterDestop = () => {
     ]
 
     const divStyle = {
-        display : 'flex',  
+        display : 'flex',
     }
 
     return (
 
         <HStack direction={'row'} bg={"gray.800"} h={"5%"} justify={"space-between"}>
-
             <Image h={"60px"} src='./images/logo_nu3menu.svg' alt="NU3MENU" />
-            
-
             <div style={divStyle}>
                 {socialIconLink.map((data) =>
                     <Link key={data.id} href={data.to} color={data.colori}>{data.label}</Link>)}
