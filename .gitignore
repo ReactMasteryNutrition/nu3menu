@@ -93,7 +93,6 @@ typings/
 .env
 .env.test
 .process.env
-process.env
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
