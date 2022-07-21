@@ -26,7 +26,7 @@ const NutriFooter = () => {
 
     return (
         <>
-            {/*toggleMenu || */ largeur > 500 ?
+            {/*toggleMenu || */ largeur > 600 ?
                 <FooterDestop/>
                 :
                 <FooterMobile/>

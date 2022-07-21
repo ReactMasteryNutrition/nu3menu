@@ -127,10 +127,10 @@ const NavUserMobile = () => {
         <>
             <div id='navUserMobile'>
                 <div className="nav__separator--top"></div>
-                <Link to="/user">
+                <Link to="/">
                     <img src="./images/home.svg" alt="Maison" />
                 </Link>
-                <Link to="/user/menu">
+                <Link to="/menu">
                     <img src="./images/menu.svg" alt="Menu" />
                 </Link>
                 <Link to="/user/createmenu">

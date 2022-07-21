@@ -1,6 +1,6 @@
 import React from "react";
 import './footerDestop.css'
-import { socialIconLink, linkListFooter } from "./dataLink";
+import { socialIconLink, linkListFooter } from "../data/dataLink";
 import { MdSettings } from 'react-icons/md'
 import { Link, Image, HStack, List, ListIcon, ListItem, Box } from '@chakra-ui/react';
 
