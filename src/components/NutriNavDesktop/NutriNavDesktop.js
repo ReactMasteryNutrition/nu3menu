@@ -1,6 +1,11 @@
 import "./NutriNavDesktop.css"
 import NutriRegister from "../../pages/Connection/NutriRegister"
 import NutriLogin from "../../pages/Connection/NutriLogin"
+import React, {useContext} from 'react'
+import {AuthContext} from '../../contexts/AuthContext'
+import {signOut} from 'firebase/auth'
+import {auth} from '../../firebaseConfig'
+import { useNavigate } from 'react-router-dom'
 import {
   Menu,
   MenuButton,
@@ -14,6 +19,20 @@ import { Link } from "react-router-dom"
 // const userToken = 'nu3menuToken'
 
 const DropdownDesktop = () => {
+
+  const {toggleModals} = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  const signOut = async () => {
+    try {
+      await signOut(auth)
+      toggleModals()
+      navigate("/user");
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
   return (
     <>
       <Menu isLazy>
@@ -53,11 +72,9 @@ const DropdownDesktop = () => {
               Aide et support
             </MenuItem>
           </Link>
-          <Link to="/">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
+            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}  onClick={logOut}>
               Se déconnecter
             </MenuItem>
-          </Link>
         </MenuList>
       </Menu>
     </>

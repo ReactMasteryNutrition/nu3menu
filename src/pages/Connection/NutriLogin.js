@@ -1,7 +1,9 @@
 
 import './NutriConnection.css'
-import { useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { CloseIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import {
     FormControl,
     FormHelperText,
@@ -19,26 +21,39 @@ const ModalForm = () => {
     const handleClick = () => setShow(!show)
     const [minWidth501] = useMediaQuery('(min-width: 501px)')
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const credentials = await signIn(
+                inputs.current[0].value,
+                inputs.current[1].value
+            );
+        } catch (error) {
+        console.log(error);
+    }
+    }
+
     return (
         <>
-            <FormControl isRequired marginBottom="1rem">
-                <Input type='email' placeholder='E-mail' bg='#f0fff4' />
-            </FormControl >
-            <InputGroup size='md'>
-                <Input
-                    pr='4.5rem'
-                    type={show ? 'text' : 'password'}
-                    placeholder='Mot de passe'
-                    bg='#f0fff4'
-                    isRequired
-                />
-                <InputRightElement width='4.5rem' >
-                    <div size='sm' bg='#f0fff4' onClick={handleClick}>
-                        {show ? <ViewOffIcon color='#48bb78' /> : <ViewIcon color='#48bb78' />}
-                    </div>
-                </InputRightElement>
-            </InputGroup>
-            {minWidth501 ? (<>
+            <form onSubmit={handleSubmit}>
+                <FormControl isRequired marginBottom="1rem">
+                    <Input type='email' placeholder='E-mail' bg='#f0fff4' />
+                </FormControl >
+                <InputGroup size='md'>
+                    <Input
+                        pr='4.5rem'
+                        type={show ? 'text' : 'password'}
+                        placeholder='Mot de passe'
+                        bg='#f0fff4'
+                        isRequired
+                    />
+                    <InputRightElement width='4.5rem' >
+                        <div size='sm' bg='#f0fff4' onClick={handleClick}>
+                            {show ? <ViewOffIcon color='#48bb78' /> : <ViewIcon color='#48bb78' />}
+                        </div>
+                    </InputRightElement>
+                </InputGroup>
+                { /* minWidth501 ? (<> */}
                 <FormControl textAlign='start'>
                     <FormHelperText>Mot de passe oublié ?</FormHelperText>
                 </FormControl>
@@ -50,7 +65,7 @@ const ModalForm = () => {
                         Se connecter
                     </Button>
                 </FormControl>
-                <FormControl>
+                        <FormControl>
                     <Button
                         style={{ top: "4rem", padding: "0.5rem" }}
                         _hover={{ bgColor: "#a0aec0" }}
@@ -71,7 +86,7 @@ const ModalForm = () => {
                         Se connecter
                     </Button>
                 </FormControl>
-                <FormControl>
+            {/* <FormControl>
                     <Button
                         style={{ top: "4rem", width: '100%' }}
                         _hover={{ bgColor: "#a0aec0" }}
@@ -79,7 +94,7 @@ const ModalForm = () => {
                         <img src="./images/google.svg" alt="Icône de Google" style={{ width: "1rem" }} />
                         <p>Se connecter avec Google</p>
                     </Button>
-                </FormControl>
+                </FormControl> } */}
             </>)
             }
         </>
@@ -87,6 +102,12 @@ const ModalForm = () => {
 }
 
 const ModalDesktopLogin = ({ setLogin }) => {
+    const { modalState, toggleModals, signIn, setLogin } = useContext(AuthContext)
+    const navigate = useNavigate();
+
+    const formRef = useRef();
+
+
     return (
         <>
             <div className="body__bg--gray"></div>
