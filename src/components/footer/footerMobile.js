@@ -4,11 +4,15 @@ import { socialIconLink, linkListFooter } from "../data/dataLink";
 import { MdSettings } from 'react-icons/md'
 
 const FooterMobile = () => {
+    const postition = {
+        position : "relative"
+    }
+
 
 
     return (
 
-        <footer>
+        <footer style={postition}>
             <Wrap direction={'column'}>
                 <WrapItem>
                     <Box>
