@@ -1,35 +1,81 @@
 import React from "react";
-//import { meal } from "../data/recipeFake";
+import {  meal } from "../data/recipeFake";
 import {  FormControl, FormLabel, Box, Select} from '@chakra-ui/react'
 
 
 const CreateMenu = () => {
+    const meaL = meal
 
     const [dayMeal, setMealDay] = React.useState("")
     //const [recipe, setRecipe] = React.useState()
     const [category, setCategory] = React.useState("")
-    //const weekMenu = []
+    let weekMenu =[ 
+            {lundi : {matin : "",deujeuner : "",diner : ""}},
+            {mardi :{
+                matin : "",
+                deujeuner : "",
+                diner : ""
+
+            }},
+            {mercredi :{
+                matin : "",
+                deujeuner : "",
+                diner : ""
+            }},
+            {jeudi :{
+                matin : "",
+                deujeuner : "",
+                diner : ""
+            }},
+            {vendredi : {
+                matin : "",
+                deujeuner : "",
+                diner : ""
+            } },
+            {samedi :{
+                matin : "",
+                deujeuner : "",
+                diner : ""
+            }},
+            {dimanche : {
+                matin : "",
+                deujeuner : "",
+                diner : ""
+            }}
+        
+    ]
+
+    function ajoutjour(){
+        //console.log(weekMenu) 
+        weekMenu[0].lundi.matin.push(meaL.titre) 
+        return weekMenu
+    }
+    ajoutjour();
+    
+    console.table(ajoutjour)
+    console.log(weekMenu)
+     
     const handleCategoryChange = (e) =>{
         //e.preventDefault()
         setCategory(e.target.value)
         console.log(`la catégory ${category}`)
     }
     const handleDayMealChange = (e) =>{
-        e.preventDefault()
+        //e.preventDefault()
         setMealDay(e.target.value)
-        console.log(`le jour choisi ${dayMeal} `)
+        //console.log(`le jour choisi ${dayMeal} `)
     }
     //const handleRecipeChange =(e) =>{
     //    e.preventDefault()
     //    setRecipe(e.target.value)
     //}
-    
+    console.log(`le jour choisi ${dayMeal} `)
 
     return (
         <Box>
-            <FormControl color={"green.400"} >
+            <FormControl color={"green.400"}>
                 <FormLabel>Choissez un jour de la semaine</FormLabel>
-                <Select value= {dayMeal}  onClick ={handleDayMealChange} placeholder='Le jour'>
+                <Select value= {dayMeal}  onChange ={handleDayMealChange} placeholder='Le jour'>
                     <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
                     <option value="mercredi">Mercredi</option>

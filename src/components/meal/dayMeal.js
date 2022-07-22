@@ -5,7 +5,7 @@ const DayMeal = () =>{
 
     return(
         <Box  w='100%' p={4} color='white'>
-            <Heading as='h2' size='xl'>Mes Menus</Heading>
+            <Heading as='h2' size='xl'> Tout mes menus</Heading>
             <List>
                 <ListItem>
                     <Link to='/'>Lundi</Link>

@@ -133,7 +133,7 @@ const NavUserMobile = () => {
                 <Link to="/menu">
                     <img src="./images/menu.svg" alt="Menu" />
                 </Link>
-                <Link to="/createmenu">
+                <Link to="/user/createmenu">
                     <img src="./images/plus.svg" alt="Le signe plus" />
                 </Link>
                 <Link to="/user/bookmark">
