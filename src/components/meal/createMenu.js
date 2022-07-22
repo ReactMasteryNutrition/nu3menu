@@ -1,60 +1,61 @@
 import React from "react";
 import {  meal } from "../data/recipeFake";
-import {  FormControl, FormLabel, Box, Select} from '@chakra-ui/react'
+import {  FormControl, FormLabel, Box, Select, Button} from '@chakra-ui/react'
 
 
 const CreateMenu = () => {
-    const meaL = meal
+    
 
     const [dayMeal, setMealDay] = React.useState("")
     //const [recipe, setRecipe] = React.useState()
     const [category, setCategory] = React.useState("")
     let weekMenu =[ 
-            {lundi : {matin : "",deujeuner : "",diner : ""}},
-            {mardi :{
-                matin : "",
-                deujeuner : "",
-                diner : ""
+        {lundi : {matin : "",deujeuner : "",diner : ""}},
+        {mardi :{
+            matin : "",
+            deujeuner : "",
+            diner : ""
 
-            }},
-            {mercredi :{
-                matin : "",
-                deujeuner : "",
-                diner : ""
-            }},
-            {jeudi :{
-                matin : "",
-                deujeuner : "",
-                diner : ""
-            }},
-            {vendredi : {
-                matin : "",
-                deujeuner : "",
-                diner : ""
-            } },
-            {samedi :{
-                matin : "",
-                deujeuner : "",
-                diner : ""
-            }},
-            {dimanche : {
-                matin : "",
-                deujeuner : "",
-                diner : ""
-            }}
-        
-    ]
+        }},
+        {mercredi :{
+            matin : "",
+            deujeuner : "",
+            diner : ""
+        }},
+        {jeudi :{
+            matin : "",
+            deujeuner : "",
+            diner : ""
+        }},
+        {vendredi : {
+            matin : "",
+            deujeuner : "",
+            diner : ""
+        } },
+        {samedi :{
+            matin : "",
+            deujeuner : "",
+            diner : ""
+        }},
+        {dimanche : {
+            matin : "",
+            deujeuner : "",
+            diner : ""
+        }}
+    
+]
+
+   
 
     function ajoutjour(){
-        //console.log(weekMenu) 
-        weekMenu[0].lundi.matin.push(meaL.titre) 
-        return weekMenu
+        weekMenu[0].lundi.matin = meal[0].titre
+        console.log(weekMenu)
     }
-    ajoutjour();
+    function resetjour(){
+        weekMenu[0].lundi.matin = ""
+        console.log(weekMenu)
+    }
     
-    console.table(ajoutjour)
-    console.log(weekMenu)
-     
     const handleCategoryChange = (e) =>{
         //e.preventDefault()
         setCategory(e.target.value)
@@ -93,6 +94,8 @@ const CreateMenu = () => {
                     <option value="diner">Dîner</option>
                 </Select>
             </FormControl>
+            <Button color={"green.400"} onClick={ajoutjour}>Ajout</Button>
+            <Button color={"green.400"} onClick={resetjour}>reset</Button>
         </Box>
     )
 }
