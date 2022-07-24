@@ -2,11 +2,6 @@ import './App.css';
 import * as React from 'react';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
 import UserApp from './userApp';
-import { extendTheme, ChakraProvider } from '@chakra-ui/react'
-
-import UserApp from './userApp.js';
-
-
 
 const theme = extendTheme({
   styles: {
@@ -30,21 +25,13 @@ const theme = extendTheme({
   fonts: {
     body: "Poppins, sans-serif",
   },
-  /* fontWeights: {
-    extraLight: 200,
-    light: 300,
-    regular: 400,
-    medium: 500,
-    semibold: 600,
-    bold: 700,
-  } */
 })
 
 function App() {
   return (
-      <ChakraProvider theme={theme}>
-        <UserApp />
-      </ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <UserApp />
+    </ChakraProvider>
   );
 }
 
