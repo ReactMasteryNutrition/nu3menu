@@ -14,7 +14,7 @@ const FooterDestop = () => {
 
     return (
 
-        <HStack direction={'row'} bg={"gray.800"} h={"5%"} justify={"space-between"}>
+        <HStack position={"relative"} direction={'row'} bg={"gray.800"} h={"5%"} justify={"space-between"}>
 
             <Image h={"50px"} src='./images/logo_nu3menu.svg' alt="NU3MENU" />
             <Box  display="grid" gridGap={2} style={divStyle}  >

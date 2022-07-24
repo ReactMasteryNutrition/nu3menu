@@ -15,7 +15,7 @@ const UserApp = () => {
     return (
         <>
             <NutriNavDesktop />
-            <NutriNavMobile />
+            
             <Routes>
                {/* <Route path='/' element={<NutriHomeVisitor/>}/> */}
                 <Route path='/register' element={<NutriRegister />} />
@@ -30,6 +30,7 @@ const UserApp = () => {
                 {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
             </Routes>
             <NutriFooter /> 
+            <NutriNavMobile />
         </>
     )
 

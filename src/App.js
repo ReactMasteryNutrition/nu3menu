@@ -10,6 +10,7 @@ const theme = extendTheme({
     global: {
       body: {
         bg: "gray.800"
+        
       }
     }
   },
@@ -27,6 +28,7 @@ const theme = extendTheme({
   fonts: {
     body: "Poppins, sans-serif",
   },
+  
   /* fontWeights: {
     extraLight: 200,
     light: 300,

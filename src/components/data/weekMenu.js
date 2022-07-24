@@ -1,11 +1,20 @@
 export let weekMenu =[ 
+    {day : "lundi" , matin : "", deujeuner : "", diner : ""},
+    {day : "mardi" , matin : "", deujeuner : "", diner : ""},
+    {day : "mercredi" , matin : "", deujeuner : "", diner : ""},
+    {day : "jeudi" , matin : "", deujeuner : "", diner : ""},
+    {day : "vendredi" , matin : "", deujeuner : "", diner : ""},
+    {day : "samedi" , matin : "", deujeuner : "", diner : ""},
+    {day : "dimanche" , matin : "", deujeuner : "", diner : ""}
+    
+]
+
+export let weekMenu2 =[ 
     {lundi : {matin : "",deujeuner : "",diner : ""}},
     {mardi :{
         matin : "",
         deujeuner : "",
-        diner : ""
-
-    }},
+        diner : ""}},
     {mercredi :{
         matin : "",
         deujeuner : "",
@@ -33,3 +42,4 @@ export let weekMenu =[
     }}
 
 ]
+   
