@@ -1,32 +1,39 @@
 import React from "react";
 import { meal } from "../data/recipeFake";
 import { weekMenu } from "../data/weekMenu";
-import { FormControl, FormLabel, Box, Select, Button,Radio ,RadioGroup,Stack, Image } from '@chakra-ui/react'
+import { FormControl, FormLabel, Box, Select, Button, Radio, RadioGroup, Stack, Image } from '@chakra-ui/react'
 
 
 const CreateMenu = () => {
 
 
     const [dayMeal, setMealDay] = React.useState("")
-    //const [recipe, setRecipe] = React.useState()
+    const [recipe, setRecipe] = React.useState()
     const [category, setCategory] = React.useState("")
+
+
 
     function ajoutjour() {
         weekMenu[0].lundi.matin = meal[0].titre
-        console.log(weekMenu)
     }
 
     const handleCategoryChange = (e) => {
         setCategory(e.target.value)
     }
+
     const handleDayMealChange = (e) => {
         setMealDay(e.target.value)
     }
-    //const handleRecipeChange = (e) => {
-        //e.preventDefault()
-      //  setRecipe(e.target.value)
-    //}
+    const handleRecipeChange = (e) => {
+        e.preventDefault()
+        setRecipe(e.target.value)
+
+    }
+
+    let arrayCategory = meal.filter((meal) => meal.category === category)
     console.log(`le jour choisi ${dayMeal} `)
+    console.log(`le jour choisi ${category} `)
+    console.log(`casssttte ${arrayCategory}`)
 
     return (
         <Box>
@@ -45,27 +52,32 @@ const CreateMenu = () => {
             <FormControl color={"green.400"}>
                 <FormLabel>Category</FormLabel>
                 <Select value={category} onChange={handleCategoryChange} placeholder='category'>
-                    <option value="petit déjeuner">Petit déjeuner</option>
+                    <option value="petit déjeuner">Petit déjeuner</option> 
                     <option value="déjeuner">Déjeuné</option>
                     <option value="diner">Dîner</option>
+
                 </Select>
             </FormControl>
-            <RadioGroup defaultValue='' color={"green.400"}>
+
+            <RadioGroup defaultValue={recipe} onClick={handleRecipeChange} color={"green.400"}>
                 <Stack>
-                    <Radio value='1' >
-                        <Image src={meal[0].picture}  alt="imgggg"/>
-                        <p>{meal[0].titre}</p> 
-                    </Radio>
-                    <Radio value='2'>Unchecked</Radio>
-                    <Radio value='3'>Unchecked</Radio>
+                    {arrayCategory?.map((data) => <Radio key={data.id} value={data.id} >
+                        <Image src={data.picture} alt="imgggg" />
+                        <h2>{data.titre}</h2>
+                        <p>{data.recipe}</p>
+                    </Radio>)}
+
                 </Stack>
             </RadioGroup>
-            <Image src={meal[2].picture}  alt="imgggg"/>
+
+
 
             <Button color={"green.400"} onClick={ajoutjour}>Ajout</Button>
+
 
         </Box>
     )
 }
 
 export default CreateMenu;
+

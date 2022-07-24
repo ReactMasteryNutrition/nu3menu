@@ -1,6 +1,6 @@
-
+'./fraise.jpg'
 export const meal = [
-    {id : "R1", titre : "Vienoiserie", category :"petit déjeuner",picture :'./fraise.jpg', recipe:"text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic"},
+    {id : "R1", titre : "Vienoiserie", category :"petit déjeuner",picture : './fraise.jpg', recipe:"text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic"},
     {id : "R2", titre : "Céréales au lait", category :"petit déjeuner", picture :'./fraise.jpg', recipe:"text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic"},
     {id : "R3", titre : "Fruit", category :"petit déjeuner", picture :'./fraise.jpg', recipe:"text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic"},
     {id : "R4", titre : "Patate farci", category :"diner", picture :"", recipe:"text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic"},

@@ -22,7 +22,7 @@ const UserApp = () => {
                 <Route path='/login' element={<NutriLogin />} />
                 <Route path='/user' element={<NutriHomeUser />} />
                 <Route path='/' element={<Card />} />
-                <Route path='/user/createmenu' element={<CreateMenu />} />
+                <Route path='/createmenu' element={<CreateMenu />} />
                 <Route path='/menu' element={<DayMeal/>} />
                 {/*<Route path='/useraccount' element={<UserAccount />} />*/}
                 {/*<Route path='/usermenu' element={<UserMenu/>} />*/}
