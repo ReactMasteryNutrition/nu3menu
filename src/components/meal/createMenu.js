@@ -4,42 +4,46 @@ import { weekMenu } from "../data/weekMenu";
 import { FormControl, FormLabel, Box, Select, Button, Radio, RadioGroup, Image, Stack } from '@chakra-ui/react'
 
 
-const CreateMenu = () => {
+const CreateMenu = ({onDayyChange,onCategorychange}) => {
 
-    const [dayMeal, setMealDay] = React.useState("")
+    const [dayyMeal, setMealDay] = React.useState("")
     const [recipe, setRecipe] = React.useState()
     const [category, setCategory] = React.useState("")
 
     function ajoutjour() {
-        
-        console.log(`weekMenu ajout jour ${weekMenu[0].samedi}`)
+        let add = weekMenu[0].lundi.matin = meal[0].titre 
+        console.log(`weekMenu ajout aaa jour ${add}`)
     }
     
     const handleCategoryChange = (e) => {
         setCategory(e.target.value)
+        onCategorychange(category)
     }
 
     const handleDayMealChange = (e) => {
         setMealDay(e.target.value)
+        onDayyChange(dayyMeal)
     }
     const handleRecipeChange = (e) => {
         setRecipe(e.target.value)
     }
 
     let arrayCategory = meal.filter((meal) => meal.category === category)
-    let weekFilter =weekMenu.filter((weekMenu) => weekMenu.day === dayMeal)
+    let weekFilter =weekMenu.filter((weekMenu) => weekMenu.day === dayyMeal)
     
-    console.log(`le jour choisi ${dayMeal} `)
+    console.log(`le jour choisi ${dayyMeal} `)
     console.log(`le jour choisi ${category} `)
     console.log(`casssttte ${arrayCategory}`)
     console.log(`recette chois ${recipe}`)
     console.log(`jour filter  ${weekFilter}`)
+    console.log(`weekMenu ajout jour ${weekMenu[0].lundi.matin}`)
+    console.log(`les meal miteux ${meal}`)
 
     return (
         <Box >
             <FormControl color={"green.400"}>
                 <FormLabel>Choissez un jour de la semaine</FormLabel>
-                <Select value={dayMeal} onChange={handleDayMealChange} placeholder='Le jour'>
+                <Select value={dayyMeal} onChange={handleDayMealChange} placeholder='Le jour'>
                 <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
                     <option value="mercredi">Mercredi</option>
@@ -62,7 +66,7 @@ const CreateMenu = () => {
             <RadioGroup defaultValue={recipe} onClick={handleRecipeChange} color={"green.400"}>
                 <Stack>
                     {arrayCategory?.map((data) => <Radio key={data.id} value={data.id} checked={recipe === {data}}>
-                        <Image src={data.picture} alt="imgggg" />
+                        <Image height={"sm"} width={"sm"} src={data.picture} alt="imgggg" />
                         <h2>{data.titre}</h2>
                         <p>{data.recipe}</p>
                     </Radio>)}

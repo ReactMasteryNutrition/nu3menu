@@ -14,6 +14,18 @@ import { Box } from '@chakra-ui/react';
 
 
 const UserApp = () => {
+    const [selectMealDayy, setSelectMealDayy]= React.useState()
+    const [selectCategory, setSelectCategory]= React.useState()
+    const handleChangeDay = (mealDayy)=>{
+        console.log(`useApp mealDay ${mealDayy}`)
+        setSelectMealDayy(mealDayy)
+    }
+    const handleChangeCtegory = (category) =>{
+        console.log(`userApp Categoty ${category}`)
+        setSelectCategory(category)
+    }
+
+
     return (
         <Box display={"flex"} flexDirection={"column"} minH={"full"} >
             <NutriNavDesktop />
@@ -24,8 +36,8 @@ const UserApp = () => {
                 <Route path='/login' element={<NutriLogin />} />
                 <Route path='/user' element={<NutriHomeUser />} />
                 <Route path='/' element={<Card />} />
-                <Route path='/createmenu' element={<CreateMenu />} />
-                <Route path='/menu' element={<DayMeal/>} />
+                <Route path='/createmenu' element={<CreateMenu onDayyChange={handleChangeDay} onCategorychange={handleChangeCtegory}/>} />
+                <Route path='/menu' element={<DayMeal mealDayy={selectMealDayy} category={selectCategory}/>} />
                 {/*<Route path='/useraccount' element={<UserAccount />} />*/}
                 {/*<Route path='/usermenu' element={<UserMenu/>} />*/}
                 {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}

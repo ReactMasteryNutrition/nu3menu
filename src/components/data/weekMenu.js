@@ -1,4 +1,4 @@
-export let weekMenu =[ 
+export let weekMenu2 =[ 
     {day : "lundi" , matin : "", deujeuner : "", diner : ""},
     {day : "mardi" , matin : "", deujeuner : "", diner : ""},
     {day : "mercredi" , matin : "", deujeuner : "", diner : ""},
@@ -9,7 +9,7 @@ export let weekMenu =[
     
 ]
 
-export let weekMenu2 =[ 
+export let weekMenu =[ 
     {lundi : {matin : "",deujeuner : "",diner : ""}},
     {mardi :{
         matin : "",
