@@ -19,6 +19,12 @@ const ModalForm = () => {
   const handleClick = () => setShow(!show)
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
 
+  //Ajout Ronan
+  const [email, setEmail] = useState()
+  
+  const handleChange = (e) => setEmail(e.target.value)
+  //
+
   return (
     <>
       <FormControl isRequired marginBottom="1rem">
@@ -58,7 +64,6 @@ const ModalForm = () => {
             <img src="./images/google.svg" alt="Icône de Google" style={{ width: "1rem" }} />
             <p>S'inscrire avec Google</p>
           </Button>
-
           )
         </FormControl>
       </>) : (<>
@@ -86,7 +91,7 @@ const ModalForm = () => {
   )
 }
 
-const ModalDesktopReister = ({ setRegister }) => {
+const ModalDesktopRegister = ({ setRegister }) => {
   return (
     <>
       <div className="body__bg--gray"></div>

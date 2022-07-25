@@ -2,18 +2,21 @@ import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NutriNavDesktop from './components/NutriNavDesktop/NutriNavDesktop';
 import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
-import Card from './components/Card/Card';
+// import Card from './components/Card/Card';
 // import NutriFooter from './components/footer/nutriFooter'
 import NutriHomeVisitor from './pages/Home/NutriHomeVisitor'
 import NutriRegister from './pages/Connection/NutriRegister'
 import NutriLogin from './pages/Connection/NutriLogin'
 import NutriHomeUser from './pages/Home/NutriHomeUser'
 
+import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter'
+
 const UserApp = () => {
     return (
         <>
             <NutriNavDesktop />
-            <Card/>
+            {/* <SearchAndFilter /> */}
+            {/* <Card/> */}
             <NutriNavMobile />
             {/* <NutriFooter /> */}
             <Routes>
