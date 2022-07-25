@@ -10,10 +10,12 @@ import NutriLogin from './pages/Connection/NutriLogin'
 import NutriHomeUser from './pages/Home/NutriHomeUser'
 import CreateMenu from './components/meal/createMenu';
 import DayMeal from './components/meal/dayMeal';
+import { Box } from '@chakra-ui/react';
+
 
 const UserApp = () => {
     return (
-        <>
+        <Box display={"flex"} flexDirection={"column"} minH={"full"} >
             <NutriNavDesktop />
             
             <Routes>
@@ -31,7 +33,7 @@ const UserApp = () => {
             </Routes>
             <NutriFooter /> 
             <NutriNavMobile />
-        </>
+        </Box>
     )
 
 }

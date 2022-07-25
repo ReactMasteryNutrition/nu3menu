@@ -36,7 +36,7 @@ const CreateMenu = () => {
     console.log(`jour filter  ${weekFilter}`)
 
     return (
-        <Box>
+        <Box >
             <FormControl color={"green.400"}>
                 <FormLabel>Choissez un jour de la semaine</FormLabel>
                 <Select value={dayMeal} onChange={handleDayMealChange} placeholder='Le jour'>
