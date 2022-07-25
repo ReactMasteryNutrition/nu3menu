@@ -1,6 +1,6 @@
 
 import './NutriConnection.css'
-import { useState, useRef } from 'react';
+import {useState, useRef, useContext} from 'react';
 import { CloseIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   FormControl,
@@ -19,10 +19,33 @@ const ModalForm = () => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
+  const inputs = useRef([]);
+  const addInputs = el => {
+        if (el && !inputs.current.includes(el)) {
+            inputs.current.push(el);
+        }
+  }
+  const formRef = useRef();
 
-  return (
-    <>
-      <form ref={formRef} onSubmit={handleSubmit}>
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+          const credentials = await signUp(
+              inputs.current[0].value,
+              inputs.current[1].value,
+              inputs.current[2].value,
+          )
+          formRef.current.reset();
+          console.log(credentials)
+      } catch (err) {
+          console.dir(err);
+  }
+}
+
+    return (
+      <>
+       <form ref={formRef} onSubmit={handleSubmit}>
         <FormControl isRequired marginBottom="1rem">
           <Input placeholder='Prénom' bg='#f0fff4' ref={addInputs} name='prenom' />
         </FormControl>
@@ -31,13 +54,13 @@ const ModalForm = () => {
         </FormControl >
         <InputGroup size='md'>
           <Input
-            pr='4.5rem'
-            type={show ? 'text' : 'password'}
-            placeholder='Mot de passe'
-            bg='#f0fff4'
-            isRequired
-            ref={addInputs}
-            name='password'
+              pr='4.5rem'
+              type={show ? 'text' : 'password'}
+              placeholder='Mot de passe'
+              bg='#f0fff4'
+              isRequired
+              ref={addInputs}
+              name='password'
           />
           <InputRightElement width='4.5rem' >
             <div size='sm' bg='#f0fff4' onClick={handleClick}>
@@ -48,46 +71,25 @@ const ModalForm = () => {
         {minWidth501 ? (<>
           <FormControl >
             <Button
-              style={{ padding: '0.5rem 5.25rem' }}
-              _hover={{ bgColor: "#a0aec0" }}
+                style={{ padding: '0.5rem 5.25rem' }}
+                _hover={{ bgColor: "#a0aec0" }}
             >
               S'inscrire
             </Button>
-          </FormControl>
-          <FormControl>
-            <Button
-              style={{ top: "3.5rem", padding: "0.5rem 1.4rem" }}
-              _hover={{ bgColor: "#a0aec0" }}
-            >
-              <img src="./images/google.svg" alt="Icône de Google" style={{ width: "1rem" }} />
-              <p>S'inscrire avec Google</p>
-            </Button>
-
-            )
           </FormControl>
         </>) : (<>
           <FormControl >
             <Button
-              width='100%'
-              _hover={{ bgColor: "#a0aec0" }}
+                width='100%'
+                _hover={{ bgColor: "#a0aec0" }}
             >
               S'inscrire
             </Button>
           </FormControl>
-          <FormControl>
-            <Button
-              style={{ top: "3.5rem", width:'100%'}}
-              _hover={{ bgColor: "#a0aec0" }}
-            >
-              <img src="./images/google.svg" alt="Icône de Google" style={{ width: "1rem" }} />
-              <p>S'inscrire avec Google</p>
-            </Button>
-
-          </FormControl>
         </>)
         }
-      </form>
-    </>
+        </form>
+      </>
   )
 }
 
@@ -119,30 +121,6 @@ const NutriRegister = () => {
 
   const [register, setRegister] = useState(false);
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
-
-  const inputs = useRef([]);
-  const addInputs = el => {
-    if (el && !inputs.current.includes(el)) {
-      inputs.current.push(el);
-    }
-  }
-
-  const formRef = useRef();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const credentials = await signUp(
-          inputs.current[0].value,
-          inputs.current[1].value,
-          inputs.current[2].value
-      )
-      formRef.current.reset();
-      console.log(credentials);
-    } catch (err) {
-      console.dir(err);
-    }
-  }
 
   return (
     <>

@@ -2,7 +2,7 @@
 import './NutriConnection.css'
 import { useContext, useRef, useState } from 'react';
 import { CloseIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import {
     FormControl,
@@ -29,15 +29,14 @@ const ModalForm = () => {
                 inputs.current[1].value
             );
         } catch (error) {
-        console.log(error);
+            console.log(error);
+        }
     }
-    }
-
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} ref={formRef} onSubmit={handleForm}>
                 <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' />
+                    <Input type='email' placeholder='E-mail' bg='#f0fff4' ref={addInputs} name="email"  />
                 </FormControl >
                 <InputGroup size='md'>
                     <Input
@@ -46,6 +45,8 @@ const ModalForm = () => {
                         placeholder='Mot de passe'
                         bg='#f0fff4'
                         isRequired
+                        ref={addInputs}
+                        name="password"
                     />
                     <InputRightElement width='4.5rem' >
                         <div size='sm' bg='#f0fff4' onClick={handleClick}>
@@ -53,59 +54,70 @@ const ModalForm = () => {
                         </div>
                     </InputRightElement>
                 </InputGroup>
-                { /* minWidth501 ? (<> */}
-                <FormControl textAlign='start'>
-                    <FormHelperText>Mot de passe oublié ?</FormHelperText>
-                </FormControl>
-                <FormControl>
-                    <Button
-                        style={{ padding: "0.5rem 4.3rem" }}
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        Se connecter
-                    </Button>
-                </FormControl>
-                        <FormControl>
-                    <Button
-                        style={{ top: "4rem", padding: "0.5rem" }}
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        <img src="./images/google.svg" alt="Icône de Google" style={{ width: "1rem" }} />
-                        <p>Se connecter avec Google</p>
-                    </Button>
-                </FormControl>
-            </>) : (<>
-                <FormControl textAlign='start'>
-                    <FormHelperText>Mot de passe oublié ?</FormHelperText>
-                </FormControl>
-                <FormControl>
-                    <Button
-                        width='100%'
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        Se connecter
-                    </Button>
-                </FormControl>
-            {/* <FormControl>
-                    <Button
-                        style={{ top: "4rem", width: '100%' }}
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        <img src="./images/google.svg" alt="Icône de Google" style={{ width: "1rem" }} />
-                        <p>Se connecter avec Google</p>
-                    </Button>
-                </FormControl> } */}
-            </>)
-            }
+                {minWidth501 ? (<>
+                    <FormControl textAlign='start'>
+                        <FormHelperText>Mot de passe oublié ?</FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                        <Button
+                            style={{ padding: "0.5rem 4.3rem" }}
+                            _hover={{ bgColor: "#a0aec0" }}
+                        >
+                            Se connecter
+                        </Button>
+                    </FormControl>
+                </>) : (<>
+                    <FormControl textAlign='start'>
+                        <FormHelperText>Mot de passe oublié ?</FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                        <Button
+                            width='100%'
+                            _hover={{ bgColor: "#a0aec0" }}
+                        >
+                            Se connecter
+                        </Button>
+                    </FormControl>
+                </>)
+                }
+            </form>
         </>
     )
 }
 
 const ModalDesktopLogin = ({ setLogin }) => {
-    const { modalState, toggleModals, signIn, setLogin } = useContext(AuthContext)
+    const { modalState, toggleModals, signIn} = useContext(AuthContext)
     const navigate = useNavigate();
 
     const formRef = useRef();
+
+    const inputs = useRef([]);
+    const addInputs = (el) => {
+        if (el && !inputs.current.includes(el)) {
+            inputs.current.push(el);
+        }
+    };
+
+    const handleForm = async (e) => {
+        e.preventDefault();
+        console.log(inputs);
+        try {
+            const cred = await signIn(
+                inputs.current[0].value,
+                inputs.current[1].value
+            );
+            // à tester
+            // formRef.current.reset();
+            setValidation("");
+            // console.log(cred);
+            toggleModals("close");
+            navigate("/private/private-home");
+        } catch {
+            setValidation("Wopsy, email and/or password incorrect")
+        }
+    };
+
+
 
 
     return (
