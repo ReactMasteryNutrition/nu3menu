@@ -1,3 +1,4 @@
+import { ResponsiveWidth } from "../../utils/helper"
 import { useRef } from "react"
 import {
     useDisclosure,
@@ -10,8 +11,6 @@ import {
     AlertDialogOverlay,
     AlertDialogCloseButton
 } from "@chakra-ui/react"
-import { ResponsiveWidth } from "../../utils/helper"
-
 
 const Alert = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
