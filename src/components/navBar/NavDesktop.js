@@ -1,83 +1,48 @@
-import "./NavDesktop.css"
-import { ModalDesktopRegister } from "../connection/ModalRegister"
-import { ModalDesktopLogin } from "../connection/ModalLogin"
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  Avatar
-} from '@chakra-ui/react'
-import {BsPlusCircle} from 'react-icons/bs'
+import { ModalRegister, ModalLogin } from "../../components/connection/Modal"
+import { ResponsiveWidth } from "../../utils/helper"
+import Dropdown from "./Dropdown"
 import { Link } from "react-router-dom"
+import { BsPlusCircle } from 'react-icons/bs'
+import { Box, Flex, Image, Tooltip} from '@chakra-ui/react'
 
 // const userToken = 'nu3menuToken'
-
-const Dropdown = () => {
-  return (
-    <>
-      <Menu isLazy>
-        <MenuButton>
-          <Avatar size="sm" />
-        </MenuButton>
-        <MenuList bg='#f0fff4'>
-          <Link to="/user">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              John
-            </MenuItem>
-          </Link>
-          <MenuDivider />
-          <Link to="/user/myaccount">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              Mon compte
-            </MenuItem>
-          </Link>
-          <Link to="/user/allmenus">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              Tous mes menus
-            </MenuItem>
-          </Link>
-          <Link to="/user/alladvices">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              Tous mes avis
-            </MenuItem>
-          </Link>
-          <Link to="/user/notifications">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              Notifications
-            </MenuItem>
-          </Link>
-          <MenuDivider />
-          <Link to="/user/helpandsupport">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              Aide et support
-            </MenuItem>
-          </Link>
-          <Link to="/">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              Se déconnecter
-            </MenuItem>
-          </Link>
-        </MenuList>
-      </Menu>
-    </>
-  )
-}
 
 const NavVisitor = () => {
   return (
     <>
-      <div id="navVisitorDesktop">
+      <Flex
+        flexDirection="row"
+        justifyContent={ResponsiveWidth() ? "space-between" : "center"}
+        alignItems="center"
+        margin="1rem"
+      >
         <Link to="/">
-          <img src="./images/logo_nu3menu.svg" alt="Logo du site" />
+          <Image
+            src="./images/logo_nu3menu.svg"
+            alt="Logo du site"
+            width="15rem"
+          />
         </Link>
-        <div className="nav__buttons">
-          <ModalDesktopLogin />
-          <ModalDesktopRegister />
-        </div>
-      </div >
-      <div className="nav__separator--bottom"></div>
+        <Flex
+          display={ResponsiveWidth() ? null : "none"}
+          flexDirection="row"
+          gap="3rem"
+        >
+          <ModalLogin />
+          <ModalRegister />
+        </Flex>
+      </Flex >
+      <Box
+        position="relative"
+        top={ResponsiveWidth() ? null : "50%"}
+        left={ResponsiveWidth() ? null : "50%"}
+        transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+        bottom="0.31rem"
+        height="0.3rem"
+        width={ResponsiveWidth() ? "100%" : "80%"}
+        borderRadius={ResponsiveWidth() ? null : "3rem"}
+        bg="#48bb78"
+      ></Box>
     </>
   )
 }
@@ -85,29 +50,79 @@ const NavVisitor = () => {
 const NavUser = () => {
   return (
     <>
-      <div id="navUserDesktop">
+      <Flex
+        flexDirection="row"
+        justifyContent={ResponsiveWidth() ? "space-between" : "center"}
+        alignItems="center"
+        margin="1rem"
+      >
         <Link to="/user">
-          <img src="./images/logo_nu3menu.svg" alt="Logo du site" />
+          <Image
+            src="./images/logo_nu3menu.svg"
+            alt="Logo du site"
+            width="12rem"
+          />
         </Link>
-        <div className="nav__menu">
-          <div className="nav__links">
-            <Link to="/user/menu">
+        <Box
+          display={ResponsiveWidth() ? "flex" : "none"}
+          flexDirection="row"
+          alignItems="center"
+          color="#48bb78"
+          gap="1.5rem"
+        >
+          <Box
+            display="flex"
+            flexDirection="row"
+            gap="1rem"
+            fontSize="1.1rem"
+            fontWeight="700"
+          >
+            <Link to="/user/menu" 
+            // hover->color-"#f0fff4">
+            >
               Mon menu
             </Link>
-            <Link to="/user/bookmark">
+            <Link to="/user/bookmark"
+            >
               Favoris
             </Link>
-          </div>
-          <div className="nav__icons">
-            <Link to="/user/createmenu">
-              <BsPlusCircle size="33"/>
-              <p>Créer mon menu</p>
+          </Box>
+          <Flex
+            flexDirection="row"
+            gap="1rem"
+            width="5rem"
+          >
+            <Link to="/user/createmenu" 
+            >
+              <Tooltip
+                label='Créer mon menu'
+                width="6.5rem"
+                textAlign="center"
+                fontSize="0.7rem"
+                borderRadius="0.3rem"
+                bg="#f0fff4"
+                color="#1a202c"
+              >
+                <Box as="span">
+                  <BsPlusCircle size="33" />
+                </Box >
+              </Tooltip>
             </Link>
             <Dropdown />
-          </div>
-        </div>
-      </div>
-      <div className="nav__separator--bottom"></div>
+          </Flex>
+        </Box>
+      </Flex >
+      <Box
+        position="relative"
+        top={ResponsiveWidth() ? null : "50%"}
+        left={ResponsiveWidth() ? null : "50%"}
+        transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+        bottom="0.31rem"
+        height="0.3rem"
+        width={ResponsiveWidth() ? "100%" : "80%"}
+        borderRadius={ResponsiveWidth() ? null : "3rem"}
+        bg="#48bb78"
+      ></Box>
     </>
   )
 }
