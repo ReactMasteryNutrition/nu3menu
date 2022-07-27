@@ -1,7 +1,7 @@
 import React from "react";
 import { meal } from "../data/recipeFake";
 import { weekMenu } from "../data/weekMenu";
-import { FormControl, FormLabel, Box, Select, Button, Radio, RadioGroup, Image, Stack } from '@chakra-ui/react'
+import { FormControl, FormLabel,  Select, Button, Radio, RadioGroup, Image, Stack, Flex, Center } from '@chakra-ui/react'
 
 
 const CreateMenu = ({onDayyChange,onCategorychange}) => {
@@ -40,10 +40,10 @@ const CreateMenu = ({onDayyChange,onCategorychange}) => {
     console.log(`les meal miteux ${meal}`)
 
     return (
-        <Box >
-            <FormControl color={"green.400"}>
+        <Center  flexDirection={"column"}>
+            <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"}>
                 <FormLabel>Choissez un jour de la semaine</FormLabel>
-                <Select value={dayyMeal} onChange={handleDayMealChange} placeholder='Le jour'>
+                <Select w={"80%"} value={dayyMeal} onChange={handleDayMealChange} placeholder='Le jour'>
                 <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
                     <option value="mercredi">Mercredi</option>
@@ -53,9 +53,9 @@ const CreateMenu = ({onDayyChange,onCategorychange}) => {
                     <option value="dimanche">Dimanche</option>
                 </Select>
             </FormControl>
-            <FormControl color={"green.400"}>
+            <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"}>
                 <FormLabel>Category</FormLabel>
-                <Select value={category} onChange={handleCategoryChange} placeholder='category'>
+                <Select w={"80%"} value={category} onChange={handleCategoryChange} placeholder='category'>
                     <option value="matin">Petit déjeuner</option> 
                     <option value="déjeuner">Déjeuné</option>
                     <option value="diner">Dîner</option>
@@ -63,10 +63,10 @@ const CreateMenu = ({onDayyChange,onCategorychange}) => {
                 </Select>
             </FormControl>
 
-            <RadioGroup defaultValue={recipe} onClick={handleRecipeChange} color={"green.400"}>
-                <Stack>
-                    {arrayCategory?.map((data) => <Radio key={data.id} value={data.id} checked={recipe === {data}}>
-                        <Image height={"sm"} width={"sm"} src={data.picture} alt="imgggg" />
+            <RadioGroup marginX={"auto"} textAlign={"center"}  display={"flex"}  defaultValue={recipe} onClick={handleRecipeChange} color={"green.400"}>
+                <Stack display={"flex"} flexDirection={"column"} alignItems={"center"}>
+                    {arrayCategory?.map((data) => <Radio w={"75%"}  key={data.id} value={data.id} checked={recipe === {data}}>
+                        <Image  height={"sm"} width={"sm"} src={data.picture} alt="imgggg" />
                         <h2>{data.titre}</h2>
                         <p>{data.recipe}</p>
                     </Radio>)}
@@ -76,10 +76,10 @@ const CreateMenu = ({onDayyChange,onCategorychange}) => {
 
 
 
-            <Button color={"green.400"} onClick={ajoutjour}>Ajout</Button>
+            <Button marginBottom={"3"} w={"25%"} color={"green.400"} onClick={ajoutjour}>Ajout</Button>
 
 
-        </Box>
+        </Center>
     )
 }
 
