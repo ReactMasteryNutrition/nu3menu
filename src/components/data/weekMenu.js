@@ -10,7 +10,7 @@ export let weekMenu2 =[
 ]
 
 export let weekMenu =[ 
-    {lundi : {matin : "",deujeuner : "",diner : ""}},
+    {lundi : {matin : "patantouille",deujeuner : "",diner : ""}},
     {mardi :{
         matin : "",
         deujeuner : "",

@@ -1,7 +1,7 @@
 import React from "react";
 import { meal } from "../data/recipeFake";
 import { weekMenu } from "../data/weekMenu";
-import { FormControl, FormLabel,  Select, Button, Radio, RadioGroup, Image, Stack, Flex, Center } from '@chakra-ui/react'
+import { FormControl, FormLabel,  Select, Button, Radio, RadioGroup, Image, Stack, Center } from '@chakra-ui/react'
 
 
 const CreateMenu = ({onDayyChange,onCategorychange}) => {
@@ -11,8 +11,9 @@ const CreateMenu = ({onDayyChange,onCategorychange}) => {
     const [category, setCategory] = React.useState("")
 
     function ajoutjour() {
-        let add = weekMenu[0].lundi.matin = meal[0].titre 
+        let add = weekMenu[0].lundi.matin = meal[1].titre 
         console.log(`weekMenu ajout aaa jour ${add}`)
+        console.log(`teste dans ajout ${weekMenu[0].lundi.matin} `)
     }
     
     const handleCategoryChange = (e) => {

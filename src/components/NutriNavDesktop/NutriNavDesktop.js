@@ -111,7 +111,8 @@ const NavDesktopUser = () => {
   )
 }
 
-const NutriNavDesktop = () => {
+const NutriNavDesktop = ({mealDayy}) => {
+  console.log(`c'est un mealdayyyyyy ${mealDayy}`)
   return (
     <>
       {/* {userToken ? <navUserDesktop /> : <navVisitorDesktop />} */}

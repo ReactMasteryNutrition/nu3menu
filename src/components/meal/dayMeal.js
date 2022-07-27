@@ -4,6 +4,8 @@ import { weekMenu } from "../data/weekMenu";
 
 
 const DayMeal = ({mealDayy,category}) =>{
+console.log(`daymeal funtion ${mealDayy}`)
+console.log(`teste dans ajout ${weekMenu[0].lundi.matin} `)
 
     return(
         <Box  w='100%' p={4} color={"green.400"}>
