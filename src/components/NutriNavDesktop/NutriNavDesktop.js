@@ -4,7 +4,7 @@ import NutriLogin from "../../pages/Connection/NutriLogin"
 import React, {useContext} from 'react'
 import {AuthContext} from '../../contexts/AuthContext'
 import {signOut} from 'firebase/auth'
-import {auth} from '../../firebaseConfig'
+import {auth} from '../../firebase-config'
 import { useNavigate } from 'react-router-dom'
 import {
   Menu,

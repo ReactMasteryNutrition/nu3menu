@@ -2,6 +2,8 @@ import './App.css';
 import * as React from 'react';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
 import UserApp from './userApp';
+import {AuthContextProvider} from "./contexts/AuthContext";
+
 //import UserApp from './noUserApp';
 
 

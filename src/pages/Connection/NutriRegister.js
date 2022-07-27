@@ -31,13 +31,13 @@ const ModalForm = () => {
       e.preventDefault();
 
       try {
-          const credentials = await signUp(
+          const cred = await signUp(
               inputs.current[0].value,
               inputs.current[1].value,
               inputs.current[2].value,
           )
           formRef.current.reset();
-          console.log(credentials)
+          console.log(cred)
       } catch (err) {
           console.dir(err);
   }

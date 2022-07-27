@@ -15,11 +15,39 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 
-
 const ModalForm = () => {
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
     const [minWidth501] = useMediaQuery('(min-width: 501px)')
+
+    const { modalState, toggleModals, signIn} = useContext(AuthContext)
+    const navigate = useNavigate();
+
+    const formRef = useRef();
+
+    const inputs = useRef([]);
+    const addInputs = (el) => {
+        if (el && !inputs.current.includes(el)) {
+            inputs.current.push(el);
+        }
+    };
+
+    const handleForm = async (e) => {
+        e.preventDefault();
+        console.log(inputs);
+        try {
+            const cred = await signIn(
+                inputs.current[0].value,
+                inputs.current[1].value
+            );
+            // formRef.current.reset();
+            // console.log(cred);
+            toggleModals("close");
+            navigate("/private/private-home");
+        } catch {
+            console.log("error");
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -86,39 +114,7 @@ const ModalForm = () => {
 }
 
 const ModalDesktopLogin = ({ setLogin }) => {
-    const { modalState, toggleModals, signIn} = useContext(AuthContext)
-    const navigate = useNavigate();
-
-    const formRef = useRef();
-
-    const inputs = useRef([]);
-    const addInputs = (el) => {
-        if (el && !inputs.current.includes(el)) {
-            inputs.current.push(el);
-        }
-    };
-
-    const handleForm = async (e) => {
-        e.preventDefault();
-        console.log(inputs);
-        try {
-            const cred = await signIn(
-                inputs.current[0].value,
-                inputs.current[1].value
-            );
-            // à tester
-            // formRef.current.reset();
-            setValidation("");
-            // console.log(cred);
-            toggleModals("close");
-            navigate("/private/private-home");
-        } catch {
-            setValidation("Wopsy, email and/or password incorrect")
-        }
-    };
-
-
-
+    const [minWidth501] = useMediaQuery('(min-width: 501px)')
 
     return (
         <>

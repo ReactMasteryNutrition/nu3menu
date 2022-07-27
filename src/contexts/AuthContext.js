@@ -6,17 +6,27 @@ import {
     onAuthStateChanged,
 } from 'firebase/auth';
 
-import {auth} from '../firebaseConfig';
+import {auth} from '../firebase-config';
 
 export const AuthContext = createContext();
 
 export function AuthContextProvider(props) {
 
-    const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password)
+    const data = {
+        prenom: '',
+        email: '',
+        password: '',
+    }
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(data);
+
+    const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password)
+    const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password)
+
     const [isLoading, setIsLoading] = useState(true);
     console.log(user);
+
+    const { prenom, email, password } = user;
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
