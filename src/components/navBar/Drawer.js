@@ -1,4 +1,3 @@
-import { ModalRegister, ModalLogin } from "../../components/connection/Modal"
 import { Link } from 'react-router-dom'
 import {
     useDisclosure,
@@ -17,8 +16,8 @@ import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
 import { MdOutlineMenuBook } from "react-icons/md"
-import { FaUserAlt } from "react-icons/fa"
-
+// import { FaUserAlt } from "react-icons/fa"
+/* 
 const DrawerVisitor = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -40,11 +39,21 @@ const DrawerVisitor = () => {
                     size="50"
                 />
             </Button>
-            <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size='full'>
+            <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} >
                 <DrawerOverlay bg="rgba(160, 174, 192, 0.5)" />
                 <DrawerContent bg="#f0fff4">
                     <DrawerCloseButton />
-                    <Box className='drawer__seperator--top'></Box>
+                    <Box
+                        position="absolute"
+                        zIndex="1"
+                        left="50%"
+                        top="1.5rem"
+                        height="0.3rem"
+                        width="33.33%"
+                        transform="translate(-50%, -50%)"
+                        bg="#48bb78"
+                        borderRadius="0.3rem"
+                    ></Box>
                     <DrawerBody
                         display="flex"
                         flexDirection="column"
@@ -62,20 +71,18 @@ const DrawerVisitor = () => {
             </Drawer>
         </>
     )
-}
+} */
 
 const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
-        <>
+        <Box>
             <Button
                 onClick={onOpen}
                 bg="#1A202C"
                 _hover={{ bg: "#1A202C" }}
                 _active={{ bg: "#1A202C" }}
-                width="100%"
-                margin="0 auto"
             >
                 <Avatar size="sm" />
             </Button>
@@ -103,48 +110,48 @@ const DrawerUser = () => {
                         margin="0 auto"
                         fontWeight="bold"
                         fontSize="1.2rem">
-                        <Link to='/user' onClick={onClose}>
+                        <Link to='/' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
-                                gap="0.3rem">
+                                gap="1rem">
                                 <CgProfile color='#48BB78' margin-right='0.5rem' /> John
                             </Flex>
                         </Link>
-                        <Link to='/user/myaccount' onClick={onClose}>
+                        <Link to='/myaccount' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
-                                gap="0.3rem">
+                                gap="1rem">
                                 <IoMdSettings color='#48BB78' margin-right='0.5rem' /> Mon compte
                             </Flex>
                         </Link>
-                        <Link to='/user/allmenus' onClick={onClose}>
+                        <Link to='/allmenus' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
-                                gap="0.3rem">
+                                gap="1rem">
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
                             </Flex>
                         </Link>
-                        <Link to='/user/alladvices' onClick={onClose}>
+                        <Link to='/alladvices' onClick={onClose}>
                             <ChatIcon color="#48BB78" marginRight='0.5rem' /> Tous mes avis
                         </Link>
-                        <Link to='/user/notifications' onClick={onClose}>
+                        <Link to='/notifications' onClick={onClose}>
                             <BellIcon color="#48BB78" marginRight='0.5rem' /> Notifications
                         </Link>
-                        <Link to='/user/helpandsupport' onClick={onClose}>
+                        <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
                         </Link>
                         <Link to='/' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
-                                gap="0.3rem">
+                                gap="0.5rem">
                                 <IoLogOut color='#48BB78' margin-right='0.5rem' /> Se déconnecter
                             </Flex>
                         </Link>
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
-        </>
+        </Box>
     )
 }
 
-export { DrawerVisitor, DrawerUser }
+export {/*  DrawerVisitor, */ DrawerUser }
