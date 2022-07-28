@@ -20,8 +20,8 @@ const UserApp = () => {
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
                 {/*<Route path='/createmenu' element={<CreateMenu />} />*/}
-                <Route path='/user/myaccount' element={<MyAccount />} />
-                {/*<Route path='/usermenu' element={<UserMenu/>} />*/}
+                <Route path='/myaccount' element={<MyAccount />} />
+                {/*<Route path='/menu' element={<UserMenu/>} />*/}
                 {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
                 {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
             </Routes>
