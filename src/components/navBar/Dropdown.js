@@ -10,40 +10,39 @@ import {
 
 const Dropdown = () => {
     return (
-      <>
         <Menu isLazy>
           <MenuButton>
             <Avatar size="sm" />
           </MenuButton>
           <MenuList bg='#f0fff4'>
-            <Link to="/user">
+            <Link to="/">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 John
               </MenuItem>
             </Link>
             <MenuDivider />
-            <Link to="/user/myaccount">
+            <Link to="/myaccount">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 Mon compte
               </MenuItem>
             </Link>
-            <Link to="/user/allmenus">
+            <Link to="/allmenus">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 Tous mes menus
               </MenuItem>
             </Link>
-            <Link to="/user/alladvices">
+            <Link to="/alladvices">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 Tous mes avis
               </MenuItem>
             </Link>
-            <Link to="/user/notifications">
+            <Link to="/notifications">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 Notifications
               </MenuItem>
             </Link>
             <MenuDivider />
-            <Link to="/user/helpandsupport">
+            <Link to="/helpandsupport">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 Aide et support
               </MenuItem>
@@ -55,7 +54,6 @@ const Dropdown = () => {
             </Link>
           </MenuList>
         </Menu>
-      </>
     )
   }
 
