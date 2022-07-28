@@ -1,4 +1,3 @@
-
 import { FormRegister, FormLogin } from './Form';
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom';
@@ -22,24 +21,28 @@ const ModalRegister = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
-        <>
-            <Link to="/register">
-                <Button
-                    onClick={onOpen}
-                    bg={ResponsiveWidth() ? "#1A202C" : "#f0fff4"}
+        <Box>
+            <Link to="/register" onClick={onOpen}>
+                {ResponsiveWidth() ? <Box
+                    bg="#1A202C"
                     _hover={{
-                        color: ResponsiveWidth() ? "#f0fff4" : "#1A202C",
-                        bg: ResponsiveWidth() ? "#1A202C" : "#f0fff4"
+                        color: "#f0fff4",
+                        bg: "#1A202C"
                     }}
-                    _active={{ bg: ResponsiveWidth() ? "#1A202C" : "#f0fff4" }}
-                    fontSize={ResponsiveWidth() ? "1.2rem" : "1.4rem"}
+                    _active={{ bg: "#1A202C" }}
+                    fontSize="1.2rem"
                     fontWeight="700"
-                    color={ResponsiveWidth() ? "#48bb78" : null}
-                >
-                    {ResponsiveWidth() ? null :
-                        <BsFillPersonPlusFill style={{ marginRight: "1rem", size: "70", color: "#48BB78" }} />}
-                    S'inscrire
-                </Button>
+                    color="#48bb78">S'inscrire</Box> :
+                    <BsFillPersonPlusFill
+                        bg="#1A202C"
+                        _hover={{
+                            color: "#1A202C",
+                            bg: "#1A202C"
+                        }}
+                        _active={{ bg: "#1A202C" }}
+                        fontSize="1.4rem"
+                        fontWeight="700"
+                        size='50' color="#48BB78" />}
             </Link>
             <Modal isOpen={isOpen} isCentered>
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
@@ -88,7 +91,7 @@ const ModalRegister = () => {
                     <ModalFooter></ModalFooter>
                 </ModalContent>
             </Modal>
-        </>
+        </Box>
     );
 }
 
@@ -96,24 +99,30 @@ const ModalLogin = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
-        <>
-            <Link to="/login">
-                <Button
-                    onClick={onOpen}
-                    bg={ResponsiveWidth() ? "#1A202C" : "#f0fff4"}
+        <Box>
+            <Link to="/login" onClick={onOpen}>
+                {ResponsiveWidth() ? <Box
+                    bg="#1A202C"
                     _hover={{
-                        color: ResponsiveWidth() ? "#f0fff4" : "#1A202C",
-                        bg: ResponsiveWidth() ? "#1A202C" : "#f0fff4"
+                        color: "#f0fff4",
+                        bg: "#1A202C"
                     }}
-                    _active={{ bg: ResponsiveWidth() ? "#1A202C" : "#f0fff4" }}
-                    fontSize={ResponsiveWidth() ? "1.2rem" : "1.4rem"}
+                    _active={{ bg: "#1A202C" }}
+                    fontSize="1.2rem"
                     fontWeight="700"
-                    color={ResponsiveWidth() ? "#48bb78" : null}
-                >
-                    {ResponsiveWidth() ? null :
-                        <IoLogInSharp style={{ marginRight: "1rem", size: "70", color: "#48BB78" }} />}
-                    <Box>Se connecter</Box>
-                </Button>
+                    color="#48bb78">Se connecter</Box> :
+                    <IoLogInSharp
+                        size="50"
+                        bg="#1A202C"
+                        _hover={{
+                            color: "#f0fff4",
+                            bg: "#1A202C"
+                        }}
+                        _active={{ bg: "#1A202C" }}
+                        fontSize="1.2rem"
+                        fontWeight="700"
+                        color="#48bb78"
+                    />}
             </Link>
             <Modal isOpen={isOpen} isCentered >
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
@@ -162,7 +171,7 @@ const ModalLogin = () => {
                     <ModalFooter></ModalFooter>
                 </ModalContent>
             </Modal>
-        </>
+        </Box>
     );
 }
 
