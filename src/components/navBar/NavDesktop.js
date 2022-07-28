@@ -3,7 +3,7 @@ import { ResponsiveWidth } from "../../utils/helper"
 import Dropdown from "./Dropdown"
 import { Link } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
-import { Box, Flex, Image, Tooltip} from '@chakra-ui/react'
+import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
 
 // const userToken = 'nu3menuToken'
 
@@ -20,17 +20,16 @@ const NavVisitor = () => {
           <Image
             src="./images/logo_nu3menu.svg"
             alt="Logo du site"
-            width="15rem"
+            width="12rem"
           />
         </Link>
-        <Flex
-          display={ResponsiveWidth() ? null : "none"}
-          flexDirection="row"
-          gap="3rem"
+        <Box
+          display={ResponsiveWidth() ? "flex" : "none"}
+          gap="4rem"
         >
           <ModalLogin />
           <ModalRegister />
-        </Flex>
+        </Box>
       </Flex >
       <Box
         position="relative"
@@ -56,7 +55,7 @@ const NavUser = () => {
         alignItems="center"
         margin="1rem"
       >
-        <Link to="/user">
+        <Link to="/">
           <Image
             src="./images/logo_nu3menu.svg"
             alt="Logo du site"
@@ -70,29 +69,32 @@ const NavUser = () => {
           color="#48bb78"
           gap="1.5rem"
         >
-          <Box
-            display="flex"
+          <Flex
             flexDirection="row"
             gap="1rem"
             fontSize="1.1rem"
             fontWeight="700"
           >
-            <Link to="/user/menu" 
-            // hover->color-"#f0fff4">
+            <Link to="/menu"
             >
-              Mon menu
+              <Box _hover={{
+                color: "#f0fff4"
+              }}>Mon menu</Box>
             </Link>
-            <Link to="/user/bookmark"
+            <Link to="/bookmark"
             >
-              Favoris
+              <Box
+                _hover={{
+                  color: "#f0fff4"
+                }}>Favoris</Box>
             </Link>
-          </Box>
+          </Flex>
           <Flex
             flexDirection="row"
             gap="1rem"
-            width="5rem"
+            with="5rem"
           >
-            <Link to="/user/createmenu" 
+            <Link to="/createmenu"
             >
               <Tooltip
                 label='Créer mon menu'
@@ -131,8 +133,8 @@ const NavDesktop = () => {
   return (
     <>
       {/* {userToken ? <navUser /> : <navVisitor />} */}
-      {/* <NavVisitor /> */}
-      <NavUser />
+      <NavVisitor />
+      {/* <NavUser /> */}
     </>
   )
 }
