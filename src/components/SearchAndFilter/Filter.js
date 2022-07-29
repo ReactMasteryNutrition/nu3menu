@@ -47,50 +47,64 @@ export default function Filter({filter, setFilter}) {
             let option = key.toString()
             let optionValue = value
             if(option.includes('calorie')) {
-                if(option.includes('min')) {
+                if(option.includes('min') && optionValue !== '') {
                     optionValueWasMin = optionValue
                     calorie = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '') {
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '') {
                     calorie = `${optionValueWasMin}-${optionValue}`
                     optionValueWasMin = ''
                 } else {
-                    calorie = `${optionValue}`
+                    calorie = calorie+`${optionValue}`
                     optionValueWasMin = ''
                 }
             }
+
             if(option.includes('carbohydrate')) {
-                if(option.includes('min')) {
+                if(option.includes('min') && optionValue !== '') {
                     optionValueWasMin = optionValue
                     glucide = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '') {
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '') {
                     glucide = `${optionValueWasMin}-${optionValue}`
                     optionValueWasMin = ''
                 } else {
-                    glucide = `${optionValue}`
+                    glucide = glucide+`${optionValue}`
                     optionValueWasMin = ''
                 }
             }
             if(option.includes('lipid')) {
-                if(option.includes('min')) {
+                console.log(optionValueWasMin)
+                console.log('OptionValueWasMin ! == vide c-a-d il existe déjà une valeur min')
+                console.log(optionValueWasMin !== '')
+                console.log('optionValue !== vide c-a-d la valeur min est vide')
+                console.log(optionValue !== '')
+                console.log('optionValue ==> ')
+                console.log(optionValue)
+                if(option.includes('min') && optionValue !== '') {
                     optionValueWasMin = optionValue
                     lipide = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '') {
+                    console.log('on met à jour la valeur min de lipide')
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '') {
+                    console.log(optionValueWasMin)
+                    console.log(optionValueWasMin !== '')
+                    console.log("Je suis une Range Value")
                     lipide = `${optionValueWasMin}-${optionValue}`
+                    console.log('on met à jour la valeur min-max de lipide')
                     optionValueWasMin = ''
                 } else {
-                    lipide = `${optionValue}`
+                    lipide = lipide+`${optionValue}`
+                    console.log('on met à jour la valeur max de lipide')
                     optionValueWasMin = ''
                 }
             }
             if(option.includes('protein')) {
-                if(option.includes('min')) {
+                if(option.includes('min') && optionValue !== '') {
                     optionValueWasMin = optionValue
                     proteine = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '') {
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '') {
                     proteine = `${optionValueWasMin}-${optionValue}`
                     optionValueWasMin = ''
                 } else {
-                    proteine = `${optionValue}`
+                    proteine = proteine+`${optionValue}`
                     optionValueWasMin = ''
                 }
             }
@@ -102,6 +116,10 @@ export default function Filter({filter, setFilter}) {
             'nutrients[FAT]': lipide,
             'nutrients[PROCNT]': proteine,
         })
+        calorie =''
+        glucide =''
+        lipide=''
+        proteine=''
     }
 
     return(
