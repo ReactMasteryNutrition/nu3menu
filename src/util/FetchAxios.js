@@ -1,21 +1,19 @@
 // Import
-import React from "react"
 import axios from "axios"
-//import assert from "assert"
-//let localData = []
-//let nutrients = [CHOCDF = '', ]
+
 const qs = require('qs')
-//const assert = require('assert')
 
 
-async function getRecipes({filter}) {
+async function FetchAxios({thingSearched, filter}) {
     try {
-        let params = filter
-        console.log('params ==>',params)
+        const params_01 = 'type=public&beta=true'
+        let params_02 = `&q=${thingSearched}`
+        const params_03 = '&app_id=9aa229ff&app_key=b0cc99c6ca952ed1d898610b97dece87'
+        console.log('params_02 ==>',params_02)
         let url = 'https://api.edamam.com/api/recipes/v2?'
-        let endOfUrl = qs.stringify(params)
-        console.log('endOfUrl ==> ', endOfUrl)
-        let urlFinal = url+endOfUrl
+        //let endOfUrl = qs.stringify(params)
+        //console.log('endOfUrl ==> ', endOfUrl)
+        let urlFinal = url+params_01+params_02+params_03
         console.log('urlFinal ==> ', urlFinal)
 
         const response = await axios.get(urlFinal)
@@ -34,4 +32,4 @@ async function getRecipes({filter}) {
     }
 }
 
-export { getRecipes, qs};
+export default  FetchAxios ;

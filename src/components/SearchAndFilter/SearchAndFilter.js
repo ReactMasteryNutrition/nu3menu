@@ -5,7 +5,7 @@ import { IoFunnel, IoSearch } from 'react-icons/io5'
 import { Filter } from './Filter'
 // Functions
 
-export function SearchAndFilter(){
+export default function SearchAndFilter(){
     
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
