@@ -1,30 +1,27 @@
-
 import * as React from 'react';
-
 import { Routes, Route } from 'react-router-dom';
-import NutriNavDesktop from './components/NutriNavDesktop/NutriNavDesktop';
-import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
+import NavDesktop from './components/navBar/NavDesktop';
+import NavMobile from './components/navBar/NavMobile';
 import Card from './components/Card/Card';
 import NutriFooter from './components/footer/nutriFooter'
-import NutriHomeVisitor from './pages/Home/NutriHomeVisitor'
-import NutriRegister from './pages/Connection/NutriRegister'
-import NutriLogin from './pages/Connection/NutriLogin'
-import NutriHomeUser from './pages/Home/NutriHomeUser'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Home from './pages/Home'
+//import MyAccount from './pages/MyAccount';
 
 const UserApp = () => {
     return (
         <>
-            <NutriNavDesktop />
-            <Card/>
-            <NutriNavMobile />
+            <NavDesktop />
+            {/* <Card/> */}
+            <NavMobile />
             <Routes>
-                <Route path='/' element={<NutriHomeVisitor/>}/>
-                <Route path='/register' element={<NutriRegister />} />
-                <Route path='/login' element={<NutriLogin />} />
-                <Route path='/user' element={<NutriHomeUser />} />
+                <Route path='/' element={<Home />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/login' element={<Login />} />
                 {/*<Route path='/createmenu' element={<CreateMenu />} />*/}
-                {/*<Route path='/useraccount' element={<UserAccount />} />*/}
-                {/*<Route path='/usermenu' element={<UserMenu/>} />*/}
+                {/*<Route path='/myaccount' element={<MyAccount />} /> */}
+                {/*<Route path='/menu' element={<UserMenu/>} />*/}
                 {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
                 {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
             </Routes>
@@ -33,5 +30,6 @@ const UserApp = () => {
     )
 
 }
+
 
 export default UserApp;

@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-const NutriHomeVisitor = () => {
+const Home = () => {
     return (
         <></>
     )
 }
 
-export default NutriHomeVisitor;
+export default Home;
