@@ -28,6 +28,7 @@ const ModalMyAccount = ({ header, content }) => {
         padding="0.5rem 1.5rem"
         bg='#48bb78'
         color="#f0fff4"
+        width="100%"
         _hover={{ bgColor: "#a0aec0" }}
       >
         Modifier
