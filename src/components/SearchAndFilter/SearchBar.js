@@ -4,7 +4,7 @@ import { Box, Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerConte
 import { IoFunnel, IoFunnelOutline, IoSearch } from 'react-icons/io5'
 import Filter from '../../components/SearchAndFilter/Filter'
 // Functions
-export default function SearchBar({thingSearched, handleSearch}){
+export default function SearchBar({thingSearched, handleSearch, filter, setFilter}){
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
@@ -13,10 +13,10 @@ export default function SearchBar({thingSearched, handleSearch}){
     const submit = (e) => {
         e.preventDefault();
         console.log("On lance la requête : ", thingSearched);
-        // handleFilter({
-        //     ...filter,
-        //     q: thingSearched
-        // })
+        setFilter({
+            ...filter,
+            q: thingSearched
+        })
         handleSearch(recipeSearched)
     }
 
@@ -61,7 +61,7 @@ export default function SearchBar({thingSearched, handleSearch}){
                 <DrawerOverlay/>
                 <DrawerContent bgColor='gray.400' paddingX='auto'>
                     <DrawerCloseButton />
-                    <Filter />
+                    <Filter filter={filter} setFilter={setFilter}/>
                 </DrawerContent>
             </Drawer>
         </>

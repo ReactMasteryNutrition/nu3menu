@@ -3,15 +3,16 @@ import React from 'react'
 import { Center, Spinner, Text } from '@chakra-ui/react'
 // import test
 import FetchAxios from '../../util/FetchAxios'
+import CardRecipe from '../Cards/CardRecipe';
 // Function
 export default function Query({thingSearched, filter}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
 
     React.useEffect(() => {
-        console.log('useEffect de ResultOfQuery')
-        console.log('thingSearched initial : ', thingSearched)
-        //console.log('filter initial : ', filter)
+        // console.log('useEffect de ResultOfQuery')
+        // console.log('thingSearched à la validation : ', thingSearched)
+        // console.log('filter à la validation : ', filter)
         const controller = new AbortController();
         if (!thingSearched) {
             return
@@ -34,10 +35,7 @@ export default function Query({thingSearched, filter}) {
     if(!thingSearched) {
         return (
             console.log('Filter : ', filter),
-            <>
-                <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
-                <Text noOfLines={1} color='green.50'>{JSON.stringify(filter)}</Text>
-            </>
+            <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
         )
     }
     if(!data) {
@@ -49,9 +47,7 @@ export default function Query({thingSearched, filter}) {
         )
     }
     return (
-        //console.log('RecipeSearch : ', thingSearched),
-        //console.log('Data : ', data),
         console.log('Filter : ', filter),
-        <Text noOfLines={1} color='green.50'>{JSON.stringify(filter)}</Text>
+        <CardRecipe datas={data}/>
     )
 }

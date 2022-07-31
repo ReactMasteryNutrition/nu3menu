@@ -4,17 +4,22 @@ import axios from "axios"
 const qs = require('qs')
 
 
-async function FetchAxios({thingSearched, filter}) {
+async function FetchAxios(thingSearched, filter) {
+
+    let urlInit = 'https://api.edamam.com/api/recipes/v2?'
+
+    let endOfParams = Object.fromEntries(Object.entries(filter).filter(([key, value]) => value !==''))
+    //console.log('endOfParams', endOfParams)
+    
     try {
-        const params_01 = 'type=public&beta=true'
-        let params_02 = `&q=${thingSearched}`
-        const params_03 = '&app_id=9aa229ff&app_key=b0cc99c6ca952ed1d898610b97dece87'
-        console.log('params_02 ==>',params_02)
-        let url = 'https://api.edamam.com/api/recipes/v2?'
-        //let endOfUrl = qs.stringify(params)
+
+        let endOfUrl = qs.stringify(endOfParams)
         //console.log('endOfUrl ==> ', endOfUrl)
-        let urlFinal = url+params_01+params_02+params_03
-        console.log('urlFinal ==> ', urlFinal)
+
+
+        let urlFinal = `${urlInit}${endOfUrl}`
+        //console.log('urlFinal ==> ', urlFinal)
+
 
         const response = await axios.get(urlFinal)
         return response

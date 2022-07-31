@@ -18,11 +18,11 @@ export default function NutriHomeUser() {
     })
 
     const handleSearch = recipeName => {
-        let whatIWant = recipeName
+        console.log('recipeName : ', recipeName)
         setRecipe(recipeName)
         setFilter({
             ...filter, 
-            q: whatIWant,
+            q: recipeName,
         })
     }
 
@@ -34,7 +34,7 @@ export default function NutriHomeUser() {
                 <Filter filter={filter} setFilter={setFilter}/>
             </Box>
             <Box w="100%" color='green.50' >
-                <SearchBar thingSearched={recipe} handleSearch={handleSearch}/>
+                <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter}/>
                 <Query thingSearched={recipe} filter={filter}/>
             </Box>
         </Box>      
