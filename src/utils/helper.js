@@ -17,7 +17,7 @@ const ResponsiveWidth = () => {
   return minWidth501
 }
 
-const ModalMyAccount = ({ header, content }) => {
+const ModalMyAccount = ({ title, header, content }) => {
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -25,6 +25,7 @@ const ModalMyAccount = ({ header, content }) => {
     <>
       <Button
         onClick={onOpen}
+        title={title}
         padding="0.5rem 1.5rem"
         bg='#48bb78'
         color="#f0fff4"
