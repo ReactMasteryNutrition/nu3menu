@@ -11,7 +11,7 @@ import { AuthContext } from '../context/authContext'
 
 const NavVisitor = () => {
   return (
-    <>
+    <Box>
       <Flex
         flexDirection="row"
         justifyContent={ResponsiveWidth() ? "space-between" : "center"}
@@ -38,13 +38,13 @@ const NavVisitor = () => {
         top={ResponsiveWidth() ? null : "50%"}
         left={ResponsiveWidth() ? null : "50%"}
         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-        bottom="0.31rem"
+        
         height="0.3rem"
         width={ResponsiveWidth() ? "100%" : "80%"}
         borderRadius={ResponsiveWidth() ? null : "3rem"}
         bg="#48bb78"
       ></Box>
-    </>
+    </Box>
   )
 }
 
