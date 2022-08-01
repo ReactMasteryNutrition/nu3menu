@@ -179,7 +179,7 @@ export default function Filter({filter, setFilter}) {
     }
 
     return(
-        <Box w='18%' minWidth='17rem' bgColor='gray.400' padding='0.5rem' borderRightRadius='md' id='filterForm'>
+        <Box minWidth='17rem' bgColor='gray.400' padding='2rem' borderRightRadius='md' id='filterForm'>
             <Center marginBottom='2rem'>
                 Filtre
                 <Tooltip label='Réinitialiser'>
