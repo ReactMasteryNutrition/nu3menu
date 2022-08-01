@@ -2,9 +2,9 @@
 import React from 'react'
 import { Box, Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FormControl, FormLabel, IconButton, Input, InputGroup, InputLeftAddon, InputLeftElement, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, StatHelpText, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { IoFunnel, IoFunnelOutline, IoSearch } from 'react-icons/io5'
-import { Filter } from '../../components/SearchAndFilter/Filter'
+import Filter from '../../components/SearchAndFilter/Filter'
 // Functions
-export function SearchBar({thingSearched, handleSearch, filter, handleFilter}){
+export default function SearchBar({thingSearched, handleSearch, filter, setFilter}){
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
@@ -13,7 +13,7 @@ export function SearchBar({thingSearched, handleSearch, filter, handleFilter}){
     const submit = (e) => {
         e.preventDefault();
         console.log("On lance la requête : ", thingSearched);
-        handleFilter({
+        setFilter({
             ...filter,
             q: thingSearched
         })
@@ -61,7 +61,7 @@ export function SearchBar({thingSearched, handleSearch, filter, handleFilter}){
                 <DrawerOverlay/>
                 <DrawerContent bgColor='gray.400' paddingX='auto'>
                     <DrawerCloseButton />
-                    <Filter />
+                    <Filter filter={filter} setFilter={setFilter}/>
                 </DrawerContent>
             </Drawer>
         </>

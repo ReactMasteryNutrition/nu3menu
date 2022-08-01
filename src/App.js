@@ -7,7 +7,11 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
+<<<<<<< HEAD
         bg: "gray.800",
+=======
+        bg: "gray.800"
+>>>>>>> 68261297f19a9fe3056d46475b3cabcf2e2cbfa1
         fontFamily:"Poppins, sans-serif",
       }
     }
@@ -23,6 +27,18 @@ const theme = extendTheme({
        400: "#A0AEC0"
      }
    }, */
+<<<<<<< HEAD
+=======
+  
+  /* fontWeights: {
+    extraLight: 200,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+  } */
+>>>>>>> 68261297f19a9fe3056d46475b3cabcf2e2cbfa1
 })
 
 function App() {

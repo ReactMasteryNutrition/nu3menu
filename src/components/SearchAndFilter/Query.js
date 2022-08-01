@@ -1,37 +1,26 @@
 // Imports
 import React from 'react'
 import { Center, Spinner, Text } from '@chakra-ui/react'
-import {FetchRecipe, getRecipes, qs} from '../../util/FetchRecipe';
-import Card from '../Cards/CardMenu';
+// import test
+import FetchAxios from '../../utils/FetchAxios'
+import CardRecipe from '../Card/CardRecipe';
 // Function
-export default function ResultOfQuery({thingSearched, filter, setFilter}) {
+export default function Query({thingSearched, filter}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
 
     React.useEffect(() => {
-        console.log('useEffect de ResultOfQuery')
-        console.log('thingSearched initial : ', thingSearched)
-        console.log('filter initial : ', filter)
+        // console.log('useEffect de ResultOfQuery')
+        // console.log('thingSearched à la validation : ', thingSearched)
+        // console.log('filter à la validation : ', filter)
         const controller = new AbortController();
         if (!thingSearched) {
             return
         }
-
-        // fourre tout
-        // let truc = {
-        //     'nutrients[CHOCDF]': '100 ', // glucide
-        //     'nutrients[FAT]': '100', // lipide
-        //     'nutrients[PROCNT]': '100-400',
-        // }
-        // console.log('qs.parse : ')
-        // console.log(qs.parse(truc))
-        // console.log('qs.stringify : ')
-        // console.log(qs.stringify(truc))
-        // fin fourre tout
         console.log('useEffect de ResultOfQuery pour lancer le fetch axios')
         setData()
         //FetchRecipe(thingSearched)
-        getRecipes(thingSearched, filter)
+        FetchAxios(thingSearched, filter)
         .then(response => {
             setData(response)
             console.log('on a mis response dans data')
@@ -45,6 +34,7 @@ export default function ResultOfQuery({thingSearched, filter, setFilter}) {
     }
     if(!thingSearched) {
         return (
+            console.log('Filter : ', filter),
             <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
         )
     }
@@ -57,7 +47,7 @@ export default function ResultOfQuery({thingSearched, filter, setFilter}) {
         )
     }
     return (
-        console.log('RecipeSearch : ', thingSearched),
-        console.log('Data :', data)
+        console.log('Filter : ', filter),
+        <CardRecipe datas={data}/>
     )
 }

@@ -1,12 +1,15 @@
 // Imports 
 import React from 'react'
-import { Box, Button, Center, FormControl, FormLabel, IconButton, InputGroup, InputLeftAddon, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Tooltip } from "@chakra-ui/react"
+import { Box, Button, Center, FormControl, FormLabel, IconButton, InputGroup, InputLeftAddon, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Tooltip } from "@chakra-ui/react"
 import { IoFunnelOutline } from "react-icons/io5";
 // Functions
-export function Filter(handleFilter) {
+export default function Filter({filter, setFilter}) {
     const [localFilter, setLocalFilter,] = React.useState({
+        meal_type: '',
         calories_min: '',
         calories_max: '',
+        times_min: '',
+        times_max: '',
         carbohydrate_min: '',
         carbohydrate_max: '',
         lipid_min: '',
@@ -15,91 +18,168 @@ export function Filter(handleFilter) {
         protein_max: '',
     })
 
-    const [reprocessFilter, setReprocessFilter] = React.useState({
-        calories: '',
-        'nutrients[CHOCDF]': '', // glucide
-        'nutrients[FAT]': '', // lipide
-        'nutrients[PROCNT]': '', // proteine
-    })
+    const handleSelect = e => {
+        setLocalFilter({...localFilter, [e.target.name]: e.target.value})
+    }
 
+    const handleChangeLocalFilter = e => {
+        setLocalFilter({...localFilter, [e.target.name]: e.target.value})
+    }
+    const incrementLocalFilter = e => {
+        //console.log('+')
+        let here = e.target
+        let thisInputValue = here.closest('.chakra-numberinput').firstChild.value
+        let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
+        setLocalFilter({...localFilter, [thisInputName]: thisInputValue})
+    }
+    const decrementLocalFilter = e => {
+        //console.log('-')
+        let here = e.target
+        let thisInputValue = here.closest('.chakra-numberinput').firstChild.value
+        let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
+        setLocalFilter({...localFilter, [thisInputName]: thisInputValue})
+    }
 
-    const SubmitFilter = () => {
-        console.log('On lance la fonction Submit Filter')
-        // Traitement calorie
-        if(localFilter.calories_min && (localFilter.calories_min.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, calories: `${localFilter.calories_min}+`})
-        }
-        if(localFilter.calories_max && (localFilter.calories_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, calories: `${localFilter.calories_max}`})
-        }
-        if(localFilter.calories_min && (localFilter.calories_min.trim().length !==0) && localFilter.calories_max && (localFilter.calories_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, calories: `${localFilter.calories_min}-${localFilter.calories_max}`})
-        } else {
-            setReprocessFilter({...reprocessFilter, calories: ''})
-        }
-        // Traitement carbohydrate = glucide
-        if(localFilter.carbohydrate_min && (localFilter.carbohydrate_min.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[CHOCDF]': `${localFilter.carbohydrate_min}+`})
-        }
-        if(localFilter.carbohydrate_max && (localFilter.carbohydrate_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[CHOCDF]': `${localFilter.carbohydrate_max}`})
-        }
-        if(localFilter.carbohydrate_min && (localFilter.carbohydrate_min.trim().length !==0) && localFilter.carbohydrate_max && (localFilter.carbohydrate_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[CHOCDF]': `${localFilter.carbohydrate_min}-${localFilter.carbohydrate_max}`})
-        } else {
-            setReprocessFilter({...reprocessFilter, 'nutrients[CHOCDF]': ''})
-        }
-        // Traitement lipide
-        if(localFilter.lipid_min && (localFilter.lipid_min.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[FAT]': `${localFilter.lipid_min}+`})
-        }
-        if(localFilter.lipid_max && (localFilter.lipid_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[FAT]': `${localFilter.lipid_max}`})
-        }
-        if(localFilter.lipid_min && (localFilter.lipid_min.trim().length !==0) && localFilter.lipid_max && (localFilter.lipid_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[FAT]': `${localFilter.lipid_min}-${localFilter.lipid_max}`})
-        } else {
-            setReprocessFilter({...reprocessFilter, 'nutrients[FAT]': ''})
-        }
-        // Traitement protéine
-        if(localFilter.protein_min && (localFilter.protein_min.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[PROCNT]': `${localFilter.protein_min}+`})
-        }
-        if(localFilter.protein_max && (localFilter.protein_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[PROCNT]': `${localFilter.protein_max}`})
-        }
-        if(localFilter.protein_min && (localFilter.protein_min.trim().length !==0) && localFilter.protein_max && (localFilter.protein_max.trim().length !==0)) {
-            setReprocessFilter({...reprocessFilter, 'nutrients[PROCNT]': `${localFilter.protein_min}-${localFilter.protein_max}`})
-        } else {
-            setReprocessFilter({...reprocessFilter, 'nutrients[PROCNT]': ''})
-        }
+    let meal = ''
+    let calorie = ''
+    let times = ''
+    let glucide = ''
+    let lipide = ''
+    let proteine = ''
 
-        console.log('localFilter : ', localFilter)
-        console.log('reprocessFilter après if else: ')
-        console.log(reprocessFilter)
-        // contrôle et suppression des filtres inutiles car vides
-        if(reprocessFilter){
-            let temporaryFilter = [reprocessFilter]
-            temporaryFilter.map(occurence => {
-                console.log(occurence.length)
-                if(occurence.length === 0){
-                    console.log('on supprime la ligne ', occurence)
-                    delete temporaryFilter[occurence];
+    const ApplyFilters = () => {
+        
+        console.log(localFilter)
+
+        let optionValueWasMin = ''
+        
+        for (const [key, value] of Object.entries(localFilter)) {
+            //console.log(`key : ${key} => value : ${value}`);
+            let option = key.toString()
+            let optionValue = value
+            if(option.includes('meal')) {
+                meal = optionValue
+            }
+            if(option.includes('calorie')) {
+                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+                    optionValueWasMin = optionValue
+                    calorie = `${optionValue}+`
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+                    calorie = `${optionValueWasMin}-${optionValue}`
+                    optionValueWasMin = ''
+                } else if(optionValue === '0'){
+                    optionValue =''
+                    optionValueWasMin = ''
+                }  else {
+                    calorie = calorie+`${optionValue}`
+                    optionValueWasMin = ''
                 }
-                return temporaryFilter
-            })
-            console.log('Temporary Filter : ')
-            console.log(temporaryFilter)
-            setReprocessFilter(temporaryFilter)
-            setReprocessFilter(reprocessFilter)
-            console.log('reprocessFilter avant envoi des données : ')
-            console.log(reprocessFilter)
-            handleFilter(reprocessFilter)
+            }
+            if(option.includes('time')) {
+                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+                    optionValueWasMin = optionValue
+                    times = `${optionValue}+`
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+                    times = `${optionValueWasMin}-${optionValue}`
+                    optionValueWasMin = ''
+                } else if(optionValue === '0'){
+                    optionValue =''
+                    optionValueWasMin = ''
+                }  else {
+                    times = times+`${optionValue}`
+                    optionValueWasMin = ''
+                }
+            }
+            if(option.includes('carbohydrate')) {
+                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+                    optionValueWasMin = optionValue
+                    glucide = `${optionValue}+`
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+                    glucide = `${optionValueWasMin}-${optionValue}`
+                    optionValueWasMin = ''
+                } else if(optionValue === '0'){
+                    optionValue =''
+                    optionValueWasMin = ''
+                } else {
+                    glucide = glucide+`${optionValue}`
+                    optionValueWasMin = ''
+                }
+            }
+            if(option.includes('lipid')) {
+                // console.log(optionValueWasMin)
+                // console.log('OptionValueWasMin ! == vide c-a-d il existe déjà une valeur min')
+                // console.log(optionValueWasMin !== '')
+                // console.log('optionValue !== vide c-a-d la valeur min est vide')
+                // console.log(optionValue !== '')
+                // console.log('optionValue ==> ')
+                // console.log(optionValue)
+                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+                    optionValueWasMin = optionValue
+                    lipide = `${optionValue}+`
+                    console.log('on met à jour la valeur min de lipide')
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+                    // console.log(optionValueWasMin)
+                    // console.log(optionValueWasMin !== '')
+                    // console.log("Je suis une Range Value")
+                    lipide = `${optionValueWasMin}-${optionValue}`
+                    // console.log('on met à jour la valeur min-max de lipide')
+                    optionValueWasMin = ''
+                } else if(optionValue === '0'){
+                    optionValue =''
+                    optionValueWasMin = ''
+                } else {
+                    lipide = lipide+`${optionValue}`
+                    // console.log('on met à jour la valeur max de lipide')
+                    optionValueWasMin = ''
+                }
+            }
+            if(option.includes('protein')) {
+                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+                    optionValueWasMin = optionValue
+                    proteine = `${optionValue}+`
+                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+                    proteine = `${optionValueWasMin}-${optionValue}`
+                    optionValueWasMin = ''
+                } else if(optionValue === '0'){
+                    optionValue =''
+                    optionValueWasMin = ''
+                } else {
+                    proteine = proteine+`${optionValue}`
+                    optionValueWasMin = ''
+                }
+            }
         }
+        
+        setFilter({
+            ...filter,
+            mealType: meal,
+            calories: calorie,
+            time: times,
+            'nutrients[CHOCDF]': glucide,
+            'nutrients[FAT]': lipide,
+            'nutrients[PROCNT]': proteine,
+        })
+        meal=''
+        calorie =''
+        times =''
+        glucide =''
+        lipide=''
+        proteine=''
+    }
+
+    const clearFilter = () => {
+        console.log('On clear les filtres')
+        setFilter({
+            type: 'public',
+            beta: 'true',
+            q: filter.q, //recipe => mot clé recherché
+            app_id: '9aa229ff',
+            app_key: 'b0cc99c6ca952ed1d898610b97dece87',
+        })
     }
 
     return(
-        <Box w='18%' minWidth='17rem' bgColor='gray.400' padding='0.5rem' borderRightRadius='md'>
+        <Box w='18%' minWidth='17rem' bgColor='gray.400' padding='0.5rem' borderRightRadius='md' id='filterForm'>
             <Center marginBottom='2rem'>
                 Filtre
                 <Tooltip label='Réinitialiser'>
@@ -110,30 +190,64 @@ export function Filter(handleFilter) {
                         color='green.50'
                         icon={<IoFunnelOutline/>}
                         marginLeft='1rem'
+                        onClick={() => clearFilter()}
                     />
                 </Tooltip>
             </Center>
             <FormControl>
                 <FormLabel>
+                    Meal type
+                </FormLabel>
+                <Select name='meal_type' value={localFilter.meal_type} placeholder='Breakfast, Lunch, ...' bgColor='green.50' borderColor='gray.800' onChange={e => handleSelect(e)}>
+                    <option value='Breakfast'>Breakfast</option>
+                    <option value='Dinner'>Dinner</option>
+                    <option value='Lunch'>Lunch</option>
+                    <option value='Snack'>Snack</option>
+                    <option value='Teatime'>Teatime</option>
+                </Select>
+                <FormLabel marginTop='0.5em'>
                     Calories (Kcal/personnes)
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='calorie_min' value={localFilter.calories_min} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='calories_min' value={localFilter.calories_min} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
                 <InputGroup >
                     <InputLeftAddon children='max' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='calorie_max' value={localFilter.calories_max} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='calories_max' value={localFilter.calories_max} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
+                        </NumberInputStepper>
+                    </NumberInput>
+                </InputGroup>
+                <FormLabel marginTop='0.5em'>
+                    Durée (minute)
+                </FormLabel>
+                <InputGroup>
+                    <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='times_min' value={localFilter.times_min} onChange={e => handleChangeLocalFilter(e)}/>
+                        <NumberInputStepper>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
+                        </NumberInputStepper>
+                    </NumberInput>
+                </InputGroup>
+                <InputGroup >
+                    <InputLeftAddon children='max' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='times_max' value={localFilter.times_max} onChange={e => handleChangeLocalFilter(e)}/>
+                        <NumberInputStepper>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
@@ -142,21 +256,21 @@ export function Filter(handleFilter) {
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='carbohydrate_min' value={localFilter.carbohydrate_min} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='carbohydrate_min' value={localFilter.carbohydrate_min} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
                 <InputGroup >
                     <InputLeftAddon children='max' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='carbohydrate_max' value={localFilter.carbohydrate_max} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='carbohydrate_max' value={localFilter.carbohydrate_max} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
@@ -165,21 +279,21 @@ export function Filter(handleFilter) {
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='lipid_min' value={localFilter.lipid_min} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='lipid_min' value={localFilter.lipid_min} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
                 <InputGroup >
                     <InputLeftAddon children='max' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='lipid_max' value={localFilter.lipid_max} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='lipid_max' value={localFilter.lipid_max} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
@@ -188,27 +302,27 @@ export function Filter(handleFilter) {
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='protein_min' value={localFilter.protein_min} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='protein_min' value={localFilter.protein_min} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
                 <InputGroup >
                     <InputLeftAddon children='max' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
-                    <NumberInput borderColor='gray.800' w='100%'>
-                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='protein_max' value={localFilter.protein_max} onChange={e => setLocalFilter(e.target.value)}/>
+                    <NumberInput borderColor='gray.800' w='100%' min={0}>
+                        <NumberInputField borderLeftRadius='0' bgColor='green.50' name='protein_max' value={localFilter.protein_max} onChange={e => handleChangeLocalFilter(e)}/>
                         <NumberInputStepper>
-                            <NumberIncrementStepper borderColor='gray.800'/>
-                            <NumberDecrementStepper borderColor='gray.800'/>
+                            <NumberIncrementStepper borderColor='gray.800' onClick={ e => incrementLocalFilter(e)}/>
+                            <NumberDecrementStepper borderColor='gray.800' onClick={ e => decrementLocalFilter(e)}/>
                         </NumberInputStepper>
                     </NumberInput>
                 </InputGroup>
             </FormControl>
             <Center marginTop='2rem'>
-                <Button marginTop='0.5rem' bgColor='gray.800' color='green.50' _hover={{ bg: '#1A202C'}} _active={{ bg: '#1A202C'}} onClick={() =>SubmitFilter()}>
+                <Button marginTop='0.5rem' bgColor='gray.800' color='green.50' _hover={{ bg: '#1A202C'}} _active={{ bg: '#1A202C'}} onClick={() =>ApplyFilters()}>
                     Appliquer
                 </Button> 
             </Center>
