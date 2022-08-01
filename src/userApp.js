@@ -6,11 +6,12 @@ import NutriNavMobile from './components/NutriNavMobile/NutriNavMobile';
 import NutriHomeVisitor from './pages/Home/NutriHomeVisitor'
 import NutriRegister from './pages/Connection/NutriRegister'
 import NutriLogin from './pages/Connection/NutriLogin'
-import NutriHomeUser from './pages/Home/NutriHomeUser'
+// import NutriHomeUser from './pages/Home/NutriHomeUser'
 
 import Footer from './components/footer/nutriFooter'
 
 import { Box } from '@chakra-ui/react'
+import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
 
 const UserApp = () => {
     return (
@@ -21,7 +22,8 @@ const UserApp = () => {
                 <Route path='/' element={<NutriHomeVisitor/>}/>
                 <Route path='/register' element={<NutriRegister />} />
                 <Route path='/login' element={<NutriLogin />} />
-                <Route path='/user' element={<NutriHomeUser />} />
+                {/* <Route path='/user' element={<NutriHomeUser />} /> */}
+                <Route path='/findRecipe' element={<SearchAndFilter />} />
                 {/*<Route path='/createmenu' element={<CreateMenu />} />*/}
                 {/*<Route path='/useraccount' element={<UserAccount />} />*/}
                 {/*<Route path='/usermenu' element={<UserMenu/>} />*/}
