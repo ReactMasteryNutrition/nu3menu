@@ -3,7 +3,6 @@ import * as React from 'react';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
 import UserApp from './userApp';
 
-
 const theme = extendTheme({
   styles: {
     global: {

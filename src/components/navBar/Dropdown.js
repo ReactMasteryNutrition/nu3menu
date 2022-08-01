@@ -6,9 +6,12 @@ import {
     MenuDivider,
     Avatar
   } from '@chakra-ui/react'
-  import { Link } from "react-router-dom"
+  import {Link, Navigate} from "react-router-dom"
 
 const Dropdown = () => {
+    const handleClick = () => {
+        Navigate('/')
+    }
     return (
         <Menu isLazy>
           <MenuButton>
@@ -47,7 +50,7 @@ const Dropdown = () => {
                 Aide et support
               </MenuItem>
             </Link>
-            <Link to="/">
+            <Link to="/" onClick={handleClick}>
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                 Se déconnecter
               </MenuItem>

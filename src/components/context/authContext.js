@@ -16,10 +16,6 @@ export default function AuthContextProvider(props) {
         return signInWithEmailAndPassword(auth, email, password)
     },[])
 
-    {/*const logout = useCallback(() => {
-        //console.log(logout);
-        return signOut(auth);
-    }, []) */}
 
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -47,8 +43,8 @@ export default function AuthContextProvider(props) {
 
     return (
         <AuthContext.Provider value={value}>
-           {/* !loading && props.children} */}
-              {props.children}
+            {/* !loading && props.children} */}
+            {props.children}
         </AuthContext.Provider>
-    ) 
+    )
 }
