@@ -1,5 +1,4 @@
 const Register = () => {
-
   return (
     <></>
   );
