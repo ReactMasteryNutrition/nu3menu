@@ -29,7 +29,7 @@ export default function SearchAndFilter() {
 
 
     return (
-        <Box w="100%" display='flex' flexDir={['column', 'row']}>
+        <Box w="100%" h='auto' display='flex' flexDir={['column', 'row']}>
             <Box display={['none', 'none', 'flex']}>
                 <Filter filter={filter} setFilter={setFilter}/>
             </Box>
