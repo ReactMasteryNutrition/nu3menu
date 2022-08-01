@@ -5,7 +5,7 @@ import Filter from '../../components/SearchAndFilter/Filter'
 import Query from '../../components/SearchAndFilter/Query'
 import SearchBar from '../../components/SearchAndFilter/SearchBar'
 
-export default function NutriHomeUser() {
+export default function SearchAndFilter() {
     const [recipe, setRecipe] = React.useState('')
 
 
@@ -28,10 +28,6 @@ export default function NutriHomeUser() {
 
 
 
-<<<<<<< HEAD:src/pages/Home/NutriHomeUser.js
-=======
-const Home = () => {
->>>>>>> develop:src/pages/Home.js
     return (
         <Box w="100%" display='flex' flexDir={['column', 'row']}>
             <Box display={['none', 'none', 'flex']}>
@@ -44,8 +40,3 @@ const Home = () => {
         </Box>      
     )
 }
-<<<<<<< HEAD:src/pages/Home/NutriHomeUser.js
-=======
-
-export default Home;
->>>>>>> develop:src/pages/Home.js

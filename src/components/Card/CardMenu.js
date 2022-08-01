@@ -5,7 +5,7 @@ import { IoEnter, IoStar } from 'react-icons/io5'
 
 // Functions //
 
-export default function Card() {
+export function CardMenu() {
     const falseResponseApi = [
         {
                 title: 'Titre Menu 1',
@@ -51,22 +51,22 @@ export default function Card() {
         },
     ]
     return(
-        <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center'>
+        <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {falseResponseApi.map(recipe => {
                 return(
-                    <Box key={falseResponseApi.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='auto' p='0.5em' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
-                        <IconContext.Provider value={{ color: '#F0FFF4', margin: '1em', size: '2em'}}>
-                            <Box position='absolute' top='0' left='0' display='flex' alignItems='center' p='0.5em' minW='33%' minH='20%' borderBottomRightRadius='full' color='green.50' bg='green.700' opacity='0.72'>
+                    <Box key={falseResponseApi.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                        <IconContext.Provider value={{ color: '#F0FFF4', margin: '1rem', size: '2rem'}}>
+                            <Box position='absolute' top='0' left='0' display='flex' alignItems='center' p='0.5rem' minW='33%' minH='20%' borderBottomRightRadius='full' color='green.50' bg='green.700' opacity='0.72'>
                                 <IoStar/>
-                                <Text pl='0.5em' fontSize='lg'>{recipe.gradeReview}</Text>
+                                <Text pl='0.5rem' fontSize='lg'>{recipe.gradeReview}</Text>
                             </Box>
                         </IconContext.Provider>
-                        <IconContext.Provider value={{ size: '3em', color: '#276749'}}>
+                        <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
                             <Box display='flex' flexDirection={['row', 'column', 'column', 'column']}>
                                 <Image src={recipe.imageUrl} alt={recipe.imageAlt} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
                                 <Box>
                                     <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' textAlign='center'>{recipe.title}</Text>
-                                    <Text noOfLines={2} ml={['0.5em', 0]}>{recipe.description}</Text>
+                                    <Text noOfLines={2} ml={['0.5rem', 0]}>{recipe.description}</Text>
                                     <Box display='flex' justifyContent='right'>
                                         <Link>
                                             <IoEnter/>
