@@ -14,6 +14,7 @@ const ModalName = () => {
   return (
     <Box>
       <ModalMyAccount
+        title={"modal name"}
         header={"Modifier mon prénom"}
         content={
           <FormControl isRequired marginBottom="1rem">
@@ -29,6 +30,7 @@ const ModalEmail = () => {
   return (
     <Box>
       <ModalMyAccount
+        title={"modal e-mail"}
         header={"Modifier mon e-mail"}
         content={
           <FormControl isRequired marginBottom="1rem">
@@ -51,6 +53,7 @@ const ModalPassword = () => {
   return (
     <Box>
       <ModalMyAccount
+        title={"modal password"}
         header={"Modifier mon mot de passe"}
         content={<>
           <FormLabel>Ancien mot de passe</FormLabel>
