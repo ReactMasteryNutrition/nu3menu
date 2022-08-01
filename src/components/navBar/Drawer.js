@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {
     useDisclosure,
     Drawer,
@@ -17,6 +17,7 @@ import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
 import { MdOutlineMenuBook } from "react-icons/md"
 import { signOut } from 'firebase/auth'
+import { Navigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext'
 // import { FaUserAlt } from "react-icons/fa"
 /* 
@@ -77,6 +78,11 @@ const DrawerVisitor = () => {
 
 const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const Navigate = useNavigate()
+
+    const handleClick = (option) => {
+        Navigate('/')
+    }
 
     return (
         <Box>
@@ -142,7 +148,7 @@ const DrawerUser = () => {
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
                         </Link>
-                        <Link to='/' onClick={onClose}>
+                        <Link to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"
                                 gap="0.5rem">

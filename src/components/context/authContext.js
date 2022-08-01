@@ -16,28 +16,18 @@ export default function AuthContextProvider(props) {
         return signInWithEmailAndPassword(auth, email, password)
     },[])
 
-    const logout = useCallback(() => {
+    {/*const logout = useCallback(() => {
         //console.log(logout);
         return signOut(auth);
-    }, [])
+    }, []) */}
 
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                //const imgSrc = "//www.gravatar.com/avatar/28d8a1def414df109d3cdc226b381255?s=40&r=g&d=monsterid"
-                //const name = currentUser.displayName
-                setCurrentUser({
-                    currentUser : currentUser
-                    //name : name,
-                    //imgSrc : imgSrc
-                })
-            } else {
-                setCurrentUser(currentUser)
-                //setLoading(false)
-            }
+            setCurrentUser(currentUser)
+            setLoading(false)
         })
 
         return () => {
@@ -53,8 +43,7 @@ export default function AuthContextProvider(props) {
         setLoading,
         register,
         login,
-        logout
-    }),[currentUser, loading, register, login,logout])
+    }),[currentUser, loading, register, login])
 
     return (
         <AuthContext.Provider value={value}>

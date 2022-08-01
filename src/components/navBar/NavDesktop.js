@@ -10,7 +10,6 @@ import {useContext} from "react";
 // const userToken = 'nu3menuToken'
 
 const NavVisitor = () => {
-  const {currentUser} = useContext(AuthContext)
   //console.log(currentUser)
   return (
     <>
@@ -134,11 +133,12 @@ const NavUser = () => {
 }
 
 const NavDesktop = () => {
+  const {currentUser} = useContext(AuthContext)
   return (
     <>
-      {/* {userToken ? <navUser /> : <navVisitor />} */}
-      <NavVisitor />
-      {/* <NavUser /> */}
+      {currentUser ? <NavUser /> : <NavVisitor />} */}
+      {/*<NavVisitor /> */}
+      {/*<NavUser /> */}
     </>
   )
 }
