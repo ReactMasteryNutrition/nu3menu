@@ -6,6 +6,8 @@ import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
 import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
+import {useContext} from "react";
+import {AuthContext} from "../context/authContext";
 
 // const userToken = 'nu3menuToken'
 
@@ -90,10 +92,11 @@ const NavUser = () => {
 }
 
 const NavMobile = () => {
+    const {currentUser} = useContext(AuthContext)
     return (
         <>
-            {/* {userToken ? <NavUser/> : <NavVisitor/>} */}
-            <NavVisitor />
+            {currentUser ? <NavUser/> : <NavVisitor/>}
+            {/*<NavVisitor />  */}
             {/* <NavUser /> */}
         </>
     )

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {
     useDisclosure,
     Drawer,
@@ -19,6 +19,12 @@ import { MdOutlineMenuBook } from "react-icons/md"
 
 const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const Navigate = useNavigate()
+
+    const handleClick = () => {
+        Navigate('/')
+    }
+
 
     return (
         <Box>
@@ -84,7 +90,7 @@ const DrawerUser = () => {
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
                         </Link>
-                        <Link to='/' onClick={onClose}>
+                        <Link to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"
                                 gap="0.5rem">
