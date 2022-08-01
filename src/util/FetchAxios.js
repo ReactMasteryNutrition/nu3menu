@@ -12,9 +12,8 @@ async function FetchAxios(thingSearched, filter) {
     //console.log('endOfParams', endOfParams)
     
     try {
-
         let endOfUrl = qs.stringify(endOfParams)
-        //console.log('endOfUrl ==> ', endOfUrl)
+        console.log('endOfUrl ==> ', endOfUrl)
 
 
         let urlFinal = `${urlInit}${endOfUrl}`
