@@ -28,6 +28,10 @@ export default function NutriHomeUser() {
 
 
 
+<<<<<<< HEAD:src/pages/Home/NutriHomeUser.js
+=======
+const Home = () => {
+>>>>>>> develop:src/pages/Home.js
     return (
         <Box w="100%" display='flex' flexDir={['column', 'row']}>
             <Box display={['none', 'none', 'flex']}>
@@ -40,3 +44,8 @@ export default function NutriHomeUser() {
         </Box>      
     )
 }
+<<<<<<< HEAD:src/pages/Home/NutriHomeUser.js
+=======
+
+export default Home;
+>>>>>>> develop:src/pages/Home.js
