@@ -16,6 +16,8 @@ import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
 import { MdOutlineMenuBook } from "react-icons/md"
+import { signOut } from 'firebase/auth'
+import { AuthContext } from '../context/authContext'
 // import { FaUserAlt } from "react-icons/fa"
 /* 
 const DrawerVisitor = () => {

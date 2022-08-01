@@ -4,10 +4,14 @@ import Dropdown from "./Dropdown"
 import { Link } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
 import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
+import {AuthContext} from "../context/authContext";
+import {useContext} from "react";
 
 // const userToken = 'nu3menuToken'
 
 const NavVisitor = () => {
+  const {currentUser} = useContext(AuthContext)
+  //console.log(currentUser)
   return (
     <>
       <Flex
