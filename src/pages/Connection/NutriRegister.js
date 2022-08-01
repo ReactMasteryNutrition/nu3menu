@@ -25,7 +25,7 @@ const ModalForm = () => {
         <Input placeholder='Prénom' bg='#f0fff4' />
       </FormControl>
       <FormControl isRequired marginBottom="1rem">
-        <Input type='email' placeholder='E-mail' bg='#f0fff4' onChange={handleChange} value={email} />
+        {/*<Input type='email' placeholder='E-mail' bg='#f0fff4' onChange={handleChange} value={email} />*/}
       </FormControl >
       <InputGroup size='md'>
         <Input
@@ -86,7 +86,7 @@ const ModalForm = () => {
   )
 }
 
-const ModalDesktopReister = ({ setRegister }) => {
+const ModalDesktopRegister = ({ setRegister }) => {
   return (
     <>
       <div className="body__bg--gray"></div>
