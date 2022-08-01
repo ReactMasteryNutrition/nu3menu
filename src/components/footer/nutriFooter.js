@@ -25,13 +25,13 @@ const NutriFooter = () => {
     }, [])
 
     return (
-        <>
+        <footer>
             {/*toggleMenu || */ largeur > 500 ?
                 <FooterDestop/>
                 :
                 <FooterMobile/>
             }
-        </>
+        </footer>
     )
 }
 export default NutriFooter;
