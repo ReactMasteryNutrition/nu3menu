@@ -2,8 +2,8 @@
 import React from 'react'
 import { Center, Spinner, Text } from '@chakra-ui/react'
 // import test
-import FetchAxios from '../../util/FetchAxios'
-import CardRecipe from '../Cards/CardRecipe';
+import FetchAxios from '../../utils/FetchAxios'
+import CardRecipe from '../Card/CardRecipe';
 // Function
 export default function Query({thingSearched, filter}) {
     const [data, setData] = React.useState();

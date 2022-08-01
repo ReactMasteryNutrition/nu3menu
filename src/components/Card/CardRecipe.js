@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, Flex, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoPeople, IoTimer } from 'react-icons/io5'
-import { toHoursAndMinutes } from '../../util/HoursAndMinutes'
+import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Functions //
 
 export default function CardRecipe(datas) {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Box } from '@chakra-ui/react'
 
 import SearchBar from '../../components/SearchAndFilter/SearchBar'
-import { CardMenu } from '../../components/Cards/CardMenu'
+import { CardMenu } from '../../components/Card/CardMenu'
 
 
 const NutriHomeVisitor = () => {
