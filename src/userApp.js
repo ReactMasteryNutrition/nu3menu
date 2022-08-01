@@ -14,18 +14,7 @@ import { Box } from '@chakra-ui/react';
 
 
 const UserApp = () => {
-    //const [selectMealDayy, setSelectMealDayy]= React.useState()
-    //const [selectCategory, setSelectCategory]= React.useState()
-    //const handleChangeDay = (mealDayy)=>{
-    //    console.log(`useApp mealDay ${mealDayy}`)
-    //    setSelectMealDayy(mealDayy)
-    //}
-    //const handleChangeCtegory = (category) =>{
-    //    console.log(`userApp Categoty ${category}`)
-    //    setSelectCategory(category)
-    //}
-  //onDayyChange={handleChangeDay} onCategorychange={handleChangeCtegory}
-  //mealDayy={selectMealDayy} category={selectCategory}
+
 
     return (
         <Box display={"flex"} flexDirection={"column"} minH={"full"} >

@@ -9,30 +9,52 @@ const CreateMenu = ({ onDayyChange, onCategorychange }) => {
     const [dayyMeal, setMealDay] = React.useState("")
     const [recipe, setRecipe] = React.useState()
     const [category, setCategory] = React.useState("")
-    const [weekMenu, setweekMenu] = React.useState ( [
-        { day: "lundi", matin: "", deujeuner: "", diner: "" },
-        { day: "mardi", matin: "", deujeuner: "", diner: "" },
-        { day: "mercredi", matin: "", deujeuner: "", diner: "" },
-        { day: "jeudi", matin: "", deujeuner: "", diner: "" },
-        { day: "vendredi", matin: "", deujeuner: "", diner: "" },
-        { day: "samedi", matin: "", deujeuner: "", diner: "" },
-        { day: "dimanche", matin: "", deujeuner: "", diner: "" }
-    ])
+    const [weekMenu, setWeekMenu] = React.useState({
+    lundi : {matin : "patantouille",deujeuner : "",diner : ""},
+    mardi :{
+        matin : "",
+        deujeuner : "",
+        diner : ""},
+    mercredi :{
+        matin : "",
+        deujeuner : "",
+        diner : ""
+    },
+    jeudi :{
+        matin : "",
+        deujeuner : "",
+        diner : ""
+    },
+    vendredi : {
+        matin : "",
+        deujeuner : "",
+        diner : ""
+    } ,
+    samedi :{
+        matin : "",
+        deujeuner : "",
+        diner : ""
+    },
+    dimanche : {
+        matin : "",
+        deujeuner : "",
+        diner : ""
+    }
 
-   
-    localStorage.setItem( 'week' , JSON.stringify(weekMenu));
-    console.log(`ici les weekmenu ${weekMenu[2].day}`)
-
-
-
+})
+    let arrayCategory = meal.filter((meal) => meal.category === category)
     
+    localStorage.setItem('week', JSON.stringify(weekMenu));
+    //console.log(`ici les weekmenu ${weekMenu[2].day}`)
 
+    //const ajoutjour = () => {
 
-
-    //function ajoutjour() {
-    //    let add = weekMenu[0].lundi.matin = meal[1].titre 
-    //    console.log(`weekMenu ajout aaa jour ${add}`)
-    //    console.log(`teste dans ajout ${weekMenu[0].lundi.matin} `)
+      //  for (const [key , value] of Object.entries(weekMenu)){
+        //    let keyN = key.toString()
+        //    let valueN = value
+    
+        //} if ()
+    
     //}
 
     const handleCategoryChange = (e) => {
@@ -43,27 +65,27 @@ const CreateMenu = ({ onDayyChange, onCategorychange }) => {
     const handleDayMealChange = (e) => {
         setMealDay(e.target.value)
     }
+
+    //console.log(`mealday setter   ${dayyMeal}`)
     const handleRecipeChange = (e) => {
         setRecipe(e.target.value)
     }
 
-    let arrayCategory = meal.filter((meal) => meal.category === category)
-    let weekFilter = weekMenu.filter((weekMenu) => weekMenu.day === dayyMeal)
+    //console.log(`${weekMenu[2].day} c'est l'état initial`)
 
-    //console.log(`le jour choisi ${dayyMeal} `)
+    console.log(`le jour choisi ${dayyMeal} `)
     //console.log(`le jour choisi ${category} `)
     //console.log(`casssttte ${arrayCategory}`)
     //console.log(`recette chois ${recipe}`)
-    console.log(`jour filter  ${weekFilter}`)
-    //console.log(`weekMenu ajout jour ${weekMenu[0].lundi.matin}`)
-    //console.log(`les meal miteux ${meal}`)
+    //console.log(`jour filter  ${weekFilter}`)
+
 
     return (
         <Center flexDirection={"column"}>
             <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"}>
                 <FormLabel>Choissez un jour de la semaine</FormLabel>
                 <Select w={"80%"} value={dayyMeal} onChange={handleDayMealChange} placeholder='Le jour'>
-                    <option  value="lundi">Lundi</option>
+                    <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
                     <option value="mercredi">Mercredi</option>
                     <option value="jeudi">Jeudi</option>
@@ -95,7 +117,7 @@ const CreateMenu = ({ onDayyChange, onCategorychange }) => {
 
 
 
-            <Button marginBottom={"3"} w={"25%"} color={"green.400"} >Ajout</Button>
+            <Button marginBottom={"3"} w={"25%"} color={"green.400"} onClick={ajoutjour} >Ajout</Button>
 
 
         </Center>
