@@ -1,5 +1,4 @@
 import React from "react";
-import './footerDestop.css'
 import { socialIconLink, linkListFooter } from "./dataLink";
 import { MdSettings } from 'react-icons/md'
 import { Flex, Image, Link, List, ListIcon, ListItem, Wrap, WrapItem } from '@chakra-ui/react';
