@@ -1,5 +1,5 @@
 // Import
-import axios from "axios"
+import axios from 'axios'
 
 const qs = require('qs')
 
