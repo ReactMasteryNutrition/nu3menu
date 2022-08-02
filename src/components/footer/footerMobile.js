@@ -1,12 +1,17 @@
 import React from "react";
-import { Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link, VStack } from '@chakra-ui/react';
-import { socialIconLink, linkListFooter } from "./dataLink";
+import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link, Flex } from '@chakra-ui/react';
+import { socialIconLink, linkListFooter } from "../data/dataLink";
 import { MdSettings } from 'react-icons/md'
 
 const FooterMobile = () => {
+    //const postition = {
+      //  position : "relative"
+    //}
+    //style={postition}
 
 
     return (
+
         <VStack padding='2rem' paddingBottom='6rem' spacing='2rem'>
             <Box>
                 <Image width='12rem' src='./images/logo_nu3menu.svg' alt="NU3MENU" />

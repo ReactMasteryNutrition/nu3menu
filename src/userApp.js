@@ -2,13 +2,11 @@ import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavDesktop from './components/navBar/NavDesktop';
 import NavMobile from './components/navBar/NavMobile';
-
 import NutriFooter from './components/footer/nutriFooter'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import MyAccount from './pages/MyAccount';
-
 import { Box } from '@chakra-ui/react'
 import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
 
