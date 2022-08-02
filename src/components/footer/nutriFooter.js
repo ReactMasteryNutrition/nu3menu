@@ -1,4 +1,4 @@
-//import { Box } from "@chakra-ui/react";
+
 import React from "react";
 import FooterDestop from "./footerDestop";
 import FooterMobile from "./footerMobile";
@@ -26,13 +26,13 @@ const NutriFooter = () => {
     }, [])
 
     return (
-        <>
-            {/*toggleMenu || */ largeur > 600 ?
+        <footer>
+            {/*toggleMenu || */ largeur > 500 ?
                 <FooterDestop/>
                 :
                 <FooterMobile/>
             }
-        </>
+        </footer>
     )
 }
 export default NutriFooter;
