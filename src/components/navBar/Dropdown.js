@@ -7,9 +7,20 @@ import {
     Avatar, Button
 } from '@chakra-ui/react'
   import {Link, Navigate} from "react-router-dom"
+import {signOut} from "firebase/auth";
+import {auth} from "../../firebase-config";
 
 const Dropdown = () => {
+    const logOut = async () => {
+        try {
+            await signOut(auth)
+
+        } catch {
+            alert("For some reasons we can't deconnect, please check your internet connexion and retry.")
+        }
+    }
     const handleClick = () => {
+        logOut()
         Navigate('/')
     }
     return (
@@ -50,11 +61,11 @@ const Dropdown = () => {
                 Aide et support
               </MenuItem>
             </Link>
-              <Button variant='ghost' color="black" fontWeight="bold" _hover={{ bgColor: '#48bb78' }}>
-                  <Link to="/" onClick={handleClick}  color="#1A202C">
+            <Link to="/" onClick={handleClick}>
+                <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                     Se déconnecter
-                  </Link>
-              </Button>
+                </MenuItem>
+            </Link>
           </MenuList>
         </Menu>
     )

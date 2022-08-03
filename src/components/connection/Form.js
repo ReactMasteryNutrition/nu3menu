@@ -69,7 +69,7 @@ const FormRegister = () => {
             {/* <FormControl isRequired marginBottom="1rem">
                 <Input placeholder='Prénom' bg='#f0fff4' color="#1A202C"/>
             </FormControl> */}
-            <form ref={formRef} onSubmit={(e) => handleSubmit(e)}>
+            <form ref={formRef} onSubmit={handleSubmit}>
                 <FormControl isRequired marginBottom="1rem">
                     <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" name="email" ref={addInputs} />
                 </FormControl >
@@ -91,15 +91,15 @@ const FormRegister = () => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl margin="1rem 0">
-                    <Button onClick={handleSubmit}
+                    <Button
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleSubmit}
                     >
                         S'inscrire
                     </Button>
                 </FormControl>
-            </form>
                 <FormControl>
                     <Button
                         width="100%"
@@ -111,13 +111,50 @@ const FormRegister = () => {
                     </Button>
                 </FormControl>
                 <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
+            </form>
         </Box>
     )
 }
 
 const FormLogin = () => {
+    const { login } = useAuth()
+    const navigate = useNavigate()
+    const { onClose } = useDisclosure()
+    const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
+
+    const inputs = useRef([]);
+    const addInputs = (el) => {
+        if (el && !inputs.current.includes(el)) {
+            inputs.current.push(el);
+        }
+    };
+    const formRef = useRef();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(inputs);
+        try {
+            const cred = await login(
+                inputs.current[0].value,
+                inputs.current[1].value
+            );
+            // formRef.current.reset();
+            setValidation("");
+            // console.log(cred);
+            onClose();
+            navigate("/");
+        } catch {
+            setValidation("Wopsy, email and/or password incorrect")
+        }
+    };
+
+    const closeModal = () => {
+        setValidation("");
+        onClose();
+    };
+
 
     return (
         <Box
@@ -127,10 +164,11 @@ const FormLogin = () => {
             width={ResponsiveWidth() ? "70%" : "80%"}
             transform="translate(-50%, -50%)"
         >
-            <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" />
+            <form ref={formRef} onSubmit={handleSubmit}>
+                <FormControl isRequired marginBottom="1rem">
+                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" ref={addInputs} name="email"/>
                 </FormControl >
-            <InputGroup size='md'>
+                <InputGroup size='md'>
                     <Input
                         pr='4.5rem'
                         type={show ? 'text' : 'password'}
@@ -138,6 +176,8 @@ const FormLogin = () => {
                         bg='#f0fff4'
                         isRequired
                         color="#1A202C"
+                        ref={addInputs}
+                        name="password"
                     />
                     <InputRightElement width='4.5rem' >
                         <Box size='sm' bg='#f0fff4' onClick={handleClick}>
@@ -145,28 +185,31 @@ const FormLogin = () => {
                         </Box>
                     </InputRightElement>
                 </InputGroup>
-            <FormControl textAlign='start'>
+                <FormControl textAlign='start'>
                     <FormHelperText>Mot de passe oublié ?</FormHelperText>
                 </FormControl>
-            <FormControl margin="1rem 0">
+                <FormControl margin="1rem 0">
                     <Button
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleSubmit}
                     >
                         Se connecter
                     </Button>
                 </FormControl>
-            <FormControl>
-                    <Button
-                        width="100%"
-                        bg="#48BB78"
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        <AiOutlineGoogle size="20" />
-                        <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
-                    </Button>
-                </FormControl>
+                <FormControl>
+                        <Button
+                            width="100%"
+                            bg="#48BB78"
+                            _hover={{ bgColor: "#a0aec0" }}
+                        >
+                            <AiOutlineGoogle size="20" />
+                            <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
+                        </Button>
+                    </FormControl>
+                <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
+            </form>
         </Box>
     )
 }

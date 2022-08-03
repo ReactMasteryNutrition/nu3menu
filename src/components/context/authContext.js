@@ -1,13 +1,8 @@
-import {createContext, useCallback, useMemo, useState, useContext} from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../firebase-config'
+import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut} from 'firebase/auth'
+import {auth} from '../../firebase-config'
 
-export const AuthContext = createContext(
-    {
-        currentUser: null,
-        register: () => Promise,
-    }
-)
+export const AuthContext = createContext()
 
 export const useAuth = () => {
     const context = useContext(AuthContext)
@@ -25,10 +20,32 @@ export default function AuthContextProvider(props) {
         return createUserWithEmailAndPassword(auth, email, password)
     },[])
 
+    const login = useCallback((email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }, []);
+
+    const logout = useCallback(() => {
+        return signOut(auth)
+    },[]);
+
+    console.log("MAJ", currentUser);
+    useEffect(() => {
+        return onAuthStateChanged(auth, (currentUser) => {
+            setCurrentUser(currentUser)
+            setLoading(false)
+        });
+
+    }, [])
+
+
     const value = useMemo(() => ({
         currentUser,
         register,
-    }),[currentUser, register])
+        login,
+        logout,
+        loading,
+        setLoading
+    }),[currentUser, register, login, logout, loading, setLoading])
 
     return (
         <AuthContext.Provider value={value}>
