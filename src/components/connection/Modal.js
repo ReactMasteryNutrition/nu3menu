@@ -17,6 +17,7 @@ import {
 import { IoLogInSharp } from "react-icons/io5"
 import { BsFillPersonPlusFill } from "react-icons/bs"
 
+
 const ModalRegister = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 

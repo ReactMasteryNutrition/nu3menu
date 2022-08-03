@@ -1,6 +1,6 @@
 
 import { ResponsiveWidth } from "../../utils/helper"
-import {useContext, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
     FormControl,
@@ -9,25 +9,20 @@ import {
     InputGroup,
     Button,
     Box,
-    FormHelperText, useDisclosure
+    FormHelperText, useDisclosure, Text
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
-import { AuthContext } from '../context/authContext';
 import {BsBookmarkFill} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom'
-
-function Text(props) {
-    return null;
-}
+import { useAuth } from '../context/authContext'
 
 const FormRegister = () => {
+    const { register } = useAuth()
+    const navigate = useNavigate()
+    const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
     const { onClose } = useDisclosure()
-    const [validation, setValidation] = useState("");
     const handleClick = () => setShow(!show)
-    const navigate = useNavigate()
-
-    const {register} = useContext(AuthContext);
 
     const inputs = useRef([])
     const addInputs = el => {
@@ -36,21 +31,10 @@ const FormRegister = () => {
         }
     }
 
-    const removeInputs = el => {
-        if(el && inputs.current.includes(el)){
-            inputs.current = inputs.current.filter(i => i !== el)
-        }
-    }
-
     const formRef = useRef();
 
-    const handleSubmit = async (e) => {
+     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValid = inputs.current.every(i => i.validity.valid)
-        if(inputs.current[0].value === "") {
-            setValidation("Veuillez indiquer une adresse email")
-            return;
-        }
         if((inputs.current[1].value.length) < 6) {
             setValidation("6 characters min")
             return;
@@ -62,28 +46,10 @@ const FormRegister = () => {
                 inputs.current[1].value
             )
             formRef.current.reset();
-            setValidation("")
-            closeModal( onClose )
-            navigate("/")
+        }
 
-        }   catch (err) {
-            setValidation(err.message)
-            switch (err.code) {
-                case "auth/email-already-in-use":
-                    setValidation("Cette adresse e-mail est déjà utilisée")
-                    break;
-                case "auth/invalid-email":
-                    setValidation("Cette adresse e-mail n'est pas valide")
-                    break;
-                case "auth/weak-password":
-                    setValidation("Le mot de passe doit contenir au moins 6 caractères")
-                    break;
-                default:
-                    throw new Error ("Erreur non prise en compte")
-                    break;
-            }
-            //console.dir(err)
-            // setError(err.message);
+        catch (err) {
+            console.log(err)
         }
     }
 
@@ -103,7 +69,7 @@ const FormRegister = () => {
             {/* <FormControl isRequired marginBottom="1rem">
                 <Input placeholder='Prénom' bg='#f0fff4' color="#1A202C"/>
             </FormControl> */}
-            <form ref={formRef} onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={(e) => handleSubmit(e)}>
                 <FormControl isRequired marginBottom="1rem">
                     <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" name="email" ref={addInputs} />
                 </FormControl >
@@ -125,7 +91,7 @@ const FormRegister = () => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl margin="1rem 0">
-                    <Button
+                    <Button onClick={handleSubmit}
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
@@ -133,6 +99,7 @@ const FormRegister = () => {
                         S'inscrire
                     </Button>
                 </FormControl>
+            </form>
                 <FormControl>
                     <Button
                         width="100%"
@@ -144,56 +111,13 @@ const FormRegister = () => {
                     </Button>
                 </FormControl>
                 <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
-            </form>
         </Box>
     )
 }
 
 const FormLogin = () => {
-    const { login } = useContext(AuthContext);
     const [show, setShow] = useState(false)
-    const { onClose } = useDisclosure()
-    const [validation, setValidation] = useState("");
     const handleClick = () => setShow(!show)
-    const navigate = useNavigate()
-
-    const inputs = useRef([]);
-    const addInputs = (el) => {
-        if (el && !inputs.current.includes(el)) {
-            inputs.current.push(el);
-        }
-    };
-
-    const removeInputs = (el) => {
-        if (el && inputs.current.includes(el)) {
-            inputs.current = inputs.current.filter(i => i !== el);
-        }
-    }
-
-    const formRef = useRef();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log(inputs)
-        try {
-            const cred = await login(
-                inputs.current[0].value,
-                inputs.current[1].value
-            )
-            //formRef.current.reset();
-            setValidation("")
-            closeModal( onClose )
-            navigate("/")
-        } catch (err) {
-            setValidation(err.message)
-
-        }
-    }
-
-    const closeModal = () => {
-        setValidation("")
-        onClose()
-    }
 
     return (
         <Box
@@ -203,11 +127,10 @@ const FormLogin = () => {
             width={ResponsiveWidth() ? "70%" : "80%"}
             transform="translate(-50%, -50%)"
         >
-            <form ref={formRef} onSubmit={handleSubmit}>
-                <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" type="email" ref={addInputs} />
+            <FormControl isRequired marginBottom="1rem">
+                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" />
                 </FormControl >
-                <InputGroup size='md'>
+            <InputGroup size='md'>
                     <Input
                         pr='4.5rem'
                         type={show ? 'text' : 'password'}
@@ -215,8 +138,6 @@ const FormLogin = () => {
                         bg='#f0fff4'
                         isRequired
                         color="#1A202C"
-                        name="password"
-                        ref={addInputs}
                     />
                     <InputRightElement width='4.5rem' >
                         <Box size='sm' bg='#f0fff4' onClick={handleClick}>
@@ -224,10 +145,10 @@ const FormLogin = () => {
                         </Box>
                     </InputRightElement>
                 </InputGroup>
-                <FormControl textAlign='start'>
+            <FormControl textAlign='start'>
                     <FormHelperText>Mot de passe oublié ?</FormHelperText>
                 </FormControl>
-                <FormControl margin="1rem 0">
+            <FormControl margin="1rem 0">
                     <Button
                         width="100%"
                         bg="#48BB78"
@@ -236,7 +157,7 @@ const FormLogin = () => {
                         Se connecter
                     </Button>
                 </FormControl>
-                <FormControl>
+            <FormControl>
                     <Button
                         width="100%"
                         bg="#48BB78"
@@ -246,8 +167,6 @@ const FormLogin = () => {
                         <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
                     </Button>
                 </FormControl>
-                <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
-            </form>
         </Box>
     )
 }

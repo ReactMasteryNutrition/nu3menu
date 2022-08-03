@@ -4,8 +4,8 @@ import {
     MenuList,
     MenuItem,
     MenuDivider,
-    Avatar
-  } from '@chakra-ui/react'
+    Avatar, Button
+} from '@chakra-ui/react'
   import {Link, Navigate} from "react-router-dom"
 
 const Dropdown = () => {
@@ -50,11 +50,11 @@ const Dropdown = () => {
                 Aide et support
               </MenuItem>
             </Link>
-            <Link to="/" onClick={handleClick}>
-              <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-                Se déconnecter
-              </MenuItem>
-            </Link>
+              <Button variant='ghost' color="black" fontWeight="bold" _hover={{ bgColor: '#48bb78' }}>
+                  <Link to="/" onClick={handleClick}  color="#1A202C">
+                    Se déconnecter
+                  </Link>
+              </Button>
           </MenuList>
         </Menu>
     )

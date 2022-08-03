@@ -20,12 +20,9 @@ import { MdOutlineMenuBook } from "react-icons/md"
 const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const Navigate = useNavigate()
-
     const handleClick = () => {
         Navigate('/')
     }
-
-
     return (
         <Box>
             <Button

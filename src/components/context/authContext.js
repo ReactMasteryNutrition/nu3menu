@@ -1,45 +1,34 @@
-import {createContext, useCallback, useMemo, useState, useEffect, useContext} from 'react'
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
+import {createContext, useCallback, useMemo, useState, useContext} from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase-config'
 
-export const AuthContext = createContext()
+export const AuthContext = createContext(
+    {
+        currentUser: null,
+        register: () => Promise,
+    }
+)
+
+export const useAuth = () => {
+    const context = useContext(AuthContext)
+    if (!context) {
+        throw new Error("useAuth() s'utilise avec <AuthContext.provider>")
+    }
+    return context
+}
 
 export default function AuthContextProvider(props) {
-    //console.log("%cAuthContext", 'background: darkblue; color: white;')
-    const register = useCallback((email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password)
-        //console.log("register", 'background: lightblue; color: black;')
-    },[])
-
-    const login = useCallback((email, password) => {
-        //console.log("%cAuthContext -- Login", 'background: lightblue; color: black;')
-        return signInWithEmailAndPassword(auth, email, password)
-    },[])
-
-
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setCurrentUser(currentUser)
-            setLoading(false)
-        })
-
-        return () => {
-            unsubscribe()
-        }
-
-    }, [])
-
+    const register = useCallback((email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password)
+    },[])
 
     const value = useMemo(() => ({
         currentUser,
-        loading,
-        setLoading,
         register,
-        login,
-    }),[currentUser, loading, register, login])
+    }),[currentUser, register])
 
     return (
         <AuthContext.Provider value={value}>
