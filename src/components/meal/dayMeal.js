@@ -3,7 +3,7 @@ import { Box, Button, Flex, Heading, Image, Text} from "@chakra-ui/react";
 //import { weekMenu } from "../data/weekMenu";
 
 
-const DayMeal = ({mealDayy,category}) =>{
+const DayMeal = ({currentUser,category}) =>{
 //console.log(`daymeal funtion ${mealDayy}`)
 //console.log(`teste dans ajout ${weekMenu[0].lundi.matin} `)
 //console.log(`ici les weekmenu ${weekMenu[2].day}`)
@@ -12,8 +12,10 @@ let weekParse = JSON.parse(week)
 const keyWeek = Object.keys(weekParse)
 
 const handleClickDelete = () =>{
-    localStorage.removeItem('week');
+    localStorage.removeItem('week')
 }
+
+console.log(`${currentUser} coucou `)
 
 console.log(`${keyWeek} voila les clef`)
 console.log(`teste recupération week  ${week}`)
