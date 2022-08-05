@@ -13,8 +13,8 @@ export default function SearchAndFilter() {
         type: 'public',
         beta: 'true',
         q: '', //recipe => mot clé recherché
-        app_id: '9aa229ff',
-        app_key: 'b0cc99c6ca952ed1d898610b97dece87',
+        app_id: process.env.REACT_APP_EDAMAM_API_ID,
+        app_key: process.env.REACT_APP_EDAMAM_API_KEY,
     })
 
     const handleSearch = recipeName => {

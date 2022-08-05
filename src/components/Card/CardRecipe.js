@@ -25,13 +25,13 @@ export default function CardRecipe(datas) {
                                             "titre titre titre titre"
                                             "stat stat stat openrecipe"`]}              
                         >
-                            <GridItem bg='green.300' area='image' justifySelf={['left', 'center']} marginRight={['0.5rem', '0']}>
+                            <GridItem area='image' justifySelf={['left', 'center']} marginRight={['0.5rem', '0']}>
                                 <Image src={recipe.recipe.image} alt={recipe.recipe.label} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
                             </GridItem>
-                            <GridItem bg='yellow.300' area='titre' alignSelf='center' paddingY='1rem'>
+                            <GridItem area='titre' alignSelf='center' paddingY='1rem'>
                                 <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{recipe.recipe.label}</Text>
                             </GridItem>
-                            <GridItem bg='pink.300' area='stat'>
+                            <GridItem area='stat'>
                                 <VStack align='left'>
                                     <IconContext.Provider value={{ size: '2rem', color: '#276749'}}>
                                         <Flex>
