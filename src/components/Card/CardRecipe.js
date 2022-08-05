@@ -1,8 +1,8 @@
 // Imports //
 import React from 'react'
-import { Box, Flex, Image, Link, Text, VStack } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
-import { IoEnter, IoPeople, IoTimer } from 'react-icons/io5'
+import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Functions //
 
@@ -17,32 +17,48 @@ export default function CardRecipe(datas) {
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {recipesDatas.map(recipe => {
                 return(
-                    <Box key={recipesDatas.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
-                        <Box display='flex' flexDirection={['row', 'column', 'column', 'column']}>
-                            <Image src={recipe.recipe.image} alt={recipe.recipe.label} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
-                            <Box>
-                                <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' textAlign='center' noOfLines={1}>{recipe.recipe.label}</Text>
-                                <VStack spacing='1rem' align='left' marginTop='1rem'>
+                    <Box key={recipesDatas.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' display='flex' flexDir='column' overflow='hidden' borderRadius='md' bg='gray.400'>
+                        <Grid
+                            templateAreas={[`"image image stat stat"
+                                            "titre titre titre openrecipe"`,
+                                            `"image image image image"
+                                            "titre titre titre titre"
+                                            "stat stat stat openrecipe"`]}              
+                        >
+                            <GridItem bg='green.300' area='image' justifySelf={['left', 'center']} marginRight={['0.5rem', '0']}>
+                                <Image src={recipe.recipe.image} alt={recipe.recipe.label} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
+                            </GridItem>
+                            <GridItem bg='yellow.300' area='titre' alignSelf='center' paddingY='1rem'>
+                                <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{recipe.recipe.label}</Text>
+                            </GridItem>
+                            <GridItem bg='pink.300' area='stat'>
+                                <VStack align='left'>
                                     <IconContext.Provider value={{ size: '2rem', color: '#276749'}}>
                                         <Flex>
                                             <IoTimer/>
-                                            <Text marginLeft='1rem'>{toHoursAndMinutes(recipe.recipe.totalTime)}</Text>
+                                            <Text marginLeft='0.5rem'>{toHoursAndMinutes(recipe.recipe.totalTime)}</Text>
                                         </Flex>
                                         <Flex>
                                             <IoPeople/>
-                                            <Text marginLeft='1rem'>{recipe.recipe.yield}</Text>
+                                            <Text marginLeft='0.5rem'>{recipe.recipe.yield}</Text>
+                                        </Flex>
+                                        <Flex>
+                                            <IoFlash/>
+                                            <Text marginLeft='0.5rem'>{recipe.recipe.calories.toFixed(2)} Kcal</Text>
                                         </Flex>
                                     </IconContext.Provider>
                                 </VStack>
-                                <Box display='flex' justifyContent='right'>
+                            </GridItem>
+                            <GridItem area='openrecipe' display='flex' flexDirection='column' justifyContent='end'>
+                                <Flex justifyContent='end'>
                                     <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
                                         <Link>
                                             <IoEnter/>
                                         </Link>
                                     </IconContext.Provider>
-                                </Box>
-                            </Box>
-                        </Box>
+                                </Flex>
+                            </GridItem>
+                        </Grid>
                     </Box>
                 )
             })}

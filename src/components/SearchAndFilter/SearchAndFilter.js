@@ -29,10 +29,7 @@ export default function SearchAndFilter() {
 
 
     return (
-        <Box w="100%" h='auto' display='flex' flexDir={['column', 'row']}>
-            <Box display={['none', 'none', 'flex']}>
-                <Filter filter={filter} setFilter={setFilter}/>
-            </Box>
+        <Box w="100%" h='auto' display='flex' flexDir={['column', 'row']} flexGrow='1'>
             <Box w="100%" color='green.50' >
                 <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter}/>
                 <Query thingSearched={recipe} filter={filter}/>
