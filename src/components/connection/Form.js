@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { AuthContext } from '../context/authContext';
-import {BsBookmarkFill} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom'
 
 function Text(props) {
@@ -205,7 +204,7 @@ const FormLogin = () => {
         >
             <form ref={formRef} onSubmit={handleSubmit}>
                 <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" type="email" ref={addInputs} />
+                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" ref={addInputs} />
                 </FormControl >
                 <InputGroup size='md'>
                     <Input
