@@ -5,7 +5,7 @@ import { MdSettings } from 'react-icons/md'
 
 const FooterMobile = () => {
     //const postition = {
-      //  position : "relative"
+    //  position : "relative"
     //}
     //style={postition}
 
@@ -19,6 +19,7 @@ const FooterMobile = () => {
             <Box>
                 <ButtonGroup variant="ghost">
                     {socialIconLink.map((data) => <IconButton
+                        key={data.id}
                         as="a"
                         color={data.colori}
                         href={data.to}
