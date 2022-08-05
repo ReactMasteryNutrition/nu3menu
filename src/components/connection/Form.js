@@ -49,7 +49,7 @@ const FormRegister = () => {
         }
 
         catch (err) {
-            console.log(err)
+            setValidation("Wopsy, email already used")
         }
     }
 
@@ -123,6 +123,7 @@ const FormLogin = () => {
     const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
+    const { loading } = useAuth()
 
     const inputs = useRef([]);
     const addInputs = (el) => {
@@ -134,7 +135,6 @@ const FormLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(inputs);
         try {
             const cred = await login(
                 inputs.current[0].value,
@@ -196,6 +196,10 @@ const FormLogin = () => {
                         onClick={handleSubmit}
                     >
                         Se connecter
+                        {loading && <Button
+                            isLoading
+                            loadingText='Submitting'
+                        > </Button>}
                     </Button>
                 </FormControl>
                 <FormControl>

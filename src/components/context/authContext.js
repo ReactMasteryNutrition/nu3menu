@@ -1,5 +1,5 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut} from 'firebase/auth'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, GoogleAuthProvider} from 'firebase/auth'
 import {auth} from '../../firebase-config'
 
 export const AuthContext = createContext()
@@ -28,7 +28,6 @@ export default function AuthContextProvider(props) {
         return signOut(auth)
     },[]);
 
-    console.log("MAJ", currentUser);
     useEffect(() => {
         return onAuthStateChanged(auth, (currentUser) => {
             setCurrentUser(currentUser)
@@ -36,6 +35,8 @@ export default function AuthContextProvider(props) {
         });
 
     }, [])
+
+    const provider = new GoogleAuthProvider();
 
 
     const value = useMemo(() => ({

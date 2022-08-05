@@ -1,4 +1,4 @@
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import {
     useDisclosure,
     Drawer,
@@ -16,12 +16,25 @@ import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
 import { MdOutlineMenuBook } from "react-icons/md"
+import {signOut} from "firebase/auth";
+import {auth} from "../../firebase-config";
+import {useAuth} from "../context/authContext";
 
 const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const Navigate = useNavigate()
-    const handleClick = () => {
-        Navigate('/')
+    const { logout } = useAuth()
+
+    const handleClick = async ()  => {
+        try {
+            const logOut = await logout (auth)
+            console.log("Vous êtes déconnecté");
+            setTimeout(() => {
+                Navigate('/')
+            }, 1000);
+        } catch {
+            alert("For some reasons we can't deconnect, please check your internet connexion and retry.")
+        }
     }
     return (
         <Box>
