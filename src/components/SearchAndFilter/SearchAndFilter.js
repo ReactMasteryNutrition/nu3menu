@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 
-import Filter from '../../components/SearchAndFilter/Filter'
 import Query from '../../components/SearchAndFilter/Query'
 import SearchBar from '../../components/SearchAndFilter/SearchBar'
 

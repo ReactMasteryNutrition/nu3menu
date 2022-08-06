@@ -1,7 +1,7 @@
 // Imports 
 import React from 'react'
-import { Box, Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FormControl, FormLabel, IconButton, Input, InputGroup, InputLeftAddon, InputLeftElement, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, StatHelpText, Tooltip, useDisclosure } from '@chakra-ui/react'
-import { IoFunnel, IoFunnelOutline, IoSearch } from 'react-icons/io5'
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, Flex, FormControl, IconButton, Input, InputGroup, InputLeftElement, Tooltip, useDisclosure } from '@chakra-ui/react'
+import { IoFunnel, IoSearch } from 'react-icons/io5'
 import Filter from '../../components/SearchAndFilter/Filter'
 // Functions
 export default function SearchBar({thingSearched, handleSearch, filter, setFilter}){
