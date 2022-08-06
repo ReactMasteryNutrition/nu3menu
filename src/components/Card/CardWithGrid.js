@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, Flex, Grid, GridItem, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
-import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
+//import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Functions //
 
 export default function CardWithGrid() {
