@@ -23,17 +23,18 @@ const CreateMenu = () => {
     localStorage.setItem('week', JSON.stringify(weekMenu));
     //console.log(`ici les weekmenu ${weekMenu[2].day}`)
 
-   const ajoutjour = () => {
+   const ajoutjour = (e) => {
 
         for (const [key , value] of Object.entries(weekMenu)){
-            //let keyN = key.toString()
+            let keyN = key.toString()
             //let valueN = value
             console.log(`les key ${key}`)
         if (key === dayyMeal ) {
+            
             setWeekMenu({
             ...weekMenu,
-           lundi : {
-            matin : "un truc",
+            lundi : {
+            matin : "le super",
             deujeuner :" un autre truc ",
             diner : "et voilà "}
              })
@@ -45,7 +46,7 @@ const CreateMenu = () => {
     console.log(`state weekmenu ${weekMenu.lundi}`)
 
     const handleCategoryChange = (e) => {
-        //setCategory(e.target.value)
+        setCategory(e.target.value)
         //onCategorychange(category)
     }
 
@@ -84,7 +85,7 @@ const CreateMenu = () => {
             <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"}>
                 <FormLabel>Category</FormLabel>
                 <Select w={"80%"} value={category} onChange={handleCategoryChange} placeholder='category'>
-                    <option value="matin">Petit déjeuner</option>
+                    <option value="dejeuner">Petit déjeuner</option>
                     <option value="déjeuner">Déjeuné</option>
                     <option value="diner">Dîner</option>
 

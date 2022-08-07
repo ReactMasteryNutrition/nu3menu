@@ -46,7 +46,7 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
                             color='gray.400'
                             icon={<IoFunnel/>}
                             onClick={onOpen}
-                            display={['flex', 'flex', 'none']}
+                            
                         />
                     </Tooltip>
                 </Flex>
@@ -59,7 +59,7 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
             size={['full', 'xs']}
             >
                 <DrawerOverlay/>
-                <DrawerContent bgColor='gray.400' w='100%'>
+                <DrawerContent bgColor='gray.400' w='100%' overflow='scroll' >
                     <DrawerCloseButton />
                     <Filter filter={filter} setFilter={setFilter}/>
                 </DrawerContent>
