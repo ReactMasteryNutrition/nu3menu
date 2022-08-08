@@ -69,15 +69,15 @@ export default function AuthContextProvider(props) {
         return signInWithPopup(auth,provider)
     },[])
 
-    const NewCreateUserInFirestoreDatabase = async (cred: UserCredential) => {
-        const userRef = doc(db, "users", cred.user.uid)
+    const NewCreateUserInFirestoreDatabase = async (UserCredential) => {
+        const userRef = doc(db, "users", UserCredential.user.uid)
         const userDoc = await getDoc(userRef)
         if (!userDoc.exists) {
             setDoc(userRef, {
-                id : cred.user.uid,
+                id : UserCredential.user.uid,
                 //name: cred.user.displayName,
-                email: cred.user.email,
-                imgSrc: cred.user.imgSrc,
+                email: UserCredential.user.email,
+                imgSrc: UserCredential.user.imgSrc,
                 createdAt: FieldValue.serverTimestamp()
             })
         }

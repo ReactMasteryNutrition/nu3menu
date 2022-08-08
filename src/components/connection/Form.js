@@ -41,8 +41,8 @@ const FormRegister = () => {
     const handleGoogle = () => {
         setAuthing(true)
         signInWithGoogle()
-            .then((cred: UserCredential) => {
-                NewCreateUserInFirestoreDatabase(cred)
+            .then((UserCredential) => {
+                NewCreateUserInFirestoreDatabase(UserCredential)
                 navigate("/")
             })
             .catch(err => {
@@ -200,8 +200,8 @@ const FormLogin = ({withWhat}) => {
     const handleGoogle = () => {
         setAuthing(true)
         signInWithGoogle()
-            .then((cred: UserCredential) => {
-                NewCreateUserInFirestoreDatabase(cred)
+            .then((UserCredential) => {
+                NewCreateUserInFirestoreDatabase(UserCredential)
                 navigate("/")
             })
             .catch(err => {
