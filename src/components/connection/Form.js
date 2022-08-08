@@ -18,10 +18,11 @@ import { useAuth } from '../context/authContext'
 import {setDoc} from "firebase/firestore";
 import {user} from "../../firebase-config";
 import {UserCredential} from "firebase/auth";
-import {NewCreateUserInFirestoreDatabase} from "../context/authContext";
+
 
 const FormRegister = () => {
-    const { register } = useAuth()
+    const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth()
+    const [authing, setAuthing] = useState(false)
     const navigate = useNavigate()
     const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
@@ -37,7 +38,43 @@ const FormRegister = () => {
 
     const formRef = useRef();
 
-     const handleSubmit = async (e) => {
+    const handleGoogle = () => {
+        setAuthing(true)
+        signInWithGoogle()
+            .then((cred: UserCredential) => {
+                NewCreateUserInFirestoreDatabase(cred)
+                navigate("/")
+            })
+            .catch(err => {
+                console.log(err)
+                setValidation(err.code)
+                switch (err.code) {
+                    case "auth/account-exists-with-different-credential":
+                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
+                        break;
+                    case "auth/invalid-credential":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/operation-not-allowed":
+                        setValidation("Opération non autorisée")
+                        break;
+                    case "auth/user-disabled":
+                        setValidation("Ce compte est désactivé")
+                        break;
+                    case "auth/user-not-found":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/wrong-password":
+                        setValidation("Mauvais mot de passe")
+                        break;
+                    default:
+                        setValidation("Erreur inconnue")
+                        break;
+                }
+            })
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if((inputs.current[1].value.length) < 6) {
             setValidation("6 characters min")
@@ -118,6 +155,7 @@ const FormRegister = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleGoogle}
                     >
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>S'inscrire avec Google</Box>
@@ -138,8 +176,7 @@ const FormLogin = ({withWhat}) => {
     const handleClick = () => setShow(!show)
     const {loading , setLoading} = useAuth()
     const [authing, setAuthing] = useState(false)
-    const { signInWithGoogle } = useAuth()
-    const btnRef = useRef(null)
+    const { signInWithGoogle, NewCreateUserInFirestoreDatabase  } = useAuth()
 
     useLayoutEffect(() => {
         setTimeout(() => {
@@ -162,21 +199,38 @@ const FormLogin = ({withWhat}) => {
 
     const handleGoogle = () => {
         setAuthing(true)
-        switch (true) {
-            case "google":
-                signInWithGoogle().then((cred: UserCredential) => {
-                    NewCreateUserInFirestoreDatabase(cred)
-                    console.log(cred)
-                    navigate("/")
-                }).catch(err => {
-                    console.log(err)
-                    setAuthing(false)
-                })
-                break;
-            default:
-                break;
-
-        }
+        signInWithGoogle()
+            .then((cred: UserCredential) => {
+                NewCreateUserInFirestoreDatabase(cred)
+                navigate("/")
+            })
+            .catch(err => {
+                console.log(err)
+                setValidation(err.code)
+                switch (err.code) {
+                    case "auth/account-exists-with-different-credential":
+                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
+                        break;
+                    case "auth/invalid-credential":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/operation-not-allowed":
+                        setValidation("Opération non autorisée")
+                        break;
+                    case "auth/user-disabled":
+                        setValidation("Ce compte est désactivé")
+                        break;
+                    case "auth/user-not-found":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/wrong-password":
+                        setValidation("Mauvais mot de passe")
+                        break;
+                    default:
+                        setValidation("Erreur inconnue")
+                        break;
+                }
+            })
     }
 
     const handleSubmit = async (e) => {
@@ -249,15 +303,12 @@ const FormLogin = ({withWhat}) => {
                             width="100%"
                             bg="#48BB78"
                             _hover={{ bgColor: "#a0aec0" }}
-                            onClick={() => handleGoogle()}
+                            onClick={handleGoogle}
                         >
                             <AiOutlineGoogle size="20" />
                             <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
-                            { loading && <Spinner /> }
-                            { !authing && !loading && <FormLogin withWhat='google' setAuthing={setAuthing} /> }
-                            { authing && <Spinner /> }
                         </Button>
-                    </FormControl>
+                </FormControl>
                 <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
             </form>
         </Box>

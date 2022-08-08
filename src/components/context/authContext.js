@@ -1,5 +1,5 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider, UserCredential} from 'firebase/auth'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider,UserCredential} from 'firebase/auth'
 import {auth, db} from '../../firebase-config'
 import {Avatar} from "@chakra-ui/react";
 import {setDoc, doc, getDoc} from "firebase/firestore";
@@ -75,7 +75,7 @@ export default function AuthContextProvider(props) {
         if (!userDoc.exists) {
             setDoc(userRef, {
                 id : cred.user.uid,
-                name: cred.user.displayName,
+                //name: cred.user.displayName,
                 email: cred.user.email,
                 imgSrc: cred.user.imgSrc,
                 createdAt: FieldValue.serverTimestamp()
@@ -84,9 +84,7 @@ export default function AuthContextProvider(props) {
 
     }
 
-
     const provider = new GoogleAuthProvider();
-
 
     const value = useMemo(() => ({
         currentUser,
@@ -94,8 +92,10 @@ export default function AuthContextProvider(props) {
         login,
         logout,
         loading,
-        setLoading
-    }),[currentUser, register, login, logout, loading, setLoading])
+        setLoading,
+        NewCreateUserInFirestoreDatabase,
+        signInWithGoogle
+    }),[currentUser, register, login, logout, loading, setLoading, NewCreateUserInFirestoreDatabase, signInWithGoogle])
 
     return (
         <AuthContext.Provider value={value}>
