@@ -23,26 +23,97 @@ const CreateMenu = () => {
     localStorage.setItem('week', JSON.stringify(weekMenu));
     //console.log(`ici les weekmenu ${weekMenu[2].day}`)
 
-   const ajoutjour = (e) => {
+    const ajoutjour = () => {
 
-        for (const [key , value] of Object.entries(weekMenu)){
-            let keyN = key.toString()
-            //let valueN = value
-            console.log(`les key ${key}`)
-        if (key === dayyMeal ) {
-            
-            setWeekMenu({
-            ...weekMenu,
-            lundi : {
-            matin : "le super",
-            deujeuner :" un autre truc ",
-            diner : "et voilà "}
-             })
+        for (const [key, value] of Object.entries(weekMenu)) {
+            let valueN = Object.getOwnPropertyNames(value)
+            console.log(`ici les weekmenu ${category}`)
+            console.log(`les key ${value}`)
+            if (key === dayyMeal && key === "lundi") {
+                
+                if (valueN === category) {
+                    setWeekMenu({
+                        ...weekMenu,
+                        lundi: { ...value , matin: "illlllll" }
+                    })
+                } else if (value === category && value === "deujeuner") {
+                setWeekMenu({
+                    ...weekMenu,
+                    lundi: { ...value, deujeuner: " un autre truc " }
+                })
+            } else if (value === category && value === "diner") {
+                setWeekMenu({
+                    ...weekMenu,
+                    lundi: { ...value, diner: "et voilà " }
+                })
             }
-             console.log(`patouille est la valeur`)   
+        
         }
+        if (key === dayyMeal && key === "mardi") {
+            setWeekMenu({
+                ...weekMenu,
+                mardi: {
+                    matin: "illlllll",
+                    deujeuner: " un autre truc ",
+                    diner: "et voilà "
+                }
+            })
+        }
+        if (key === dayyMeal && key === "mercredi") {
+            setWeekMenu({
+                ...weekMenu,
+                mercredi: {
+                    matin: "illlllll",
+                    deujeuner: " un autre truc ",
+                    diner: "et voilà "
+                }
+            })
+        }
+        if (key === dayyMeal && key === "jeudi") {
+            setWeekMenu({
+                ...weekMenu,
+                jeudi: {
+                    matin: "illlllll",
+                    deujeuner: " un autre truc ",
+                    diner: "et voilà "
+                }
+            })
+        }
+        if (key === dayyMeal && key === "vendredi") {
+            setWeekMenu({
+                ...weekMenu,
+                vendredi: {
+                    matin: "illlllll",
+                    deujeuner: " un autre truc ",
+                    diner: "et voilà "
+                }
+            })
+        }
+        if (key === dayyMeal && key === "samedi") {
+            setWeekMenu({
+                ...weekMenu,
+                samedi: {
+                    matin: "illlllll",
+                    deujeuner: " un autre truc ",
+                    diner: "et voilà "
+                }
+            })
+        }
+        if (key === dayyMeal && key === "dimanche") {
+            setWeekMenu({
+                ...weekMenu,
+                dimanche: {
+                    matin: "illlllll",
+                    deujeuner: " un autre truc ",
+                    diner: "et voilà "
+                }
+            })
+        }
+        
     }
+}
 
+        
     console.log(`state weekmenu ${weekMenu.lundi}`)
 
     const handleCategoryChange = (e) => {
