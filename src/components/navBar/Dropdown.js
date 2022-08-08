@@ -9,8 +9,10 @@ import {
   import {Link, Navigate} from "react-router-dom"
 import {signOut} from "firebase/auth";
 import {auth} from "../../firebase-config";
+import {useAuth} from "../context/authContext";
 
 const Dropdown = () => {
+    const { currentUser } = useAuth()
     const logOut = async () => {
         try {
             await signOut(auth)
@@ -31,7 +33,7 @@ const Dropdown = () => {
           <MenuList bg='#f0fff4'>
             <Link to="/">
               <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-                John
+                  {currentUser?.email}
               </MenuItem>
             </Link>
             <MenuDivider />

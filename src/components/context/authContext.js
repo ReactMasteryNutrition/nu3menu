@@ -1,6 +1,9 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, GoogleAuthProvider} from 'firebase/auth'
-import {auth} from '../../firebase-config'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider, UserCredential} from 'firebase/auth'
+import {auth, db} from '../../firebase-config'
+import {Avatar} from "@chakra-ui/react";
+import {setDoc, doc, getDoc} from "firebase/firestore";
+import {FieldValue} from "@firebase/firestore";
 
 export const AuthContext = createContext()
 
@@ -30,11 +33,57 @@ export default function AuthContextProvider(props) {
 
     useEffect(() => {
         return onAuthStateChanged(auth, (currentUser) => {
-            setCurrentUser(currentUser)
-            setLoading(false)
+            if (currentUser) {
+                const imgSrc = <Avatar size="sm" />
+                setCurrentUser({
+                    user: currentUser,
+                    imgSrc: imgSrc,
+                    email: currentUser.email,
+
+                });
+            } else {
+                setCurrentUser(currentUser);
+            }
         });
 
     }, [])
+
+    useEffect(() => {
+        authCheck()
+        return () => {
+            authCheck()
+        }
+    }, [auth]);
+
+    const authCheck = onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+            const newUser = currentUser
+            setCurrentUser(newUser)
+        } else {
+            setCurrentUser(currentUser);
+        }
+    } );
+
+    const signInWithGoogle = useCallback(() => {
+        const provider = new GoogleAuthProvider()
+        return signInWithPopup(auth,provider)
+    },[])
+
+    const NewCreateUserInFirestoreDatabase = async (cred: UserCredential) => {
+        const userRef = doc(db, "users", cred.user.uid)
+        const userDoc = await getDoc(userRef)
+        if (!userDoc.exists) {
+            setDoc(userRef, {
+                id : cred.user.uid,
+                name: cred.user.displayName,
+                email: cred.user.email,
+                imgSrc: cred.user.imgSrc,
+                createdAt: FieldValue.serverTimestamp()
+            })
+        }
+
+    }
+
 
     const provider = new GoogleAuthProvider();
 

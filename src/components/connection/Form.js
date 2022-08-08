@@ -1,6 +1,6 @@
 
 import { ResponsiveWidth } from "../../utils/helper"
-import {useRef, useState} from 'react';
+import {useLayoutEffect, useRef, useState} from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
     FormControl,
@@ -9,12 +9,16 @@ import {
     InputGroup,
     Button,
     Box,
-    FormHelperText, useDisclosure, Text
+    FormHelperText, useDisclosure, Text, Spinner
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import {BsBookmarkFill} from "react-icons/bs";
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
+import {setDoc} from "firebase/firestore";
+import {user} from "../../firebase-config";
+import {UserCredential} from "firebase/auth";
+import {NewCreateUserInFirestoreDatabase} from "../context/authContext";
 
 const FormRegister = () => {
     const { register } = useAuth()
@@ -45,7 +49,16 @@ const FormRegister = () => {
                 inputs.current[0].value,
                 inputs.current[1].value
             )
+            .then (authUser => {
+                return setDoc(user(authUser.user.uid), {
+                    email: inputs.current[0].value,
+                    createdAt: new Date()
+                })
+                console.log(authUser)
+            })
             formRef.current.reset();
+            setValidation("");
+            console.log(cred)
         }
 
         catch (err) {
@@ -116,14 +129,28 @@ const FormRegister = () => {
     )
 }
 
-const FormLogin = () => {
+const FormLogin = ({withWhat}) => {
     const { login } = useAuth()
     const navigate = useNavigate()
     const { onClose } = useDisclosure()
     const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
-    const { loading } = useAuth()
+    const {loading , setLoading} = useAuth()
+    const [authing, setAuthing] = useState(false)
+    const { signInWithGoogle } = useAuth()
+    const btnRef = useRef(null)
+
+    useLayoutEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        } , 1000)
+
+        return () => {
+            setAuthing(false)
+            setLoading(true)
+        }
+    }, [])
 
     const inputs = useRef([]);
     const addInputs = (el) => {
@@ -132,6 +159,25 @@ const FormLogin = () => {
         }
     };
     const formRef = useRef();
+
+    const handleGoogle = () => {
+        setAuthing(true)
+        switch (true) {
+            case "google":
+                signInWithGoogle().then((cred: UserCredential) => {
+                    NewCreateUserInFirestoreDatabase(cred)
+                    console.log(cred)
+                    navigate("/")
+                }).catch(err => {
+                    console.log(err)
+                    setAuthing(false)
+                })
+                break;
+            default:
+                break;
+
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -142,7 +188,7 @@ const FormLogin = () => {
             );
             // formRef.current.reset();
             setValidation("");
-            // console.log(cred);
+            console.log(cred);
             onClose();
             navigate("/");
         } catch {
@@ -196,10 +242,6 @@ const FormLogin = () => {
                         onClick={handleSubmit}
                     >
                         Se connecter
-                        {loading && <Button
-                            isLoading
-                            loadingText='Submitting'
-                        > </Button>}
                     </Button>
                 </FormControl>
                 <FormControl>
@@ -207,9 +249,13 @@ const FormLogin = () => {
                             width="100%"
                             bg="#48BB78"
                             _hover={{ bgColor: "#a0aec0" }}
+                            onClick={() => handleGoogle()}
                         >
                             <AiOutlineGoogle size="20" />
                             <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
+                            { loading && <Spinner /> }
+                            { !authing && !loading && <FormLogin withWhat='google' setAuthing={setAuthing} /> }
+                            { authing && <Spinner /> }
                         </Button>
                     </FormControl>
                 <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
