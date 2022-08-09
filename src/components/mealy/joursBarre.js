@@ -20,7 +20,6 @@ const JourBarre = ({onIndexChange}) => {
 
         console.log(`tabIdex   ${tabIndex}`)
       
- 
         return (
           <Box color={'green.400'} >
             <input

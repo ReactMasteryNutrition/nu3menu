@@ -10,7 +10,7 @@ import JourBarre from "./joursBarre";
 const Mealy = () => {
     const [dayyMeal, setMealDay] = React.useState("")
 
-    const [tabIndex, setTabIndex]= React.useState()
+    const [tabIndexDeloc, setTabIndexDeloc]= React.useState()
     const [weekMenu, setWeekMenu] = React.useState({
         lundi: { matin: "patantouille", deujeuner: "", diner: "" },
         mardi: { matin: "patantouille", deujeuner: "", diner: "" },
@@ -21,13 +21,18 @@ const Mealy = () => {
         dimanche: { matin: "patantouille", deujeuner: "", diner: "" }
     })
 
-    
+
+    const handleIndexDeloc = (tabIndexDeloc)=>{
+        setTabIndexDeloc(tabIndexDeloc)
+    }
+
+    console.log(` les index venu d'ailleur ${tabIndexDeloc}`)
 
 
 
     localStorage.setItem('week', JSON.stringify(weekMenu));
 
-    //console.log(`ici les weekmenu ${weekMenu[2].day}`)
+    //console.log(`ici les weekmenu ${tabIndex}`)
 
     const ajoutjour = () => {
 
@@ -125,10 +130,10 @@ console.log(`les meal day est le dayy ${dayyMeal}`)
 //console.log(`recette chois ${recipe}`)
 //console.log(`jour filter  ${weekFilter}`)
 
-const handleIndexChange = (tabIndex) => {
-    setTabIndex(tabIndex)
-}
-console.log(`le jour choisi ${tabIndex} `)
+//const handleIndexChange = (tabIndex) => {
+  //  setTabIndex(tabIndex)
+//}
+//console.log(`le jour choisi ${tabIndex} `)
 
 
 return (
@@ -136,7 +141,7 @@ return (
 
         <SearchAndFilter />
 
-        <JourBarre onIndexChange={handleIndexChange}/> 
+        <JourBarre onIndexChange={handleIndexDeloc}/> 
        
         <Center flexDirection={"column"}>
 
