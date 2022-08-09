@@ -40,7 +40,7 @@ const Mealy = () => {
             //let valueN = Object.getOwnPropertyNames(value)
             
             console.log(`les key ${value}`)
-            if (key === dayyMeal && key === "lundi") {
+            if (tabIndexDeloc === 0 && key === "lundi") {
                 
                 setWeekMenu({
                     ...weekMenu,
@@ -52,7 +52,7 @@ const Mealy = () => {
                 })
         
         }
-        if (key === dayyMeal && key === "mardi") {
+        if (tabIndexDeloc === 1 && key === "mardi") {
             setWeekMenu({
                 ...weekMenu,
                 mardi: {
@@ -62,7 +62,7 @@ const Mealy = () => {
                 }
             })
         }
-        if (key === dayyMeal && key === "mercredi") {
+        if (tabIndexDeloc === 2 && key === "mercredi") {
             setWeekMenu({
                 ...weekMenu,
                 mercredi: {
@@ -72,7 +72,7 @@ const Mealy = () => {
                 }
             })
         }
-        if (key === dayyMeal && key === "jeudi") {
+        if (tabIndexDeloc === 3 && key === "jeudi") {
             setWeekMenu({
                 ...weekMenu,
                 jeudi: {
@@ -82,7 +82,7 @@ const Mealy = () => {
                 }
             })
         }
-        if (key === dayyMeal && key === "vendredi") {
+        if (tabIndexDeloc === 4 && key === "vendredi") {
             setWeekMenu({
                 ...weekMenu,
                 vendredi: {
@@ -92,7 +92,7 @@ const Mealy = () => {
                 }
             })
         }
-        if (key === dayyMeal && key === "samedi") {
+        if (tabIndexDeloc === 5 && key === "samedi") {
             setWeekMenu({
                 ...weekMenu,
                 samedi: {
@@ -102,7 +102,7 @@ const Mealy = () => {
                 }
             })
         }
-        if (key === dayyMeal && key === "dimanche") {
+        if (tabIndexDeloc === 6 && key === "dimanche") {
             setWeekMenu({
                 ...weekMenu,
                 dimanche: {

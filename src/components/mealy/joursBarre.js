@@ -14,9 +14,10 @@ const JourBarre = ({onIndexChange}) => {
         }
       
         const handleTabsChange = (index) => {
-          setTabIndex(index)
-          onIndexChange(tabIndex)
+          setTabIndex(index) 
         }
+
+        onIndexChange(tabIndex) //indépendant de handleTabsChange il est juste 
 
         console.log(`tabIdex   ${tabIndex}`)
       
