@@ -1,6 +1,6 @@
 
 import { ResponsiveWidth } from "../../utils/helper"
-import {useContext, useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
     FormControl,
@@ -12,8 +12,7 @@ import {
     FormHelperText, useDisclosure
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
-import { AuthContext } from '../context/authContext';
-import {BsBookmarkFill} from "react-icons/bs";
+import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom'
 
 function Text(props) {
@@ -27,17 +26,17 @@ const FormRegister = () => {
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
 
-    const {register} = useContext(AuthContext);
+    const { register } = useAuth();
 
     const inputs = useRef([])
     const addInputs = el => {
-        if(el && !inputs.current.includes(el)){
+        if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
         }
     }
 
     const removeInputs = el => {
-        if(el && inputs.current.includes(el)){
+        if (el && inputs.current.includes(el)) {
             inputs.current = inputs.current.filter(i => i !== el)
         }
     }
@@ -47,11 +46,11 @@ const FormRegister = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = inputs.current.every(i => i.validity.valid)
-        if(inputs.current[0].value === "") {
+        if (inputs.current[0].value === "") {
             setValidation("Veuillez indiquer une adresse email")
             return;
         }
-        if((inputs.current[1].value.length) < 6) {
+        if ((inputs.current[1].value.length) < 6) {
             setValidation("6 characters min")
             return;
         }
@@ -63,10 +62,10 @@ const FormRegister = () => {
             )
             formRef.current.reset();
             setValidation("")
-            closeModal( onClose )
+            closeModal(onClose)
             navigate("/")
 
-        }   catch (err) {
+        } catch (err) {
             setValidation(err.message)
             switch (err.code) {
                 case "auth/email-already-in-use":
@@ -79,7 +78,7 @@ const FormRegister = () => {
                     setValidation("Le mot de passe doit contenir au moins 6 caractères")
                     break;
                 default:
-                    throw new Error ("Erreur non prise en compte")
+                    throw new Error("Erreur non prise en compte")
                     break;
             }
             //console.dir(err)
@@ -129,6 +128,7 @@ const FormRegister = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleSubmit}
                     >
                         S'inscrire
                     </Button>
@@ -150,7 +150,7 @@ const FormRegister = () => {
 }
 
 const FormLogin = () => {
-    const { login } = useContext(AuthContext);
+    const { login } = useAuth();
     const [show, setShow] = useState(false)
     const { onClose } = useDisclosure()
     const [validation, setValidation] = useState("");
@@ -174,7 +174,6 @@ const FormLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(inputs)
         try {
             const cred = await login(
                 inputs.current[0].value,
@@ -182,7 +181,7 @@ const FormLogin = () => {
             )
             //formRef.current.reset();
             setValidation("")
-            closeModal( onClose )
+            closeModal(onClose)
             navigate("/")
         } catch (err) {
             setValidation(err.message)
@@ -205,7 +204,7 @@ const FormLogin = () => {
         >
             <form ref={formRef} onSubmit={handleSubmit}>
                 <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" type="email" ref={addInputs} />
+                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" ref={addInputs} />
                 </FormControl >
                 <InputGroup size='md'>
                     <Input
@@ -232,6 +231,7 @@ const FormLogin = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleSubmit}
                     >
                         Se connecter
                     </Button>
