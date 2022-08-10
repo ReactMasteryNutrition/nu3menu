@@ -1,18 +1,20 @@
-import {ModalName, ModalEmail, ModalPassword} from './Modal'
-import Alert from './Alert'
+import ModalName from './Modal/UpdateName'
+import ModalEmail from './Modal/UpdateEmail'
+import ModalPassword from './Modal/UpdatePassword'
 import { ResponsiveWidth } from "../../utils/helper"
-import * as React from 'react'
+import { useAuth } from '../../context/authContext'
 import {
     Flex,
     Avatar,
     FormControl,
     Input,
     InputGroup,
-    Button,
     Box
 } from '@chakra-ui/react'
+import DeleteAccount from './Modal/DeleteAccount'
 
 const Form = () => {
+    const { currentUser } = useAuth()
 
     return (
         <Flex
@@ -45,7 +47,7 @@ const Form = () => {
                         gap="1rem"
                         flexDirection={ResponsiveWidth() ? "row" : "column"}
                     >
-                        <Input type='email' placeholder='johndoe@gmail.com' bg='#f0fff4' readOnly />
+                        <Input type='email' placeholder={currentUser?.email} bg='#f0fff4' readOnly />
                         <ModalEmail />
                     </Flex>
                 </FormControl >
@@ -64,19 +66,7 @@ const Form = () => {
                     <ModalPassword />
                 </Flex>
                 <FormControl marginBottom="1rem">
-                    <Button
-                        padding={ResponsiveWidth() ? "0.5rem 5.1rem" : "0.5rem"}
-                        marginTop={ResponsiveWidth() ? null : "3rem"}
-                        width="100%"
-                        bg='#48bb78'
-                        color="#f0fff4"
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        Valider mes modifications
-                    </Button>
-                </FormControl>
-                <FormControl marginBottom="1rem">
-                    <Alert/>
+                    <DeleteAccount/>
                 </FormControl>
             </Flex>
         </Flex>
