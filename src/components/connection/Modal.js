@@ -169,7 +169,7 @@ const ModalLogin = () => {
                     <ModalBody>
                         <FormLogin />
                     </ModalBody>
-                    <ModalFooter></ModalFooter>
+                    <ModalFooter/>
                 </ModalContent>
             </Modal>
         </Box>

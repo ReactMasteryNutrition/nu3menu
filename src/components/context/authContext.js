@@ -1,5 +1,5 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider,UserCredential} from 'firebase/auth'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider,UserCredential, sendPasswordResetEmail} from 'firebase/auth'
 import {auth, db} from '../../firebase-config'
 import {Avatar} from "@chakra-ui/react";
 import {setDoc, doc, getDoc} from "firebase/firestore";
@@ -31,6 +31,10 @@ export default function AuthContextProvider(props) {
         return signOut(auth)
     },[]);
 
+    const resetPassword = useCallback((email) => {
+        return sendPasswordResetEmail(auth, email)
+    }, []);
+
     useEffect(() => {
         return onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
@@ -39,7 +43,6 @@ export default function AuthContextProvider(props) {
                     user: currentUser,
                     imgSrc: imgSrc,
                     email: currentUser.email,
-
                 });
             } else {
                 setCurrentUser(currentUser);
@@ -84,6 +87,8 @@ export default function AuthContextProvider(props) {
 
     }
 
+
+
     const provider = new GoogleAuthProvider();
 
     const value = useMemo(() => ({
@@ -93,9 +98,10 @@ export default function AuthContextProvider(props) {
         logout,
         loading,
         setLoading,
+        resetPassword,
         NewCreateUserInFirestoreDatabase,
         signInWithGoogle
-    }),[currentUser, register, login, logout, loading, setLoading, NewCreateUserInFirestoreDatabase, signInWithGoogle])
+    }),[currentUser, register, login, logout, loading, setLoading, resetPassword, NewCreateUserInFirestoreDatabase, signInWithGoogle])
 
     return (
         <AuthContext.Provider value={value}>

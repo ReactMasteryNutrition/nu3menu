@@ -9,16 +9,17 @@ import {
     InputGroup,
     Button,
     Box,
+    Link,
     FormHelperText, useDisclosure, Text, Spinner
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
-import {BsBookmarkFill} from "react-icons/bs";
-import { useNavigate } from 'react-router-dom'
+import {BsBookmarkFill, BsFillPersonPlusFill} from "react-icons/bs";
+import {useNavigate, Link as RouterLink} from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import {setDoc} from "firebase/firestore";
 import {user} from "../../firebase-config";
-import {UserCredential} from "firebase/auth";
-
+import ModalForgetPassword from "../forgetPwd/Modal";
+import {FormForgetPassword} from "../forgetPwd/Form";
 
 const FormRegister = () => {
     const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth()
@@ -86,13 +87,13 @@ const FormRegister = () => {
                 inputs.current[0].value,
                 inputs.current[1].value
             )
-            .then (authUser => {
+            {/*.then (authUser => {
                 return setDoc(user(authUser.user.uid), {
-                    email: inputs.current[0].value,
-                    createdAt: new Date()
+                    "email": inputs.current[0].value,
+                    "createdAt": new Date()
                 })
                 console.log(authUser)
-            })
+            }) */}
             formRef.current.reset();
             setValidation("");
             console.log(cred)
@@ -167,16 +168,17 @@ const FormRegister = () => {
     )
 }
 
-const FormLogin = ({withWhat}) => {
+const FormLogin = () => {
     const { login } = useAuth()
     const navigate = useNavigate()
-    const { onClose } = useDisclosure()
+    const { onClose, onOpen, isOpen } = useDisclosure()
     const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
     const {loading , setLoading} = useAuth()
     const [authing, setAuthing] = useState(false)
     const { signInWithGoogle, NewCreateUserInFirestoreDatabase  } = useAuth()
+    const {resetPassword} = useAuth()
 
     useLayoutEffect(() => {
         setTimeout(() => {
@@ -233,6 +235,7 @@ const FormLogin = ({withWhat}) => {
             })
     }
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -286,7 +289,9 @@ const FormLogin = ({withWhat}) => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl textAlign='start'>
-                    <FormHelperText>Mot de passe oublié ?</FormHelperText>
+                    <Link as={RouterLink} to='/forgetpassword' size="sm" colorScheme="blue" onClick={onOpen}>
+                        Mot de passe oublié ?
+                    </Link>
                 </FormControl>
                 <FormControl margin="1rem 0">
                     <Button

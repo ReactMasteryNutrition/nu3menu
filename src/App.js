@@ -8,7 +8,13 @@ const theme = extendTheme({
     global: {
       body: {
         bg: "gray.800"
-      }
+      },
+      a: {
+        color: 'gray.500',
+        _hover: {
+          textDecoration: 'none',
+        },
+      },
     }
   },
   /*  colors: {

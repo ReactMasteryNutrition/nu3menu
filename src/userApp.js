@@ -11,6 +11,7 @@ import MyAccount from './pages/MyAccount';
 
 import { Box } from '@chakra-ui/react'
 import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
+import ForgetPassword from "./pages/ForgetPassword";
 
 const UserApp = () => {
     return (
@@ -21,6 +22,7 @@ const UserApp = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/forgetpassword' element={<ForgetPassword />} />
                 {/* <Route path='/user' element={<NutriHomeUser />} /> */}
                 <Route path='/findRecipe' element={<SearchAndFilter />} />
                 {/*<Route path='/createmenu' element={<CreateMenu />} />*/}
