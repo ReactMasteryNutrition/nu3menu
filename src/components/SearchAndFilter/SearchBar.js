@@ -12,7 +12,6 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
 
     const submit = (e) => {
         e.preventDefault();
-        console.log("On lance la requête : ", thingSearched);
         setFilter({
             ...filter,
             q: thingSearched

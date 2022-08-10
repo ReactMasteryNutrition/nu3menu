@@ -48,8 +48,6 @@ export default function Filter({filter, setFilter}) {
     let proteine = ''
 
     const ApplyFilters = () => {
-        
-        console.log(localFilter)
 
         let optionValueWasMin = ''
         
@@ -106,30 +104,17 @@ export default function Filter({filter, setFilter}) {
                 }
             }
             if(option.includes('lipid')) {
-                // console.log(optionValueWasMin)
-                // console.log('OptionValueWasMin ! == vide c-a-d il existe déjà une valeur min')
-                // console.log(optionValueWasMin !== '')
-                // console.log('optionValue !== vide c-a-d la valeur min est vide')
-                // console.log(optionValue !== '')
-                // console.log('optionValue ==> ')
-                // console.log(optionValue)
                 if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
                     optionValueWasMin = optionValue
                     lipide = `${optionValue}+`
-                    console.log('on met à jour la valeur min de lipide')
                 } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    // console.log(optionValueWasMin)
-                    // console.log(optionValueWasMin !== '')
-                    // console.log("Je suis une Range Value")
                     lipide = `${optionValueWasMin}-${optionValue}`
-                    // console.log('on met à jour la valeur min-max de lipide')
                     optionValueWasMin = ''
                 } else if(optionValue === '0'){
                     optionValue =''
                     optionValueWasMin = ''
                 } else {
                     lipide = lipide+`${optionValue}`
-                    // console.log('on met à jour la valeur max de lipide')
                     optionValueWasMin = ''
                 }
             }
@@ -168,7 +153,6 @@ export default function Filter({filter, setFilter}) {
     }
 
     const clearFilter = () => {
-        console.log('On clear les filtres')
         setFilter({
             type: 'public',
             beta: 'true',
