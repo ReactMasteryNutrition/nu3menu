@@ -17,7 +17,7 @@ export default function SearchAndFilter() {
     })
 
     const handleSearch = recipeName => {
-        console.log('recipeName : ', recipeName)
+        //console.log('recipeName : ', recipeName)
         setRecipe(recipeName)
         setFilter({
             ...filter, 

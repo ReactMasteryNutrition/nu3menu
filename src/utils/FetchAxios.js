@@ -9,17 +9,12 @@ async function FetchAxios(thingSearched, filter) {
     let urlInit = 'https://api.edamam.com/api/recipes/v2?'
 
     let endOfParams = Object.fromEntries(Object.entries(filter).filter(([key, value]) => value !==''))
-    //console.log('endOfParams', endOfParams)
     
     try {
         let endOfUrl = qs.stringify(endOfParams)
-        console.log('endOfUrl ==> ', endOfUrl)
-
 
         let urlFinal = `${urlInit}${endOfUrl}`
-        //console.log('urlFinal ==> ', urlFinal)
-
-
+        
         const response = await axios.get(urlFinal)
         return response
     } catch (error) {

@@ -14,9 +14,6 @@ export default function CardRecipe(datas) {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const recipesDatas = datas.datas.data.hits
-    console.log('recipesDatas')
-    console.log(recipesDatas)
-    // console.log(typeof recipesDatas)
 
     const [detailRecipe, setDetailRecipe] = React.useState({});
 
@@ -46,7 +43,6 @@ export default function CardRecipe(datas) {
         setDetailRecipe()
     }
     return(
-        console.log(' /// NEW RENDER ///'),
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {recipesDatas.map(recipe => {
                 return(

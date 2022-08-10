@@ -5,10 +5,7 @@ import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Function
 export default function DetailRecipeModal({detail}) {
-    console.log(' ==== toto ===')
-    console.log(detail)
-    console.log(' // image //')
-    console.log(detail?.data?.recipe?.image)
+    //console.log(detail)
 
     let caloriesPerPerson = detail?.data?.recipe?.calories/detail?.data?.recipe?.yield
 
@@ -85,8 +82,7 @@ export default function DetailRecipeModal({detail}) {
                         <UnorderedList>
                             {detail?.data?.recipe?.ingredientLines.map(ingredient => {
                                 return (
-                                    console.log(detail?.data?.recipe?.ingredientLines.indexOf(ingredient)),
-                                <ListItem key={`ingredient${detail?.data?.recipe?.ingredientLines.indexOf(ingredient)}`} mb='0.5rem'>{ingredient}</ListItem>
+                                    <ListItem key={`ingredient${detail?.data?.recipe?.ingredientLines.indexOf(ingredient)}`} mb='0.5rem'>{ingredient}</ListItem>
                                 )
                             })}
                         </UnorderedList>
