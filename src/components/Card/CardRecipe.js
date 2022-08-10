@@ -1,11 +1,10 @@
 // Imports //
 import React from 'react'
-import { Box, Button, Flex, Grid, GridItem, Image, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, GridItem, Image, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Tooltip, useDisclosure, VStack } from '@chakra-ui/react'
 import { AddIcon, CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
-import axios from 'axios'
 import DetailRecipeModal from './DetailRecipeModal'
 import FetchDetailRecipeAxios from '../../utils/FetchDetailRecipeAxios'
 // Functions //
@@ -42,7 +41,10 @@ export default function CardRecipe(datas) {
         onOpen()
     }
 
-
+    const closeAndClear = () => {
+        onClose()
+        setDetailRecipe()
+    }
     return(
         console.log(' /// NEW RENDER ///'),
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
@@ -62,7 +64,9 @@ export default function CardRecipe(datas) {
                             <Image src={recipe.recipe.image} alt={recipe.recipe.label} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
                         </GridItem>
                         <GridItem display='flex' alignItems='center' paddingY='0.5rem' area='title'>
-                            <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{recipe.recipe.label}</Text>
+                            <Tooltip label={recipe.recipe.label} placement='top'>
+                                <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{recipe.recipe.label}</Text>
+                            </Tooltip>
                         </GridItem>
                         <GridItem area='stats' paddingLeft='0.5rem'>
                             <VStack spacing='0.5' align='left'>
@@ -99,7 +103,7 @@ export default function CardRecipe(datas) {
                     <ModalOverlay />
                     <ModalContent bg='gray.800' color='green.50'>
                     <ModalHeader textAlign={['center']}>{ detailRecipe?.data?.recipe?.label}</ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModal detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
                         <Button leftIcon={<AddIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={()=> console.log('Fonction pour enregistrer la recette dans notre menu / A FAIRE')}>
@@ -108,7 +112,7 @@ export default function CardRecipe(datas) {
                         <Link href={detailRecipe?.data?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>
-                        <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={onClose}>
+                        <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
                         Close
                         </Button>
                     </ModalFooter>
