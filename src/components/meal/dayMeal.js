@@ -28,6 +28,7 @@ console.log(`${weekParse} on est parser`)
             <Text>{category}</Text>
             <Image src="../data/fraise.jpg" alt="rimage" />
             <Text>{week}</Text>
+            
             <Flex alignItems={'center'}>
             <Button w={'20%'}  onClick ={handleClickDelete}>Supprimer</Button>
             </Flex>

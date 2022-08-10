@@ -4,7 +4,7 @@ import { meal } from "../data/recipeFake";
 
 import { FormControl, FormLabel, Select, RadioGroup, Stack, Radio, Image } from "@chakra-ui/react";
 
-const RepasBarre = ({onCategoryChange}) => {
+const RepasBarre = ({onCategoryChange, onChangeRecipe}) => {
     const [category, setCategory] = React.useState("")
     const [recipe, setRecipe] = React.useState()
 
@@ -18,7 +18,9 @@ const RepasBarre = ({onCategoryChange}) => {
         setRecipe(e.target.value)
     }
 
+    onChangeRecipe(recipe)
     onCategoryChange(category)
+    console.log(`recepiteeeeee ${recipe}`)
 
     return (
         <>   

@@ -13,6 +13,7 @@ const Mealy = () => {
     //const [dayyMeal, setDayyMeal] = React.useState("")
     const [categoryDeloc, setCategoryDeloc] = React.useState("")
     const [tabIndexDeloc, setTabIndexDeloc] = React.useState()
+    const [recipeDeloc , setRecipeDeloc] =React.useState()
     const [weekMenu, setWeekMenu] = React.useState({
         lundi: { matin: "patantouille", deujeuner: "", diner: "" },
         mardi: { matin: "patantouille", deujeuner: "", diner: "" },
@@ -29,6 +30,9 @@ const Mealy = () => {
     }
     const handleCategoryChange = (categoryDeloc) => {
         setCategoryDeloc(categoryDeloc)
+    }
+    const handleChangeRecipe= (recipeDeloc) =>  {
+        setRecipeDeloc(recipeDeloc)
     }
 
     localStorage.setItem('week', JSON.stringify(weekMenu));
@@ -50,7 +54,7 @@ const Mealy = () => {
                             ...weekMenu,
                             lundi: {
                                 ...value,
-                                matin : "dddddd"
+                                matin : recipeDeloc,
                             }
                         })
                         break;
@@ -59,7 +63,7 @@ const Mealy = () => {
                                 ...weekMenu,
                                 lundi: {
                                     ...value,
-                                    deujeuner : "c'est pas leheure "
+                                    deujeuner : recipeDeloc
                                 }
                             })
                         break;
@@ -68,7 +72,7 @@ const Mealy = () => {
                                 ...weekMenu,
                                 lundi: {
                                     ...value,
-                                    diner : "evite le poulet hahahah"
+                                    diner : recipeDeloc
                                 }
                             })
                         
@@ -77,99 +81,218 @@ const Mealy = () => {
                     default:
                         break;
                 }
-
-               {/* if(valueN.filter((valueN) => valueN === categoryDeloc) ) {
-                    setWeekMenu({
-                        ...weekMenu,
-                        lundi: {
-                            ...value,
-                            matin: "ooooooo",  
-                            
-                        }
-                    })      
-
-                } else if (valueN.filter((valueN) => valueN === categoryDeloc)) {
-                    setWeekMenu({
-                        ...weekMenu,
-                        ludin: {
-                            ...value,
-                            
-                            deujeuner: " un autre truc ",
-                            
-                        }
-                    })      
-
-                } else if (valueN.filter((valueN) => valueN === categoryDeloc)){
-                    setWeekMenu({
-                        ...weekMenu,
-                        ludin: {
-                            ...value,
-                            diner: "et voilà "
-                        }
-                    })      
-
-                } */}
-                    
+                 
         }
         if (tabIndexDeloc === 1 && key === "mardi") {
-            setWeekMenu({
-                ...weekMenu,
-                mardi: {
-                    matin: "illlllll",
-                    deujeuner: " un autre truc ",
-                    diner: "et voilà "
-                }
-            })
+            switch (categoryDeloc ) {
+                case "matin":
+                    setWeekMenu ({
+                        ...weekMenu,
+                        mardi: {
+                            ...value,
+                            matin : recipeDeloc
+                        }
+                    })
+                    break;
+                    case "deujeuner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            mardi: {
+                                ...value,
+                                deujeuner : recipeDeloc
+                            }
+                        })
+                    break;
+                    case "diner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            mardi: {
+                                ...value,
+                                diner : recipeDeloc
+                            }
+                        })
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
         if (tabIndexDeloc === 2 && key === "mercredi") {
-            setWeekMenu({
-                ...weekMenu,
-                mercredi: {
-                    matin: "illlllll",
-                    deujeuner: " un autre truc ",
-                    diner: "et voilà "
-                }
-            })
+            switch (categoryDeloc ) {
+                case "matin":
+                    setWeekMenu ({
+                        ...weekMenu,
+                        mercredi: {
+                            ...value,
+                            matin : recipeDeloc
+                        }
+                    })
+                    break;
+                    case "deujeuner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            mercredi: {
+                                ...value,
+                                deujeuner : recipeDeloc
+                            }
+                        })
+                    break;
+                    case "diner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            mercredi: {
+                                ...value,
+                                diner : recipeDeloc
+                            }
+                        })
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
         if (tabIndexDeloc === 3 && key === "jeudi") {
-            setWeekMenu({
-                ...weekMenu,
-                jeudi: {
-                    matin: "illlllll",
-                    deujeuner: " un autre truc ",
-                    diner: "et voilà "
-                }
-            })
+            switch (categoryDeloc ) {
+                case "matin":
+                    setWeekMenu ({
+                        ...weekMenu,
+                        jeudi: {
+                            ...value,
+                            matin : recipeDeloc
+                        }
+                    })
+                    break;
+                    case "deujeuner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            jeudi: {
+                                ...value,
+                                deujeuner : recipeDeloc
+                            }
+                        })
+                    break;
+                    case "diner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            jeudi: {
+                                ...value,
+                                diner : recipeDeloc
+                            }
+                        })
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
         if (tabIndexDeloc === 4 && key === "vendredi") {
-            setWeekMenu({
-                ...weekMenu,
-                vendredi: {
-                    matin: "oooooooo",
-                    deujeuner: " un autre truc ",
-                    diner: "et voilà "
-                }
-            })
+
+            switch (categoryDeloc ) {
+                case "matin":
+                    setWeekMenu ({
+                        ...weekMenu,
+                        vendredi: {
+                            ...value,
+                            matin : recipeDeloc
+                        }
+                    })
+                    break;
+                    case "deujeuner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            vendredi: {
+                                ...value,
+                                deujeuner : recipeDeloc
+                            }
+                        })
+                    break;
+                    case "diner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            vendredi: {
+                                ...value,
+                                diner : recipeDeloc
+                            }
+                        })
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
         if (tabIndexDeloc === 5 && key === "samedi") {
-            setWeekMenu({
-                ...weekMenu,
-                samedi: {
-                    matin: "illlllll",
-                    deujeuner: " un autre truc ",
-                    diner: "et voilà "
-                }
-            })
+            switch (categoryDeloc ) {
+                case "matin":
+                    setWeekMenu ({
+                        ...weekMenu,
+                        samedi: {
+                            ...value,
+                            matin : recipeDeloc
+                        }
+                    })
+                    break;
+                    case "deujeuner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            samedi: {
+                                ...value,
+                                deujeuner : recipeDeloc
+                            }
+                        })
+                    break;
+                    case "diner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            samedi: {
+                                ...value,
+                                diner : recipeDeloc
+                            }
+                        })
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
         if (tabIndexDeloc === 6 && key === "dimanche") {
-            setWeekMenu({
-                ...weekMenu,
-                dimanche: {
-                    matin: "illlllll",
-                    deujeuner: " un autre truc ",
-                    diner: "et voilà "
-                }
-            })
+            switch (categoryDeloc ) {
+                case "matin":
+                    setWeekMenu ({
+                        ...weekMenu,
+                        dimanche: {
+                            ...value,
+                            matin : recipeDeloc
+                        }
+                    })
+                    break;
+                    case "deujeuner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            dimanche: {
+                                ...value,
+                                deujeuner : recipeDeloc
+                            }
+                        })
+                    break;
+                    case "diner":
+                        setWeekMenu ({
+                            ...weekMenu,
+                            dimanche: {
+                                ...value,
+                                diner : recipeDeloc
+                            }
+                        })
+                    
+                    break;
+            
+                default:
+                    break;
+            }
         }
         
     }
@@ -184,7 +307,7 @@ const Mealy = () => {
                 </Flex>
                 <Center w={'75%'} flexDirection={"column"}>
 
-                    <RepasBarre onCategoryChange={handleCategoryChange} />
+                    <RepasBarre onCategoryChange={handleCategoryChange} onChangeRecipe={handleChangeRecipe}/>
                     <SearchAndFilter />
 
                     <Button marginBottom={"3"} w={"25%"} color={"green.400"} onClick={ajoutjour} >Ajout</Button>
