@@ -39,30 +39,58 @@ const Mealy = () => {
 
     const ajoutjour = () => {
 
-        for (const [key, value] of Object.entries(weekMenu)) {
-         let valueN = Object.keys(value)
-            
-            console.log(`les maleur de valur ${valueN}`)
-            console.log (`category dans ajoutjour ${categoryDeloc}`)
-
-            
-            if (tabIndexDeloc === 0 && key === "lundi") {
-
+             switch (tabIndexDeloc) {
+                case 0:
+                    switch (categoryDeloc ) {
+                        case "matin":
+                            setWeekMenu ({
+                                ...weekMenu,
+                                lundi: {
+                                    ...weekMenu.lundi,
+                                    matin : recipeDeloc,
+                                }
+                            })
+                            break;
+                            case "deujeuner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    lundi: {
+                                        ...weekMenu.lundi,
+                                        deujeuner : recipeDeloc
+                                    }
+                                })
+                            break;
+                            case "diner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    lundi: {
+                                        ...weekMenu.lundi,
+                                        diner : recipeDeloc
+                                    }
+                                })
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                    break;
+             case 1:
                 switch (categoryDeloc ) {
                     case "matin":
                         setWeekMenu ({
                             ...weekMenu,
-                            lundi: {
-                                ...value,
-                                matin : recipeDeloc,
+                            mardi: {
+                                ...weekMenu.mardi,
+                                matin : recipeDeloc
                             }
                         })
                         break;
                         case "deujeuner":
                             setWeekMenu ({
                                 ...weekMenu,
-                                lundi: {
-                                    ...value,
+                                mardi: {
+                                    ...weekMenu.mardi,
                                     deujeuner : recipeDeloc
                                 }
                             })
@@ -70,8 +98,8 @@ const Mealy = () => {
                         case "diner":
                             setWeekMenu ({
                                 ...weekMenu,
-                                lundi: {
-                                    ...value,
+                                mardi: {
+                                    ...weekMenu.mardi,
                                     diner : recipeDeloc
                                 }
                             })
@@ -81,222 +109,191 @@ const Mealy = () => {
                     default:
                         break;
                 }
+
+                break;
+                case 2:
+                    switch (categoryDeloc ) {
+                        case "matin":
+                            setWeekMenu ({
+                                ...weekMenu,
+                                mercredi: {
+                                    ...weekMenu.mercredi,
+                                    matin : recipeDeloc
+                                }
+                            })
+                            break;
+                            case "deujeuner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    mercredi: {
+                                        ...weekMenu.mercredi,
+                                        deujeuner : recipeDeloc
+                                    }
+                                })
+                            break;
+                            case "diner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    mercredi: {
+                                        ...weekMenu.mercredi,
+                                        diner : recipeDeloc
+                                    }
+                                })
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                break;
+                case 3:
+                    switch (categoryDeloc ) {
+                        case "matin":
+                            setWeekMenu ({
+                                ...weekMenu,
+                                jeudi: {
+                                    ...weekMenu.jeudi,
+                                    matin : recipeDeloc
+                                }
+                            })
+                            break;
+                            case "deujeuner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    jeudi: {
+                                        ...weekMenu.jeudi,
+                                        deujeuner : recipeDeloc
+                                    }
+                                })
+                            break;
+                            case "diner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    jeudi: {
+                                        ...weekMenu.jeudi,
+                                        diner : recipeDeloc
+                                    }
+                                })
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                break;
+                case 4:
+                    switch (categoryDeloc ) {
+                        case "matin":
+                            setWeekMenu ({
+                                ...weekMenu,
+                                vendredi: {
+                                    ...weekMenu.vendredi,
+                                    matin : recipeDeloc
+                                }
+                            })
+                            break;
+                            case "deujeuner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    vendredi: {
+                                        ...weekMenu.vendredi,
+                                        deujeuner : recipeDeloc
+                                    }
+                                })
+                            break;
+                            case "diner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    vendredi: {
+                                        ...weekMenu.vendredi,
+                                        diner : recipeDeloc
+                                    }
+                                })
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                break;
+                case 5:
+                    switch (categoryDeloc ) {
+                        case "matin":
+                            setWeekMenu ({
+                                ...weekMenu,
+                                samedi: {
+                                    ...weekMenu.samedi,
+                                    matin : recipeDeloc
+                                }
+                            })
+                            break;
+                            case "deujeuner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    samedi: {
+                                        ...weekMenu.samedi,
+                                        deujeuner : recipeDeloc
+                                    }
+                                })
+                            break;
+                            case "diner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    samedi: {
+                                        ...weekMenu.samedi,
+                                        diner : recipeDeloc
+                                    }
+                                })
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                break;
+                case 6:
+                    switch (categoryDeloc ) {
+                        case "matin":
+                            setWeekMenu ({
+                                ...weekMenu,
+                                dimanche: {
+                                    ...weekMenu.dimanche,
+                                    matin : recipeDeloc
+                                }
+                            })
+                            break;
+                            case "deujeuner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    dimanche: {
+                                        ...weekMenu.dimanche,
+                                        deujeuner : recipeDeloc
+                                    }
+                                })
+                            break;
+                            case "diner":
+                                setWeekMenu ({
+                                    ...weekMenu,
+                                    dimanche: {
+                                        ...weekMenu.dimanche,
+                                        diner : recipeDeloc
+                                    }
+                                })
+                            
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                break;
+                default:
+                    break;
+             }
+
+                
                  
         }
-        if (tabIndexDeloc === 1 && key === "mardi") {
-            switch (categoryDeloc ) {
-                case "matin":
-                    setWeekMenu ({
-                        ...weekMenu,
-                        mardi: {
-                            ...value,
-                            matin : recipeDeloc
-                        }
-                    })
-                    break;
-                    case "deujeuner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            mardi: {
-                                ...value,
-                                deujeuner : recipeDeloc
-                            }
-                        })
-                    break;
-                    case "diner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            mardi: {
-                                ...value,
-                                diner : recipeDeloc
-                            }
-                        })
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-        if (tabIndexDeloc === 2 && key === "mercredi") {
-            switch (categoryDeloc ) {
-                case "matin":
-                    setWeekMenu ({
-                        ...weekMenu,
-                        mercredi: {
-                            ...value,
-                            matin : recipeDeloc
-                        }
-                    })
-                    break;
-                    case "deujeuner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            mercredi: {
-                                ...value,
-                                deujeuner : recipeDeloc
-                            }
-                        })
-                    break;
-                    case "diner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            mercredi: {
-                                ...value,
-                                diner : recipeDeloc
-                            }
-                        })
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-        if (tabIndexDeloc === 3 && key === "jeudi") {
-            switch (categoryDeloc ) {
-                case "matin":
-                    setWeekMenu ({
-                        ...weekMenu,
-                        jeudi: {
-                            ...value,
-                            matin : recipeDeloc
-                        }
-                    })
-                    break;
-                    case "deujeuner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            jeudi: {
-                                ...value,
-                                deujeuner : recipeDeloc
-                            }
-                        })
-                    break;
-                    case "diner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            jeudi: {
-                                ...value,
-                                diner : recipeDeloc
-                            }
-                        })
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-        if (tabIndexDeloc === 4 && key === "vendredi") {
-
-            switch (categoryDeloc ) {
-                case "matin":
-                    setWeekMenu ({
-                        ...weekMenu,
-                        vendredi: {
-                            ...value,
-                            matin : recipeDeloc
-                        }
-                    })
-                    break;
-                    case "deujeuner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            vendredi: {
-                                ...value,
-                                deujeuner : recipeDeloc
-                            }
-                        })
-                    break;
-                    case "diner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            vendredi: {
-                                ...value,
-                                diner : recipeDeloc
-                            }
-                        })
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-        if (tabIndexDeloc === 5 && key === "samedi") {
-            switch (categoryDeloc ) {
-                case "matin":
-                    setWeekMenu ({
-                        ...weekMenu,
-                        samedi: {
-                            ...value,
-                            matin : recipeDeloc
-                        }
-                    })
-                    break;
-                    case "deujeuner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            samedi: {
-                                ...value,
-                                deujeuner : recipeDeloc
-                            }
-                        })
-                    break;
-                    case "diner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            samedi: {
-                                ...value,
-                                diner : recipeDeloc
-                            }
-                        })
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-        if (tabIndexDeloc === 6 && key === "dimanche") {
-            switch (categoryDeloc ) {
-                case "matin":
-                    setWeekMenu ({
-                        ...weekMenu,
-                        dimanche: {
-                            ...value,
-                            matin : recipeDeloc
-                        }
-                    })
-                    break;
-                    case "deujeuner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            dimanche: {
-                                ...value,
-                                deujeuner : recipeDeloc
-                            }
-                        })
-                    break;
-                    case "diner":
-                        setWeekMenu ({
-                            ...weekMenu,
-                            dimanche: {
-                                ...value,
-                                diner : recipeDeloc
-                            }
-                        })
-                    
-                    break;
-            
-                default:
-                    break;
-            }
-        }
         
-    }
-}
     
     return (
         <>
