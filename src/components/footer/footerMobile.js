@@ -1,11 +1,11 @@
 import React from "react";
-import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link, Flex } from '@chakra-ui/react';
+import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link } from '@chakra-ui/react';
 import { socialIconLink, linkListFooter } from '../data/dataLink';
 import { MdSettings } from 'react-icons/md'
 
 const FooterMobile = () => {
     //const postition = {
-      //  position : "relative"
+    //  position : "relative"
     //}
     //style={postition}
 
@@ -19,6 +19,7 @@ const FooterMobile = () => {
             <Box>
                 <ButtonGroup variant="ghost">
                     {socialIconLink.map((data) => <IconButton
+                        key={data.id}
                         as="a"
                         color={data.colori}
                         href={data.to}
