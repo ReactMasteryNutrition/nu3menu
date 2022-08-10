@@ -7,7 +7,8 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "gray.800"
+        bg: "gray.800",
+        fonts: "Poppins, sans-serif"
       }
     }
   },
@@ -29,9 +30,9 @@ const theme = extendTheme({
 
 function App() {
   return (
-      <ChakraProvider theme={theme}>
-        <UserApp />
-      </ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <UserApp />
+    </ChakraProvider>
   );
 }
 
