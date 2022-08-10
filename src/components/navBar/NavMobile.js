@@ -7,9 +7,7 @@ import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
 import {useContext} from "react";
-import {AuthContext} from "../context/authContext";
-
-// const userToken = 'nu3menuToken'
+import {AuthContext} from "../../context/authContext";
 
 const NavVisitor = () => {
     return (
@@ -96,8 +94,6 @@ const NavMobile = () => {
     return (
         <>
             {currentUser ? <NavUser/> : <NavVisitor/>}
-            {/*<NavVisitor />  */}
-            {/* <NavUser /> */}
         </>
     )
 }
