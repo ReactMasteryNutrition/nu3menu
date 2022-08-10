@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { render, screen, } from "../utils/test-utils"
+import userEvent from '@testing-library/user-event'
+import { BrowserRouter as Router } from "react-router-dom"
 import MyAccount from './MyAccount'
 
 beforeAll(() => {
@@ -17,27 +18,35 @@ beforeAll(() => {
 
 describe('display a modal', () => {
     test('display a modal to modify a name when clicking', () => {
-        render(<MyAccount />)
-        expect(screen.getByRole('button', { description: "modal name" })).toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { description: "modal name" }))
+        render(<Router><MyAccount /></Router>)
+        expect(screen.getByRole('button', { description: "name" })).toBeInTheDocument()
+        userEvent.click(screen.getByRole('button', { description: "name" }))
         expect(screen.getByRole('dialog', { name: "Modifier mon prénom" })).toBeInTheDocument()
+        expect(screen.getByText('Veuillez-vous authentifier avec votre mot de passe'))
+            .toBeInTheDocument()
     })
     test('display a modal to modify an e-mail when clicking', () => {
-        render(<MyAccount />)
-        expect(screen.getByRole('button', { description: "modal e-mail" })).toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { description: "modal e-mail" }))
-        expect(screen.getByRole('dialog', { name: "Modifier mon e-mail" })).toBeInTheDocument()
+        render(<Router><MyAccount /></Router>)
+        expect(screen.getByRole('button', { description: "e-mail" })).toBeInTheDocument()
+        userEvent.click(screen.getByRole('button', { description: "e-mail" }))
+        expect(screen.getByRole('dialog', { name: "Modifier mon adresse e-mail" })).toBeInTheDocument()
+        expect(screen.getByText('Veuillez-vous authentifier avec votre mot de passe'))
+            .toBeInTheDocument()
     })
     test('display a modal to modify a password when clicking', () => {
-        render(<MyAccount />)
-        expect(screen.getByRole('button', { description: "modal password" })).toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { description: "modal password" }))
+        render(<Router><MyAccount /></Router>)
+        expect(screen.getByRole('button', { description: "password" })).toBeInTheDocument()
+        userEvent.click(screen.getByRole('button', { description: "password" }))
         expect(screen.getByRole('dialog', { name: "Modifier mon mot de passe" })).toBeInTheDocument()
+        expect(screen.getByText('Veuillez-vous authentifier avec votre mot de passe'))
+            .toBeInTheDocument()
     })
     test('display a modal to delete an user account when clicking', () => {
-        render(<MyAccount />)
+        render(<Router><MyAccount /></Router>)
         expect(screen.getByRole('button', { name: "Supprimer mon compte" })).toBeInTheDocument()
         userEvent.click(screen.getByRole('button', { name: "Supprimer mon compte" }))
-        expect(screen.getByText("Etes-vous sûr de vouloir supprimer votre compte ?")).toBeInTheDocument()
+        expect(screen.getByRole("dialog", {name:"Supprimer mon compte"})).toBeInTheDocument()
+        expect(screen.getByText('Veuillez-vous authentifier avec votre mot de passe'))
+            .toBeInTheDocument()
     })
 })
