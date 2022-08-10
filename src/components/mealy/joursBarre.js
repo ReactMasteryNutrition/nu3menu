@@ -1,7 +1,7 @@
-import {  Box, Tabs, TabPanel , TabPanels, TabList, Tab } from "@chakra-ui/react";
+import {  Box, Tabs, TabList, Tab } from "@chakra-ui/react";
 import React from "react";
-import RepasBarre from "./repasBarre";
-//import './joursBarre.css'
+
+
 
 
 const JourBarre = ({onIndexChange}) => {
@@ -17,9 +17,9 @@ const JourBarre = ({onIndexChange}) => {
           setTabIndex(index) 
         }
 
-        onIndexChange(tabIndex) //indépendant de handleTabsChange il est juste 
+        onIndexChange(tabIndex)//indépendant de handleTabsChange il est juste
 
-        console.log(`tabIdex   ${tabIndex}`)
+      console.log(`tabIdex   ${tabIndex}`)
       
         return (
           <Box color={'green.400'} >
@@ -41,37 +41,7 @@ const JourBarre = ({onIndexChange}) => {
                 <Tab value={5} >Samedi</Tab>
                 <Tab value={6} >Dimanche</Tab>
               </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <p>Choisis tes recettes du Lundi</p>
-                  <RepasBarre/>
-                </TabPanel>
-                <TabPanel>
-                  <p>Choisis tes recettes du Mardi</p>
-                  <RepasBarre/>
-                </TabPanel>
-                <TabPanel>
-                  <p>Choisis tes recettes du Mercredi</p>
-                  <RepasBarre/>
-                </TabPanel>
-                <TabPanel>
-                  <p>Choisis tes recette du Jeudi</p>
-                  <RepasBarre/>
-                </TabPanel>
-                <TabPanel>
-                  <p>Choisis tes recette du Vendredi</p>
-                  <RepasBarre/>
-                </TabPanel>
-                <TabPanel>
-                  <p>Choisis tes recette du Samedi</p>
-                  <RepasBarre/>
-                </TabPanel>
-                <TabPanel>
-                  <p>Choisis tes recette du Dimanche</p>
-                  <RepasBarre/>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+              </Tabs>
           </Box>
           
 )}

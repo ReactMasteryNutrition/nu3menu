@@ -1,9 +1,10 @@
 import React from "react"
 
 import { meal } from "../data/recipeFake";
+
 import { FormControl, FormLabel, Select, RadioGroup, Stack, Radio, Image } from "@chakra-ui/react";
 
-const RepasBarre = () => {
+const RepasBarre = ({onCategoryChange}) => {
     const [category, setCategory] = React.useState("")
     const [recipe, setRecipe] = React.useState()
 
@@ -17,9 +18,10 @@ const RepasBarre = () => {
         setRecipe(e.target.value)
     }
 
+    onCategoryChange(category)
+
     return (
-        <>
-            
+        <>   
             <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"}>
                 <FormLabel>Category</FormLabel>
                 <Select w={"80%"} value={category} onChange={handleCategoryChange} placeholder='category'>
