@@ -1,6 +1,22 @@
-import { createContext, useCallback, useMemo, useState, useEffect, useContext } from 'react'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
-import { auth } from '../firebase-config'
+import {
+    createContext,
+    useCallback,
+    useMemo,
+    useState,
+    useEffect,
+    useContext
+} from 'react'
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithPopup,
+    signInWithEmailAndPassword,
+    signOut,
+    GoogleAuthProvider
+} from 'firebase/auth'
+import { auth,db } from '../firebase-config'
+import {setDoc, doc, getDoc} from "firebase/firestore";
+import {FieldValue} from "@firebase/firestore";
 
 export const AuthContext = createContext()
 
@@ -27,7 +43,6 @@ export default function AuthContextProvider(props) {
     const logout = useCallback(() => {
         return signOut(auth)
     }, []);
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setCurrentUser(currentUser)
@@ -39,15 +54,34 @@ export default function AuthContextProvider(props) {
         }
 
     }, [])
+    const signInWithGoogle = useCallback(() => {
+        const provider = new GoogleAuthProvider()
+        return signInWithPopup(auth, provider)
+    }, [])
+    const NewCreateUserInFirestoreDatabase = async (UserCredential) => {
+        const userRef = doc(db, "users", UserCredential.user.uid)
+        const userDoc = await getDoc(userRef)
+        if (!userDoc.exists) {
+            setDoc(userRef, {
+                id : UserCredential.user.uid,
+                //name: cred.user.displayName,
+                email: UserCredential.user.email,
+                imgSrc: UserCredential.user.imgSrc,
+                createdAt: FieldValue.serverTimestamp()
+            })
+        }
 
+    }
     const value = useMemo(() => ({
         currentUser,
         loading,
         setLoading,
         register,
         login,
-        logout
-    }), [currentUser, loading, register, login, logout])
+        logout,
+        signInWithGoogle,
+        NewCreateUserInFirestoreDatabase
+    }), [currentUser, loading, register, login, logout, signInWithGoogle])
 
     return (
         <AuthContext.Provider value={value}>
