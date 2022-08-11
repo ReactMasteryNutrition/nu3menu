@@ -20,18 +20,18 @@ import {
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { reauthenticateWithCredential, EmailAuthProvider, deleteUser } from "firebase/auth"
+import { reauthenticateWithCredential, reauthenticateWithPopup, GoogleAuthProvider, EmailAuthProvider, deleteUser } from "firebase/auth"
 
 const DeleteAccount = () => {
     const { currentUser } = useAuth()
     const navigate = useNavigate()
     const [passwordVerify, setPasswordVerify] = useState(false)
     const toast = useToast()
-    const {isOpen, onOpen, onClose} = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const inputs = useRef([])
     const addData = (el) => {
         if (el && !inputs.current.includes(el)) {
-            inputs.current.push(el);
+            inputs.current.push(el)
         }
     }
     const handlePassword = () => setPasswordVerify(!passwordVerify)
@@ -40,9 +40,14 @@ const DeleteAccount = () => {
         const credential = EmailAuthProvider.credential(
             currentUser?.email,
             inputs?.current[0]?.value
-        );
+        )
+        const provider = new GoogleAuthProvider()
         try {
-            await reauthenticateWithCredential(currentUser, credential);
+            if (currentUser?.providerData[0]?.providerId !== 'google.com') {
+                await reauthenticateWithCredential(currentUser, credential)
+            } else {
+                await reauthenticateWithPopup(currentUser, provider)
+            }
             deleteUser(currentUser)
             navigate('/')
             toast({
@@ -62,7 +67,7 @@ const DeleteAccount = () => {
     }
     return (
         <Box>
-             <Button
+            <Button
                 onClick={onOpen}
                 padding={ResponsiveWidth() ? "0.5rem 7rem" : "0.5rem 1rem"}
                 width="100%"
