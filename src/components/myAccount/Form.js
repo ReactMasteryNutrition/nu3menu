@@ -15,7 +15,25 @@ import DeleteAccount from './Modal/DeleteAccount'
 
 const Form = () => {
     const { currentUser } = useAuth()
+    const InputName = () => {
+        if (currentUser?.providerData[0]?.providerId !== 'google.com') {
+            return (
+            <FormControl marginBottom="1rem">
+                <Flex
+                    gap="1rem"
+                    flexDirection={ResponsiveWidth() ? "row" : "column"}
+                >
+                    <Input
+                        placeholder={currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
+                        bg='#f0fff4'
+                        readOnly />
+                    <ModalName />
+                </Flex>
+            </FormControl>)
+        }else{
 
+        }
+    }
     return (
         <Flex
             flexDirection="column"
@@ -33,15 +51,7 @@ const Form = () => {
                 alignItems="center"
                 width={ResponsiveWidth() ? null : "80%"}
             >
-                <FormControl marginBottom="1rem">
-                    <Flex
-                        gap="1rem"
-                        flexDirection={ResponsiveWidth() ? "row" : "column"}
-                    >
-                        <Input placeholder='John' bg='#f0fff4' readOnly />
-                        <ModalName />
-                    </Flex>
-                </FormControl>
+                <InputName />
                 <FormControl marginBottom="1rem">
                     <Flex
                         gap="1rem"
@@ -66,7 +76,7 @@ const Form = () => {
                     <ModalPassword />
                 </Flex>
                 <FormControl marginBottom="1rem">
-                    <DeleteAccount/>
+                    <DeleteAccount />
                 </FormControl>
             </Flex>
         </Flex>
