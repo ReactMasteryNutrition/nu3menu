@@ -22,27 +22,23 @@ function Text(props) {
 const FormRegister = () => {
     const [show, setShow] = useState(false)
     const { onClose } = useDisclosure()
-    const [validation, setValidation] = useState("");
+    const [validation, setValidation] = useState("")
+    const [authing, setAuthing] = useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
-
-    const { register } = useAuth();
-
+    const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth();
+    const formRef = useRef();
     const inputs = useRef([])
     const addInputs = el => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
         }
     }
-
     const removeInputs = el => {
         if (el && inputs.current.includes(el)) {
             inputs.current = inputs.current.filter(i => i !== el)
         }
     }
-
-    const formRef = useRef();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = inputs.current.every(i => i.validity.valid)
@@ -54,7 +50,6 @@ const FormRegister = () => {
             setValidation("6 characters min")
             return;
         }
-
         try {
             const cred = await register(
                 inputs.current[0].value,
@@ -86,11 +81,45 @@ const FormRegister = () => {
         }
     }
 
+    const handleGoogle = () => {
+        setAuthing(true)
+        signInWithGoogle()
+            .then((UserCredential) => {
+                NewCreateUserInFirestoreDatabase(UserCredential)
+                navigate("/")
+            })
+            .catch(err => {
+                console.log(err)
+                setValidation(err.code)
+                switch (err.code) {
+                    case "auth/account-exists-with-different-credential":
+                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
+                        break;
+                    case "auth/invalid-credential":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/operation-not-allowed":
+                        setValidation("Opération non autorisée")
+                        break;
+                    case "auth/user-disabled":
+                        setValidation("Ce compte est désactivé")
+                        break;
+                    case "auth/user-not-found":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/wrong-password":
+                        setValidation("Mauvais mot de passe")
+                        break;
+                    default:
+                        setValidation("Erreur inconnue")
+                        break;
+                }
+            })
+    }
     const closeModal = () => {
         setValidation("")
         onClose()
     }
-
     return (
         <Box
             position="absolute"
@@ -138,6 +167,7 @@ const FormRegister = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleGoogle}
                     >
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>S'inscrire avec Google</Box>
@@ -150,28 +180,25 @@ const FormRegister = () => {
 }
 
 const FormLogin = () => {
-    const { login } = useAuth();
-    const [show, setShow] = useState(false)
+    const { login, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth();
     const { onClose } = useDisclosure()
-    const [validation, setValidation] = useState("");
+    const [show, setShow] = useState(false)
+    const [validation, setValidation] = useState("")
+    const [authing, setAuthing] = useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
-
+    const formRef = useRef();
     const inputs = useRef([]);
     const addInputs = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el);
         }
     };
-
     const removeInputs = (el) => {
         if (el && inputs.current.includes(el)) {
             inputs.current = inputs.current.filter(i => i !== el);
         }
     }
-
-    const formRef = useRef();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -188,7 +215,41 @@ const FormLogin = () => {
 
         }
     }
-
+    const handleGoogle = () => {
+        setAuthing(true)
+        signInWithGoogle()
+            .then((UserCredential) => {
+                NewCreateUserInFirestoreDatabase(UserCredential)
+                navigate("/")
+            })
+            .catch(err => {
+                console.log(err)
+                setValidation(err.code)
+                switch (err.code) {
+                    case "auth/account-exists-with-different-credential":
+                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
+                        break;
+                    case "auth/invalid-credential":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/operation-not-allowed":
+                        setValidation("Opération non autorisée")
+                        break;
+                    case "auth/user-disabled":
+                        setValidation("Ce compte est désactivé")
+                        break;
+                    case "auth/user-not-found":
+                        setValidation("Ce compte n'existe pas")
+                        break;
+                    case "auth/wrong-password":
+                        setValidation("Mauvais mot de passe")
+                        break;
+                    default:
+                        setValidation("Erreur inconnue")
+                        break;
+                }
+            })
+    }
     const closeModal = () => {
         setValidation("")
         onClose()
@@ -241,6 +302,7 @@ const FormLogin = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleGoogle}
                     >
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
