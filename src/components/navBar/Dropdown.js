@@ -13,7 +13,7 @@ import {useAuth} from '../../context/authContext'
 const Dropdown = () => {
   const navigate = useNavigate()
 
-  const { logout } = useAuth()
+  const { logout, currentUser } = useAuth()
 
   const handleClick = async () => {
     try {
@@ -34,7 +34,7 @@ const Dropdown = () => {
       <MenuList bg='#f0fff4'>
         <Link to="/">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-            John
+          {currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
           </MenuItem>
         </Link>
         <MenuDivider />
