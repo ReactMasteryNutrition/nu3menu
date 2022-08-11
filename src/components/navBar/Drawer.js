@@ -23,7 +23,7 @@ const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const navigate = useNavigate()
 
-    const { logout } = useAuth()
+    const { logout, currentUser } = useAuth()
 
     const handleClick = async ()  => {
         try {
@@ -74,7 +74,8 @@ const DrawerUser = () => {
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
-                                <CgProfile color='#48BB78' margin-right='0.5rem' /> John
+                                <CgProfile color='#48BB78' margin-right='0.5rem' /> 
+                                {currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
                             </Flex>
                         </Link>
                         <Link to='/myaccount' onClick={onClose}>
