@@ -12,7 +12,14 @@ import {
     FormLabel
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { reauthenticateWithCredential, updateEmail, EmailAuthProvider } from 'firebase/auth'
+import {
+    reauthenticateWithCredential,
+    reauthenticateWithPopup,
+    GoogleAuthProvider,
+    updateEmail,
+    EmailAuthProvider,
+    sendEmailVerification
+} from 'firebase/auth'
 
 const ModalEmail = () => {
     const { currentUser } = useAuth()
@@ -26,13 +33,18 @@ const ModalEmail = () => {
     }
     const handlePassword = () => setPasswordVerify(!passwordVerify)
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const credential = EmailAuthProvider.credential(
             currentUser?.email,
             inputs?.current[0]?.value
-        );
+        )
+        const provider = new GoogleAuthProvider()
         try {
-            await reauthenticateWithCredential(currentUser, credential)
+            if (currentUser?.providerData[0]?.providerId !== 'google.com') {
+                await reauthenticateWithCredential(currentUser, credential)
+            } else {
+                await reauthenticateWithPopup(currentUser, provider)
+            }
             updateEmail(currentUser, inputs?.current[1]?.value)
             toast({
                 description: "Votre adresse e-mail a bien été modifié !",
@@ -40,6 +52,17 @@ const ModalEmail = () => {
                 duration: 4000,
                 isClosable: true,
             })
+            sendEmailVerification(currentUser)
+            if (currentUser?.emailVerified === true) {
+                setTimeout(() => {
+                    toast({
+                        description: "Un e-mail de vérification vous a été envoyé !",
+                        status: 'success',
+                        duration: 4000,
+                        isClosable: true,
+                    })
+                }, 3000);
+            }
         } catch (error) {
             toast({
                 description: "Il y a eu une erreur lors de la modification de votre adresse e-mail !",
@@ -47,9 +70,18 @@ const ModalEmail = () => {
                 duration: 4000,
                 isClosable: true,
             })
+            if (currentUser?.emailVerified === false) {
+                toast({
+                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                })
+            }
         }
     }
 
+    console.log('%c currentUser', 'color:skyblue', currentUser)
     return (
         <Box>
             <form onSubmit={handleSubmit}>
