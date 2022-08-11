@@ -11,7 +11,13 @@ import {
   InputRightElement,
   Box
 } from '@chakra-ui/react'
-import { reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth"
+import {
+  reauthenticateWithCredential,
+  reauthenticateWithPopup,
+  GoogleAuthProvider,
+  EmailAuthProvider,
+  updatePassword
+} from "firebase/auth"
 
 const ModalPassword = () => {
   const [oldPassword, setOldPassword] = useState(false)
@@ -29,21 +35,19 @@ const ModalPassword = () => {
     }
   }
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const credential = EmailAuthProvider.credential(
       currentUser?.email,
       inputs?.current[0]?.value
-    );
+    )
+    const provider = new GoogleAuthProvider()
     try {
-      await reauthenticateWithCredential(currentUser, credential)
-      if (inputs?.current[1]?.value !== inputs?.current[2]?.value) {
-        toast({
-          description: "Votre nouveau mot de passe et votre mot de passe de confirmation ne correspondent pas !",
-          status: 'error',
-          duration: 4000,
-          isClosable: true,
-        })
+      if (currentUser?.providerData[0]?.providerId !== 'google.com') {
+        await reauthenticateWithCredential(currentUser, credential)
       } else {
+        await reauthenticateWithPopup(currentUser, provider)
+      }
+      if (inputs?.current[1]?.value === inputs?.current[2]?.value) {
         updatePassword(currentUser, inputs?.current[1]?.value)
         toast({
           description: "Votre mot de passe a bien été modifié !",
@@ -53,6 +57,14 @@ const ModalPassword = () => {
         })
       }
     } catch (error) {
+      if (inputs?.current[1]?.value !== inputs?.current[2]?.value) {
+        toast({
+          description: "Votre nouveau mot de passe et votre mot de passe de confirmation ne correspondent pas !",
+          status: 'error',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
       toast({
         description: "Il y a eu une erreur lors de la modification de votre mot de passe !",
         status: 'error',
@@ -61,7 +73,6 @@ const ModalPassword = () => {
       })
     }
   }
-
   return (
     <Box>
       <form onSubmit={handleSubmit}>
