@@ -30,7 +30,7 @@ const ModalName = () => {
         const credential = EmailAuthProvider.credential(
             currentUser?.email,
             inputs?.current[0]?.value
-        );
+        )
         try {
             await reauthenticateWithCredential(currentUser, credential);
             toast({
@@ -48,7 +48,6 @@ const ModalName = () => {
             })
         }
     }
-
     return (
         <Box>
             <form onSubmit={handleSubmit}>
