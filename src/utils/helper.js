@@ -4,7 +4,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
@@ -20,7 +19,6 @@ const ResponsiveWidth = () => {
 
 const ModalMyAccount = ({ title, header, content, footer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
   return (
     <Box>
       <Button
@@ -35,14 +33,18 @@ const ModalMyAccount = ({ title, header, content, footer }) => {
         Modifier
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay bg="rgba(160, 174, 192, 0.5)" />
+        <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
         <ModalContent
+          position={ResponsiveWidth() ? null : "fixed"}
+          minHeight={ResponsiveWidth() ? null : "100vh"}
+          minWidth={ResponsiveWidth() ? null : "100vw"}
+          borderRadius={ResponsiveWidth() ? null : 0}
           bg="#1A202C"
           color="#F0FFF4"
-          width={ResponsiveWidth() ? null : "90%"}
         >
-          <ModalHeader>{header}</ModalHeader>
+          {header}
           <ModalCloseButton
+            onClick={onClose}
             position="absolute"
             right="0"
             top="0"
@@ -53,10 +55,11 @@ const ModalMyAccount = ({ title, header, content, footer }) => {
             borderBottomRightRadius={ResponsiveWidth() ? null : 0}
             borderBottomLeftRadius={ResponsiveWidth() ? 'null' : "1rem"}
             borderTopLeftRadius={ResponsiveWidth() ? null : 0}
+            borderTopRightRadius={ResponsiveWidth() ? null : 0}
             bg="#48bb78"
             cursor="pointer"
             _hover={{
-              transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
+                transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
             }}
           />
           <ModalBody>
