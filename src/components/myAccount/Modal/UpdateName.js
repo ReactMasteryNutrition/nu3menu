@@ -1,14 +1,16 @@
 import { useAuth } from '../../../context/authContext'
-import { ModalMyAccount } from '../../../utils/helper'
+import { ResponsiveWidth, ModalMyAccount } from '../../../utils/helper'
 import {
     Button,
     useToast,
     Box,
+    Image,
     Input,
     InputGroup,
     InputRightElement,
     FormControl,
-    FormLabel
+    FormLabel,
+    ModalHeader
 } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -53,8 +55,33 @@ const ModalName = () => {
             <form onSubmit={handleSubmit}>
                 <ModalMyAccount
                     title={"name"}
-                    header={"Modifier mon prénom"}
-                    content={<>
+                    header={<Box
+                        position={ResponsiveWidth() ? null : "absolute"}
+                        left={ResponsiveWidth() ? null : "50%"}
+                        top={ResponsiveWidth() ? null : "20%"}
+                        width='100%'
+                        transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+                    >
+                        <Image
+                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            width={ResponsiveWidth() ? "15rem" : "18rem"}
+                            margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 3rem auto'}
+                        />
+                        <ModalHeader
+                            textAlign="center"
+                            fontSize="1.5rem"
+                            marginBottom="1rem"
+                        >
+                            Modifier mon prénom
+                        </ModalHeader>
+                    </Box>}
+                    content={<Box
+                        position={ResponsiveWidth() ? null : "absolute"}
+                        left={ResponsiveWidth() ? null : "50%"}
+                        top={ResponsiveWidth() ? null : "50%"}
+                        width={ResponsiveWidth() ? null : '90%'}
+                        transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+                    >
                         <FormLabel>Veuillez-vous authentifier avec votre mot de passe</FormLabel>
                         <InputGroup size='md' marginBottom="1rem" >
                             <Input
@@ -75,13 +102,18 @@ const ModalName = () => {
                             <Input bg='#f0fff4' color="#1A202C" ref={addData}
                             />
                         </FormControl>
-                    </>}
+                    </Box>}
                     footer={
                         <Button
                             onClick={handleSubmit}
                             bg='#48bb78'
                             color="#f0fff4"
                             _hover={{ bgColor: "#a0aec0" }}
+                            position={ResponsiveWidth() ? null : "absolute"}
+                            left={ResponsiveWidth() ? null : "50%"}
+                            top={ResponsiveWidth() ? null : "75%"}
+                            width={ResponsiveWidth() ? null : "90%"}
+                            transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                         >Valider
                         </Button>}
                 />
