@@ -89,7 +89,6 @@ const FormRegister = () => {
                 navigate("/")
             })
             .catch(err => {
-                console.log(err)
                 setValidation(err.code)
                 switch (err.code) {
                     case "auth/account-exists-with-different-credential":
@@ -223,7 +222,6 @@ const FormLogin = () => {
                 navigate("/")
             })
             .catch(err => {
-                console.log(err)
                 setValidation(err.code)
                 switch (err.code) {
                     case "auth/account-exists-with-different-credential":
