@@ -30,8 +30,6 @@ const Form = () => {
                     <ModalName />
                 </Flex>
             </FormControl>)
-        }else{
-
         }
     }
     return (
