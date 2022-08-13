@@ -1,19 +1,37 @@
-import {ModalName, ModalEmail, ModalPassword} from './Modal'
-import Alert from './Alert'
+import ModalName from './Modal/UpdateName'
+import ModalEmail from './Modal/UpdateEmail'
+import ModalPassword from './Modal/UpdatePassword'
 import { ResponsiveWidth } from "../../utils/helper"
-import * as React from 'react'
+import { useAuth } from '../../context/authContext'
 import {
     Flex,
     Avatar,
     FormControl,
     Input,
     InputGroup,
-    Button,
     Box
 } from '@chakra-ui/react'
+import DeleteAccount from './Modal/DeleteAccount'
 
 const Form = () => {
-
+    const { currentUser } = useAuth()
+    const InputName = () => {
+        if (currentUser?.providerData[0]?.providerId !== 'google.com') {
+            return (
+            <FormControl marginBottom="1rem">
+                <Flex
+                    gap="1rem"
+                    flexDirection={ResponsiveWidth() ? "row" : "column"}
+                >
+                    <Input
+                        placeholder={currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
+                        bg='#f0fff4'
+                        readOnly />
+                    <ModalName />
+                </Flex>
+            </FormControl>)
+        }
+    }
     return (
         <Flex
             flexDirection="column"
@@ -31,21 +49,13 @@ const Form = () => {
                 alignItems="center"
                 width={ResponsiveWidth() ? null : "80%"}
             >
+                <InputName />
                 <FormControl marginBottom="1rem">
                     <Flex
                         gap="1rem"
                         flexDirection={ResponsiveWidth() ? "row" : "column"}
                     >
-                        <Input placeholder='John' bg='#f0fff4' readOnly />
-                        <ModalName />
-                    </Flex>
-                </FormControl>
-                <FormControl marginBottom="1rem">
-                    <Flex
-                        gap="1rem"
-                        flexDirection={ResponsiveWidth() ? "row" : "column"}
-                    >
-                        <Input type='email' placeholder='johndoe@gmail.com' bg='#f0fff4' readOnly />
+                        <Input type='email' placeholder={currentUser?.email} bg='#f0fff4' readOnly />
                         <ModalEmail />
                     </Flex>
                 </FormControl >
@@ -64,19 +74,7 @@ const Form = () => {
                     <ModalPassword />
                 </Flex>
                 <FormControl marginBottom="1rem">
-                    <Button
-                        padding={ResponsiveWidth() ? "0.5rem 5.1rem" : "0.5rem"}
-                        marginTop={ResponsiveWidth() ? null : "3rem"}
-                        width="100%"
-                        bg='#48bb78'
-                        color="#f0fff4"
-                        _hover={{ bgColor: "#a0aec0" }}
-                    >
-                        Valider mes modifications
-                    </Button>
-                </FormControl>
-                <FormControl marginBottom="1rem">
-                    <Alert/>
+                    <DeleteAccount />
                 </FormControl>
             </Flex>
         </Flex>

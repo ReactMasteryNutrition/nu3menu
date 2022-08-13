@@ -5,9 +5,7 @@ import { Link } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
 import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
 import { useContext } from 'react'
-import { AuthContext } from '../context/authContext'
-
-// const userToken = 'nu3menuToken'
+import { AuthContext } from '../../context/authContext'
 
 const NavVisitor = () => {
   return (
@@ -136,8 +134,6 @@ const NavDesktop = () => {
   return (
     <>
       {currentUser ? <NavUser/> : <NavVisitor/>}
-      {/*<NavVisitor />  */}
-      {/* <NavUser /> */}
     </>
   )
 }

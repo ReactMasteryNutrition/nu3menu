@@ -1,5 +1,5 @@
 import React from "react";
-import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link, Flex } from '@chakra-ui/react';
+import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link } from '@chakra-ui/react';
 import { socialIconLink, linkListFooter } from '../data/dataLink';
 import { MdSettings } from 'react-icons/md'
 
