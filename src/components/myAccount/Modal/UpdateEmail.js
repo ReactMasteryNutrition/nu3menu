@@ -1,11 +1,13 @@
 import { useAuth } from '../../../context/authContext'
-import { ModalMyAccount } from '../../../utils/helper'
+import { ResponsiveWidth, ModalMyAccount } from '../../../utils/helper'
 import { useState, useRef } from 'react'
 import {
     Button,
     FormControl,
     Box,
     useToast,
+    ModalHeader,
+    Image,
     Input,
     InputGroup,
     InputRightElement,
@@ -81,14 +83,38 @@ const ModalEmail = () => {
         }
     }
 
-    console.log('%c currentUser', 'color:skyblue', currentUser)
     return (
         <Box>
             <form onSubmit={handleSubmit}>
                 <ModalMyAccount
                     title={"e-mail"}
-                    header={"Modifier mon adresse e-mail"}
-                    content={<>
+                    header={<Box
+                        position={ResponsiveWidth() ? null : "absolute"}
+                        left={ResponsiveWidth() ? null : "50%"}
+                        top={ResponsiveWidth() ? null : "20%"}
+                        width='100%'
+                        transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+                    >
+                        <Image
+                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            width={ResponsiveWidth() ? "15rem" : "18rem"}
+                            margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 3rem auto'}
+                        />
+                        <ModalHeader
+                            textAlign="center"
+                            fontSize="1.5rem"
+                            marginBottom="1rem"
+                        >
+                            Modifier mon adresse e-mail
+                        </ModalHeader>
+                    </Box>}
+                    content={<Box
+                        position={ResponsiveWidth() ? null : "absolute"}
+                        left={ResponsiveWidth() ? null : "50%"}
+                        top={ResponsiveWidth() ? null : "50%"}
+                        width={ResponsiveWidth() ? null : '90%'}
+                        transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+                    >
                         <FormControl>
                             <FormLabel>Veuillez-vous authentifier avec votre mot de passe</FormLabel>
                             <InputGroup size='md' marginBottom="1rem" >
@@ -109,17 +135,21 @@ const ModalEmail = () => {
                         <FormControl marginBottom="1rem">
                             <FormLabel>Nouvelle adresse e-mail</FormLabel>
                             <Input type='email' bg='#f0fff4' color="#1A202C"
-                                placeholder={currentUser?.email}
                                 ref={addData}
                             />
                         </FormControl >
-                    </>}
+                    </Box>}
                     footer={
                         <Button
                             onClick={handleSubmit}
                             bg='#48bb78'
                             color="#f0fff4"
                             _hover={{ bgColor: "#a0aec0" }}
+                            position={ResponsiveWidth() ? null : "absolute"}
+                            left={ResponsiveWidth() ? null : "50%"}
+                            top={ResponsiveWidth() ? null : "75%"}
+                            width={ResponsiveWidth() ? null : "90%"}
+                            transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                         >Valider
                         </Button>}
                 />
