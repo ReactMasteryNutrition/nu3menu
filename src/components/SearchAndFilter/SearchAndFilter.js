@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
 
-import Filter from '../../components/SearchAndFilter/Filter'
 import Query from '../../components/SearchAndFilter/Query'
 import SearchBar from '../../components/SearchAndFilter/SearchBar'
 
@@ -13,12 +12,12 @@ export default function SearchAndFilter() {
         type: 'public',
         beta: 'true',
         q: '', //recipe => mot clé recherché
-        app_id: '9aa229ff',
-        app_key: 'b0cc99c6ca952ed1d898610b97dece87',
+        app_id: process.env.REACT_APP_EDAMAM_API_ID,
+        app_key: process.env.REACT_APP_EDAMAM_API_KEY,
     })
 
     const handleSearch = recipeName => {
-        console.log('recipeName : ', recipeName)
+        //console.log('recipeName : ', recipeName)
         setRecipe(recipeName)
         setFilter({
             ...filter, 
@@ -29,10 +28,10 @@ export default function SearchAndFilter() {
 
 
     return (
+
         <Box w="100%" h='auto' display='flex' flexDir={['column', 'row']}>
-            <Box display={['none', 'none', 'flex']}>
-                <Filter filter={filter} setFilter={setFilter}/>
-            </Box>
+        
+
             <Box w="100%" color='green.50' >
                 <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter}/>
                 <Query thingSearched={recipe} filter={filter}/>

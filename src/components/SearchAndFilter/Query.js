@@ -4,26 +4,21 @@ import { Center, Spinner, Text } from '@chakra-ui/react'
 // import test
 import FetchAxios from '../../utils/FetchAxios'
 import CardRecipe from '../Card/CardRecipe';
+//import CardWithGrid from '../Card/CardWithGrid';
 // Function
 export default function Query({thingSearched, filter}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
 
     React.useEffect(() => {
-        // console.log('useEffect de ResultOfQuery')
-        // console.log('thingSearched à la validation : ', thingSearched)
-        // console.log('filter à la validation : ', filter)
         const controller = new AbortController();
         if (!thingSearched) {
             return
         }
-        console.log('useEffect de ResultOfQuery pour lancer le fetch axios')
         setData()
-        //FetchRecipe(thingSearched)
         FetchAxios(thingSearched, filter)
         .then(response => {
             setData(response)
-            console.log('on a mis response dans data')
         })
         .catch(error => setError(error))
         .finally( ()=> controller.abort())
@@ -34,7 +29,6 @@ export default function Query({thingSearched, filter}) {
     }
     if(!thingSearched) {
         return (
-            console.log('Filter : ', filter),
             <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
         )
     }
@@ -47,7 +41,6 @@ export default function Query({thingSearched, filter}) {
         )
     }
     return (
-        console.log('Filter : ', filter),
         <CardRecipe datas={data}/>
     )
 }

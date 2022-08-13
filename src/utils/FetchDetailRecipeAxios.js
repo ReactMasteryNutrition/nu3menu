@@ -1,21 +1,10 @@
 // Import
 import axios from 'axios'
 
-const qs = require('qs')
-
-
-async function FetchAxios(thingSearched, filter) {
-
-    let urlInit = 'https://api.edamam.com/api/recipes/v2?'
-
-    let endOfParams = Object.fromEntries(Object.entries(filter).filter(([key, value]) => value !==''))
-    
+// Function
+async function FetchDetailRecipeAxios(queryAdress) {
     try {
-        let endOfUrl = qs.stringify(endOfParams)
-
-        let urlFinal = `${urlInit}${endOfUrl}`
-        
-        const response = await axios.get(urlFinal)
+        const response = await axios.get(queryAdress)
         return response
     } catch (error) {
         if(error.response) {
@@ -31,4 +20,4 @@ async function FetchAxios(thingSearched, filter) {
     }
 }
 
-export default  FetchAxios ;
+export default  FetchDetailRecipeAxios ;
