@@ -6,10 +6,10 @@ import FetchAxios from '../../utils/FetchAxios'
 import CardRecipe from '../Card/CardRecipe';
 //import CardWithGrid from '../Card/CardWithGrid';
 // Function
-export default function Query({thingSearched, filter}) {
+export default function Query({thingSearched, filter, index, category}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
-
+    console.log(`je suis dans query hahaha ${index} et ${category}`)
     React.useEffect(() => {
         const controller = new AbortController();
         if (!thingSearched) {
@@ -41,6 +41,6 @@ export default function Query({thingSearched, filter}) {
         )
     }
     return (
-        <CardRecipe datas={data}/>
+        <CardRecipe index={index} category={category} datas={data}/>
     )
 }

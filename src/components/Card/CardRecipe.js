@@ -7,10 +7,11 @@ import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 import DetailRecipeModal from './DetailRecipeModal'
 import FetchDetailRecipeAxios from '../../utils/FetchDetailRecipeAxios'
+import AjoutJour from '../mealy/ajoutjour'
 // Functions //
 
-export default function CardRecipe(datas) {
-
+export default function CardRecipe(datas, {index, category, recipe}) {
+    
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const recipesDatas = datas.datas.data.hits
@@ -42,6 +43,8 @@ export default function CardRecipe(datas) {
         onClose()
         setDetailRecipe()
     }
+
+    console.log(`je suis dans cardReciper ${index} et ${category}`)
     return(
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {recipesDatas.map(recipe => {
@@ -102,9 +105,7 @@ export default function CardRecipe(datas) {
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModal detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <Button leftIcon={<AddIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={()=> console.log('Fonction pour enregistrer la recette dans notre menu / A FAIRE')}>
-                        Add
-                        </Button>
+                        <AjoutJour index={index} category={category} recipe={recipe}/>
                         <Link href={detailRecipe?.data?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>

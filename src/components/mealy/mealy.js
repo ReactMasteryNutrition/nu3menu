@@ -6,6 +6,7 @@ import SearchAndFilter from "../SearchAndFilter/SearchAndFilter";
 import JourBarre from "./joursBarre";
 import RepasBarre from "./repasBarre";
 import AjoutJour from "./ajoutjour";
+//import CardRecipe from "../Card/CardRecipe";
 
 
 //import { weekMenu } from "../data/weekMenu";
@@ -40,8 +41,8 @@ console.log(`les recipe delocé   ${recipeDeloc}`)
                 </Flex>
                 <Center w={'75%'} flexDirection={"column"}>
 
-                    <RepasBarre onCategoryChange={handleCategoryChange} onChangeRecipe={handleChangeRecipe}/>
-                    <SearchAndFilter />
+                    <RepasBarre onCategoryChange={handleCategoryChange} />
+                    <SearchAndFilter onChangeRecipe={handleChangeRecipe} index ={tabIndexDeloc} category ={categoryDeloc} />
                     <AjoutJour index ={tabIndexDeloc} category ={categoryDeloc} recipe={recipeDeloc} />
             
                 </Center>

@@ -4,9 +4,10 @@ import { Box } from '@chakra-ui/react'
 import Query from '../../components/SearchAndFilter/Query'
 import SearchBar from '../../components/SearchAndFilter/SearchBar'
 
-export default function SearchAndFilter() {
+export default function SearchAndFilter({onChangeRecipe, index, category}) {
     const [recipe, setRecipe] = React.useState('')
-
+    //const [dattas, setDattas] = React.useState()
+ console.log(`je suis dans searchandFliter ${index} et ${category}`)
 
     const [filter, setFilter] = React.useState({
         type: 'public',
@@ -25,6 +26,8 @@ export default function SearchAndFilter() {
         })
     }
 
+    onChangeRecipe(recipe)
+
 
 
     return (
@@ -34,7 +37,7 @@ export default function SearchAndFilter() {
 
             <Box w="100%" color='green.50' >
                 <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter}/>
-                <Query thingSearched={recipe} filter={filter}/>
+                <Query index={index} category={category} thingSearched={recipe} filter={filter}/>
             </Box>
         </Box>      
     )

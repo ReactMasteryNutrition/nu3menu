@@ -5,21 +5,21 @@ import { FormControl, FormLabel, Select,Radio, RadioGroup, Stack, Image} from "@
 
 const RepasBarre = ({onCategoryChange, onChangeRecipe}) => {
     const [category, setCategory] = React.useState("")
-    const [recipe, setRecipe] = React.useState()
+    //const [recipe, setRecipe] = React.useState()
 
-   let arrayCategory = meal.filter((meal) => meal.category === category)
+   //let arrayCategory = meal.filter((meal) => meal.category === category)
 
     const handleCategoryChange = (e) => {
         setCategory(e.target.value)
         //onCategorychange(category)
     }
-    const handleRecipeChange = (e) => {
-        setRecipe(e.target.value)
-    }
+    //const handleRecipeChange = (e) => {
+      //  setRecipe(e.target.value)
+    //}
 
-    onChangeRecipe(recipe)
+    //onChangeRecipe(recipe)
     onCategoryChange(category)
-    console.log(`recepiteeeeee ${recipe}`)
+    //console.log(`recepiteeeeee ${recipe}`)
 
     return (
         <>   
@@ -31,7 +31,7 @@ const RepasBarre = ({onCategoryChange, onChangeRecipe}) => {
                     <option value="diner">Dîner</option>
                 </Select>
 
-                <RadioGroup marginX={"auto"} textAlign={"center"} display={"flex"} defaultValue={recipe} onClick={handleRecipeChange} color={"green.400"}>
+                {/*<RadioGroup marginX={"auto"} textAlign={"center"} display={"flex"} defaultValue={recipe} onClick={handleRecipeChange} color={"green.400"}>
                 <Stack display={"flex"} flexDirection={"column"} alignItems={"center"}>
                     {arrayCategory?.map((data) => <Radio w={"75%"} key={data.id} value={data.id} checked={recipe === { data }}>
                         <Image height={"sm"} width={"sm"} src={data.picture} alt="imgggg" />
@@ -40,7 +40,7 @@ const RepasBarre = ({onCategoryChange, onChangeRecipe}) => {
                     </Radio>)}
                 </Stack>
 
-            </RadioGroup>
+    </RadioGroup>*/}
             </FormControl>
         </>
     )
