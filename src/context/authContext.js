@@ -1,9 +1,27 @@
-import {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider,UserCredential, sendPasswordResetEmail} from 'firebase/auth'
-import {auth, db} from '../../firebase-config'
-import {Avatar} from "@chakra-ui/react";
+import {
+    createContext,
+    useCallback,
+    useMemo,
+    useState,
+    useEffect,
+    useContext
+} from 'react'
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithPopup,
+    signInWithEmailAndPassword,
+    signOut,
+    GoogleAuthProvider,
+    sendPasswordResetEmail,
+    UserCredential,
+    EmailAuthProvider,
+    sendEmailVerification
+} from 'firebase/auth'
+import {auth, db} from '../firebase-config'
 import {setDoc, doc, getDoc} from "firebase/firestore";
 import {FieldValue} from "@firebase/firestore";
+import {Avatar} from "@chakra-ui/react";
 
 export const AuthContext = createContext()
 
@@ -36,36 +54,41 @@ export default function AuthContextProvider(props) {
     }, []);
 
     useEffect(() => {
-        return onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                const imgSrc = <Avatar size="sm" />
+                const imgSrc = currentUser.photoURL ? currentUser.photoURL : <Avatar size="sm"/>
                 setCurrentUser({
+                    ...currentUser,
                     user: currentUser,
                     imgSrc: imgSrc,
                     email: currentUser.email,
+                    displayName: currentUser.displayName,
+                    uid: currentUser.uid
                 });
             } else {
                 setCurrentUser(currentUser);
             }
-        });
+            return () => {
+                unsubscribe()
+            }
+        }, [])
+    },[])
 
-    }, [])
-
-    useEffect(() => {
+    /* useEffect(() => {
         authCheck()
         return () => {
             authCheck()
         }
-    }, [auth]);
+    }, [auth]); */
 
-    const authCheck = onAuthStateChanged(auth, (currentUser) => {
+    {/* const authCheck = onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
             const newUser = currentUser
             setCurrentUser(newUser)
         } else {
             setCurrentUser(currentUser);
         }
-    } );
+    } ); */}
 
     const signInWithGoogle = useCallback(() => {
         const provider = new GoogleAuthProvider()
@@ -78,7 +101,7 @@ export default function AuthContextProvider(props) {
         if (!userDoc.exists) {
             setDoc(userRef, {
                 id : UserCredential.user.uid,
-                //name: cred.user.displayName,
+                name: UserCredential.user.displayName,
                 email: UserCredential.user.email,
                 imgSrc: UserCredential.user.imgSrc,
                 createdAt: FieldValue.serverTimestamp()
@@ -87,21 +110,19 @@ export default function AuthContextProvider(props) {
 
     }
 
-
-
-    const provider = new GoogleAuthProvider();
-
     const value = useMemo(() => ({
         currentUser,
+        loading,
+        setLoading,
         register,
         login,
         logout,
-        loading,
-        setLoading,
+        signInWithGoogle,
         resetPassword,
         NewCreateUserInFirestoreDatabase,
-        signInWithGoogle
-    }),[currentUser, register, login, logout, loading, setLoading, resetPassword, NewCreateUserInFirestoreDatabase, signInWithGoogle])
+        EmailAuthProvider,
+        sendEmailVerification
+    }),[currentUser, loading, setLoading,register, login, logout, resetPassword, signInWithGoogle, NewCreateUserInFirestoreDatabase, EmailAuthProvider, sendEmailVerification])
 
     return (
         <AuthContext.Provider value={value}>

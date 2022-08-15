@@ -18,7 +18,7 @@ import { IoLogOut } from "react-icons/io5"
 import { MdOutlineMenuBook } from "react-icons/md"
 import {signOut} from "firebase/auth";
 import {auth} from "../../firebase-config";
-import {useAuth} from "../context/authContext";
+import {useAuth} from "../../context/authContext";
 
 const DrawerUser = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()

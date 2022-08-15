@@ -15,6 +15,8 @@ import {
 } from '@chakra-ui/react'
 import { IoLogInSharp } from "react-icons/io5"
 import { BsFillPersonPlusFill } from "react-icons/bs"
+import {Link} from "react-router-dom";
+
 
 
 const ModalForgetPassword = () => {
@@ -22,6 +24,9 @@ const ModalForgetPassword = () => {
 
     return (
         <Box>
+            <Link to='/forgetpassword' size="xs" color='gray.500' _hover={{ textDecoration:"none" }} onClick={onOpen}>
+                Mot de passe oublié ?
+            </Link>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
                 <ModalContent

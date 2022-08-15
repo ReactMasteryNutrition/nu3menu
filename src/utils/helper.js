@@ -1,14 +1,14 @@
 import {
   Button,
-  useDisclosure,
+  useMediaQuery,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useMediaQuery,
+  Box,
+  useDisclosure,
 } from '@chakra-ui/react'
 
 const ResponsiveWidth = () => {
@@ -17,16 +17,14 @@ const ResponsiveWidth = () => {
   return minWidth501
 }
 
-const ModalMyAccount = ({ title, header, content }) => {
-  const [minWidth501] = useMediaQuery('(min-width: 501px)')
+const ModalMyAccount = ({ title, header, content, footer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
   return (
-    <>
+    <Box>
       <Button
         onClick={onOpen}
-        title={title}
         padding="0.5rem 1.5rem"
+        title={title}
         bg='#48bb78'
         color="#f0fff4"
         width="100%"
@@ -34,48 +32,46 @@ const ModalMyAccount = ({ title, header, content }) => {
       >
         Modifier
       </Button>
-
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <ModalOverlay bg="rgba(160, 174, 192, 0.5)" />
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
         <ModalContent
+          position={ResponsiveWidth() ? null : "fixed"}
+          minHeight={ResponsiveWidth() ? null : "100vh"}
+          minWidth={ResponsiveWidth() ? null : "100vw"}
+          borderRadius={ResponsiveWidth() ? null : 0}
           bg="#1A202C"
           color="#F0FFF4"
-          width={minWidth501 ? null : "90%"}
         >
-          <ModalHeader>{header}</ModalHeader>
+          {header}
           <ModalCloseButton
+            onClick={onClose}
             position="absolute"
             right="0"
             top="0"
-            transition={minWidth501 ? "all 0.25s ease" : null}
-            margin={minWidth501 ? "-0.5rem -0.4rem 0 0" : null}
+            transition={ResponsiveWidth() ? "all 0.25s ease" : null}
+            margin={ResponsiveWidth() ? "-0.5rem -0.4rem 0 0" : null}
             padding="0.25rem 0.5rem"
-            borderRadius={minWidth501 ? "0.5rem" : null}
-            borderBottomRightRadius={minWidth501 ? null : 0}
-            borderBottomLeftRadius={minWidth501 ? 'null' : "1rem"}
-            borderTopLeftRadius={minWidth501 ? null : 0}
+            borderRadius={ResponsiveWidth() ? "0.5rem" : null}
+            borderBottomRightRadius={ResponsiveWidth() ? null : 0}
+            borderBottomLeftRadius={ResponsiveWidth() ? 'null' : "1rem"}
+            borderTopLeftRadius={ResponsiveWidth() ? null : 0}
+            borderTopRightRadius={ResponsiveWidth() ? null : 0}
             bg="#48bb78"
             cursor="pointer"
             _hover={{
-              transform: minWidth501 ? "translate(-0.35rem, 0.4rem)" : null
+                transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
             }}
           />
           <ModalBody>
             {content}
           </ModalBody>
           <ModalFooter>
-            <Button
-              onClick={onClose}
-              bg='#48bb78'
-              color="#f0fff4"
-              _hover={{ bgColor: "#a0aec0" }}
-            >Valider
-            </Button>
+            {footer}
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </Box>
   )
 }
 
-export { ModalMyAccount, ResponsiveWidth }
+export { ResponsiveWidth, ModalMyAccount }

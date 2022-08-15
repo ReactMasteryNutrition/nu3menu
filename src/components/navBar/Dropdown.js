@@ -9,7 +9,7 @@ import {
   import {Link, Navigate} from "react-router-dom"
 import {signOut} from "firebase/auth";
 import {auth} from "../../firebase-config";
-import {useAuth} from "../context/authContext";
+import {useAuth} from "../../context/authContext";
 
 const Dropdown = () => {
     const { currentUser } = useAuth()

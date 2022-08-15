@@ -9,37 +9,186 @@ import {
     InputGroup,
     Button,
     Box,
-    Link,
-    FormHelperText, useDisclosure, Text, Spinner
+    useToast,
+    FormHelperText,
+    useDisclosure,
+    Text,
+    Spinner
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import {BsBookmarkFill, BsFillPersonPlusFill} from "react-icons/bs";
-import {useNavigate, Link as RouterLink} from 'react-router-dom'
-import { useAuth } from '../context/authContext'
+import {useNavigate, Link, NavLink as RouterLink} from 'react-router-dom'
+import { useAuth } from '../../context/authContext'
 import {setDoc} from "firebase/firestore";
 import {user} from "../../firebase-config";
-import ModalForgetPassword from "../forgetPwd/Modal";
+import {ModalForgetPassword} from "../forgetPwd/Modal";
 import {FormForgetPassword} from "../forgetPwd/Form";
 
-const FormRegister = () => {
-    const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth()
-    const [authing, setAuthing] = useState(false)
-    const navigate = useNavigate()
-    const [validation, setValidation] = useState("");
-    const [show, setShow] = useState(false)
-    const { onClose } = useDisclosure()
-    const handleClick = () => setShow(!show)
 
+const FormRegister = () => {
+    const [show, setShow] = useState(false)
+    const { onClose, isOpen, onOpen } = useDisclosure()
+    const [validation, setValidation] = useState("")
+    const [authing, setAuthing] = useState(false)
+    const handleClick = () => setShow(!show)
+    const navigate = useNavigate()
+    const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase, sendEmailVerification, currentUser } = useAuth()
+    const formRef = useRef();
+    const toast = useToast()
     const inputs = useRef([])
     const addInputs = el => {
         if(el && !inputs.current.includes(el)){
             inputs.current.push(el)
         }
     }
+    const removeInputs = el => {
+        if(el && inputs.current.includes(el)){
+            inputs.current.splice(inputs.current.indexOf(el), 1)
+        }
+    }
 
-    const formRef = useRef();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const isValid = inputs.current.every(input => input.isValid());
+        if(inputs?.current[0]?.value === ""){
+            setValidation("Veuillez indiquer un prénom !")
+            return;
+        }
+        if(inputs?.current[1]?.value === ""){
+            setValidation("Veuillez indiquer une adresse email !")
+            return;
+        }
+        if((inputs?.current[2]?.value.length) < 6) {
+            setValidation("6 characters min")
+            return;
+        }
+        try {
+            const cred = await register(
+                inputs?.current[0]?.value,
+                inputs?.current[1]?.value,
+                inputs?.current[2]?.value
+            )
+            await NewCreateUserInFirestoreDatabase(cred.user.uid, cred.inputs?.current[0]?.value, inputs?.current[1]?.value)
+            sendEmailVerification(currentUser)
+            if (currentUser?.emailVerified === true) {
+                setTimeout(() => {
+                    toast({
+                        description: "Un e-mail de vérification vous a été envoyé !",
+                        status: 'success',
+                        duration: 4000,
+                        isClosable: true,
+                    })
+                }, 3000);
+            }
+            //formRef.current.reset();
+            setValidation("");
+            onClose();
+            setTimeout(() => {
+                navigate("/")
+            }, 1000)
 
-    const handleGoogle = () => {
+            {/* .then (authUser => {
+                    return setDoc(user(authUser.user.uid), {
+                        "displayName": inputs.current[0].value,
+                        "email": inputs.current[1].value,
+                        "createdAt": new Date()
+                    })
+                    console.log(authUser)
+                }) */}
+        }
+        catch (err) {
+            console.log(err)
+            if (currentUser?.emailVerified === false) {
+                toast({
+                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true,
+                })
+            }
+            setValidation(err.code)
+            switch (err.code) {
+                case "auth/email-already-in-use":
+                    setValidation("Cet email est déjà utilisé")
+                    break;
+                case "auth/invalid-email":
+                    setValidation("Cet email n'est pas valide")
+                    break;
+                case "auth/operation-not-allowed":
+                    setValidation("Opération non autorisée")
+                    break;
+                case "auth/weak-password":
+                    setValidation("Le mot de passe est trop faible")
+                    break;
+                default:
+                    setValidation("Erreur inconnue")
+                    break;
+            }
+        }
+    }
+
+    const handleGoogleSignIn = async () => {
+        setAuthing(true)
+        try {
+            const cred = await signInWithGoogle()
+            setAuthing(false)
+            onClose();
+            setTimeout(() => {
+                navigate("/")
+            }, 1000)
+        } catch (err) {
+            setAuthing(false)
+            console.log(err)
+            setValidation(err.code)
+            switch (err.code) {
+                case "auth/account-exists-with-different-credential":
+                    setValidation("Ce compte existe déjà avec un autre identifiant")
+                    break;
+                case "auth/auth-domain-config-required":
+                    setValidation("Configuration de domaine requise")
+                    break;
+                case "auth/cancelled-popup-request":
+                    setValidation("Requête popup annulée")
+                    break;
+                case "auth/operation-not-allowed":
+                    setValidation("Opération non autorisée")
+                    break;
+                case "auth/user-disabled":
+                    setValidation("Ce compte est désactivé")
+                    break;
+                case "auth/user-not-found":
+                    setValidation("Ce compte n'existe pas")
+                    break;
+                case "auth/wrong-password":
+                    setValidation("Mauvais mot de passe")
+                    break;
+                case "auth/operation-not-supported-in-this-environment":
+                    setValidation("Opération non supportée dans cet environnement")
+                    break;
+                case "auth/popup-blocked":
+                    setValidation("Popup bloqué")
+                    break;
+                case "auth/popup-closed-by-user":
+                    setValidation("Popup fermé par l'utilisateur")
+                    break;
+                case "auth/unauthorized-domain":
+                    setValidation("Domaine non autorisé")
+                    break;
+                default:
+                    setValidation("Erreur inconnue")
+                    break;
+
+            }
+
+        }
+
+        const closeModal = () => {
+            setValidation("")
+            onClose()
+        }
+    }
+
+   /* const handleGoogle = () => {
         setAuthing(true)
         signInWithGoogle()
             .then((UserCredential) => {
@@ -73,41 +222,9 @@ const FormRegister = () => {
                         break;
                 }
             })
-    }
+    } */
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if((inputs.current[1].value.length) < 6) {
-            setValidation("6 characters min")
-            return;
-        }
 
-        try {
-            const cred = await register(
-                inputs.current[0].value,
-                inputs.current[1].value
-            )
-            {/*.then (authUser => {
-                return setDoc(user(authUser.user.uid), {
-                    "email": inputs.current[0].value,
-                    "createdAt": new Date()
-                })
-                console.log(authUser)
-            }) */}
-            formRef.current.reset();
-            setValidation("");
-            console.log(cred)
-        }
-
-        catch (err) {
-            setValidation("Wopsy, email already used")
-        }
-    }
-
-    const closeModal = () => {
-        setValidation("")
-        onClose()
-    }
 
     return (
         <Box
@@ -117,10 +234,10 @@ const FormRegister = () => {
             width={ResponsiveWidth() ? "70%" : "80%"}
             transform="translate(-50%, -50%)"
         >
-            {/* <FormControl isRequired marginBottom="1rem">
-                <Input placeholder='Prénom' bg='#f0fff4' color="#1A202C"/>
-            </FormControl> */}
             <form ref={formRef} onSubmit={handleSubmit}>
+                <FormControl isRequired marginBottom="1rem">
+                    <Input placeholder='Prénom' bg='#f0fff4' color="#1A202C" name="displayName" ref={addInputs}/>
+                </FormControl>
                 <FormControl isRequired marginBottom="1rem">
                     <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" name="email" ref={addInputs} />
                 </FormControl >
@@ -156,7 +273,7 @@ const FormRegister = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
-                        onClick={handleGoogle}
+                        onClick={handleGoogleSignIn}
                     >
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>S'inscrire avec Google</Box>
@@ -169,16 +286,31 @@ const FormRegister = () => {
 }
 
 const FormLogin = () => {
-    const { login } = useAuth()
-    const navigate = useNavigate()
+    const { login,
+            signInWithGoogle,
+            NewCreateUserInFirestoreDatabase,
+            resetPassword,
+            loading,
+            setLoading
+    } = useAuth()
     const { onClose, onOpen, isOpen } = useDisclosure()
-    const [validation, setValidation] = useState("");
     const [show, setShow] = useState(false)
-    const handleClick = () => setShow(!show)
-    const {loading , setLoading} = useAuth()
+    const [validation, setValidation] = useState("");
     const [authing, setAuthing] = useState(false)
-    const { signInWithGoogle, NewCreateUserInFirestoreDatabase  } = useAuth()
-    const {resetPassword} = useAuth()
+    const handleClick = () => setShow(!show)
+    const navigate = useNavigate()
+    const formRef = useRef();
+    const inputs = useRef([]);
+    const addInputs = (el) => {
+        if (el && !inputs.current.includes(el)) {
+            inputs.current.push(el);
+        }
+    };
+    const removeInputs = (el) => {
+        if (el && inputs.current.includes(el)) {
+            inputs.current.splice(inputs.current.indexOf(el), 1);
+        }
+    }
 
     useLayoutEffect(() => {
         setTimeout(() => {
@@ -191,27 +323,66 @@ const FormLogin = () => {
         }
     }, [])
 
-    const inputs = useRef([]);
-    const addInputs = (el) => {
-        if (el && !inputs.current.includes(el)) {
-            inputs.current.push(el);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const cred = await login(
+                inputs?.current[0]?.value,
+                inputs?.current[1]?.value,
+            );
+            // formRef.current.reset();
+            setValidation("");
+            console.log(cred);
+            onClose();
+            navigate("/");
+        } catch (err) {
+            console.log(err)
+            switch (err.code) {
+                case "auth/account-exists-with-different-credential":
+                    setValidation("Ce compte existe déjà avec une autre méthode de connexion")
+                    break;
+                case "auth/invalid-credential":
+                    setValidation("Ce compte n'existe pas")
+                    break;
+                case "auth/operation-not-allowed":
+                    setValidation("Opération non autorisée")
+                    break;
+                case "auth/user-disabled":
+                    setValidation("Ce compte est désactivé")
+                    break;
+                case "auth/user-not-found":
+                    setValidation("Ce compte n'existe pas")
+                    break;
+                case "auth/wrong-password":
+                    setValidation("Mauvais mot de passe")
+                    break;
+                case "auth/email-invalid":
+                    setValidation("E-mail invalide")
+                    break;
+                default:
+                    setValidation("Erreur inconnue")
+                    break;
+            }
         }
+        const closeModal = () => {
+            setValidation("");
+            onClose();
+        };
+        setTimeout(closeModal, 2000);
     };
-    const formRef = useRef();
 
-    const handleGoogle = () => {
+    const handleGoogle = async () => {
         setAuthing(true)
         signInWithGoogle()
-            .then((UserCredential) => {
-                NewCreateUserInFirestoreDatabase(UserCredential)
-                navigate("/")
-            })
-            .catch(err => {
-                console.log(err)
+        await ((userCredential) => {
+            NewCreateUserInFirestoreDatabase(userCredential)
+            navigate("/")
+        })
+        .catch(err => {
                 setValidation(err.code)
                 switch (err.code) {
                     case "auth/account-exists-with-different-credential":
-                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
+                        setValidation("Ce compte existe déjà avec une autre méthode de connexion")
                         break;
                     case "auth/invalid-credential":
                         setValidation("Ce compte n'existe pas")
@@ -228,36 +399,21 @@ const FormLogin = () => {
                     case "auth/wrong-password":
                         setValidation("Mauvais mot de passe")
                         break;
+                    case "auth/email-invalid":
+                        setValidation("E-mail invalide")
+                        break;
                     default:
                         setValidation("Erreur inconnue")
                         break;
                 }
             })
-    }
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const cred = await login(
-                inputs.current[0].value,
-                inputs.current[1].value
-            );
-            // formRef.current.reset();
+        const closeModal = () => {
             setValidation("");
-            console.log(cred);
+            setAuthing(false)
             onClose();
-            navigate("/");
-        } catch {
-            setValidation("Wopsy, email and/or password incorrect")
         }
+        setTimeout(closeModal, 2000);
     };
-
-    const closeModal = () => {
-        setValidation("");
-        onClose();
-    };
-
 
     return (
         <Box
@@ -288,10 +444,8 @@ const FormLogin = () => {
                         </Box>
                     </InputRightElement>
                 </InputGroup>
-                <FormControl textAlign='start'>
-                    <Link as={RouterLink} to='/forgetpassword' size="sm" colorScheme="blue" onClick={onOpen}>
-                        Mot de passe oublié ?
-                    </Link>
+                <FormControl margin="1rem 0" textAlign='start'>
+                        <ModalForgetPassword/>
                 </FormControl>
                 <FormControl margin="1rem 0">
                     <Button
