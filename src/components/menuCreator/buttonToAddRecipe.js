@@ -2,36 +2,19 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-const AjoutJour = ({ index, category, recipe }) => {
+export default function ButtonToAddRecipe({ index, category, recipeToAdd, bla, weekMenu, setWeekMenu}){
 
-    const [weekMenu, setWeekMenu] = React.useState({
-        lundi: { matin: "patantouille", deujeuner: "", diner: "" },
-        mardi: { matin: "patantouille", deujeuner: "", diner: "" },
-        mercredi: { matin: "patantouille", deujeuner: "", diner: "" },
-        jeudi: { matin: "patantouille", deujeuner: "", diner: "" },
-        vendredi: { matin: "patantouille", deujeuner: "", diner: "" },
-        samedi: { matin: "patantouille", deujeuner: "", diner: "" },
-        dimanche: { matin: "patantouille", deujeuner: "", diner: "" }
-    })
-
-    localStorage.setItem('week', JSON.stringify(weekMenu));
-
-
-    const ajoutjour = () => {
-        console.log(`je suis avant switch`)
-        console.log(` index ${index} catégory ${category}`)
-
+    const addToThisMealDay = () => {
+        
         switch (index) {
             case 0:
-                console.log(`je suis l'index 0 donc lundi`)
                 switch (category) {
                     case "matin":
-                        console.log(`le lundi mation`)
                         setWeekMenu({
                             ...weekMenu,
                             lundi: {
                                 ...weekMenu.lundi,
-                                matin: "lundddi matin"
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -40,7 +23,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             lundi: {
                                 ...weekMenu.lundi,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -49,12 +32,10 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             lundi: {
                                 ...weekMenu.lundi,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
@@ -66,7 +47,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             mardi: {
                                 ...weekMenu.mardi,
-                                matin: recipe
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -75,7 +56,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             mardi: {
                                 ...weekMenu.mardi,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -84,16 +65,13 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             mardi: {
                                 ...weekMenu.mardi,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
-
                 break;
             case 2:
                 switch (category) {
@@ -102,7 +80,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             mercredi: {
                                 ...weekMenu.mercredi,
-                                matin: recipe
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -111,7 +89,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             mercredi: {
                                 ...weekMenu.mercredi,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -120,12 +98,10 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             mercredi: {
                                 ...weekMenu.mercredi,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
@@ -137,7 +113,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             jeudi: {
                                 ...weekMenu.jeudi,
-                                matin: recipe
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -146,7 +122,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             jeudi: {
                                 ...weekMenu.jeudi,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -155,12 +131,10 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             jeudi: {
                                 ...weekMenu.jeudi,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
@@ -172,7 +146,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             vendredi: {
                                 ...weekMenu.vendredi,
-                                matin: recipe
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -181,7 +155,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             vendredi: {
                                 ...weekMenu.vendredi,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -190,12 +164,10 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             vendredi: {
                                 ...weekMenu.vendredi,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
@@ -207,7 +179,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             samedi: {
                                 ...weekMenu.samedi,
-                                matin: recipe
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -216,7 +188,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             samedi: {
                                 ...weekMenu.samedi,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -225,12 +197,10 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             samedi: {
                                 ...weekMenu.samedi,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
@@ -242,7 +212,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             dimanche: {
                                 ...weekMenu.dimanche,
-                                matin: recipe
+                                matin: recipeToAdd
                             }
                         })
                         break;
@@ -251,7 +221,7 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             dimanche: {
                                 ...weekMenu.dimanche,
-                                deujeuner: recipe
+                                deujeuner: recipeToAdd
                             }
                         })
                         break;
@@ -260,12 +230,10 @@ const AjoutJour = ({ index, category, recipe }) => {
                             ...weekMenu,
                             dimanche: {
                                 ...weekMenu.dimanche,
-                                diner: recipe
+                                diner: recipeToAdd
                             }
                         })
-
                         break;
-
                     default:
                         break;
                 }
@@ -274,18 +242,11 @@ const AjoutJour = ({ index, category, recipe }) => {
                 break;
         }
 
-        console.log(` index 2 ${index} catégory 2 ${category}`)
-
-
     }
 
-    //console.log('Fonction pour enregistrer la recette dans notre menu / A FAIRE')
-    //onClick={ajoutjour}
-
     return (
-        <Button leftIcon={<AddIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={ajoutjour }>
+        <Button leftIcon={<AddIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={addToThisMealDay}>
         Add
         </Button>
     )
 }
-export default AjoutJour;

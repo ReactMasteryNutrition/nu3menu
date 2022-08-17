@@ -7,14 +7,19 @@ import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 import DetailRecipeModal from './DetailRecipeModal'
 import FetchDetailRecipeAxios from '../../utils/FetchDetailRecipeAxios'
-import AjoutJour from '../mealy/ajoutjour'
+//import AjoutJour from '../mealy/ajoutjour'
+import ButtonToAddRecipe from '../menuCreator/buttonToAddRecipe'
 // Functions //
 
-export default function CardRecipe(datas, {index, category, recipe}) {
+export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeRecipe, bla, weekMenu, setWeekMenu}) {
     
+    // console.log('type de index dans CARDS = ', typeof(indexOfDay))
+    // console.log('type de category dans CARDS = ', typeof(categoryOfMeal))
+    // console.log(`CARDS ==> index :  ${indexOfDay} et category : ${categoryOfMeal}`)
+
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const recipesDatas = datas.datas.data.hits
+    const recipesDatas = datas?.data?.hits
 
     const [detailRecipe, setDetailRecipe] = React.useState({});
 
@@ -44,7 +49,7 @@ export default function CardRecipe(datas, {index, category, recipe}) {
         setDetailRecipe()
     }
 
-    console.log(`je suis dans cardReciper ${index} et ${category}`)
+    // console.log(`je suis dans cardReciper ${indexOfDay} et ${categoryOfMeal}`)
     return(
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {recipesDatas.map(recipe => {
@@ -101,11 +106,11 @@ export default function CardRecipe(datas, {index, category, recipe}) {
                 <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
                     <ModalOverlay />
                     <ModalContent bg='gray.800' color='green.50'>
-                    <ModalHeader textAlign={['center']}>{ detailRecipe?.data?.recipe?.label}</ModalHeader>
+                    <ModalHeader textAlign={['center']}>{ detailRecipe?.data?.recipe?.label }</ModalHeader>
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModal detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <AjoutJour index={index} category={category} recipe={recipe}/>
+                        <ButtonToAddRecipe index={indexOfDay} category={categoryOfMeal} bla={bla} onChangeRecipe={onChangeRecipe} weekMenu={weekMenu} setWeekMenu={setWeekMenu} recipeToAdd={detailRecipe}/>
                         <Link href={detailRecipe?.data?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>
