@@ -13,7 +13,6 @@ import {
 
 const ResponsiveWidth = () => {
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
-
   return minWidth501
 }
 
