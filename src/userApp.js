@@ -25,7 +25,7 @@ const UserApp = () => {
                 <Route path='/findRecipe' element={<SearchAndFilter />} />
                 <Route path='/menu' element={<DayMeal/>} />
                 <Route path='/myaccount' element={<MyAccount />} />
-                <Route path='/ronan' element={<MenuCreator />} />
+                <Route path='/createMenu' element={<MenuCreator />} />
                 {/*<Route path='/menu' element={<UserMenu/>} />*/}
                 {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
                 {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
