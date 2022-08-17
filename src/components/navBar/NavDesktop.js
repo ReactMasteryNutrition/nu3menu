@@ -1,6 +1,7 @@
-import { ModalRegister, ModalLogin } from "../../components/connection/Modal"
+import ModalRegister from "../connection/ModalRegister"
+import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
-import Dropdown from "./Dropdown"
+import NavUserDropdown from "./NavUserDropdown"
 import { Link } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
 import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
@@ -36,7 +37,7 @@ const NavVisitor = () => {
         top={ResponsiveWidth() ? null : "50%"}
         left={ResponsiveWidth() ? null : "50%"}
         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-        
+
         height="0.3rem"
         width={ResponsiveWidth() ? "100%" : "80%"}
         borderRadius={ResponsiveWidth() ? null : "3rem"}
@@ -69,33 +70,16 @@ const NavUser = () => {
           color="#48bb78"
           gap="1.5rem"
         >
-          <Flex
-            flexDirection="row"
-            gap="1rem"
-            fontSize="1.1rem"
-            fontWeight="700"
-          >
-            <Link to="/menu"
-            >
-              <Box _hover={{
-                color: "#f0fff4"
-              }}>Mon menu</Box>
+          <Flex flexDirection="row" gap="1rem" fontSize="1.1rem" fontWeight="700">
+            <Link to="/menu">
+              <Box _hover={{ color: "#f0fff4" }}>Mon menu</Box>
             </Link>
-            <Link to="/bookmark"
-            >
-              <Box
-                _hover={{
-                  color: "#f0fff4"
-                }}>Favoris</Box>
+            <Link to="/bookmark">
+              <Box _hover={{ color: "#f0fff4" }}>Favoris</Box>
             </Link>
           </Flex>
-          <Flex
-            flexDirection="row"
-            gap="1rem"
-            with="5rem"
-          >
-            <Link to="/createmenu"
-            >
+          <Flex flexDirection="row" gap="1rem" with="5rem">
+            <Link to="/createmenu">
               <Tooltip
                 label='Créer mon menu'
                 width="6.5rem"
@@ -110,7 +94,7 @@ const NavUser = () => {
                 </Box >
               </Tooltip>
             </Link>
-            <Dropdown />
+            <NavUserDropdown />
           </Flex>
         </Box>
       </Flex >
@@ -130,10 +114,10 @@ const NavUser = () => {
 }
 
 const NavDesktop = () => {
-  const {currentUser} = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   return (
     <>
-      {currentUser ? <NavUser/> : <NavVisitor/>}
+      {currentUser ? <NavUser /> : <NavVisitor />}
     </>
   )
 }
