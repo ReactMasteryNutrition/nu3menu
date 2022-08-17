@@ -1,5 +1,6 @@
-import { DrawerUser } from './Drawer'
-import { ModalRegister, ModalLogin } from "../../components/connection/Modal"
+import NavUserDrawer from './NavUserDrawer'
+import ModalRegister from "../connection/ModalRegister"
+import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom'
 import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
@@ -72,7 +73,7 @@ const NavUser = () => {
             ></Box>
             <Flex gap={maxWidth375 ? "1.5rem":"2.5rem"} alignItems="center">
                 <Link to="/" >
-                    <FaHome size="33" color="#48BB78" />
+                    <FaHome size="33" color="#48BB78" aria-label='home'/>
                 </Link>
                 <Link to="/menu">
                     <AiOutlineMenuUnfold size="33" color="#48BB78" />
@@ -83,7 +84,7 @@ const NavUser = () => {
                 <Link to="/bookmark">
                     <BsBookmarkFill size="33" color="#48BB78" />
                 </Link>
-                {ResponsiveWidth() ? null : <DrawerUser />}
+                {ResponsiveWidth() ? null : <NavUserDrawer />}
             </Flex>
         </Flex >
     )
