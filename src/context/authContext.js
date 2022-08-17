@@ -14,14 +14,16 @@ import {
     signOut,
     GoogleAuthProvider,
     sendPasswordResetEmail,
-    UserCredential,
     EmailAuthProvider,
-    sendEmailVerification
+    sendEmailVerification,
+    UserCredential
 } from 'firebase/auth'
-import {auth, db} from '../firebase-config'
-import {setDoc, doc, getDoc} from "firebase/firestore";
-import {FieldValue} from "@firebase/firestore";
+import {auth, db} from '../firebase-config';
+import {setDoc, doc, getDoc, collection, addDoc, serverTimestamp} from "firebase/firestore";
 import {Avatar} from "@chakra-ui/react";
+import {useNavigate} from "react-router-dom";
+
+
 
 export const AuthContext = createContext()
 
@@ -33,9 +35,25 @@ export const useAuth = () => {
     return context
 }
 
+
 export default function AuthContextProvider(props) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const newUser = {...user}
+                setCurrentUser(newUser)
+            } else {
+                setCurrentUser(user)
+            }
+        })
+        return () => {
+            unsubscribe() // on désinscrit l'écouteur de l'authentification
+        }
+    } , [auth]) // on ne déclenche pas l'écouteur de l'authentification si on ne change pas le currentUser
 
     const register = useCallback((email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -53,62 +71,34 @@ export default function AuthContextProvider(props) {
         return sendPasswordResetEmail(auth, email)
     }, []);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                const imgSrc = currentUser.photoURL ? currentUser.photoURL : <Avatar size="sm"/>
-                setCurrentUser({
-                    ...currentUser,
-                    user: currentUser,
-                    imgSrc: imgSrc,
-                    email: currentUser.email,
-                    displayName: currentUser.displayName,
-                    uid: currentUser.uid
-                });
-            } else {
-                setCurrentUser(currentUser);
-            }
-            return () => {
-                unsubscribe()
-            }
-        }, [])
-    },[])
+    const emailProvider = useCallback((email) => {
+        return EmailAuthProvider(auth, email)
+    }, []);
 
-    /* useEffect(() => {
-        authCheck()
-        return () => {
-            authCheck()
-        }
-    }, [auth]); */
-
-    {/* const authCheck = onAuthStateChanged(auth, (currentUser) => {
-        if (currentUser) {
-            const newUser = currentUser
-            setCurrentUser(newUser)
-        } else {
-            setCurrentUser(currentUser);
-        }
-    } ); */}
+    const verifyEmail = useCallback(() => {
+        return sendEmailVerification(auth.currentUser)
+    }, []);
 
     const signInWithGoogle = useCallback(() => {
         const provider = new GoogleAuthProvider()
         return signInWithPopup(auth,provider)
-    },[])
+    },[]);
 
-    const NewCreateUserInFirestoreDatabase = async (UserCredential) => {
-        const userRef = doc(db, "users", UserCredential.user.uid)
-        const userDoc = await getDoc(userRef)
-        if (!userDoc.exists) {
+    const newCreateUserInFirestoreDatabase = async (UserCredential) => {
+        const userRef = doc(db, `users/${UserCredential.user.uid}`);
+        const userData = getDoc(userRef);
+        if (!userData.exists) { // si l'utilisateur n'existe pas dans la base de données
             setDoc(userRef, {
-                id : UserCredential.user.uid,
-                name: UserCredential.user.displayName,
+                displayName: UserCredential.user.displayName,
                 email: UserCredential.user.email,
-                imgSrc: UserCredential.user.imgSrc,
-                createdAt: FieldValue.serverTimestamp()
+                uid: UserCredential.user.uid,
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp(),
+                isVerified: UserCredential.user.emailVerified,
             })
         }
-
     }
+
 
     const value = useMemo(() => ({
         currentUser,
@@ -119,10 +109,10 @@ export default function AuthContextProvider(props) {
         logout,
         signInWithGoogle,
         resetPassword,
-        NewCreateUserInFirestoreDatabase,
-        EmailAuthProvider,
-        sendEmailVerification
-    }),[currentUser, loading, setLoading,register, login, logout, resetPassword, signInWithGoogle, NewCreateUserInFirestoreDatabase, EmailAuthProvider, sendEmailVerification])
+        newCreateUserInFirestoreDatabase,
+        emailProvider,
+        verifyEmail,
+    }),[currentUser, loading, setLoading, register, login, logout, resetPassword, signInWithGoogle, newCreateUserInFirestoreDatabase, emailProvider, verifyEmail])
 
     return (
         <AuthContext.Provider value={value}>

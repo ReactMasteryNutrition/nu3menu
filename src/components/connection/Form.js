@@ -9,30 +9,25 @@ import {
     InputGroup,
     Button,
     Box,
-    useToast,
-    FormHelperText,
-    useDisclosure,
     Text,
-    Spinner
+    useToast,
+    useDisclosure,
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
-import {BsBookmarkFill, BsFillPersonPlusFill} from "react-icons/bs";
-import {useNavigate, Link, NavLink as RouterLink} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
-import {setDoc} from "firebase/firestore";
-import {user} from "../../firebase-config";
 import {ModalForgetPassword} from "../forgetPwd/Modal";
-import {FormForgetPassword} from "../forgetPwd/Form";
+import {doc, getDoc, serverTimestamp, setDoc} from "firebase/firestore";
+import {db} from "../../firebase-config";
 
 
 const FormRegister = () => {
     const [show, setShow] = useState(false)
     const { onClose, isOpen, onOpen } = useDisclosure()
     const [validation, setValidation] = useState("")
-    const [authing, setAuthing] = useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
-    const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase, sendEmailVerification, currentUser } = useAuth()
+    const {register, signInWithGoogle, newCreateUserInFirestoreDatabase, verifyEmail, user, currentUser} = useAuth()
     const formRef = useRef();
     const toast = useToast()
     const inputs = useRef([])
@@ -46,10 +41,8 @@ const FormRegister = () => {
             inputs.current.splice(inputs.current.indexOf(el), 1)
         }
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValid = inputs.current.every(input => input.isValid());
         if(inputs?.current[0]?.value === ""){
             setValidation("Veuillez indiquer un prénom !")
             return;
@@ -62,169 +55,128 @@ const FormRegister = () => {
             setValidation("6 characters min")
             return;
         }
-        try {
-            const cred = await register(
-                inputs?.current[0]?.value,
-                inputs?.current[1]?.value,
-                inputs?.current[2]?.value
-            )
-            await NewCreateUserInFirestoreDatabase(cred.user.uid, cred.inputs?.current[0]?.value, inputs?.current[1]?.value)
-            sendEmailVerification(currentUser)
-            if (currentUser?.emailVerified === true) {
-                setTimeout(() => {
-                    toast({
-                        description: "Un e-mail de vérification vous a été envoyé !",
-                        status: 'success',
-                        duration: 4000,
-                        isClosable: true,
-                    })
-                }, 3000);
-            }
-            //formRef.current.reset();
-            setValidation("");
-            onClose();
-            setTimeout(() => {
-                navigate("/")
-            }, 1000)
 
-            {/* .then (authUser => {
-                    return setDoc(user(authUser.user.uid), {
-                        "displayName": inputs.current[0].value,
-                        "email": inputs.current[1].value,
-                        "createdAt": new Date()
+        try {
+            const credentials = await register(
+                inputs?.current[1]?.value,
+                inputs?.current[2]?.value,
+            )
+            const NewCreateUserInFirestoreDatabase = async (UserCredential) => {
+                const userRef = doc(db, `users/${UserCredential.user.uid}`);
+                const userData = getDoc(userRef);
+                if (!userData.exists) { // si l'utilisateur n'existe pas dans la base de données
+                    setDoc(userRef, {
+                        displayName: inputs?.current[0]?.value || UserCredential.user.displayName,
+                        email: inputs?.current[1]?.value || UserCredential.user.email,
+                        uid: UserCredential.user.uid,
+                        createdAt: new Date(),
+                        updatedAt: serverTimestamp(),
+                        isVerified: UserCredential.user.emailVerified
                     })
-                    console.log(authUser)
-                }) */}
-        }
-        catch (err) {
-            console.log(err)
-            if (currentUser?.emailVerified === false) {
-                toast({
-                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
-                    status: 'error',
-                    duration: 4000,
-                    isClosable: true,
-                })
+                }
             }
+            NewCreateUserInFirestoreDatabase(credentials)
+            const closeModal = () => {
+                setValidation("");
+                onClose();
+                navigate("/")
+            };
+            setTimeout(closeModal, 2000);
+            console.log(credentials)
+
+
+        } catch (err) {
+            console.log(err)
             setValidation(err.code)
             switch (err.code) {
                 case "auth/email-already-in-use":
-                    setValidation("Cet email est déjà utilisé")
-                    break;
+                    setValidation("Cette adresse email est déjà utilisée !")
+                    break
                 case "auth/invalid-email":
-                    setValidation("Cet email n'est pas valide")
-                    break;
-                case "auth/operation-not-allowed":
-                    setValidation("Opération non autorisée")
-                    break;
+                    setValidation("Cette adresse email est invalide !")
+                    break
                 case "auth/weak-password":
-                    setValidation("Le mot de passe est trop faible")
-                    break;
+                    setValidation("Le mot de passe doit contenir au moins 6 caractères !")
+                    break
                 default:
-                    setValidation("Erreur inconnue")
-                    break;
+                    setValidation("Une erreur est survenue !")
+                    break
+            }
+            if (user?.emailVerified === false) {
+                setTimeout(() => {
+                    toast({
+                        description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                        status: 'error',
+                        duration: 4000,
+                        isClosable: true,
+                    })
+                } , 3000);
             }
         }
     }
 
-    const handleGoogleSignIn = async () => {
-        setAuthing(true)
+    const handleGoogleSignIn = async (UserCredential) => {
         try {
-            const cred = await signInWithGoogle()
-            setAuthing(false)
-            onClose();
-            setTimeout(() => {
-                navigate("/")
-            }, 1000)
-        } catch (err) {
-            setAuthing(false)
+            signInWithGoogle().then((UserCredential) => {
+                newCreateUserInFirestoreDatabase(UserCredential)
+                verifyEmail(UserCredential, false)
+                if (currentUser?.emailVerified === true) {
+                    setTimeout(() => {
+                        toast({
+                            description: "Un e-mail de vérification vous a été envoyé !",
+                            status: 'success',
+                            duration: 4000,
+                            isClosable: true,
+                        })
+                    } , 3000);
+                    navigate('/')
+                }
+                console.log(user)
+                console.log(verifyEmail)
+                console.log(UserCredential)
+            })
+        }
+        catch (err) {
             console.log(err)
             setValidation(err.code)
             switch (err.code) {
                 case "auth/account-exists-with-different-credential":
                     setValidation("Ce compte existe déjà avec un autre identifiant")
                     break;
-                case "auth/auth-domain-config-required":
-                    setValidation("Configuration de domaine requise")
-                    break;
-                case "auth/cancelled-popup-request":
-                    setValidation("Requête popup annulée")
+                case "auth/credential-already-in-use":
+                    setValidation("Cette identifiant est déjà utilisé")
                     break;
                 case "auth/operation-not-allowed":
                     setValidation("Opération non autorisée")
                     break;
                 case "auth/user-disabled":
-                    setValidation("Ce compte est désactivé")
-                    break;
-                case "auth/user-not-found":
-                    setValidation("Ce compte n'existe pas")
+                    setValidation("Cet utilisateur est désactivé")
                     break;
                 case "auth/wrong-password":
-                    setValidation("Mauvais mot de passe")
+                    setValidation("Le mot de passe est incorrect")
                     break;
-                case "auth/operation-not-supported-in-this-environment":
-                    setValidation("Opération non supportée dans cet environnement")
+                case "auth/email-already-in-use":
+                    setValidation("Cet email est déjà utilisé")
                     break;
-                case "auth/popup-blocked":
-                    setValidation("Popup bloqué")
-                    break;
-                case "auth/popup-closed-by-user":
-                    setValidation("Popup fermé par l'utilisateur")
-                    break;
-                case "auth/unauthorized-domain":
-                    setValidation("Domaine non autorisé")
+                case "auth/invalid-email":
+                    setValidation("Cet email n'est pas valide")
                     break;
                 default:
                     setValidation("Erreur inconnue")
                     break;
-
             }
-
-        }
-
-        const closeModal = () => {
-            setValidation("")
-            onClose()
+            if (user?.emailVerified === false) {
+                setTimeout(() => {
+                    toast({
+                        description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                        status: 'error',
+                        duration: 4000,
+                        isClosable: true,
+                    })
+                } , 3000);
+            }
         }
     }
-
-   /* const handleGoogle = () => {
-        setAuthing(true)
-        signInWithGoogle()
-            .then((UserCredential) => {
-                NewCreateUserInFirestoreDatabase(UserCredential)
-                navigate("/")
-            })
-            .catch(err => {
-                console.log(err)
-                setValidation(err.code)
-                switch (err.code) {
-                    case "auth/account-exists-with-different-credential":
-                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
-                        break;
-                    case "auth/invalid-credential":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/operation-not-allowed":
-                        setValidation("Opération non autorisée")
-                        break;
-                    case "auth/user-disabled":
-                        setValidation("Ce compte est désactivé")
-                        break;
-                    case "auth/user-not-found":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/wrong-password":
-                        setValidation("Mauvais mot de passe")
-                        break;
-                    default:
-                        setValidation("Erreur inconnue")
-                        break;
-                }
-            })
-    } */
-
-
 
     return (
         <Box
@@ -288,19 +240,19 @@ const FormRegister = () => {
 const FormLogin = () => {
     const { login,
             signInWithGoogle,
-            NewCreateUserInFirestoreDatabase,
-            resetPassword,
-            loading,
-            setLoading
+            newCreateUserInFirestoreDatabase,
+            verifyEmail,
+            user
     } = useAuth()
     const { onClose, onOpen, isOpen } = useDisclosure()
     const [show, setShow] = useState(false)
     const [validation, setValidation] = useState("");
-    const [authing, setAuthing] = useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
     const formRef = useRef();
+    const toast = useToast()
     const inputs = useRef([]);
+
     const addInputs = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el);
@@ -312,28 +264,23 @@ const FormLogin = () => {
         }
     }
 
-    useLayoutEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        } , 1000)
-
-        return () => {
-            setAuthing(false)
-            setLoading(true)
-        }
-    }, [])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const cred = await login(
+            //const name = currentUser?.displayName === null ? inputs?.current[0]?.value : null
+            const credentials = await login(
                 inputs?.current[0]?.value,
                 inputs?.current[1]?.value,
             );
+            newCreateUserInFirestoreDatabase(credentials)
             // formRef.current.reset();
+            if(user.emailVerified === false){
+                verifyEmail(user.email)
+                setValidation("Votre compte est en attente de validation")
+            }
             setValidation("");
-            console.log(cred);
-            onClose();
+            console.log(credentials);
+            console.log(user.emailVerified);
             navigate("/");
         } catch (err) {
             console.log(err)
@@ -364,56 +311,46 @@ const FormLogin = () => {
                     break;
             }
         }
-        const closeModal = () => {
-            setValidation("");
-            onClose();
-        };
-        setTimeout(closeModal, 2000);
     };
 
-    const handleGoogle = async () => {
-        setAuthing(true)
-        signInWithGoogle()
-        await ((userCredential) => {
-            NewCreateUserInFirestoreDatabase(userCredential)
-            navigate("/")
-        })
-        .catch(err => {
-                setValidation(err.code)
-                switch (err.code) {
-                    case "auth/account-exists-with-different-credential":
-                        setValidation("Ce compte existe déjà avec une autre méthode de connexion")
-                        break;
-                    case "auth/invalid-credential":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/operation-not-allowed":
-                        setValidation("Opération non autorisée")
-                        break;
-                    case "auth/user-disabled":
-                        setValidation("Ce compte est désactivé")
-                        break;
-                    case "auth/user-not-found":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/wrong-password":
-                        setValidation("Mauvais mot de passe")
-                        break;
-                    case "auth/email-invalid":
-                        setValidation("E-mail invalide")
-                        break;
-                    default:
-                        setValidation("Erreur inconnue")
-                        break;
-                }
+    const handleGoogleSignIn = async (UserCredential) => {
+        try {
+            signInWithGoogle().then((UserCredential) => {
+                newCreateUserInFirestoreDatabase(UserCredential)
+                navigate('/')
             })
-        const closeModal = () => {
-            setValidation("");
-            setAuthing(false)
-            onClose();
         }
-        setTimeout(closeModal, 2000);
-    };
+        catch (err) {
+            console.log(err)
+            setValidation(err.code)
+            switch (err.code) {
+                case "auth/account-exists-with-different-credential":
+                    setValidation("Ce compte existe déjà avec un autre identifiant")
+                    break;
+                case "auth/credential-already-in-use":
+                    setValidation("Cette identifiant est déjà utilisé")
+                    break;
+                case "auth/operation-not-allowed":
+                    setValidation("Opération non autorisée")
+                    break;
+                case "auth/user-disabled":
+                    setValidation("Cet utilisateur est désactivé")
+                    break;
+                case "auth/wrong-password":
+                    setValidation("Le mot de passe est incorrect")
+                    break;
+                case "auth/email-already-in-use":
+                    setValidation("Cet email est déjà utilisé")
+                    break;
+                case "auth/invalid-email":
+                    setValidation("Cet email n'est pas valide")
+                    break;
+                default:
+                    setValidation("Erreur inconnue")
+                    break;
+            }
+        }
+    }
 
     return (
         <Box
@@ -462,7 +399,7 @@ const FormLogin = () => {
                             width="100%"
                             bg="#48BB78"
                             _hover={{ bgColor: "#a0aec0" }}
-                            onClick={handleGoogle}
+                            onClick={handleGoogleSignIn}
                         >
                             <AiOutlineGoogle size="20" />
                             <Box marginLeft='0.5rem'>Se connecter avec Google</Box>

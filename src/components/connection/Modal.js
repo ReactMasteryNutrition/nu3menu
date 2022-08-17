@@ -16,10 +16,11 @@ import {
 } from '@chakra-ui/react'
 import { IoLogInSharp } from "react-icons/io5"
 import { BsFillPersonPlusFill } from "react-icons/bs"
-
+import {useAuth} from "../../context/authContext";
 
 const ModalRegister = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { currentUser } = useAuth()
 
     return (
         <Box>
@@ -87,7 +88,7 @@ const ModalRegister = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormRegister />
+                        <FormRegister currentUser={currentUser} />
                     </ModalBody>
                     <ModalFooter></ModalFooter>
                 </ModalContent>
@@ -98,6 +99,9 @@ const ModalRegister = () => {
 
 const ModalLogin = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { currentUser } = useAuth()
+
+
 
     return (
         <Box>
@@ -167,7 +171,7 @@ const ModalLogin = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormLogin />
+                        <FormLogin currentUser={currentUser} />
                     </ModalBody>
                     <ModalFooter/>
                 </ModalContent>
