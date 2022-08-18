@@ -9,9 +9,7 @@ import CardRecipe from '../Card/CardRecipe';
 export default function Query({thingSearched, filter, index, category, onChangeRecipe, bla, weekMenu, setWeekMenu}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
-    // console.log(`QUERY ==> index :  ${index} et category : ${category}`)
-    // console.log('type de index = ', typeof(index))
-    // console.log('type de category = ', typeof(category))
+    
     React.useEffect(() => {
         const controller = new AbortController();
         if (!thingSearched) {
