@@ -11,7 +11,7 @@ import FetchDetailRecipeAxios from '../../utils/FetchDetailRecipeAxios'
 import ButtonToAddRecipe from '../menuCreator/buttonToAddRecipe'
 // Functions //
 
-export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeRecipe, bla, weekMenu, setWeekMenu}) {
+export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeRecipe, weekMenu, setWeekMenu}) {
     
     // console.log('type de index dans CARDS = ', typeof(indexOfDay))
     // console.log('type de category dans CARDS = ', typeof(categoryOfMeal))
@@ -110,7 +110,7 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModal detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <ButtonToAddRecipe index={indexOfDay} category={categoryOfMeal} bla={bla} onChangeRecipe={onChangeRecipe} weekMenu={weekMenu} setWeekMenu={setWeekMenu} recipeToAdd={detailRecipe}/>
+                        <ButtonToAddRecipe index={indexOfDay} category={categoryOfMeal} onChangeRecipe={onChangeRecipe} weekMenu={weekMenu} setWeekMenu={setWeekMenu} recipeToAdd={detailRecipe} onClose={onClose}/>
                         <Link href={detailRecipe?.data?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>

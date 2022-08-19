@@ -2,7 +2,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-export default function ButtonToAddRecipe({ index, category, recipeToAdd, bla, weekMenu, setWeekMenu}){
+export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMenu, setWeekMenu, onClose}){
 
     const addToThisMealDay = () => {
         
@@ -242,6 +242,20 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, bla, w
                 break;
         }
 
+        // for (const [day, meals] of Object.entries(weekMenu)) {
+        //     //console.log(`${day}: ${meals}`);
+        //     for( const [meal, thereIsARecipe] of Object.entries(meals)) {
+        //         console.log(`${meal}: ${thereIsARecipe}`)
+        //         if(thereIsARecipe === '') {
+        //             console.log('Il y a au moins un espace vide')
+        //         }
+        //     }
+        //     // if(value ===''){
+        //     //     console.log('Il y a au moins une case vide')
+        //     // }
+        // }
+
+        onClose()
     }
 
     return (

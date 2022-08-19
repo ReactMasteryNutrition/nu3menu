@@ -6,7 +6,7 @@ import FetchAxios from '../../utils/FetchAxios'
 import CardRecipe from '../Card/CardRecipe';
 //import CardWithGrid from '../Card/CardWithGrid';
 // Function
-export default function Query({thingSearched, filter, index, category, onChangeRecipe, bla, weekMenu, setWeekMenu}) {
+export default function Query({thingSearched, filter, index, category, onChangeRecipe, weekMenu, setWeekMenu}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
     
@@ -41,6 +41,6 @@ export default function Query({thingSearched, filter, index, category, onChangeR
         )
     }
     return (
-        <CardRecipe indexOfDay={index} categoryOfMeal={category} onChangeRecipe={onChangeRecipe} bla={bla} weekMenu={weekMenu} setWeekMenu={setWeekMenu} datas={data}/>
+        <CardRecipe indexOfDay={index} categoryOfMeal={category} onChangeRecipe={onChangeRecipe} weekMenu={weekMenu} setWeekMenu={setWeekMenu} datas={data}/>
     )
 }

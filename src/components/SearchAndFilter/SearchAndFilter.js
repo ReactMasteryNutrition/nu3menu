@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import Query from '../../components/SearchAndFilter/Query'
 import SearchBar from '../../components/SearchAndFilter/SearchBar'
 
-export default function SearchAndFilter({ onChangeRecipe, index, category, bla, weekMenu, setWeekMenu }) {
+export default function SearchAndFilter({ onChangeRecipe, index, category, weekMenu, setWeekMenu }) {
     const [recipe, setRecipe] = React.useState('')
 
 
@@ -36,7 +36,7 @@ app_key: process.env.REACT_APP_EDAMAM_API_KEY ,
 
             <Box w="100%" color='green.50' >
                 <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter} />
-                <Query index={index} category={category} onChangeRecipe={onChangeRecipe} bla={bla} setWeekMenu={setWeekMenu} weekMenu={weekMenu} thingSearched={recipe} filter={filter} />
+                <Query index={index} category={category} onChangeRecipe={onChangeRecipe} setWeekMenu={setWeekMenu} weekMenu={weekMenu} thingSearched={recipe} filter={filter} />
             </Box>
         </Box>
     )
