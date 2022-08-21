@@ -14,7 +14,7 @@ export default function SearchAndFilter({ onChangeRecipe, index, category, bla, 
         q: '', //recipe => mot clé recherché
 
         app_id: process.env.REACT_APP_EDAMAM_API_ID,
-app_key: process.env.REACT_APP_EDAMAM_API_KEY ,
+        app_key: process.env.REACT_APP_EDAMAM_API_KEY ,
     })
 
     const handleSearch = recipeName => {

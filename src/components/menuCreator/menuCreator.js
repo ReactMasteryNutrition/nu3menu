@@ -23,13 +23,13 @@ export default function MenuCreator(){
     }
 
     const [weekMenu, setWeekMenu] = React.useState({
-        lundi: { matin: "patantouille", deujeuner: "", diner: "" },
-        mardi: { matin: "patantouille", deujeuner: "", diner: "" },
-        mercredi: { matin: "patantouille", deujeuner: "", diner: "" },
-        jeudi: { matin: "patantouille", deujeuner: "", diner: "" },
-        vendredi: { matin: "patantouille", deujeuner: "", diner: "" },
-        samedi: { matin: "patantouille", deujeuner: "", diner: "" },
-        dimanche: { matin: "patantouille", deujeuner: "", diner: "" }
+        lundi: { matin: "", deujeuner: "", diner: "" },
+        mardi: { matin: "", deujeuner: "", diner: "" },
+        mercredi: { matin: "", deujeuner: "", diner: "" },
+        jeudi: { matin: "", deujeuner: "", diner: "" },
+        vendredi: { matin: "", deujeuner: "", diner: "" },
+        samedi: { matin: "", deujeuner: "", diner: "" },
+        dimanche: { matin: "", deujeuner: "", diner: "" }
     })
     localStorage.setItem('week', JSON.stringify(weekMenu));
 
