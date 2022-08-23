@@ -79,7 +79,7 @@ const ModalPassword = () => {
     <Box>
       <form onSubmit={handleSubmit}>
         <ModalMyAccount
-          title={"password"}
+          ariaLabel={"password"}
           header={<Box
             position={ResponsiveWidth() ? null : "absolute"}
             left={ResponsiveWidth() ? null : "50%"}
