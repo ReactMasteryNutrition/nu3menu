@@ -87,7 +87,7 @@ const ModalEmail = () => {
         <Box>
             <form onSubmit={handleSubmit}>
                 <ModalMyAccount
-                    title={"e-mail"}
+                    ariaLabel={"e-mail"}
                     header={<Box
                         position={ResponsiveWidth() ? null : "absolute"}
                         left={ResponsiveWidth() ? null : "50%"}
