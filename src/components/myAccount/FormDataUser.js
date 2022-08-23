@@ -1,3 +1,4 @@
+import ModalAvatar from './Modal/UpdateAvatar'
 import ModalName from './Modal/UpdateName'
 import ModalEmail from './Modal/UpdateEmail'
 import ModalPassword from './Modal/UpdatePassword'
@@ -5,32 +6,28 @@ import { ResponsiveWidth } from "../../utils/helper"
 import { useAuth } from '../../context/authContext'
 import {
     Flex,
-    Avatar,
     FormControl,
     Input,
-    InputGroup,
-    Box
+    InputGroup
 } from '@chakra-ui/react'
 import DeleteAccount from './Modal/DeleteAccount'
 
 const FormDataUser = () => {
     const { currentUser } = useAuth()
     const InputName = () => {
-        if (currentUser?.providerData[0]?.providerId !== 'google.com') {
-            return (
+        return (
             <FormControl marginBottom="1rem">
                 <Flex
                     gap="1rem"
                     flexDirection={ResponsiveWidth() ? "row" : "column"}
                 >
                     <Input
-                        placeholder={currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
+                        placeholder={currentUser?.displayName ? currentUser?.displayName : null}
                         bg='#f0fff4'
                         readOnly />
                     <ModalName />
                 </Flex>
             </FormControl>)
-        }
     }
     return (
         <Flex
@@ -40,9 +37,7 @@ const FormDataUser = () => {
             gap="3rem"
             margin="5rem 0 8rem 0"
         >
-            <Box>
-                <Avatar size="2xl" />
-            </Box>
+            <ModalAvatar />
             <Flex
                 flexDirection="column"
                 justifyContent="center"
