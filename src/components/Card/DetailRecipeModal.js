@@ -1,4 +1,3 @@
-// Imports 
 import { Badge, Box, CircularProgress, CircularProgressLabel, Divider, Flex, Grid, GridItem, HStack, Image, ListItem, ModalBody, Text, UnorderedList, VStack } from '@chakra-ui/react'
 import { IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib/esm/iconContext'

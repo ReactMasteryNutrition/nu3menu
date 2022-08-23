@@ -3,6 +3,7 @@ import React from 'react'
 import { Box, Flex, Grid, GridItem, Image, Link, Text, VStack } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
+import AjoutJour from '../mealy/ajoutjour'
 //import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Functions //
 
@@ -78,7 +79,7 @@ export default function CardWithGrid() {
                         </VStack>
                     </GridItem>
                     <GridItem bg='yellow.300' area='openDetails' display='flex' alignItems='end' justifyContent='end'>
-                        <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
+                    <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
                             <Link>
                                 <IoEnter/>
                             </Link>
