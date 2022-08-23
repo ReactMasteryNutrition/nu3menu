@@ -26,15 +26,18 @@ const NavUserDropdown = () => {
   return (
     <Menu isLazy>
       <MenuButton>
-        <Avatar size="sm" />
+        {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
+          : <Avatar size="sm" />}
       </MenuButton>
       <MenuList bg='#f0fff4'>
-        <Link to="/">
-          <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-            {currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
-          </MenuItem>
-        </Link>
-        <MenuDivider />
+        {currentUser?.displayName ? (<>
+          <Link to="/">
+            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
+              {currentUser?.displayName}
+            </MenuItem>
+          </Link>
+          <MenuDivider /></>)
+          : null}
         <Link to="/myaccount">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Mon compte
