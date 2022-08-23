@@ -73,7 +73,7 @@ const NavUser = () => {
             ></Box>
             <Flex gap={maxWidth375 ? "1.5rem":"2.5rem"} alignItems="center">
                 <Link to="/" >
-                    <FaHome size="33" color="#48BB78" aria-label='home'/>
+                    <FaHome size="33" color="#48BB78"/>
                 </Link>
                 <Link to="/menu">
                     <AiOutlineMenuUnfold size="33" color="#48BB78" />
