@@ -10,25 +10,19 @@ import {
   Box,
   useDisclosure,
 } from '@chakra-ui/react'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../firebase-config';
 
 const ResponsiveWidth = () => {
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
   return minWidth501
 }
 
-const ModalMyAccount = ({ title, header, content, footer }) => {
+const ModalMyAccount = ({ ariaLabel, header, content, footer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box>
-      <Button
-        onClick={onOpen}
-        padding="0.5rem 1.5rem"
-        title={title}
-        bg='#48bb78'
-        color="#f0fff4"
-        width="100%"
-        _hover={{ bgColor: "#a0aec0" }}
-      >
+      <Button onClick={onOpen} padding="0.5rem 1.5rem" aria-label={ariaLabel} bg='#48bb78' color="#f0fff4" width="100%" _hover={{ bgColor: "#a0aec0" }}>
         Modifier
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -73,4 +67,20 @@ const ModalMyAccount = ({ title, header, content, footer }) => {
   )
 }
 
-export { ResponsiveWidth, ModalMyAccount }
+const UploadImage = (file, filePath) => {
+  return new Promise(async (resolve, reject) => {
+    // create a ref for the image url
+    const storageRef = ref(storage, filePath);
+    try {
+      // upload an image
+      await uploadBytes(storageRef, file);
+      // get the image url
+      const url = await getDownloadURL(storageRef);
+      resolve(url);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export { ResponsiveWidth, ModalMyAccount, UploadImage }
