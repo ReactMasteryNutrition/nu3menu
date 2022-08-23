@@ -41,7 +41,8 @@ const NavUserDrawer = () => {
                 _hover={{ bg: "#1A202C" }}
                 _active={{ bg: "#1A202C" }}
             >
-                <Avatar size="sm" />
+                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
+                    : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">
                 <DrawerOverlay bg="rgba(160, 174, 192, 0.5)" />
@@ -68,14 +69,16 @@ const NavUserDrawer = () => {
                         fontWeight="bold"
                         fontSize="1.2rem"
                     >
-                        <Link to='/' onClick={onClose}>
-                            <Flex
-                                flexDirection="row"
-                                gap="1rem">
-                                <CgProfile color='#48BB78' margin-right='0.5rem' />
-                                {currentUser?.displayName ? currentUser?.displayName : "Mon prénom"}
-                            </Flex>
-                        </Link>
+                        {currentUser?.displayName ? (<>
+                            <Link to='/' onClick={onClose}>
+                                <Flex
+                                    flexDirection="row"
+                                    gap="1rem">
+                                    <CgProfile color='#48BB78' margin-right='0.5rem' />
+                                    {currentUser?.displayName}
+                                </Flex>
+                            </Link></>)
+                            : null}
                         <Link to='/myaccount' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
