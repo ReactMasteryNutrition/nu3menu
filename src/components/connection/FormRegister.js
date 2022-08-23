@@ -125,9 +125,6 @@ const FormRegister = () => {
             width={ResponsiveWidth() ? "70%" : "80%"}
             transform="translate(-50%, -50%)"
         >
-            {/* <FormControl isRequired marginBottom="1rem">
-                <Input placeholder='Prénom' bg='#f0fff4' color="#1A202C"/>
-            </FormControl> */}
             <form ref={formRef} onSubmit={handleSubmit}>
                 <FormControl isRequired marginBottom="1rem">
                     <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" name="email" ref={addInputs} />
