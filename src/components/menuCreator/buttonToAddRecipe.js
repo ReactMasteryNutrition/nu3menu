@@ -242,19 +242,6 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
         }
 
-        // for (const [day, meals] of Object.entries(weekMenu)) {
-        //     //console.log(`${day}: ${meals}`);
-        //     for( const [meal, thereIsARecipe] of Object.entries(meals)) {
-        //         console.log(`${meal}: ${thereIsARecipe}`)
-        //         if(thereIsARecipe === '') {
-        //             console.log('Il y a au moins un espace vide')
-        //         }
-        //     }
-        //     // if(value ===''){
-        //     //     console.log('Il y a au moins une case vide')
-        //     // }
-        // }
-
         onClose()
     }
 

@@ -5,6 +5,7 @@ import SearchAndFilter from "../SearchAndFilter/SearchAndFilter";
 import MealCategory from "./mealCategory";
 import WeekTable from "./weekTable";
 import ButtonToAddRecipe from "./buttonToAddRecipe";
+import CarouselWithChecked from "../Carousel/CarouselWithChecked";
 
 export default function MenuCreator(){
     const [categoryDeloc, setCategoryDeloc] = React.useState("")
@@ -24,7 +25,6 @@ export default function MenuCreator(){
 
     const[menuIsCompleted, setMenuIsCompleted] = React.useState(false)
 
-
     const [weekMenu, setWeekMenu] = React.useState({
         lundi: { matin: "", deujeuner: "", diner: "" },
         mardi: { matin: "", deujeuner: "", diner: "" },
@@ -40,13 +40,10 @@ export default function MenuCreator(){
         //console.log("WeekMenu a été modifié")
         let countEmptyMeal = 21
         for (const [day, meals] of Object.entries(weekMenu)) {
-            console.log(`${day}: ${meals}`);
+            //console.log(`${day}: ${meals}`);
             for( const [meal, thereIsARecipe] of Object.entries(meals)) {
-                console.log(`${meal}: ${thereIsARecipe}`)
-                if(thereIsARecipe === '') {
-                    console.log('Il y a au moins un espace vide')
-                    //countEmptyMeal += 1
-                } else {
+                //console.log(`${meal}: ${thereIsARecipe}`)
+                if(thereIsARecipe !== '') {
                     countEmptyMeal -= 1
                 }
             }
@@ -70,7 +67,7 @@ export default function MenuCreator(){
                 </Center>
                 :
                 <Center w='100%' p='2rem'>
-                    <Text color='green.50' fontSize='3xl'>Nouvel affichage</Text>
+                    <CarouselWithChecked />
                 </Center>
             }
                 

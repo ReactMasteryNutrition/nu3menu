@@ -32,8 +32,6 @@ app_key: process.env.REACT_APP_EDAMAM_API_KEY ,
     return (
 
         <Box w="100%" h='auto' display='flex' flexDir={['column', 'row']}>
-
-
             <Box w="100%" color='green.50' >
                 <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter} />
                 <Query index={index} category={category} onChangeRecipe={onChangeRecipe} setWeekMenu={setWeekMenu} weekMenu={weekMenu} thingSearched={recipe} filter={filter} />

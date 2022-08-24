@@ -21,6 +21,7 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
 
     const recipesDatas = datas?.data?.hits
 
+
     const [detailRecipe, setDetailRecipe] = React.useState({});
 
     const openDetailModal = (apiAdress) => {
@@ -44,6 +45,13 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
         onOpen()
     }
 
+    const openDetailModalBis = (truc) => {
+        console.log(`Ce qu'on met dans la modal : `)
+        console.log(truc)
+        setDetailRecipe(truc)
+        onOpen()
+    }
+
     const closeAndClear = () => {
         onClose()
         setDetailRecipe()
@@ -53,8 +61,10 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
     return(
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {recipesDatas.map(recipe => {
+                // console.log('RECIPEEEEEEEE : ', recipe)
+                // console.log('KEYYYYYYYY : ', recipe._links.self.href)
                 return(
-                    <Box key={recipesDatas.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                    <Box key={recipe._links.self.href} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
                     <Grid 
                         templateAreas={[`"image image stats stats"
                                         "title title title openDetails"`, 
@@ -93,7 +103,8 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
                         <GridItem area='openDetails' display='flex' alignItems='end' justifyContent='end'>
                             <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
                                 {/* <Link onClick={()=> openAndFetchCardDetail(recipe._links.self.href)}> */}
-                                <Link onClick={()=> openDetailModal(recipe._links.self.href)}>
+                                {/* <Link onClick={()=> openDetailModal(recipe._links.self.href)}> */}
+                                <Link onClick={()=> openDetailModalBis(recipe)}>
                                     <IoEnter/>
                                 </Link>
                             </IconContext.Provider>
@@ -106,12 +117,12 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
                 <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
                     <ModalOverlay />
                     <ModalContent bg='gray.800' color='green.50'>
-                    <ModalHeader textAlign={['center']}>{ detailRecipe?.data?.recipe?.label }</ModalHeader>
+                    <ModalHeader textAlign={['center']}>{ detailRecipe?.recipe?.label }</ModalHeader>
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModal detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
                         <ButtonToAddRecipe index={indexOfDay} category={categoryOfMeal} onChangeRecipe={onChangeRecipe} weekMenu={weekMenu} setWeekMenu={setWeekMenu} recipeToAdd={detailRecipe} onClose={onClose}/>
-                        <Link href={detailRecipe?.data?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
+                        <Link href={detailRecipe?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>
                         <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>

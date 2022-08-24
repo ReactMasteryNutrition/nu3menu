@@ -22,7 +22,7 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
     return(
         <>  
             <Flex justify='center' w='full'>
-                <Flex w={['100%', '75%', '50%', '33%']} paddingX='1em' marginTop='1em'>
+                <Flex w='100%' paddingX='1em' marginTop='1em'>
                     <form style={{width: '100%'}} onSubmit={submit}>
                     <FormControl>
                         <InputGroup>
