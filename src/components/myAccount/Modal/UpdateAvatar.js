@@ -13,7 +13,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure,
+    useDisclosure
 } from '@chakra-ui/react'
 import { EditIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
@@ -60,7 +60,7 @@ const ModalAvatar = () => {
                 duration: 4000,
                 isClosable: true,
             })
-            
+
         } catch (error) {
             toast({
                 description: "Il y a eu une erreur lors de la modification de votre avatar !",
