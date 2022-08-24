@@ -1,15 +1,7 @@
 import { ResponsiveWidth } from "../../utils/helper"
 import { useRef, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import {
-    FormControl,
-    Input,
-    InputRightElement,
-    InputGroup,
-    Button,
-    Box,
-    useDisclosure
-} from '@chakra-ui/react'
+import { FormControl, Input, InputRightElement, InputGroup, Button, Box, useDisclosure} from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom'

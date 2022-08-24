@@ -1,15 +1,4 @@
-import {
-  Button,
-  useMediaQuery,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Box,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Button, useMediaQuery, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton, Box, useDisclosure} from '@chakra-ui/react'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../firebase-config';
 
@@ -55,12 +44,8 @@ const ModalMyAccount = ({ ariaLabel, header, content, footer }) => {
                 transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
             }}
           />
-          <ModalBody>
-            {content}
-          </ModalBody>
-          <ModalFooter>
-            {footer}
-          </ModalFooter>
+          <ModalBody>{content}</ModalBody>
+          <ModalFooter>{footer}</ModalFooter>
         </ModalContent>
       </Modal>
     </Box>

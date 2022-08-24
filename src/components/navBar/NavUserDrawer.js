@@ -35,13 +35,8 @@ const NavUserDrawer = () => {
     }
     return (
         <Box>
-            <Button
-                onClick={onOpen}
-                bg="#1A202C"
-                _hover={{ bg: "#1A202C" }}
-                _active={{ bg: "#1A202C" }}
-            >
-                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
+            <Button onClick={onOpen} bg="#1A202C" _hover={{ bg: "#1A202C" }} _active={{ bg: "#1A202C" }}>
+                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
                     : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">
@@ -71,25 +66,19 @@ const NavUserDrawer = () => {
                     >
                         {currentUser?.displayName ? (<>
                             <Link to='/' onClick={onClose}>
-                                <Flex
-                                    flexDirection="row"
-                                    gap="1rem">
+                                <Flex flexDirection="row" gap="1rem">
                                     <CgProfile color='#48BB78' margin-right='0.5rem' />
                                     {currentUser?.displayName}
                                 </Flex>
                             </Link></>)
                             : null}
                         <Link to='/myaccount' onClick={onClose}>
-                            <Flex
-                                flexDirection="row"
-                                gap="1rem">
+                            <Flex flexDirection="row" gap="1rem">
                                 <IoMdSettings color='#48BB78' margin-right='0.5rem' /> Mon compte
                             </Flex>
                         </Link>
                         <Link to='/allmenus' onClick={onClose}>
-                            <Flex
-                                flexDirection="row"
-                                gap="1rem">
+                            <Flex flexDirection="row" gap="1rem">
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
                             </Flex>
                         </Link>
@@ -103,9 +92,7 @@ const NavUserDrawer = () => {
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
                         </Link>
                         <Link to='/' onClick={handleClick}>
-                            <Flex
-                                flexDirection="row"
-                                gap="0.5rem">
+                            <Flex flexDirection="row" gap="0.5rem">
                                 <IoLogOut color='#48BB78' margin-right='0.5rem' /> Se déconnecter
                             </Flex>
                         </Link>
