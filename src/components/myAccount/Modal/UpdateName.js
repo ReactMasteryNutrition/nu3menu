@@ -24,6 +24,14 @@ const ModalName = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(!input?.current[0]?.value){
+            return toast({
+                description: "Veuillez remplir ce champ !",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
         try {
             // update the user displayname
             await updateProfile(currentUser, { displayName: input?.current[0]?.value });
