@@ -18,8 +18,6 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, weekMenu,
     const [detailRecipe, setDetailRecipe] = React.useState({});
     // Ouverture de la modal après lui avoir envoyé les données de LA recette pour l'hydrater
     const openDetailModal = (truc) => {
-        console.log(`Ce qu'on met dans la modal : `)
-        console.log(truc)
         setDetailRecipe(truc)
         onOpen()
     }
