@@ -1,34 +1,44 @@
-import {  Box, Tabs, TabList, Tab } from "@chakra-ui/react";
+import {  Box, Center, Tabs, TabList, Tab, CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import React from "react";
 
-export default function WeekTable({onIndexChange}){
-
+export default function WeekTable({onIndexChange, weekMenu}){
+    // Gestion du jour de la semaine sélectionné en local
     const [tabIndex, setTabIndex] = React.useState(0)
-    
-    const handleSliderChange = (event) => {
-        setTabIndex(parseInt(event.target.value, 10))
-    }
-
+    // Mise à jour du jour de la semaine sélectionné en local
     const handleTabsChange = (index) => {
         setTabIndex(index)
-        console.log('Normalement on met à jour le jour sélectionné')
     }
-
+    // Mise à jour du jour de la semaine sélectionné chez le parent quand la variable locale est mise à jour
     React.useEffect(() => {
         onIndexChange(tabIndex)
-        
     }, [tabIndex,onIndexChange])
-    
+
+    // Cet useEffect va bouclé sur l'ensemble de weekMenu
+    // Première boucle pour chaque jour
+    // Seconde boucle pour chaque repas
+    // On regarde s'il y a des repas non vides, si c'est le cas alors on augmente le % d'autant
+    // Cela va alimenter la progress bar
+    const [number, setNumber] = React.useState(0)
+    let numberValue = 0
+    React.useEffect(()=>{
+        for (const [day, meals] of Object.entries(weekMenu)) {
+            for( const [meal, thereIsARecipe] of Object.entries(meals)) {
+                if(thereIsARecipe !== '') {
+                    numberValue += 1
+                    let updatedNumber = numberValue/21*100
+                    setNumber(updatedNumber)
+                }
+            }
+        }
+    }, [weekMenu])
 
     return (
         <Box color={'green.400'} >
-            <input
-                type='range'
-                min='0'
-                max='6'
-                value={tabIndex}
-                onChange={handleSliderChange}
-            />
+            <Center pb='2rem'>
+                <CircularProgress value={number} color='green.600' size='4rem'>
+                    <CircularProgressLabel>{Math.round(number)}%</CircularProgressLabel>
+                </CircularProgress>
+            </Center>
             <Tabs orientation="vertical" index={tabIndex}  onChange={handleTabsChange} >
                 <TabList >
                     <Tab value={0} >Lundi</Tab>

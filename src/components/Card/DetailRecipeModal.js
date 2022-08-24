@@ -4,8 +4,7 @@ import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Function
 export default function DetailRecipeModal({detail}) {
-    console.log('detail : ==> ',detail)
-
+    // Calcul des calories par personne
     let caloriesPerPerson = detail?.recipe?.calories/detail?.recipe?.yield
 
     let counterForList = 0
@@ -85,7 +84,7 @@ export default function DetailRecipeModal({detail}) {
                                 detail?.recipe?.ingredientLines.map(ingredient => {
                                     counterForList+=1
                                 return (
-                                    <ListItem key={`ingredient${counterForList}`} mb='0.5rem'>{ingredient}</ListItem>
+                                    <ListItem key={`ingredient_${counterForList}`} mb='0.5rem'>{ingredient}</ListItem>
                                 )
                             })}
                         </UnorderedList>
