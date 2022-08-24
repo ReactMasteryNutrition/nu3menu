@@ -29,10 +29,10 @@ const AllProvider = ({ children }) => {
         <BrowserRouter>
             <ChakraProvider theme={theme}>
                 <AuthContextProvider>
-                    {children}
+                        {children}
                 </AuthContextProvider>
             </ChakraProvider>
-        </BrowserRouter>
+        </BrowserRouter >
     )
 }
 

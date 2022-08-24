@@ -1,11 +1,4 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  Avatar
-} from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, MenuItem, MenuDivider, Avatar} from '@chakra-ui/react'
 import { auth } from "../../firebase-config";
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from '../../context/authContext'

@@ -30,35 +30,17 @@ const FormDataUser = () => {
             </FormControl>)
     }
     return (
-        <Flex
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            gap="3rem"
-            margin="5rem 0 8rem 0"
-        >
+        <Flex flexDirection="column" justifyContent="center" alignItems="center" gap="3rem" margin="5rem 0 8rem 0">
             <ModalAvatar />
-            <Flex
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-                width={ResponsiveWidth() ? null : "80%"}
-            >
+            <Flex flexDirection="column" justifyContent="center" alignItems="center" width={ResponsiveWidth() ? null : "80%"}>
                 <InputName />
                 <FormControl marginBottom="1rem">
-                    <Flex
-                        gap="1rem"
-                        flexDirection={ResponsiveWidth() ? "row" : "column"}
-                    >
+                    <Flex gap="1rem" flexDirection={ResponsiveWidth() ? "row" : "column"}>
                         <Input type='email' placeholder={currentUser?.email} bg='#f0fff4' readOnly />
                         <ModalEmail />
                     </Flex>
                 </FormControl >
-                <Flex
-                    gap={ResponsiveWidth() ? "1rem" : 0}
-                    flexDirection={ResponsiveWidth() ? "row" : "column"}
-                    width="100%"
-                >
+                <Flex gap={ResponsiveWidth() ? "1rem" : 0} flexDirection={ResponsiveWidth() ? "row" : "column"} width="100%">
                     <InputGroup size='md' marginBottom="1rem" >
                         <Input
                             placeholder='&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;&#8901;'

@@ -1,19 +1,8 @@
-import FormRegister  from './FormRegister';
+import FormRegister from './FormRegister';
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    Button,
-    Box,
-    Image,
-    useDisclosure
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Button, Box, Image, useDisclosure } from '@chakra-ui/react'
 import { BsFillPersonPlusFill } from "react-icons/bs"
 
 const ModalRegister = () => {
@@ -40,9 +29,9 @@ const ModalRegister = () => {
                         _active={{ bg: "#1A202C" }}
                         fontSize="1.4rem"
                         fontWeight="700"
-                        size='50' color="#48BB78" 
-                        aria-label='register'/>
-                        }
+                        size='50' color="#48BB78"
+                        aria-label='register' />
+                }
             </Link>
             <Modal isOpen={isOpen} isCentered>
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />

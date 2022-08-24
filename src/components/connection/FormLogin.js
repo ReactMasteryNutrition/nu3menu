@@ -1,15 +1,7 @@
 import { ResponsiveWidth } from "../../utils/helper"
 import { useRef, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import {
-    FormControl,
-    Input,
-    InputRightElement,
-    InputGroup,
-    Button,
-    Box,
-    FormHelperText, useDisclosure
-} from '@chakra-ui/react'
+import { FormControl, Input, InputRightElement, InputGroup, Button, Box, FormHelperText, useDisclosure } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom'
@@ -126,22 +118,12 @@ const FormLogin = () => {
                     <FormHelperText>Mot de passe oublié ?</FormHelperText>
                 </FormControl>
                 <FormControl margin="1rem 0">
-                    <Button
-                        width="100%"
-                        bg="#48BB78"
-                        _hover={{ bgColor: "#a0aec0" }}
-                        onClick={handleSubmit}
-                    >
+                    <Button width="100%" bg="#48BB78" _hover={{ bgColor: "#a0aec0" }} onClick={handleSubmit}>
                         Se connecter
                     </Button>
                 </FormControl>
                 <FormControl>
-                    <Button
-                        width="100%"
-                        bg="#48BB78"
-                        _hover={{ bgColor: "#a0aec0" }}
-                        onClick={handleGoogle}
-                    >
+                    <Button width="100%" bg="#48BB78" _hover={{ bgColor: "#a0aec0" }} onClick={handleGoogle}>
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
                     </Button>

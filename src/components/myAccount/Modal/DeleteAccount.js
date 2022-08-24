@@ -27,9 +27,9 @@ const DeleteAccount = () => {
     const { currentUser } = useAuth()
     const navigate = useNavigate()
     const [passwordVerify, setPasswordVerify] = useState(false)
+    const inputs = useRef([])
     const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const inputs = useRef([])
     const addData = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
@@ -38,12 +38,22 @@ const DeleteAccount = () => {
     const handlePassword = () => setPasswordVerify(!passwordVerify)
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!(inputs?.current[0]?.value)) {
+            return toast({
+                description: "Veuillez remplir ce champ !",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
+        // data for reauthentication
         const credential = EmailAuthProvider.credential(
             currentUser?.email,
             inputs?.current[0]?.value
         )
         const provider = new GoogleAuthProvider()
         try {
+            // reauthenticate directly on the site or with Google
             if (currentUser?.providerData[0]?.providerId !== 'google.com') {
                 await reauthenticateWithCredential(currentUser, credential)
             } else {
@@ -101,11 +111,7 @@ const DeleteAccount = () => {
                             width={ResponsiveWidth() ? "15rem" : "18rem"}
                             margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 2rem auto'}
                         />
-                        <ModalHeader
-                            textAlign="center"
-                            fontSize="1.5rem"
-                            marginBottom="1rem"
-                        >
+                        <ModalHeader textAlign="center" fontSize="1.5rem" marginBottom="1rem">
                             Supprimer mon compte
                         </ModalHeader>
                     </Box>

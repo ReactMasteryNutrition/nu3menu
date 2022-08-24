@@ -5,6 +5,7 @@
 import '@testing-library/jest-dom';
 
 beforeAll(async () => {
+    // implementation in jsdom
     window.matchMedia = (query) => ({
         matches: false,
         media: query,
