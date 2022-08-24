@@ -31,15 +31,12 @@ export const useAuth = () => {
 export default function AuthContextProvider(props) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
-
     const register = useCallback((email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }, [])
-
     const login = useCallback((email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
     }, [])
-
     const logout = useCallback(() => {
         return signOut(auth)
     }, []);
