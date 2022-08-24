@@ -78,7 +78,7 @@ export default function WeekTable({onIndexChange, weekMenu}){
                         let updatedSaturday = saturdayValue/3*100
                         setSaturdayNumber(updatedSaturday)
                     }
-                    if(day === 'samedi'){
+                    if(day === 'dimanche'){
                         sundayValue +=1
                         let updatedSunday = sundayValue/3*100
                         setSundayNumber(updatedSunday)
