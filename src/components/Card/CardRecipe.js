@@ -1,60 +1,38 @@
 // Imports //
 import React from 'react'
 import { Box, Button, Flex, Grid, GridItem, Image, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Tooltip, useDisclosure, VStack } from '@chakra-ui/react'
-import { AddIcon, CloseIcon, LinkIcon } from '@chakra-ui/icons'
+import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 import DetailRecipeModal from './DetailRecipeModal'
-import FetchDetailRecipeAxios from '../../utils/FetchDetailRecipeAxios'
-//import AjoutJour from '../mealy/ajoutjour'
 import ButtonToAddRecipe from '../menuCreator/buttonToAddRecipe'
 // Functions //
 
-export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeRecipe, bla, weekMenu, setWeekMenu}) {
-    
-    // console.log('type de index dans CARDS = ', typeof(indexOfDay))
-    // console.log('type de category dans CARDS = ', typeof(categoryOfMeal))
-    // console.log(`CARDS ==> index :  ${indexOfDay} et category : ${categoryOfMeal}`)
-
+export default function CardRecipe({datas, indexOfDay, categoryOfMeal, weekMenu, setWeekMenu}) {
+    // gestion ouverture et fermeture de la modal avec le detail de LA recette
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    // stockage de l'object qui contient les recettes de l'API
     const recipesDatas = datas?.data?.hits
-
+    // stockage de LA recette que l'on souhaite voir en détail et peut-être ajouter au menu
     const [detailRecipe, setDetailRecipe] = React.useState({});
-
-    const openDetailModal = (apiAdress) => {
-        FetchDetailRecipeAxios(apiAdress)
-        .then(response => {
-            console.log('RESPONSE ==> ', response)
-            setDetailRecipe(response)
-        })
-        .catch(error => {
-                if(error.response) {
-                    console.log(error.response.data)
-                    console.log(error.response.statuts)
-                    console.log(error.response.headers)
-                } else if (error.request) {
-                    console.log(error.request)
-                } else {
-                    console.log('Error : ', error.message)
-                }
-                console.log(error.config)
-            })
+    // Ouverture de la modal après lui avoir envoyé les données de LA recette pour l'hydrater
+    const openDetailModal = (truc) => {
+        setDetailRecipe(truc)
         onOpen()
     }
-
+    // Fermeture de la modal avec remise à 0 du détail de LA recette sinon les données persistes et sont visibles au prochain affichage
     const closeAndClear = () => {
         onClose()
         setDetailRecipe()
     }
 
-    // console.log(`je suis dans cardReciper ${indexOfDay} et ${categoryOfMeal}`)
     return(
         <Box w='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
             {recipesDatas.map(recipe => {
+                // on boucle sur l'ensemble des recettes afin d'afficher une Card par recette et on l'hydrate des données souhaitées
                 return(
-                    <Box key={recipesDatas.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                    <Box key={recipe._links.self.href} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
                     <Grid 
                         templateAreas={[`"image image stats stats"
                                         "title title title openDetails"`, 
@@ -92,8 +70,7 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
                         </GridItem>
                         <GridItem area='openDetails' display='flex' alignItems='end' justifyContent='end'>
                             <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
-                                {/* <Link onClick={()=> openAndFetchCardDetail(recipe._links.self.href)}> */}
-                                <Link onClick={()=> openDetailModal(recipe._links.self.href)}>
+                                <Link onClick={()=> openDetailModal(recipe)}>
                                     <IoEnter/>
                                 </Link>
                             </IconContext.Provider>
@@ -106,12 +83,12 @@ export default function CardRecipe({datas, indexOfDay, categoryOfMeal, onChangeR
                 <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
                     <ModalOverlay />
                     <ModalContent bg='gray.800' color='green.50'>
-                    <ModalHeader textAlign={['center']}>{ detailRecipe?.data?.recipe?.label }</ModalHeader>
+                    <ModalHeader textAlign={['center']}>{ detailRecipe?.recipe?.label }</ModalHeader>
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModal detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <ButtonToAddRecipe index={indexOfDay} category={categoryOfMeal} bla={bla} onChangeRecipe={onChangeRecipe} weekMenu={weekMenu} setWeekMenu={setWeekMenu} recipeToAdd={detailRecipe}/>
-                        <Link href={detailRecipe?.data?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
+                        <ButtonToAddRecipe index={indexOfDay} category={categoryOfMeal} weekMenu={weekMenu} setWeekMenu={setWeekMenu} recipeToAdd={detailRecipe} onClose={onClose}/>
+                        <Link href={detailRecipe?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>
                         <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
