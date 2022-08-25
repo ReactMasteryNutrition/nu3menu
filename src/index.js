@@ -3,23 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AuthContextProvider from "./context/authContext";
-import {BrowserRouter} from "react-router-dom";
-import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "./dev";
+import AllProvider from './context/allProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <AuthContextProvider>
-                <DevSupport ComponentPreviews={ComponentPreviews}
-                            useInitialHook={useInitial}
-                >
-                    <App/>
-                </DevSupport>
-            </AuthContextProvider>
-        </BrowserRouter>
+        <AllProvider>
+            <App />
+        </AllProvider>
     </React.StrictMode>
 );
 

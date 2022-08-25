@@ -1,16 +1,14 @@
-import { DrawerUser } from './Drawer'
-import { ModalRegister, ModalLogin } from "../../components/connection/Modal"
+import NavUserDrawer from './NavUserDrawer'
+import ModalRegister from "../connection/ModalRegister"
+import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom'
 import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
 import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
-import {useAuth} from "../../context/authContext";
-
-
-
-// const userToken = 'nu3menuToken'
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext";
 
 const NavVisitor = () => {
     return (
@@ -86,19 +84,17 @@ const NavUser = () => {
                 <Link to="/bookmark">
                     <BsBookmarkFill size="33" color="#48BB78" />
                 </Link>
-                {ResponsiveWidth() ? null : <DrawerUser />}
+                {ResponsiveWidth() ? null : <NavUserDrawer />}
             </Flex>
-        </Flex >
+        </Flex>
     )
 }
 
 const NavMobile = () => {
-    const { currentUser } = useAuth()
+    const {currentUser} = useContext(AuthContext)
     return (
         <>
             {currentUser ? <NavUser/> : <NavVisitor/>}
-            {/*<NavVisitor />  */}
-            {/* <NavUser /> */}
         </>
     )
 }

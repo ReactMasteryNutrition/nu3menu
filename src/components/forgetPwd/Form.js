@@ -14,7 +14,7 @@ import {ViewIcon, ViewOffIcon} from "@chakra-ui/icons";
 import {useNavigate} from "react-router-dom";
 import {useRef, useState} from "react";
 import {useAuth} from "../../context/authContext";
-import {user} from "../../firebase-config";
+
 
 
 const FormForgetPassword = () => {

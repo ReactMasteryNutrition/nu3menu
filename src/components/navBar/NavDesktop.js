@@ -1,13 +1,12 @@
-import { ModalRegister, ModalLogin } from "../../components/connection/Modal"
+import ModalRegister from "../connection/ModalRegister"
+import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
-import Dropdown from "./Dropdown"
+import NavUserDropdown from "./NavUserDropdown"
 import { Link } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
 import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
-import {useAuth} from "../../context/authContext";
-
-
-// const userToken = 'nu3menuToken'
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext";
 
 const NavVisitor = () => {
   return (
@@ -112,7 +111,7 @@ const NavUser = () => {
                 </Box >
               </Tooltip>
             </Link>
-            <Dropdown />
+            <NavUserDropdown />
           </Flex>
         </Box>
       </Flex >
@@ -132,7 +131,7 @@ const NavUser = () => {
 }
 
 const NavDesktop = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useContext(AuthContext)
   return (
     <>
       {currentUser ? <NavUser/> : <NavVisitor/>}

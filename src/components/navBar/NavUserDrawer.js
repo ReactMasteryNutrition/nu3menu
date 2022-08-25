@@ -1,4 +1,6 @@
-import {Link, Navigate, useNavigate} from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
+import { auth } from "../../firebase-config";
+import { useAuth } from "../../context/authContext";
 import {
     useDisclosure,
     Drawer,
@@ -16,23 +18,16 @@ import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
 import { MdOutlineMenuBook } from "react-icons/md"
-import {signOut} from "firebase/auth";
-import {auth} from "../../firebase-config";
-import {useAuth} from "../../context/authContext";
 
-const DrawerUser = () => {
+const NavUserDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const Navigate = useNavigate()
-    const { logout } = useAuth()
-
-    const { currentUser } = useAuth()
-
-    const handleClick = async ()  => {
+    const navigate = useNavigate()
+    const { logout, currentUser } = useAuth()
+    const handleClick = async () => {
         try {
-            const logOut = await logout (auth)
-            console.log("Vous êtes déconnecté");
+            await logout(auth)
             setTimeout(() => {
-                Navigate('/')
+                navigate('/')
             }, 1000);
         } catch {
             alert("For some reasons we can't deconnect, please check your internet connexion and retry.")
@@ -46,7 +41,8 @@ const DrawerUser = () => {
                 _hover={{ bg: "#1A202C" }}
                 _active={{ bg: "#1A202C" }}
             >
-                <Avatar size="sm" />
+                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
+                    : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">
                 <DrawerOverlay bg="rgba(160, 174, 192, 0.5)" />
@@ -71,12 +67,23 @@ const DrawerUser = () => {
                         top="5rem"
                         margin="0 auto"
                         fontWeight="bold"
-                        fontSize="1.2rem">
+                        fontSize="1.2rem"
+                    >
                         <Link to='/' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
-                                <CgProfile color='#48BB78' margin-right='0.5rem' /> {currentUser?.email}
+                                <CgProfile color='#48BB78' margin-right='0.5rem' />
+                                {currentUser?.displayName ? (<>
+                                        <Link to='/' onClick={onClose}>
+                                            <Flex
+                                                flexDirection="row"
+                                                gap="1rem">
+                                                <CgProfile color='#48BB78' margin-right='0.5rem' />
+                                                {currentUser?.displayName}
+                                            </Flex>
+                                        </Link></>)
+                                    : null}
                             </Flex>
                         </Link>
                         <Link to='/myaccount' onClick={onClose}>
@@ -116,4 +123,4 @@ const DrawerUser = () => {
     )
 }
 
-export { DrawerUser }
+export default NavUserDrawer

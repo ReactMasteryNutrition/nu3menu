@@ -1,8 +1,14 @@
-import Form from "../components/myAccount/Form"
+import FormDataUser from "../components/myAccount/FormDataUser"
+import { Box } from "@chakra-ui/react"
+import {useAuth} from "../context/authContext";
 
 const MyAccount = () => {
+    const {currentUser} = useAuth()
+    console.log(currentUser)
     return (
-       <Form/> 
+        <Box flexGrow='1'>
+            <FormDataUser />
+        </Box>
     )
 }
 

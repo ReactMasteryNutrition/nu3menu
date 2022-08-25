@@ -1,5 +1,6 @@
-import { FormForgetPassword } from './Form';
+import FormLogin from './FormLogin';
 import { ResponsiveWidth } from "../../utils/helper"
+import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
 import {
     Modal,
@@ -15,17 +16,39 @@ import {
 } from '@chakra-ui/react'
 import { IoLogInSharp } from "react-icons/io5"
 import { BsFillPersonPlusFill } from "react-icons/bs"
-import {Link} from "react-router-dom";
+import {useAuth} from "../../context/authContext";
 
-const ModalForgetPassword = () => {
+const ModalLogin = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const { currentUser } = useAuth()
     return (
         <Box>
-            <Link to='/forgetpassword' size="xs" color='gray.500' _hover={{ textDecoration:"none" }} onClick={onOpen}>
-                Mot de passe oublié ?
+            <Link to="/login" onClick={onOpen}>
+                {ResponsiveWidth() ? <Box
+                    bg="#1A202C"
+                    _hover={{
+                        color: "#f0fff4",
+                        bg: "#1A202C"
+                    }}
+                    _active={{ bg: "#1A202C" }}
+                    fontSize="1.2rem"
+                    fontWeight="700"
+                    color="#48bb78">Se connecter</Box> :
+                    <IoLogInSharp
+                        size="50"
+                        bg="#1A202C"
+                        _hover={{
+                            color: "#f0fff4",
+                            bg: "#1A202C"
+                        }}
+                        _active={{ bg: "#1A202C" }}
+                        fontSize="1.2rem"
+                        fontWeight="700"
+                        color="#48bb78"
+                        aria-label='login'
+                    />}
             </Link>
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+            <Modal isOpen={isOpen} isCentered >
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
                 <ModalContent
                     position={ResponsiveWidth() ? null : "fixed"}
@@ -39,7 +62,7 @@ const ModalForgetPassword = () => {
                         <Image
                             src="./images/logo_nu3menu.svg" alt="Logo du site"
                             position="absolute"
-                            top={ResponsiveWidth() ? "4rem" : "11rem"}
+                            top={ResponsiveWidth() ? "4rem" : "10rem"}
                             left="50%"
                             width={ResponsiveWidth() ? null : "18rem"}
                             transform="translate(-50%, -50%)"
@@ -67,15 +90,13 @@ const ModalForgetPassword = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormForgetPassword />
+                        <FormLogin currentUser={currentUser} />
                     </ModalBody>
-                    <ModalFooter/>
+                    <ModalFooter></ModalFooter>
                 </ModalContent>
             </Modal>
         </Box>
     );
 }
 
-
-
-export {ModalForgetPassword}
+export default ModalLogin

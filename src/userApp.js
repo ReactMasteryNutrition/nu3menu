@@ -10,10 +10,8 @@ import MyAccount from './pages/MyAccount';
 import {ForgetPassword} from "./pages/ForgetPassword";
 import { Box } from '@chakra-ui/react'
 import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
-import CreateMenu from './components/meal/createMenu';
 import DayMeal from './components/meal/dayMeal';
-import Mealy from './components/mealy/mealy';
-
+import MenuCreator from './components/menuCreator/menuCreator';
 
 const UserApp = () => {
     return (
@@ -24,13 +22,12 @@ const UserApp = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='/forgetpassword' element={<ForgetPassword />} />
                 {/* <Route path='/user' element={<NutriHomeUser />} /> */}
                 <Route path='/findRecipe' element={<SearchAndFilter />} />
-                <Route path='/createmenu' element={<CreateMenu />} />
                 <Route path='/menu' element={<DayMeal/>} />
                 <Route path='/myaccount' element={<MyAccount />} />
-                <Route path='/mealy' element={<Mealy />} />
+                <Route path='/createMenu' element={<MenuCreator />} />
+                <Route path='/forgetPassword' element={<ForgetPassword />} />
                 {/*<Route path='/menu' element={<UserMenu/>} />*/}
                 {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
                 {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}

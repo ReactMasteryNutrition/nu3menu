@@ -23,8 +23,6 @@ import {setDoc, doc, getDoc, collection, addDoc, serverTimestamp} from "firebase
 import {Avatar} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
 
-
-
 export const AuthContext = createContext()
 
 export const useAuth = () => {
@@ -35,25 +33,10 @@ export const useAuth = () => {
     return context
 }
 
-
 export default function AuthContextProvider(props) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const newUser = {...user}
-                setCurrentUser(newUser)
-            } else {
-                setCurrentUser(user)
-            }
-        })
-        return () => {
-            unsubscribe() // on désinscrit l'écouteur de l'authentification
-        }
-    } , [auth]) // on ne déclenche pas l'écouteur de l'authentification si on ne change pas le currentUser
 
     const register = useCallback((email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -79,26 +62,39 @@ export default function AuthContextProvider(props) {
         return sendEmailVerification(auth.currentUser)
     }, []);
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setCurrentUser(currentUser)
+            } else {
+                setCurrentUser()
+            }
+        })
+        return () => {
+            unsubscribe() // on désinscrit l'écouteur de l'authentification
+        }
+    } , []) // on ne déclenche pas l'écouteur de l'authentification si on ne change pas le currentUser
+
     const signInWithGoogle = useCallback(() => {
         const provider = new GoogleAuthProvider()
         return signInWithPopup(auth,provider)
     },[]);
 
-    const newCreateUserInFirestoreDatabase = async (UserCredential) => {
-        const userRef = doc(db, `users/${UserCredential.user.uid}`);
-        const userData = getDoc(userRef);
+    const newCreateUserInFirestoreDatabase = async ({UserCredential}) => {
+        const userRef = doc(db, `users/${ UserCredential.user.uid }`);
+        const userData = await getDoc(userRef);
         if (!userData.exists) { // si l'utilisateur n'existe pas dans la base de données
             setDoc(userRef, {
                 displayName: UserCredential.user.displayName,
                 email: UserCredential.user.email,
-                uid: UserCredential.user.uid,
+                id: UserCredential.user.uid,
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
                 isVerified: UserCredential.user.emailVerified,
+                imgSrc: UserCredential.user.imgSrc
             })
         }
     }
-
 
     const value = useMemo(() => ({
         currentUser,
