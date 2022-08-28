@@ -14,7 +14,8 @@ export default function SearchAndFilter({ index, category, weekMenu, setWeekMenu
         beta: 'true',
         q: '', //recipe => mot clé recherché
         app_id: process.env.REACT_APP_EDAMAM_API_ID,
-        app_key: process.env.REACT_APP_EDAMAM_API_KEY ,
+app_key: process.env.REACT_APP_EDAMAM_API_KEY ,
+   
     })
     // Mise à jour des paramètres en fonction des filtres renseignés et de la recette recherchée
     const handleSearch = recipeName => {
