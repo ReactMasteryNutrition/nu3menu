@@ -1,5 +1,7 @@
 # Nu3Menu
 
+<a href='https://nu3menu.netlify.app'>https://nu3menu.netlify.app</a>
+
 ## Description 
 Nu3menu is a web and mobile application that allows you to create nutritional menus for the week.<br/>
 You can choose your breakfast, lunch and dinner for each day. <br/>
@@ -66,11 +68,10 @@ npm start
 ```
 
 # Authors 
-@petuniahtf <br/>
-@MH1000 <br/>
-@CannyRo <br/>
-@David-Belleau
-
+[petuniahtf](https://github.com/petuniahtf)<br/>
+[MH1000](https://github.com/MH1000)<br/>
+[CannyRo](https://github.com/CannyRo)<br/>
+[David Belleau](https://github.com/David-Belleau)
 # Licence
 
 Nu3menu is MIT licensed.
