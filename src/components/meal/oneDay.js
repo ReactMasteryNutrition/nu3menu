@@ -17,7 +17,6 @@ const Oneday = ({ kiyWeek, categorykey, sourceImg, title, urlData }) => {
         <>
         
             <Flex direction={'column'} >
-                <Heading as='h3' size='xl'> {kiyWeek}</Heading>
                 <Text>{categorykey}</Text>
                 <Image w={'100%'} src={sourceImg} alt="rimage" />
                 <Text>{ title }</Text>

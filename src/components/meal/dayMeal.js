@@ -27,20 +27,20 @@ console.log(`teste recupération week  ${week}`)
             <Divider/>
             <Center>
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[0]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[0]}
             categorykey={"Matin"}
             sourceImg={weekParse?.lundi?.matin?.data?.recipe?.image}
             title={weekParse?.lundi?.matin?.data?.recipe?.label}
             urlData={weekParse?.lundi?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[0]}
+           
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.lundi?.deujeuner?.data?.recipe?.image}
             title={weekParse?.lundi?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.lundi?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[0]}
+            
             categorykey={"Dîner"}
             sourceImg={weekParse?.lundi?.diner?.data?.recipe?.image}
             title={weekParse?.lundi?.diner?.data?.recipe?.label}
@@ -51,21 +51,23 @@ console.log(`teste recupération week  ${week}`)
             <Divider/>
 
             <Center>
+            
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[1]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[1]}
+            
             categorykey={"Matin"}
             sourceImg={weekParse?.mardi?.matin?.data?.recipe?.image}
             title={weekParse?.mardi?.matin?.data?.recipe?.label}
             urlData={weekParse?.mardi?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[1]}
+            
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.mardi?.deujeuner?.data?.recipe?.image}
             title={weekParse?.mardi?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.mardi?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[1]}
+           
             categorykey={"Dîner"}
             sourceImg={weekParse?.mardi?.diner?.data?.recipe?.image}
             title={weekParse?.mardi?.diner?.data?.recipe?.label}
@@ -76,21 +78,23 @@ console.log(`teste recupération week  ${week}`)
             <Divider/>
 
             <Center>
+            
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[2]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[2]}
+            
             categorykey={"Matin"}
             sourceImg={weekParse?.mercredi?.matin?.data?.recipe?.image}
             title={weekParse?.mercredi?.matin?.data?.recipe?.label}
             urlData={weekParse?.mercredi?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[2]}
+            
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.mercredi?.deujeuner?.data?.recipe?.image}
             title={weekParse?.mercredi?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.mercredi?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[2]}
+            
             categorykey={"Dîner"}
             sourceImg={weekParse?.mercredi?.diner?.data?.recipe?.image}
             title={weekParse?.mercredi?.diner?.data?.recipe?.label}
@@ -101,21 +105,23 @@ console.log(`teste recupération week  ${week}`)
             <Divider/>
 
             <Center>
+            
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[3]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[3]}
+            
             categorykey={"Matin"}
             sourceImg={weekParse?.jeudi?.matin?.data?.recipe?.image}
             title={weekParse?.jeudi?.matin?.data?.recipe?.label}
             urlData={weekParse?.jeudi?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[3]}
+            
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.jeudi?.deujeuner?.data?.recipe?.image}
             title={weekParse?.jeudi?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.jeudi?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[3]}
+            
             categorykey={"Dîner"}
             sourceImg={weekParse?.jeudi?.diner?.data?.recipe?.image}
             title={weekParse?.jeudi?.diner?.data?.recipe?.label}
@@ -125,22 +131,23 @@ console.log(`teste recupération week  ${week}`)
 
             <Divider/>
 
-            <Center>
+            <Center>           
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[4]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[4]}
+            
             categorykey={"Matin"}
             sourceImg={weekParse?.vendredi?.matin?.data?.recipe?.image}
             title={weekParse?.vendredi?.matin?.data?.recipe?.label}
             urlData={weekParse?.vendredi?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[4]}
+            
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.vendredi?.deujeuner?.data?.recipe?.image}
             title={weekParse?.vendredi?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.vendredi?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[4]}
+            
             categorykey={"Dîner"}
             sourceImg={weekParse?.vendredi?.diner?.data?.recipe?.image}
             title={weekParse?.vendredi?.diner?.data?.recipe?.label}
@@ -150,22 +157,23 @@ console.log(`teste recupération week  ${week}`)
 
             <Divider/>
 
-            <Center>
+            <Center>           
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[5]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[5]}
+           
             categorykey={"Matin"}
             sourceImg={weekParse?.samedi?.matin?.data?.recipe?.image}
             title={weekParse?.samedi?.matin?.data?.recipe?.label}
             urlData={weekParse?.samedi?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[5]}
+            
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.samedi?.deujeuner?.data?.recipe?.image}
             title={weekParse?.samedi?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.samedi?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[5]}
+           
             categorykey={"Dîner"}
             sourceImg={weekParse?.samedi?.diner?.data?.recipe?.image}
             title={weekParse?.samedi?.diner?.data?.recipe?.label}
@@ -177,20 +185,21 @@ console.log(`teste recupération week  ${week}`)
 
             <Center>
             <HStack spacing={'24px'}>
+            <Heading as='h3' size='xl'> {keyWeek[6]}</Heading>
             <Oneday
-            kiyWeek={keyWeek[6]}
+            
             categorykey={"Matin"}
             sourceImg={weekParse?.dimanche?.matin?.data?.recipe?.image}
             title={weekParse?.dimanche?.matin?.data?.recipe?.label}
             urlData={weekParse?.dimanche?.matin?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[6]}
+            
             categorykey={"Déjeuner"}
             sourceImg={weekParse?.dimanche?.deujeuner?.data?.recipe?.image}
             title={weekParse?.dimanche?.deujeuner?.data?.recipe?.label}
             urlData={weekParse?.dimanche?.deujeuner?.data?.recipe?.url}/>
             <Oneday
-            kiyWeek={keyWeek[6]}
+            
             categorykey={"Dîner"}
             sourceImg={weekParse?.dimanche?.diner?.data?.recipe?.image}
             title={weekParse?.dimanche?.diner?.data?.recipe?.label}
