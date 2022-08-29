@@ -2,6 +2,7 @@ import { Flex, Heading, Button, Box } from "@chakra-ui/react"
 import { FaHome } from "react-icons/fa"
 import { useNavigate } from 'react-router-dom'
 import { ResponsiveWidth } from "../../utils/helper"
+import PropTypes from 'prop-types'
 
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
     const navigate = useNavigate()
@@ -23,6 +24,11 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
             </Button>
         </Flex>
     )
+}
+
+ErrorFallback.propTypes = {
+    error: PropTypes.object.isRequired,
+    resetErrorBoundary: PropTypes.func.isRequired
 }
 
 export default ErrorFallback
