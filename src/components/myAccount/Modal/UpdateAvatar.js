@@ -13,9 +13,12 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure
+    useDisclosure,
+    Flex,
+    CircularProgress,
+    CircularProgressLabel
 } from '@chakra-ui/react'
-import { EditIcon } from '@chakra-ui/icons'
+import { EditIcon, CheckIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
@@ -25,12 +28,13 @@ const ModalAvatar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast()
     const [image, setImage] = useState(null);
+    const [progress, setProgress] = useState(0)
     const handleChange = (e) => {
         // get the image data
         if (e.target.files[0]) {
-            setImage(e.target.files[0]);
+            setImage(e.target.files[0])
         }
-    };
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         // limit the image type
@@ -43,12 +47,12 @@ const ModalAvatar = () => {
             })
         }
         try {
-            // create the image path 
             let urlProfile = ''
             if (image) {
+                // create the image path 
                 const imageName = uuidv4() + '.' + image?.name?.split('.')?.pop();
                 // upload the image to Firestore
-                urlProfile = await UploadImage(image, `${currentUser?.email}/${imageName}`);
+                urlProfile = await UploadImage(image, `${currentUser?.email}/${imageName}`, setProgress);
             }
             // update the user avatar
             await updateProfile(currentUser, { photoURL: urlProfile });
@@ -69,7 +73,7 @@ const ModalAvatar = () => {
                 isClosable: true,
             })
         }
-    };
+    }
     return (
         <Box>
             <Box position='relative'>
@@ -135,7 +139,9 @@ const ModalAvatar = () => {
                         }}
                     />
                     <ModalBody>
-                        <Box
+                        <Flex
+                            alignItems='center'
+                            gap={ResponsiveWidth() ? '0.5rem' : '0.5rem'}
                             position={ResponsiveWidth() ? null : "absolute"}
                             left={ResponsiveWidth() ? null : "50%"}
                             top={ResponsiveWidth() ? null : "50%"}
@@ -143,7 +149,12 @@ const ModalAvatar = () => {
                             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                         >
                             <input type="file" onChange={handleChange} />
-                        </Box>
+                            {progress >= 1 && progress < 100 ? (
+                                <CircularProgress value={progress} color='green.400'>
+                                    <CircularProgressLabel>{`${Math.round(progress)} %`}</CircularProgressLabel>
+                                </CircularProgress>
+                            ) : progress === 100 ? <CheckIcon color='green.400' /> : null}
+                        </Flex>
                     </ModalBody>
                     <ModalFooter>
                         <Button
