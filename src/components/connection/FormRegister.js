@@ -10,12 +10,12 @@ import {
     Box,
     Text,
     useToast,
-    useDisclosure, Avatar,
+    useDisclosure,
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import {doc, getDoc, collection, serverTimestamp, setDoc} from "firebase/firestore";
+import {doc, getDoc, serverTimestamp, setDoc} from "firebase/firestore";
 import {db} from "../../firebase-config";
 
 const FormRegister = () => {
@@ -24,8 +24,7 @@ const FormRegister = () => {
     const [validation, setValidation] = useState("")
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
-    const { register, signInWithGoogle, verifyEmail, currentUser, newCreateUserInFirestoreDatabase, UserCredential} = useAuth();
-    const [displayName, setDisplayName] = useState("");
+    const {register, signInWithGoogle, verifyEmail, currentUser, newCreateUserInFirestoreDatabase} = useAuth();
     const formRef = useRef();
     const toast = useToast();
     const inputs = useRef([])
@@ -34,17 +33,8 @@ const FormRegister = () => {
             inputs.current.push(el)
         }
     }
-    const removeInputs = el => {
-        if (el && inputs.current.includes(el)) {
-            inputs.current = inputs.current.filter(i => i !== el)
-        }
-    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(inputs?.current[0]?.value === ""){
-            setValidation("Veuillez indiquer un prénom !")
-            return;
-        }
         if (inputs.current[0].value === "") {
             setValidation("Veuillez indiquer une adresse email")
             return;
@@ -54,29 +44,30 @@ const FormRegister = () => {
             return;
         }
         try {
-            const cred = register(
+            const cred = await register(
                 inputs?.current[0]?.value,
                 inputs?.current[1]?.value
             )
-
-            const NewCreateUserInFirestoreDatabase = async (UserCredential) => {
-                const userRef = doc(db, `users/${currentUser.uid}`);
-                const userData = getDoc(userRef);
-                if (!userData.exists()) { // si l'utilisateur n'existe pas dans la base de données
-                    await setDoc (userRef, {
-                        displayName: UserCredential.displayName,
+            const NewCreateUserInFirestoreDatabase = async (cred) => {
+                const userRef = doc(db, `users/${cred.user.uid}`) // on crée un document dans la base de données users);
+                const userDoc = await getDoc(userRef)
+                if (!userDoc.exists()) {
+                    await setDoc(userRef, {
                         email: inputs?.current[0]?.value,
-                        id: UserCredential.uid,
-                        createdAt: new Date(),
+                        displayName: cred.user.displayName,
+                        id: cred.user.uid,
+                        photoURL: cred.user.photoURL,
+                        createdAt: serverTimestamp(),
                         updatedAt: serverTimestamp(),
-                        photoURL: <Avatar size="sm" />
+                        isVerified: cred.user.email ? cred.user.emailVerified : false,
                     })
                 }
             }
             await NewCreateUserInFirestoreDatabase(cred)
-            formRef.current.reset();
+            await verifyEmail()
+            //formRef.current.reset();
             setValidation("")
-            verifyEmail(cred.user.email)
+            //verifyEmail(inputs?.current[0]?.value)
             const closeModal = () => {
                 setValidation("")
                 onClose();
@@ -107,7 +98,7 @@ const FormRegister = () => {
                     setValidation("Le mot de passe doit contenir au moins 6 caractères")
                     break;
                 default:
-                    throw new Error("Erreur non prise en compte")
+                    setValidation("Une erreur est survenue")
                     break
             }
             if (currentUser?.emailVerified === false) {
@@ -121,24 +112,12 @@ const FormRegister = () => {
         }
     }
 
-    const handleGoogleSignIn = async (UserCredential) => {
+    const handleGoogleSignIn = async () => {
         try {
-            signInWithGoogle(UserCredential).then((UserCredential) => {
+            signInWithGoogle().then((UserCredential) => {
                 newCreateUserInFirestoreDatabase(UserCredential)
-                verifyEmail(UserCredential)
-                if (UserCredential?.emailVerified === true) {
-                    setTimeout(() => {
-                        toast({
-                            description: "Un e-mail de vérification vous a été envoyé !",
-                            status: 'success',
-                            duration: 4000,
-                            isClosable: true
-                        })
-                    }, 3000);
-                    navigate("/")
-                }
+                navigate('/')
             })
-            console.log(UserCredential)
         } catch (err) {
             console.log(err)
             setValidation(err.code)

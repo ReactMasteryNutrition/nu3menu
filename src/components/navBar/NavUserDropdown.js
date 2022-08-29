@@ -19,7 +19,6 @@ import * as nameUserdata from "react-router-dom";
 const NavUserDropdown = () => {
   const navigate = useNavigate()
   const { logout,  docRef, userName, currentUser, imgSrc} = useAuth()
-  console.log(userName)
 
   const handleClick = async () => {
     try {

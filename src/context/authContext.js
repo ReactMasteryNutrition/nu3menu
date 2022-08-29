@@ -14,17 +14,12 @@ import {
     signOut,
     GoogleAuthProvider,
     sendPasswordResetEmail,
-    EmailAuthProvider,
     sendEmailVerification,
-    UserCredential
 } from 'firebase/auth'
 import {auth, db} from '../firebase-config';
-import {setDoc, doc, getDoc, collection, addDoc, serverTimestamp} from "firebase/firestore";
-import {Avatar} from "@chakra-ui/react";
-import {useNavigate} from "react-router-dom";
+import {setDoc, doc, getDoc, serverTimestamp} from "firebase/firestore";
 
-export const AuthContext = createContext()
-
+export const AuthContext = createContext( null );
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {
@@ -36,7 +31,6 @@ export const useAuth = () => {
 export default function AuthContextProvider(props) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    const navigate = useNavigate();
 
     const register = useCallback((email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -54,20 +48,17 @@ export default function AuthContextProvider(props) {
         return sendPasswordResetEmail(auth, email)
     }, []);
 
-    const emailProvider = useCallback((email) => {
-        return EmailAuthProvider(auth, email)
-    }, []);
-
     const verifyEmail = useCallback(() => {
-        return sendEmailVerification(auth.currentUser)
-    }, []);
+        return sendEmailVerification(auth)
+    },[]);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setCurrentUser(currentUser)
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const newUser = {...user}
+                setCurrentUser(newUser)
             } else {
-                setCurrentUser()
+                setCurrentUser(currentUser)
             }
         })
         return () => {
@@ -80,21 +71,23 @@ export default function AuthContextProvider(props) {
         return signInWithPopup(auth,provider)
     },[]);
 
-    const newCreateUserInFirestoreDatabase = async ({UserCredential}) => {
-        const userRef = doc(db, `users/${ UserCredential.user.uid }`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const newCreateUserInFirestoreDatabase = async (UserCredential) => {
+        const userRef = doc(db, `users/${UserCredential.user.uid}`);
         const userData = await getDoc(userRef);
-        if (!userData.exists) { // si l'utilisateur n'existe pas dans la base de données
-            setDoc(userRef, {
+        if (!userData.exists()) { // si l'utilisateur n'existe pas dans la base de données
+            await setDoc(userRef, {
                 displayName: UserCredential.user.displayName,
                 email: UserCredential.user.email,
+                createdAt: new Date(),
                 id: UserCredential.user.uid,
-                createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
-                isVerified: UserCredential.user.emailVerified,
-                imgSrc: UserCredential.user.imgSrc
+                photoURL: UserCredential.user.photoURL
             })
         }
+        console.log(userData)
     }
+
 
     const value = useMemo(() => ({
         currentUser,
@@ -106,9 +99,8 @@ export default function AuthContextProvider(props) {
         signInWithGoogle,
         resetPassword,
         newCreateUserInFirestoreDatabase,
-        emailProvider,
         verifyEmail,
-    }),[currentUser, loading, setLoading, register, login, logout, resetPassword, signInWithGoogle, newCreateUserInFirestoreDatabase, emailProvider, verifyEmail])
+    }),[currentUser, loading, setLoading, register, login, logout, resetPassword, signInWithGoogle, newCreateUserInFirestoreDatabase, verifyEmail])
 
     return (
         <AuthContext.Provider value={value}>
