@@ -5,7 +5,8 @@ const LoadingApp = () => {
     return (
         <Box role='alert' w="100%" flexGrow='1' >
             <CircularProgress
-                isIndeterminate color='#48BB78'
+                isIndeterminate
+                color='#48BB78'
                 size="90%"
                 position="fixed"
                 left="50%"
