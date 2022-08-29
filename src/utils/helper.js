@@ -1,5 +1,5 @@
 import { Button, useMediaQuery, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton, Box, useDisclosure } from '@chakra-ui/react'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../firebase-config';
 import PropTypes from 'prop-types'
 import { useReducer, useCallback } from 'react';
@@ -61,19 +61,39 @@ ModalMyAccount.propTypes = {
   footer: PropTypes.object.isRequired
 }
 
-const UploadImage = (file, filePath) => {
-  return new Promise(async (resolve, reject) => {
+const UploadImage = (file, filePath, setProgress) => {
+  return new Promise((resolve, reject) => {
     // create a ref for the image url
     const storageRef = ref(storage, filePath)
-    try {
-      // upload an image
-      await uploadBytes(storageRef, file);
-      // get the image url
-      const url = await getDownloadURL(storageRef)
+    // handle download progress
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress)
+      },
+      (error) => {
+        reject(error);
+      },
+      async () => {
+        try {
+          // upload an image
+          await uploadBytes(storageRef, file);
+          // get the image url
+          const url = await getDownloadURL(storageRef);
+          resolve(url);
+        } catch (error) {
+          reject(error);
+        }
+      }
+      )
+      /*  try {
+        const url = await getDownloadURL(storageRef)
+
       resolve(url)
     } catch (error) {
       reject(error)
-    }
+    } */
   })
 }
 
