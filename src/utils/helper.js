@@ -87,19 +87,13 @@ const UploadImage = (file, filePath, setProgress) => {
         }
       }
       )
-      /*  try {
-        const url = await getDownloadURL(storageRef)
-
-      resolve(url)
-    } catch (error) {
-      reject(error)
-    } */
   })
 }
 
 UploadImage.propTypes = {
   file: PropTypes.string.isRequired,
-  filePath: PropTypes.string.isRequired
+  filePath: PropTypes.string.isRequired,
+  setProgress: PropTypes.number.isRequired
 }
 
 const useLoading = () => {
