@@ -21,9 +21,9 @@ export default function MealCategory({onCategoryChange}){
         <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"} px={['','1rem']}>
             <FormLabel>Category</FormLabel>
             <Select w='100%' value={category} onChange={handleCategoryChange} placeholder='Select your meal choice'>
-                <option value="matin">Petit déjeuner</option>
-                <option value="deujeuner">Déjeuné</option>
-                <option value="diner">Dîner</option>
+                <option value="Matin">Petit-déjeuner</option>
+                <option value="Déjeuner">Déjeuner</option>
+                <option value="Dîner">Dîner</option>
             </Select>
         </FormControl>
     )

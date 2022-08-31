@@ -43,42 +43,44 @@ export default function WeekTable({onIndexChange, weekMenu}){
     // Cela va alimenter les progress bar
     React.useEffect(()=>{
         for (const [day, meals] of Object.entries(weekMenu)) {
+            console.log(day)
+            console.log(typeof(day))
             for( const [meal, thereIsARecipe] of Object.entries(meals)) {
                 if(thereIsARecipe !== '') {
                     numberValue += 1
                     let updatedNumber = numberValue/21*100
                     setNumber(updatedNumber)
-                    if(day === 'lundi'){
+                    if(day === 'Lundi'){
                         mondayValue +=1
                         let updatedMonday = mondayValue/3*100
                         setMondayNumber(updatedMonday)
                     }
-                    if(day === 'mardi'){
+                    if(day === 'Mardi'){
                         tuesdayValue +=1
                         let updatedTuesday = tuesdayValue/3*100
                         setTuesdayNumber(updatedTuesday)
                     }
-                    if(day === 'mercredi'){
+                    if(day === 'Mercredi'){
                         wednesdayValue +=1
                         let updatedWednesday = wednesdayValue/3*100
                         setWednesdayNumber(updatedWednesday)
                     }
-                    if(day === 'jeudi'){
+                    if(day === 'Jeudi'){
                         thursdayValue +=1
                         let updatedThursday = thursdayValue/3*100
                         setThursdayNumber(updatedThursday)
                     }
-                    if(day === 'vendredi'){
+                    if(day === 'Vendredi'){
                         fridayValue +=1
                         let updatedFriday = fridayValue/3*100
                         setFridayNumber(updatedFriday)
                     }
-                    if(day === 'samedi'){
+                    if(day === 'Samedi'){
                         saturdayValue +=1
                         let updatedSaturday = saturdayValue/3*100
                         setSaturdayNumber(updatedSaturday)
                     }
-                    if(day === 'dimanche'){
+                    if(day === 'Dimanche'){
                         sundayValue +=1
                         let updatedSunday = sundayValue/3*100
                         setSundayNumber(updatedSunday)

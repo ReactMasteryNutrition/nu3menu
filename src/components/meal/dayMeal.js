@@ -1,221 +1,97 @@
 import React from "react";
-import { Box, Center, Divider, Heading, HStack} from "@chakra-ui/react";
+import { Box, Button, Center, Divider, Heading, HStack, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure, VStack} from "@chakra-ui/react";
+import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
+import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
+import DetailRecipeModal from "../Card/DetailRecipeModal"
 
 
 
 const DayMeal = () =>{
+  // gestion ouverture et fermeture de la modal avec le detail de LA recette
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  // stockage de LA recette que l'on souhaite voir en détail et peut-être ajouter au menu
+  const [detailRecipe, setDetailRecipe] = React.useState({});
+  // Ouverture de la modal après lui avoir envoyé les données de LA recette pour l'hydrater
+  const openDetailModal = (truc) => {
+      setDetailRecipe(truc)
+      onOpen()
+  }
+  // Fermeture de la modal avec remise à 0 du détail de LA recette sinon les données persistes et sont visibles au prochain affichage
+  const closeAndClear = () => {
+      onClose()
+      setDetailRecipe()
+  }
 
-let week =  localStorage.getItem('week')
-let weekParse = JSON.parse(week)
-const keyWeek = Object.keys(weekParse)
+  let week =  localStorage.getItem('week')
+  let weekParse = JSON.parse(week)
+  const keyWeek = Object.keys(weekParse)
 
+  console.log(weekParse)
 
-//const handleClickDelete = () =>{
-  //  localStorage.removeItem('week')
-//}
-
-
-console.log(`${keyWeek} voila les clef`)
-console.log(`teste recupération week  ${week}`)
-//console.log(`${weekParse.lundi.matin.data.recipe.label} on est parser`)
-    return(
-        <Box  w='100%' p={4} color={"green.400"}>
+  //console.log(`${keyWeek} voila les clef`)
+  //console.log(`teste recupération week  ${week}`)
+  //console.log(`${weekParse.lundi.matin.data.recipe.label} on est parser`)
+      return(
+          <Box  w='100%' p={4} color={"green.50"}>
             <Center>
-            <Heading as='h1' size='xl'> Tout mes menus</Heading>
-            </Center>
-            <Divider/>
-            <Center>
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[0]}</Heading>
-            <Oneday
-            categorykey={"Matin"}
-            sourceImg={weekParse?.lundi?.matin?.data?.recipe?.image}
-            title={weekParse?.lundi?.matin?.data?.recipe?.label}
-            urlData={weekParse?.lundi?.matin?.data?.recipe?.url}/>
-            <Oneday
-           
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.lundi?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.lundi?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.lundi?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.lundi?.diner?.data?.recipe?.image}
-            title={weekParse?.lundi?.diner?.data?.recipe?.label}
-            urlData={weekParse?.lundi?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-
-            <Divider/>
-
-            <Center>
-            
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[1]}</Heading>
-            <Oneday
-            
-            categorykey={"Matin"}
-            sourceImg={weekParse?.mardi?.matin?.data?.recipe?.image}
-            title={weekParse?.mardi?.matin?.data?.recipe?.label}
-            urlData={weekParse?.mardi?.matin?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.mardi?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.mardi?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.mardi?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-           
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.mardi?.diner?.data?.recipe?.image}
-            title={weekParse?.mardi?.diner?.data?.recipe?.label}
-            urlData={weekParse?.mardi?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-
-            <Divider/>
-
-            <Center>
-            
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[2]}</Heading>
-            <Oneday
-            
-            categorykey={"Matin"}
-            sourceImg={weekParse?.mercredi?.matin?.data?.recipe?.image}
-            title={weekParse?.mercredi?.matin?.data?.recipe?.label}
-            urlData={weekParse?.mercredi?.matin?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.mercredi?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.mercredi?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.mercredi?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.mercredi?.diner?.data?.recipe?.image}
-            title={weekParse?.mercredi?.diner?.data?.recipe?.label}
-            urlData={weekParse?.mercredi?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-
-            <Divider/>
-
-            <Center>
-            
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[3]}</Heading>
-            <Oneday
-            
-            categorykey={"Matin"}
-            sourceImg={weekParse?.jeudi?.matin?.data?.recipe?.image}
-            title={weekParse?.jeudi?.matin?.data?.recipe?.label}
-            urlData={weekParse?.jeudi?.matin?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.jeudi?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.jeudi?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.jeudi?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.jeudi?.diner?.data?.recipe?.image}
-            title={weekParse?.jeudi?.diner?.data?.recipe?.label}
-            urlData={weekParse?.jeudi?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-
-            <Divider/>
-
-            <Center>           
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[4]}</Heading>
-            <Oneday
-            
-            categorykey={"Matin"}
-            sourceImg={weekParse?.vendredi?.matin?.data?.recipe?.image}
-            title={weekParse?.vendredi?.matin?.data?.recipe?.label}
-            urlData={weekParse?.vendredi?.matin?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.vendredi?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.vendredi?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.vendredi?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.vendredi?.diner?.data?.recipe?.image}
-            title={weekParse?.vendredi?.diner?.data?.recipe?.label}
-            urlData={weekParse?.vendredi?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-
-            <Divider/>
-
-            <Center>           
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[5]}</Heading>
-            <Oneday
-           
-            categorykey={"Matin"}
-            sourceImg={weekParse?.samedi?.matin?.data?.recipe?.image}
-            title={weekParse?.samedi?.matin?.data?.recipe?.label}
-            urlData={weekParse?.samedi?.matin?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.samedi?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.samedi?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.samedi?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-           
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.samedi?.diner?.data?.recipe?.image}
-            title={weekParse?.samedi?.diner?.data?.recipe?.label}
-            urlData={weekParse?.samedi?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-
-            <Divider/>
-
-            <Center>
-            <HStack spacing={'24px'}>
-            <Heading as='h3' size='xl'> {keyWeek[6]}</Heading>
-            <Oneday
-            
-            categorykey={"Matin"}
-            sourceImg={weekParse?.dimanche?.matin?.data?.recipe?.image}
-            title={weekParse?.dimanche?.matin?.data?.recipe?.label}
-            urlData={weekParse?.dimanche?.matin?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Déjeuner"}
-            sourceImg={weekParse?.dimanche?.deujeuner?.data?.recipe?.image}
-            title={weekParse?.dimanche?.deujeuner?.data?.recipe?.label}
-            urlData={weekParse?.dimanche?.deujeuner?.data?.recipe?.url}/>
-            <Oneday
-            
-            categorykey={"Dîner"}
-            sourceImg={weekParse?.dimanche?.diner?.data?.recipe?.image}
-            title={weekParse?.dimanche?.diner?.data?.recipe?.label}
-            urlData={weekParse?.dimanche?.diner?.data?.recipe?.url}/>
-            </HStack>
-            </Center>
-            
-            <Divider/>
-
-
-            
-       </Box>
-
-    )
+              <Heading as='h1' size='xl' mb='2rem'>MENU DE LA SEMAINE</Heading>
+            </Center>   
+            <Divider/>      
+              {
+                Object.entries(weekParse).map(entry => {
+                  console.log(entry)
+                  return(
+                    <>
+                      <Center mt='2rem'>
+                      <VStack>
+                        <Heading>{entry[0]}</Heading>
+                        <Stack direction={['column', 'row' ]} spacing={'24px'}>
+                        {Object.entries(entry[1]).map(meal => {
+                          console.log(meal)
+                          return(
+                            <Oneday
+                              categorykey={meal[0]}
+                              sourceImg={meal[1]?.recipe?.image}
+                              title={meal[1]?.recipe?.label}
+                              urlData={meal[1]?.recipe?.url}
+                              buttonToOpenModal={<Link isExternal my='1rem' mx={['0', '0.5rem']} onClick={()=> openDetailModal(meal[1])}><IoEnter /></Link>}
+                            />
+                          )
+                        })}
+                        </Stack>
+                      </VStack>
+                      </Center>
+                      <Divider mt='1rem'/>
+                    </>
+                  )
+                    
+                }
+                )
+              }
+              {
+                detailRecipe != null ?
+                <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
+                    <ModalOverlay />
+                    <ModalContent bg='gray.800' color='green.50'>
+                    <ModalHeader textAlign={['center']}>{ detailRecipe?.recipe?.label }</ModalHeader>
+                    <ModalCloseButton onClick={()=>closeAndClear()}/>
+                    <DetailRecipeModal detail={detailRecipe}/>
+                    <ModalFooter flexDir={['column', 'row']}>
+                        <Link href={detailRecipe?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
+                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
+                        </Link>
+                        <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
+                        Close
+                        </Button>
+                    </ModalFooter>
+                    </ModalContent>
+                </Modal> : null
+              }
+          </Box>
+      )
 
 }
 
 
- export default DayMeal;
+export default DayMeal;
