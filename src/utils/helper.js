@@ -3,6 +3,8 @@ import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase
 import { storage } from '../firebase-config';
 import PropTypes from 'prop-types'
 import { useReducer, useCallback } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/authContext';
 
 const ResponsiveWidth = () => {
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
@@ -86,7 +88,7 @@ const UploadImage = (file, filePath, setProgress) => {
           reject(error);
         }
       }
-      )
+    )
   })
 }
 
@@ -132,4 +134,13 @@ const useLoading = () => {
   return { data, error, status, execute, setData }
 }
 
-export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading }
+const PrivateRoute = ({ children }) => {
+  const { currentUser } = useAuth()
+  return currentUser ? children : <Navigate to="/" replace />
+}
+
+PrivateRoute.propTypes = {
+  children: PropTypes.object.isRequired,
+}
+
+export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, PrivateRoute }
