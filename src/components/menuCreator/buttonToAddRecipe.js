@@ -12,30 +12,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
         switch (index) {
             case 0:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            lundi: {
-                                ...weekMenu.lundi,
-                                matin: recipeToAdd
+                            Lundi: {
+                                ...weekMenu.Lundi,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            lundi: {
-                                ...weekMenu.lundi,
-                                deujeuner: recipeToAdd
+                            Lundi: {
+                                ...weekMenu.Lundi,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            lundi: {
-                                ...weekMenu.lundi,
-                                diner: recipeToAdd
+                            Lundi: {
+                                ...weekMenu.Lundi,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
@@ -45,30 +45,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
             case 1:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            mardi: {
-                                ...weekMenu.mardi,
-                                matin: recipeToAdd
+                            Mardi: {
+                                ...weekMenu.Mardi,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            mardi: {
-                                ...weekMenu.mardi,
-                                deujeuner: recipeToAdd
+                            Mardi: {
+                                ...weekMenu.Mardi,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            mardi: {
-                                ...weekMenu.mardi,
-                                diner: recipeToAdd
+                            Mardi: {
+                                ...weekMenu.Mardi,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
@@ -78,30 +78,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
             case 2:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            mercredi: {
-                                ...weekMenu.mercredi,
-                                matin: recipeToAdd
+                            Mercredi: {
+                                ...weekMenu.Mercredi,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            mercredi: {
-                                ...weekMenu.mercredi,
-                                deujeuner: recipeToAdd
+                            Mercredi: {
+                                ...weekMenu.Mercredi,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            mercredi: {
-                                ...weekMenu.mercredi,
-                                diner: recipeToAdd
+                            Mercredi: {
+                                ...weekMenu.Mercredi,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
@@ -111,30 +111,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
             case 3:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            jeudi: {
-                                ...weekMenu.jeudi,
-                                matin: recipeToAdd
+                            Jeudi: {
+                                ...weekMenu.Jeudi,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            jeudi: {
-                                ...weekMenu.jeudi,
-                                deujeuner: recipeToAdd
+                            Jeudi: {
+                                ...weekMenu.Jeudi,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            jeudi: {
-                                ...weekMenu.jeudi,
-                                diner: recipeToAdd
+                            Jeudi: {
+                                ...weekMenu.Jeudi,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
@@ -144,30 +144,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
             case 4:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            vendredi: {
-                                ...weekMenu.vendredi,
-                                matin: recipeToAdd
+                            Vendredi: {
+                                ...weekMenu.Vendredi,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            vendredi: {
-                                ...weekMenu.vendredi,
-                                deujeuner: recipeToAdd
+                            Vendredi: {
+                                ...weekMenu.Vendredi,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            vendredi: {
-                                ...weekMenu.vendredi,
-                                diner: recipeToAdd
+                            Vendredi: {
+                                ...weekMenu.Vendredi,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
@@ -177,30 +177,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
             case 5:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            samedi: {
-                                ...weekMenu.samedi,
-                                matin: recipeToAdd
+                            Samedi: {
+                                ...weekMenu.Samedi,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            samedi: {
-                                ...weekMenu.samedi,
-                                deujeuner: recipeToAdd
+                            Samedi: {
+                                ...weekMenu.Samedi,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            samedi: {
-                                ...weekMenu.samedi,
-                                diner: recipeToAdd
+                            Samedi: {
+                                ...weekMenu.Samedi,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
@@ -210,30 +210,30 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
                 break;
             case 6:
                 switch (category) {
-                    case "matin":
+                    case "Matin":
                         setWeekMenu({
                             ...weekMenu,
-                            dimanche: {
-                                ...weekMenu.dimanche,
-                                matin: recipeToAdd
+                            Dimanche: {
+                                ...weekMenu.Dimanche,
+                                Matin: recipeToAdd
                             }
                         })
                         break;
-                    case "deujeuner":
+                    case "Déjeuner":
                         setWeekMenu({
                             ...weekMenu,
-                            dimanche: {
-                                ...weekMenu.dimanche,
-                                deujeuner: recipeToAdd
+                            Dimanche: {
+                                ...weekMenu.Dimanche,
+                                Déjeuner: recipeToAdd
                             }
                         })
                         break;
-                    case "diner":
+                    case "Dîner":
                         setWeekMenu({
                             ...weekMenu,
-                            dimanche: {
-                                ...weekMenu.dimanche,
-                                diner: recipeToAdd
+                            Dimanche: {
+                                ...weekMenu.Dimanche,
+                                Dîner: recipeToAdd
                             }
                         })
                         break;
