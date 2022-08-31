@@ -22,6 +22,8 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { reauthenticateWithCredential, reauthenticateWithPopup, GoogleAuthProvider, EmailAuthProvider, deleteUser } from "firebase/auth"
+import {doc, getDoc, deleteDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const DeleteAccount = () => {
     const { currentUser } = useAuth()
@@ -49,7 +51,13 @@ const DeleteAccount = () => {
             } else {
                 await reauthenticateWithPopup(currentUser, provider)
             }
-            deleteUser(currentUser)
+            const UserInFirestoreDatabase = async () => {
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const userDoc = await getDoc(userRef)
+                await deleteDoc(userRef)
+            }
+            await UserInFirestoreDatabase()
+            await deleteUser(currentUser)
             navigate('/')
             toast({
                 description: "Votre compte a bien été supprimé !",

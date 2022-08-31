@@ -19,6 +19,8 @@ import { EditIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
+import {doc, getDoc, updateDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const ModalAvatar = () => {
     const { currentUser } = useAuth()
@@ -52,6 +54,14 @@ const ModalAvatar = () => {
             }
             // update the user avatar
             await updateProfile(currentUser, { photoURL: urlProfile });
+            const UserInFirestoreDatabase = async () => {
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const userDoc = await getDoc(userRef)
+                await updateDoc(userRef, {
+                    photoURL: urlProfile,
+                })
+            }
+            UserInFirestoreDatabase()
             // close the modal
             onClose()
             toast({
@@ -60,8 +70,11 @@ const ModalAvatar = () => {
                 duration: 4000,
                 isClosable: true,
             })
+            console.log(urlProfile)
+            console.log(updateProfile)
             
         } catch (error) {
+            console.log(error)
             toast({
                 description: "Il y a eu une erreur lors de la modification de votre avatar !",
                 status: 'error',

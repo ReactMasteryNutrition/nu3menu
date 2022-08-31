@@ -48,8 +48,9 @@ const FormRegister = () => {
                 inputs?.current[0]?.value,
                 inputs?.current[1]?.value
             )
+            console.log(cred)
             const NewCreateUserInFirestoreDatabase = async (cred) => {
-                const userRef = doc(db, `users/${cred.user.uid}`) // on crée un document dans la base de données users);
+                const userRef = doc(db, `users/${cred.user.uid}`) // on crée un document dans la base de données users;
                 const userDoc = await getDoc(userRef)
                 if (!userDoc.exists()) {
                     await setDoc(userRef, {
@@ -59,7 +60,7 @@ const FormRegister = () => {
                         photoURL: cred.user.photoURL,
                         createdAt: serverTimestamp(),
                         updatedAt: serverTimestamp(),
-                        isVerified: cred.user.email ? cred.user.emailVerified : false,
+                        isVerified: cred.user.emailVerified ? cred.user.emailVerified : false,
                     })
                 }
             }

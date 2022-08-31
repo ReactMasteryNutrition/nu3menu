@@ -22,6 +22,8 @@ import {
     EmailAuthProvider,
     sendEmailVerification
 } from 'firebase/auth'
+import {doc, getDoc, updateDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const ModalEmail = () => {
     const { currentUser } = useAuth()
@@ -65,6 +67,14 @@ const ModalEmail = () => {
                     })
                 }, 3000);
             }
+            const UserInFirestoreDatabase = async () => {
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const userDoc = await getDoc(userRef)
+                await updateDoc(userRef, {
+                    email: inputs?.current[1]?.value
+                })
+            }
+            UserInFirestoreDatabase()
         } catch (error) {
             toast({
                 description: "Il y a eu une erreur lors de la modification de votre adresse e-mail !",
