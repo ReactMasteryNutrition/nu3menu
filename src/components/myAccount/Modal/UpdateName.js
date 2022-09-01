@@ -34,10 +34,10 @@ const ModalName = () => {
                 const userDoc = await getDoc(userRef)
                 await updateDoc(userRef, {
                     displayName: input?.current[0]?.value,
+                    dateLogin: serverTimestamp()
                 })
             }
-            console.log(input?.current[0]?.value)
-            UserInFirestoreDatabase()
+            await UserInFirestoreDatabase()
             toast({
                 description: "Votre prénom a bien été modifié !",
                 status: 'success',

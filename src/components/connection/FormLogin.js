@@ -1,5 +1,5 @@
 import { ResponsiveWidth } from "../../utils/helper"
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
     FormControl,
@@ -15,13 +15,11 @@ import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import {ModalForgetPassword} from "../forgetPwd/Modal";
-import {db} from "../../firebase-config";
-import {doc, getDoc, serverTimestamp, setDoc, updateDoc} from "firebase/firestore";
 
 
 const FormLogin = () => {
 
-    const { login, signInWithGoogle, newCreateUserInFirestoreDatabase, verifyEmail} = useAuth();
+    const { login, signInWithGoogle, newCreateUserInFirestoreDatabase} = useAuth();
     const { onClose } = useDisclosure()
     const [show, setShow] = useState(false)
     const [validation, setValidation] = useState("")
@@ -46,24 +44,10 @@ const FormLogin = () => {
         }
         e.preventDefault();
         try {
-            const cred = login(
+            const cred = await login(
                 inputs.current[0].value,
                 inputs.current[1].value
             )
-            const UserInFirestoreDatabase = async (cred) => {
-                const userRef = doc(db, `users/${cred.user.uid}`)
-                const userDoc = await getDoc(userRef)
-                await updateDoc(userRef, {
-                        email: inputs?.current[0]?.value,
-                        photoURL: cred.user.photoURL,
-                        createdAt: serverTimestamp(),
-                        updatedAt: serverTimestamp(),
-                        isVerified: cred.user.emailVerified
-                })
-            }
-            await UserInFirestoreDatabase(cred)
-            await verifyEmail()
-            console.log(cred)
             //formRef.current.reset();
             setValidation("")
             closeModal()
@@ -99,7 +83,6 @@ const FormLogin = () => {
             })
         }
         catch (err) {
-            console.log(err)
             setValidation(err.code)
             switch (err.code) {
                 case "auth/account-exists-with-different-credential":

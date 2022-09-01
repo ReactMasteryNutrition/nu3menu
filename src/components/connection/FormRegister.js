@@ -48,9 +48,8 @@ const FormRegister = () => {
                 inputs?.current[0]?.value,
                 inputs?.current[1]?.value
             )
-            console.log(cred)
             const NewCreateUserInFirestoreDatabase = async (cred) => {
-                const userRef = doc(db, `users/${cred.user.uid}`) // on crée un document dans la base de données users;
+                const userRef = doc(db, `users/${cred.user.uid}`)
                 const userDoc = await getDoc(userRef)
                 if (!userDoc.exists()) {
                     await setDoc(userRef, {
@@ -59,21 +58,13 @@ const FormRegister = () => {
                         id: cred.user.uid,
                         photoURL: cred.user.photoURL,
                         createdAt: serverTimestamp(),
-                        updatedAt: serverTimestamp(),
-                        isVerified: cred.user.emailVerified ? cred.user.emailVerified : false,
+                        dateLogin: serverTimestamp(),
+                        isVerified: cred.user.emailVerified ? false : true
                     })
                 }
             }
             await NewCreateUserInFirestoreDatabase(cred)
-            await verifyEmail()
-            //formRef.current.reset();
-            setValidation("")
-            //verifyEmail(inputs?.current[0]?.value)
-            const closeModal = () => {
-                setValidation("")
-                onClose();
-                navigate("/")
-            }
+            await verifyEmail(currentUser)
             if (currentUser?.emailVerified === true) {
                 setTimeout(() => {
                     toast({
@@ -84,9 +75,15 @@ const FormRegister = () => {
                     })
                 }, 3000)
             }
+            //formRef.current.reset();
+            setValidation("")
+            const closeModal = () => {
+                setValidation("")
+                onClose();
+                navigate("/")
+            }
             closeModal()
         } catch (err) {
-            console.log(err)
             setValidation(err.code)
             switch (err.code) {
                 case "auth/email-already-in-use":
@@ -117,6 +114,7 @@ const FormRegister = () => {
         try {
             signInWithGoogle().then((UserCredential) => {
                 newCreateUserInFirestoreDatabase(UserCredential)
+                verifyEmail(UserCredential)
                 navigate('/')
             })
         } catch (err) {

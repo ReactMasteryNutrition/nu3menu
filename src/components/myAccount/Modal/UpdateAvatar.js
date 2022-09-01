@@ -19,7 +19,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
-import {doc, getDoc, updateDoc} from "firebase/firestore";
+import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
 import {db} from "../../../firebase-config";
 
 const ModalAvatar = () => {
@@ -59,9 +59,10 @@ const ModalAvatar = () => {
                 const userDoc = await getDoc(userRef)
                 await updateDoc(userRef, {
                     photoURL: urlProfile,
+                    dateLogin: serverTimestamp()
                 })
             }
-            UserInFirestoreDatabase()
+            await UserInFirestoreDatabase()
             // close the modal
             onClose()
             toast({
@@ -70,9 +71,6 @@ const ModalAvatar = () => {
                 duration: 4000,
                 isClosable: true,
             })
-            console.log(urlProfile)
-            console.log(updateProfile)
-            
         } catch (error) {
             console.log(error)
             toast({

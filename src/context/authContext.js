@@ -49,7 +49,7 @@ export default function AuthContextProvider(props) {
     }, []);
 
     const verifyEmail = useCallback(() => {
-        return sendEmailVerification(auth)
+        return sendEmailVerification(auth.currentUser)
     },[]);
 
     useEffect(() => {
@@ -81,10 +81,10 @@ export default function AuthContextProvider(props) {
                 createdAt: new Date(),
                 id: UserCredential.user.uid,
                 updatedAt: serverTimestamp(),
-                photoURL: UserCredential.user.photoURL
+                photoURL: UserCredential.user.photoURL,
+                isVerified: UserCredential.user.emailVerified ? true : false
             })
         }
-        console.log(userData)
     }
 
 

@@ -50,7 +50,7 @@ const ModalPassword = () => {
         await reauthenticateWithPopup(currentUser, provider)
       }
       if (inputs?.current[1]?.value === inputs?.current[2]?.value) {
-        updatePassword(currentUser, inputs?.current[1]?.value)
+        await updatePassword(currentUser, inputs?.current[1]?.value)
         toast({
           description: "Votre mot de passe a bien été modifié !",
           status: 'success',
