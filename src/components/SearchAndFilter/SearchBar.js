@@ -1,18 +1,18 @@
 // Imports 
 import React from 'react'
-import { Box, Button, Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Flex, FormControl, FormLabel, IconButton, Input, InputGroup, InputLeftAddon, InputLeftElement, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, StatHelpText, Tooltip, useDisclosure } from '@chakra-ui/react'
-import { IoFunnel, IoFunnelOutline, IoSearch } from 'react-icons/io5'
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, Flex, FormControl, IconButton, Input, InputGroup, InputLeftElement, Tooltip, useDisclosure } from '@chakra-ui/react'
+import { IoFunnel, IoSearch } from 'react-icons/io5'
 import Filter from '../../components/SearchAndFilter/Filter'
 // Functions
 export default function SearchBar({thingSearched, handleSearch, filter, setFilter}){
+    // gestion ouverture et fermeture de la modal avec les filtres
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-
+    // variable locale de la recette recherchée
     const [recipeSearched, setRecipeSearched] = React.useState(thingSearched)
-
+    // Submit de la search bar avec mise à jour des paramètres
     const submit = (e) => {
         e.preventDefault();
-        console.log("On lance la requête : ", thingSearched);
         setFilter({
             ...filter,
             q: thingSearched
@@ -22,8 +22,8 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
 
     return(
         <>  
-            <Flex justify='center' w='full'>
-                <Flex w={['100%', '75%', '50%', '33%']} paddingX='1em' marginTop='1em'>
+            <Flex justify='center' w='100%'>
+                <Flex w='100%' px={['','1rem']} marginTop='1em'>
                     <form style={{width: '100%'}} onSubmit={submit}>
                     <FormControl>
                         <InputGroup>
@@ -46,7 +46,7 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
                             color='gray.400'
                             icon={<IoFunnel/>}
                             onClick={onOpen}
-                            display={['flex', 'flex', 'none']}
+
                         />
                     </Tooltip>
                 </Flex>
@@ -59,7 +59,7 @@ export default function SearchBar({thingSearched, handleSearch, filter, setFilte
             size={['full', 'xs']}
             >
                 <DrawerOverlay/>
-                <DrawerContent bgColor='gray.400' w='100%'>
+                <DrawerContent bgColor='gray.400' w='100%' overflow='scroll' >
                     <DrawerCloseButton />
                     <Filter filter={filter} setFilter={setFilter}/>
                 </DrawerContent>

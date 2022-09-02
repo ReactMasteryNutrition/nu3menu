@@ -135,8 +135,6 @@ const NavDesktop = () => {
   return (
     <>
       {currentUser ? <NavUser/> : <NavVisitor/>}
-      {/* <NavVisitor /> */}
-      {/*<NavUser /> */}
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { socialIconLink, linkListFooter } from "./dataLink";
+import { socialIconLink, linkListFooter } from '../data/dataLink';
 import { MdSettings } from 'react-icons/md'
 import { Flex, Image, Link, List, ListIcon, ListItem, Wrap, WrapItem } from '@chakra-ui/react';
 
@@ -7,6 +7,7 @@ import { Flex, Image, Link, List, ListIcon, ListItem, Wrap, WrapItem } from '@ch
 
 const FooterDestop = () => {
     return (
+
 
         <Wrap bg='gray.800' justify='space-between' paddingX='1rem' paddingY='2rem' align='center' spacing='2rem'>
             <WrapItem>

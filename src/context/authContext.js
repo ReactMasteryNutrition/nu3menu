@@ -1,25 +1,12 @@
-import {
-    createContext,
-    useCallback,
-    useMemo,
-    useState,
-    useEffect,
-    useContext
-} from 'react'
-import {
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
-    signInWithPopup,
-    signInWithEmailAndPassword,
-    signOut,
-    GoogleAuthProvider,
-    sendPasswordResetEmail,
-    sendEmailVerification,
-} from 'firebase/auth'
+import {createContext, useCallback, useMemo, useState, useEffect, useContext} from 'react'
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider, sendPasswordResetEmail, sendEmailVerification} from 'firebase/auth'
 import {auth, db} from '../firebase-config';
 import {setDoc, doc, getDoc, serverTimestamp} from "firebase/firestore";
+import LoadingApp from '../components/loadingApp/LoadingApp';
+import { useLoading } from '../utils/helper';
 
 export const AuthContext = createContext( null );
+
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {
@@ -29,15 +16,18 @@ export const useAuth = () => {
 }
 
 export default function AuthContextProvider(props) {
+    const [authError, setAuthError] = useState()
     const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(true)
-
+    const { status } = useLoading()
+    //const [loading, setLoading] = useState(true)
     const register = useCallback((email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
+            .catch(err => setAuthError(err))
     },[])
 
     const login = useCallback((email, password) => {
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
+            .catch(err => setAuthError(err))
     }, []);
 
     const logout = useCallback(() => {
@@ -90,8 +80,8 @@ export default function AuthContextProvider(props) {
 
     const value = useMemo(() => ({
         currentUser,
-        loading,
-        setLoading,
+        //loading,
+        //setLoading,
         register,
         login,
         logout,
@@ -99,8 +89,12 @@ export default function AuthContextProvider(props) {
         resetPassword,
         newCreateUserInFirestoreDatabase,
         verifyEmail,
-    }),[currentUser, loading, setLoading, register, login, logout, resetPassword, signInWithGoogle, newCreateUserInFirestoreDatabase, verifyEmail])
+    }),[currentUser, status, register, login, logout, resetPassword, signInWithGoogle, newCreateUserInFirestoreDatabase, verifyEmail])
 
+    // display a loading component waiting for the connection
+    if (status === 'fetching') {
+        return <LoadingApp />
+    }
     return (
         <AuthContext.Provider value={value}>
             {/* !loading && props.children} */}

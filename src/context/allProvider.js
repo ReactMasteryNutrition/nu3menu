@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { extendTheme, ChakraProvider } from '@chakra-ui/react';
 import AuthContextProvider from './authContext';
+import PropTypes from 'prop-types'
 
 const theme = extendTheme({
     styles: {
@@ -34,6 +35,10 @@ const AllProvider = ({ children }) => {
             </ChakraProvider>
         </BrowserRouter>
     )
+}
+
+AllProvider.propTypes = {
+    children: PropTypes.object.isRequired
 }
 
 export default AllProvider

@@ -38,6 +38,7 @@ const ModalEmail = () => {
     const handlePassword = () => setPasswordVerify(!passwordVerify)
     const handleSubmit = async (e) => {
         e.preventDefault()
+        // data for reauthentication
         const credential = EmailAuthProvider.credential(
             currentUser?.email,
             inputs?.current[0]?.value

@@ -16,9 +16,7 @@ import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import {ModalForgetPassword} from "../forgetPwd/Modal";
 
-
 const FormLogin = () => {
-
     const { login, signInWithGoogle, newCreateUserInFirestoreDatabase} = useAuth();
     const { onClose } = useDisclosure()
     const [show, setShow] = useState(false)

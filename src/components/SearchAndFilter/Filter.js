@@ -4,6 +4,7 @@ import { Box, Button, Center, FormControl, FormLabel, IconButton, InputGroup, In
 import { IoFunnelOutline } from "react-icons/io5";
 // Functions
 export default function Filter({filter, setFilter}) {
+    // initialisation des variables locales qui vont permettre la construction des valeurs à mettre en paramètres
     const [localFilter, setLocalFilter,] = React.useState({
         meal_type: '',
         calories_min: '',
@@ -17,14 +18,15 @@ export default function Filter({filter, setFilter}) {
         protein_min: '',
         protein_max: '',
     })
-
+    // Mise à jour d'un des paramètres
     const handleSelect = e => {
         setLocalFilter({...localFilter, [e.target.name]: e.target.value})
     }
-
+    // Mise à jour d'un des paramètres
     const handleChangeLocalFilter = e => {
         setLocalFilter({...localFilter, [e.target.name]: e.target.value})
     }
+    // Fonction pour utiliser le flèche vers le haut pour augmenter la valeur de l'input
     const incrementLocalFilter = e => {
         //console.log('+')
         let here = e.target
@@ -32,6 +34,7 @@ export default function Filter({filter, setFilter}) {
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
         setLocalFilter({...localFilter, [thisInputName]: thisInputValue})
     }
+    // Fonction pour utiliser le flèche vers le bas pour diminuer la valeur de l'input
     const decrementLocalFilter = e => {
         //console.log('-')
         let here = e.target
@@ -39,7 +42,7 @@ export default function Filter({filter, setFilter}) {
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
         setLocalFilter({...localFilter, [thisInputName]: thisInputValue})
     }
-
+    // initialisation d'autres variables locales qui vont permettre la construction des valeurs à mettre en paramètres
     let meal = ''
     let calorie = ''
     let times = ''
@@ -47,14 +50,11 @@ export default function Filter({filter, setFilter}) {
     let lipide = ''
     let proteine = ''
 
+    // On boucle dans localFilter et on retraite l'ensemble des lignes pour créer des variables temporaires
+    // qui vont permettre de mettre à jour les paramètres via setFilter puis on remet à 0 les variables temporaires
     const ApplyFilters = () => {
-        
-        console.log(localFilter)
-
         let optionValueWasMin = ''
-        
         for (const [key, value] of Object.entries(localFilter)) {
-            //console.log(`key : ${key} => value : ${value}`);
             let option = key.toString()
             let optionValue = value
             if(option.includes('meal')) {
@@ -106,30 +106,17 @@ export default function Filter({filter, setFilter}) {
                 }
             }
             if(option.includes('lipid')) {
-                // console.log(optionValueWasMin)
-                // console.log('OptionValueWasMin ! == vide c-a-d il existe déjà une valeur min')
-                // console.log(optionValueWasMin !== '')
-                // console.log('optionValue !== vide c-a-d la valeur min est vide')
-                // console.log(optionValue !== '')
-                // console.log('optionValue ==> ')
-                // console.log(optionValue)
                 if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
                     optionValueWasMin = optionValue
                     lipide = `${optionValue}+`
-                    console.log('on met à jour la valeur min de lipide')
                 } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    // console.log(optionValueWasMin)
-                    // console.log(optionValueWasMin !== '')
-                    // console.log("Je suis une Range Value")
                     lipide = `${optionValueWasMin}-${optionValue}`
-                    // console.log('on met à jour la valeur min-max de lipide')
                     optionValueWasMin = ''
                 } else if(optionValue === '0'){
                     optionValue =''
                     optionValueWasMin = ''
                 } else {
                     lipide = lipide+`${optionValue}`
-                    // console.log('on met à jour la valeur max de lipide')
                     optionValueWasMin = ''
                 }
             }
@@ -166,9 +153,8 @@ export default function Filter({filter, setFilter}) {
         lipide=''
         proteine=''
     }
-
+    // On réinitialise les paramètres
     const clearFilter = () => {
-        console.log('On clear les filtres')
         setFilter({
             type: 'public',
             beta: 'true',
@@ -181,7 +167,7 @@ export default function Filter({filter, setFilter}) {
     return(
         <Box minWidth='17rem' bgColor='gray.400' padding='2rem' borderRightRadius='md' id='filterForm'>
             <Center marginBottom='2rem'>
-                Filtre
+                Filter
                 <Tooltip label='Réinitialiser'>
                     <IconButton
                         _hover={{ bg: '#1A202C'}}
@@ -206,7 +192,7 @@ export default function Filter({filter, setFilter}) {
                     <option value='Teatime'>Teatime</option>
                 </Select>
                 <FormLabel marginTop='0.5em'>
-                    Calories (Kcal/personnes)
+                    Calories (Kcal/person)
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
@@ -229,7 +215,7 @@ export default function Filter({filter, setFilter}) {
                     </NumberInput>
                 </InputGroup>
                 <FormLabel marginTop='0.5em'>
-                    Durée (minute)
+                    Time (minutes)
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
@@ -252,7 +238,7 @@ export default function Filter({filter, setFilter}) {
                     </NumberInput>
                 </InputGroup>
                 <FormLabel marginTop='0.5em'>
-                    Glucides (gramme)
+                    Carbohydrate (gram)
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
@@ -275,7 +261,7 @@ export default function Filter({filter, setFilter}) {
                     </NumberInput>
                 </InputGroup>
                 <FormLabel marginTop='0.5rem'>
-                    Lipides (gramme)
+                    Lipid (gram)
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
@@ -298,7 +284,7 @@ export default function Filter({filter, setFilter}) {
                     </NumberInput>
                 </InputGroup>
                 <FormLabel marginTop='0.5rem'>
-                    Protéines (gramme)
+                    Protein (gram)
                 </FormLabel>
                 <InputGroup>
                     <InputLeftAddon children='min' bgColor='gray.800' borderColor='gray.800' color='green.50' w='4rem'/>
@@ -323,7 +309,7 @@ export default function Filter({filter, setFilter}) {
             </FormControl>
             <Center marginTop='2rem'>
                 <Button marginTop='0.5rem' bgColor='gray.800' color='green.50' _hover={{ bg: '#1A202C'}} _active={{ bg: '#1A202C'}} onClick={() =>ApplyFilters()}>
-                    Appliquer
+                    Apply
                 </Button> 
             </Center>
         </Box>

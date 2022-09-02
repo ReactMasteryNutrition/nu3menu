@@ -38,12 +38,14 @@ const ModalPassword = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // data for reauthentication
     const credential = EmailAuthProvider.credential(
       currentUser?.email,
       inputs?.current[0]?.value
     )
     const provider = new GoogleAuthProvider()
     try {
+      // reauthenticate directly on the site or with Google
       if (currentUser?.providerData[0]?.providerId !== 'google.com') {
         await reauthenticateWithCredential(currentUser, credential)
       } else {

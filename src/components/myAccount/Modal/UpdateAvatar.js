@@ -27,6 +27,7 @@ const ModalAvatar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast()
     const [image, setImage] = useState(null);
+    const [progress, setProgress] = useState(0)
     const handleChange = (e) => {
         // get the image data
         if (e.target.files[0]) {
@@ -50,7 +51,7 @@ const ModalAvatar = () => {
             if (image) {
                 const imageName = uuidv4() + '.' + image?.name?.split('.')?.pop();
                 // upload the image to Firestore
-                urlProfile = await UploadImage(image, `${currentUser?.email}/${imageName}`);
+                urlProfile = await UploadImage(image, `${currentUser?.email}/${imageName}`, setProgress);
             }
             // update the user avatar
             await updateProfile(currentUser, { photoURL: urlProfile });

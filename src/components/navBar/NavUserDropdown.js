@@ -10,15 +10,11 @@ import {
 import {auth, db} from "../../firebase-config";
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from '../../context/authContext'
-import * as UserCredential from "react-router-dom";
-import * as currentUser from "react-router-dom";
-import {doc, getDoc, serverTimestamp, setDoc} from "firebase/firestore";
-import {useRef} from "react";
-import * as nameUserdata from "react-router-dom";
+
 
 const NavUserDropdown = () => {
   const navigate = useNavigate()
-  const { logout,  docRef, userName, currentUser, imgSrc} = useAuth()
+  const { logout, currentUser} = useAuth()
 
   const handleClick = async () => {
     try {
