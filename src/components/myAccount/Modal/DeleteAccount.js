@@ -151,6 +151,7 @@ const DeleteAccount = () => {
                                     color="#1A202C"
                                     padding={ResponsiveWidth() ? null : '1.3rem 0 1.3rem 1rem'}
                                     ref={addData}
+                                    aria-label='delete'
                                 />
                                 <InputRightElement width='4.5rem' padding={ResponsiveWidth() ? null : '1.3rem 0'}>
                                     <Box size='sm' bg='#f0fff4' onClick={handlePassword}>

@@ -83,7 +83,7 @@ const ModalName = () => {
                 >
                     <FormLabel>Nouveau prénom</FormLabel>
                     <FormControl marginBottom="1rem">
-                        <Input type="text" bg='#f0fff4' color="#1A202C" ref={addData}
+                        <Input type="text" bg='#f0fff4' color="#1A202C" ref={addData} aria-label="new name"
                         />
                     </FormControl>
                 </Box>}
