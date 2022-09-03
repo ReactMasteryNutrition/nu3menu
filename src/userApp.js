@@ -7,8 +7,6 @@ import ErrorFallback from './components/error/ErrorFallback';
 import NavDesktop from './components/navBar/NavDesktop';
 import NavMobile from './components/navBar/NavMobile';
 import NutriFooter from './components/footer/nutriFooter'
-import CreateMenu from './pages/CreateMenu';
-import CurrentMenu from './pages/CurrentMenu';
 import { PrivateRoute } from './utils/helper';
 // pages loaded immediately
 const Home = React.lazy(() => import('./pages/Home'))
@@ -17,6 +15,8 @@ const Login = React.lazy(() => import('./pages/Login'))
 const Error404 = React.lazy(() => import('./pages/Error404'))
 // pages prefetch then loaded after connection
 const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MyAccount'))
+const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CreateMenu'))
+const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
 
 // import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
 // import DayMeal from './components/meal/dayMeal';
@@ -34,9 +34,9 @@ const UserApp = () => {
                         <Route path='/register' element={<Register/>} />
                         <Route path='/login' element={<Login/>} />
                         <Route path='/myaccount' element={<PrivateRoute><MyAccount/></PrivateRoute>} />
-                        {/* <Route path='/findRecipe' element={<SearchAndFilter />} /> */}
-                        <Route path='/menu' element={<PrivateRoute><CurrentMenu/></PrivateRoute>} />
                         <Route path='/createMenu' element={<PrivateRoute><CreateMenu/></PrivateRoute>} />
+                        <Route path='/menu' element={<PrivateRoute><CurrentMenu/></PrivateRoute>} />
+                        {/* <Route path='/findRecipe' element={<SearchAndFilter />} /> */}
                         {/*<Route path='/menu' element={<UserMenu/>} />*/}
                         {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
                         {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
