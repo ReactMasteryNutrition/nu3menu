@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import { useReducer, useCallback } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import { useQuery } from '@tanstack/react-query'
+import FetchAxios from './FetchAxios'
 
 const ResponsiveWidth = () => {
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
@@ -134,6 +136,16 @@ const useLoading = () => {
   return { data, error, status, execute, setData }
 }
 
+const useEdamam = (thingSearched, filter) => {
+  const { data } = useQuery([thingSearched, filter], () => FetchAxios(thingSearched, filter))
+  return data
+}
+
+useEdamam.propTypes = {
+  thingSearched: PropTypes.string.isRequired,
+  filter: PropTypes.object.isRequired
+}
+
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useAuth()
   return currentUser ? children : <Navigate to="/" replace />
@@ -143,4 +155,4 @@ PrivateRoute.propTypes = {
   children: PropTypes.object.isRequired,
 }
 
-export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, PrivateRoute }
+export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, useEdamam, PrivateRoute }
