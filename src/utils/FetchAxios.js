@@ -30,7 +30,7 @@ async function FetchAxios(thingSearched, filter) {
             console.log('Error : ', error.message)
         }
         console.log(error.config)
-        throw Error
+        throw error
     } finally {
         controller.abort()
     }
