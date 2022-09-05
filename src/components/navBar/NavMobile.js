@@ -7,12 +7,20 @@ import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
 import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
-import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext";
 
 const NavVisitor = () => {
     return (
-        <Box display={ResponsiveWidth() ? "none" : "block"} position="fixed" zIndex="1" bottom="0" width="100vw" height="4.5rem" bg="#1a202c">
+        <Box
+            display={ResponsiveWidth() ? "none" : "block"}
+            position="fixed"
+            zIndex="1"
+            bottom="0"
+            width="100vw"
+            height="4.5rem"
+            bg="#1a202c"
+        >
             <Box
                 position="absolute"
                 zIndex="1"
@@ -24,7 +32,12 @@ const NavVisitor = () => {
                 bg="#48bb78"
             ></Box>
             {ResponsiveWidth() ? null : (<>
-                <Flex gap="4rem" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
+                <Flex
+                    gap="4rem"
+                    position="absolute"
+                    top="50%"
+                    left="50%"
+                    transform="translate(-50%, -50%)">
                     <ModalLogin />
                     <ModalRegister />
                 </Flex>
@@ -48,8 +61,17 @@ const NavUser = () => {
             height="4.5rem"
             bg="#1a202c"
         >
-            <Box position="absolute" zIndex="1" left="50%" top="0" height="0.3rem" width="100%" transform="translate(-50%, -50%)" bg="#48bb78"></Box>
-            <Flex gap={maxWidth375 ? "1.5rem" : "2.5rem"} alignItems="center">
+            <Box
+                position="absolute"
+                zIndex="1"
+                left="50%"
+                top="0"
+                height="0.3rem"
+                width="100%"
+                transform="translate(-50%, -50%)"
+                bg="#48bb78"
+            ></Box>
+            <Flex gap={maxWidth375 ? "1.5rem":"2.5rem"} alignItems="center">
                 <Link to="/" >
                     <FaHome size="33" color="#48BB78" />
                 </Link>
@@ -64,15 +86,15 @@ const NavUser = () => {
                 </Link>
                 {ResponsiveWidth() ? null : <NavUserDrawer />}
             </Flex>
-        </Flex >
+        </Flex>
     )
 }
 
 const NavMobile = () => {
-    const { currentUser } = useContext(AuthContext)
+    const {currentUser} = useContext(AuthContext)
     return (
         <>
-            {currentUser ? <NavUser /> : <NavVisitor />}
+            {currentUser ? <NavUser/> : <NavVisitor/>}
         </>
     )
 }

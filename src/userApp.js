@@ -20,7 +20,7 @@ const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/M
 
 // import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
 // import DayMeal from './components/meal/dayMeal';
-// import MenuCreator from './components/menuCreator/menuCreator'; 
+// import MenuCreator from './components/menuCreator/menuCreator';
 
 const UserApp = () => {
     return (

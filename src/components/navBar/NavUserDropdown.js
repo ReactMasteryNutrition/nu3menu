@@ -1,11 +1,21 @@
-import { Menu, MenuButton, MenuList, MenuItem, MenuDivider, Avatar} from '@chakra-ui/react'
-import { auth } from "../../firebase-config";
+import {
+  useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  Avatar,
+} from '@chakra-ui/react'
+import {auth, db} from "../../firebase-config";
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from '../../context/authContext'
 
+
 const NavUserDropdown = () => {
   const navigate = useNavigate()
-  const { logout, currentUser } = useAuth()
+  const { logout, currentUser} = useAuth()
+
   const handleClick = async () => {
     try {
       await logout(auth)
@@ -20,17 +30,17 @@ const NavUserDropdown = () => {
     <Menu isLazy>
       <MenuButton>
         {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
-          : <Avatar size="sm" />}
+            : <Avatar size="sm" />}
       </MenuButton>
       <MenuList bg='#f0fff4'>
         {currentUser?.displayName ? (<>
-          <Link to="/">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              {currentUser?.displayName}
-            </MenuItem>
-          </Link>
-          <MenuDivider /></>)
-          : null}
+              <Link to="/">
+                <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
+                  {currentUser?.displayName}
+                </MenuItem>
+              </Link>
+              <MenuDivider /></>)
+            : null}
         <Link to="/myaccount">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Mon compte

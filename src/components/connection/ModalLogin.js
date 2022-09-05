@@ -2,11 +2,25 @@ import FormLogin from './FormLogin';
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Button, Box, Image, useDisclosure } from '@chakra-ui/react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    Button,
+    Box,
+    Image,
+    useDisclosure
+} from '@chakra-ui/react'
 import { IoLogInSharp } from "react-icons/io5"
+import { BsFillPersonPlusFill } from "react-icons/bs"
+import {useAuth} from "../../context/authContext";
 
 const ModalLogin = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { currentUser } = useAuth()
     return (
         <Box>
             <Link to="/login" onClick={onOpen}>
@@ -76,7 +90,7 @@ const ModalLogin = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormLogin />
+                        <FormLogin currentUser={currentUser} />
                     </ModalBody>
                     <ModalFooter></ModalFooter>
                 </ModalContent>

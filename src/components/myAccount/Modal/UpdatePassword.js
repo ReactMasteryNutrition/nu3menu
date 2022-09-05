@@ -38,14 +38,6 @@ const ModalPassword = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!(inputs?.current[0]?.value && inputs?.current[1]?.value && inputs?.current[2]?.value)) {
-      return toast({
-        description: "Veuillez remplir tous les champs !",
-        status: 'error',
-        duration: 4000,
-        isClosable: true,
-      })
-    }
     // data for reauthentication
     const credential = EmailAuthProvider.credential(
       currentUser?.email,
@@ -60,7 +52,7 @@ const ModalPassword = () => {
         await reauthenticateWithPopup(currentUser, provider)
       }
       if (inputs?.current[1]?.value === inputs?.current[2]?.value) {
-        updatePassword(currentUser, inputs?.current[1]?.value)
+        await updatePassword(currentUser, inputs?.current[1]?.value)
         toast({
           description: "Votre mot de passe a bien été modifié !",
           status: 'success',

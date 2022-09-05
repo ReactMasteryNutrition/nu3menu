@@ -33,7 +33,7 @@ const AllProvider = ({ children }) => {
                     {children}
                 </AuthContextProvider>
             </ChakraProvider>
-        </BrowserRouter >
+        </BrowserRouter>
     )
 }
 
