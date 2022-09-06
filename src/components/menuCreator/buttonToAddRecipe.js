@@ -253,6 +253,7 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
         })
     }
 
+    
     return (
         <Button leftIcon={<AddIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={addToThisMealDay}>
         Add
