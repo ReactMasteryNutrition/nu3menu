@@ -3,10 +3,11 @@ import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase
 import { storage } from '../firebase-config';
 import PropTypes from 'prop-types'
 import { useReducer, useCallback } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query'
 import FetchAxios from './FetchAxios'
+import Home from '../pages/Home';
 
 const ResponsiveWidth = () => {
   const [minWidth501] = useMediaQuery('(min-width: 501px)')
@@ -146,13 +147,9 @@ useEdamam.propTypes = {
   filter: PropTypes.object.isRequired
 }
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const { currentUser } = useAuth()
-  return currentUser ? children : <Navigate to="/" replace />
-}
-
-PrivateRoute.propTypes = {
-  children: PropTypes.object.isRequired,
+  return currentUser ? <Outlet /> : <Home />
 }
 
 export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, useEdamam, PrivateRoute }
