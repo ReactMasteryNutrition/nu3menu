@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box} from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { Routes, Route } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import LoadingApp from './components/loadingApp/LoadingApp';
@@ -30,12 +30,14 @@ const UserApp = () => {
                 <NavMobile />
                 <ErrorBoundary FallbackComponent={ErrorFallback}>
                     <Routes>
-                        <Route path='/' element={<Home/>} />
-                        <Route path='/register' element={<Register/>} />
-                        <Route path='/login' element={<Login/>} />
-                        <Route path='/myaccount' element={<PrivateRoute><MyAccount/></PrivateRoute>} />
-                        <Route path='/createMenu' element={<PrivateRoute><CreateMenu/></PrivateRoute>} />
-                        <Route path='/menu' element={<PrivateRoute><CurrentMenu/></PrivateRoute>} />
+                        <Route path='/' element={<Home />} />
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route element={<PrivateRoute />}>
+                            <Route path='/myaccount' element={<MyAccount />} />
+                            <Route path='/createMenu' element={<CreateMenu />} />
+                            <Route path='/menu' element={<CurrentMenu />} />
+                        </Route>
                         {/* <Route path='/findRecipe' element={<SearchAndFilter />} /> */}
                         {/*<Route path='/menu' element={<UserMenu/>} />*/}
                         {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
