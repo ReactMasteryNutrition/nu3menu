@@ -16,7 +16,7 @@ export default function QuerySpoon({index, category, setWeekMenu, weekMenu, thin
             return
         }
         setData()
-        FetchAxiosWithSpoon(thingSearched, filter)
+        FetchAxiosWithSpoon(filter)
         .then(response => {
             setData(response)
         })

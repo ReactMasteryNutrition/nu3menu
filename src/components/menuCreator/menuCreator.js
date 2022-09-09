@@ -4,7 +4,6 @@ import { Center,  Flex } from "@chakra-ui/react";
 import SearchAndFilter from "../SearchAndFilter/SearchAndFilter";
 import MealCategory from "./mealCategory";
 import WeekTable from "./weekTable";
-import CarouselWithChecked from "../Carousel/CarouselWithChecked";
 import CarouselWithCheckedSpoon from "../Carousel/CarouselWithCheckedSpoon";
 
 export default function MenuCreator(){
@@ -59,7 +58,7 @@ export default function MenuCreator(){
             </Flex>
             {!menuIsCompleted ?
                 <Center w='100%' p='2rem' flexDirection={"column"}>
-                    <MealCategory onCategoryChange={handleCategoryChange} />
+                    <MealCategory onCategoryChange={handleCategoryChange} index={tabIndexDeloc} weekMenu={weekMenu}/>
                     <SearchAndFilter index={tabIndexDeloc} category={categoryDeloc} setWeekMenu={setWeekMenu} weekMenu={weekMenu}/>
                 </Center>
                 :
@@ -67,8 +66,6 @@ export default function MenuCreator(){
                     <CarouselWithCheckedSpoon />
                 </Center>
             }
-                
-            
         </Flex>
     )
 }

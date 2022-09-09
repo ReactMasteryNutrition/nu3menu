@@ -4,6 +4,7 @@ import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
 import DetailRecipeModal from "../Card/DetailRecipeModal"
+import DetailRecipeModalWithSpoon from "../Card/DetailRecipeModalWithSpoon";
 
 
 
@@ -40,25 +41,25 @@ const DayMeal = () =>{
             <Divider/>      
               {
                 Object.entries(weekParse).map(entry => {
-                  console.log(entry)
+                  //console.log(entry)
                   return(
                     <>
                       <Center mt='2rem'>
                       <VStack>
                         <Heading>{entry[0]}</Heading>
-                        <Stack direction={['column', 'row' ]} spacing={'24px'}>
+                        <Stack w='100%' direction={['column', 'row' ]} spacing={'24px'}>
                         {Object.entries(entry[1]).map(meal => {
-                          console.log(meal)
+                          //console.log(meal)
                           return(
                             <Oneday
                               categorykey={meal[0]}
-                              sourceImg={meal[1]?.recipe?.image}
-                              title={meal[1]?.recipe?.label}
-                              urlData={meal[1]?.recipe?.url}
+                              sourceImg={meal[1]?.image}
+                              title={meal[1]?.title}
+                              urlData={meal[1]?.sourceUrl}
                               buttonToOpenModal={<Link isExternal my='1rem' mx={['0', '0.5rem']} onClick={()=> openDetailModal(meal[1])}><IoEnter /></Link>}
                             />
                           )
-                        })}
+                          })}
                         </Stack>
                       </VStack>
                       </Center>
@@ -74,11 +75,11 @@ const DayMeal = () =>{
                 <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
                     <ModalOverlay />
                     <ModalContent bg='gray.800' color='green.50'>
-                    <ModalHeader textAlign={['center']}>{ detailRecipe?.recipe?.label }</ModalHeader>
+                    <ModalHeader textAlign={['center']}>{ detailRecipe?.title }</ModalHeader>
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
-                    <DetailRecipeModal detail={detailRecipe}/>
+                    <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <Link href={detailRecipe?.recipe?.url} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
+                        <Link href={detailRecipe?.sourceUrl} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                         </Link>
                         <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>

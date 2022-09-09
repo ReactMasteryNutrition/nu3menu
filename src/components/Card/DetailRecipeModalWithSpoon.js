@@ -27,7 +27,7 @@ export default function DetailRecipeModalWithSpoon({detail}) {
                     gap={4}
                 >
                     <GridItem area='image' display='flex' justifyContent={['center', 'center', 'start']}>
-                        <Image src={detail?.image} alt={detail?.title} objectFit='cover' borderRadius='md'/>
+                        <Image src={detail?.image} alt={detail?.title} boxSize='280' objectFit='cover' borderRadius='md'/>
                     </GridItem>
                     <GridItem area='stats'>
                         <VStack spacing='1' align={['center','start']} justify='space-around' h='100%'>

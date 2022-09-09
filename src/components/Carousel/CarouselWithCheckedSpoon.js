@@ -3,6 +3,8 @@ import React from 'react'
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Button, Flex, IconButton, Image, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text, VStack } from "@chakra-ui/react"
 import { Navigate } from 'react-router-dom';
+import { db  } from "../../firebase-config";
+import { serverTimestamp,  collection, doc, setDoc } from "firebase/firestore";
 // Function
 export default function CarouselWithCheckedSpoon(){
     // On récupère les datas liées au menu dans la localStorage
@@ -14,6 +16,8 @@ export default function CarouselWithCheckedSpoon(){
         submitted : false
     })
     localStorage.setItem('weekMenuHeader', JSON.stringify(weekMenuHeader));
+
+    const [redirect, setRedirect] = React.useState(false)
 
     // on boucle dans le localStorage pour récupérer toutes les images des repas composant le menu
     const imagesRegister = []
@@ -56,15 +60,38 @@ export default function CarouselWithCheckedSpoon(){
             }
         )
     }
-    
+
+    //ajout dans fierbase
+    const week =  localStorage.getItem('week')
+    const weekParse = JSON.parse(localStorage.getItem('weekMenuHeader'))
+
+    const newMenuSaved = async () => {
+        try{
+        const menuRef = doc(collection(db, "menus"))
+        const dataMenu = {
+            idMenu : menuRef.id,
+            idCreator : "",
+            dateCreation : serverTimestamp(),
+            isPublic : true ,
+            title : weekParse.weekMenuTitle,
+            cover : weekParse.weekMenuCover ,
+            detail : week ,
+            reviews : [],
+            }
+        await setDoc(menuRef, dataMenu)  
+        } catch (error){
+            console.log(`c'est une erreur  ${error}`)
+        }
+    }
+
+    const addFirebase = () => {
+        newMenuSaved()
+        setRedirect(true)
+    }
+
     return( 
             <>
-                {weekMenuHeader?.submitted && 
-                    <Navigate to={'/menu'} />
-                    // Si le state submitted est true alors on a bien mis à jour les informations 
-                    // concernant l'image de couverture et le titre
-                    // ALORS on redirige la page sur /menu
-                }
+                {redirect && <Navigate to={'/menu'} /> }
                 <VStack>
                     <Text color='green.50' fontSize='2xl'>Choose your cover</Text>
                     <Image id="currentImage" src={imagesRegister[valueSelected-1]} alt={imagesTitle[valueSelected-1]} borderRadius='md'/>
@@ -97,8 +124,8 @@ export default function CarouselWithCheckedSpoon(){
                             onClick={()=>increment()}
                         />
                     </Flex>
-                    <Input id='titleMenu' color='green.50' focusBorderColor='green.400' placeholder={`Menu's title`}/>
-                    <Button leftIcon={<CheckCircleIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={()=>finalizeMenu()}>
+                    <Input id='titleMenu' color='green.50' focusBorderColor='green.400' placeholder={`Menu's title`} onChange={()=>finalizeMenu()}/>
+                    <Button leftIcon={<CheckCircleIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={addFirebase}>
                         Save this menu
                     </Button>
                 </VStack>

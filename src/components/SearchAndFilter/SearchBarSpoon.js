@@ -20,7 +20,7 @@ export default function SearchBarSpoon({thingSearched, handleSearch, params, set
             query: thingSearched
         })
         handleSearch(spoonSearched)
-        console.log(`On lance la requête pour : ${spoonSearched}`)
+        //console.log(`On lance la requête pour : ${spoonSearched}`)
     }
 
     return(

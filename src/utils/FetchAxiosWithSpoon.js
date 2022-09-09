@@ -4,18 +4,12 @@ import axios from 'axios'
 const qs = require('qs')
 
 
-async function FetchAxiosWithSpoon(thingSearched, filter) {
+async function FetchAxiosWithSpoon(filter) {
 
     let urlInit = 'https://api.spoonacular.com/recipes/complexSearch?'
     let params = filter
-
-    //let endOfParams = Object.fromEntries(Object.entries(filter).filter(([key, value]) => value !==''))
     
     try {
-        //let endOfUrl = qs.stringify(endOfParams)
-
-        //let urlFinal = `${urlInit}${endOfUrl}`
-        
         const response = await axios.get(urlInit, {
             params,
             paramsSerializer: function (params) {

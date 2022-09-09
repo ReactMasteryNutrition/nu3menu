@@ -7,7 +7,7 @@ export default function FilterParams({filter, setFilter}) {
     // initialisation des variables locales qui vont permettre la construction des valeurs à mettre en paramètres
     const [localFilter, setLocalFilter,] = React.useState({
         maxReadyTime: '',
-        intolerances: '',
+        type: '',
         diet: '',
         minCalories: '',
         maxCalories: '',
@@ -43,122 +43,122 @@ export default function FilterParams({filter, setFilter}) {
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
         setLocalFilter({...localFilter, [thisInputName]: thisInputValue})
     }
-    React.useEffect(() => {
-        console.log('LocalFilter : ')
-        console.log(localFilter)
-    },[localFilter])
+    // React.useEffect(() => {
+    //     console.log('LocalFilter : ')
+    //     console.log(localFilter)
+    // },[localFilter])
 
     // initialisation d'autres variables locales qui vont permettre la construction des valeurs à mettre en paramètres
-    let meal = ''
-    let calorie = ''
-    let times = ''
-    let glucide = ''
-    let lipide = ''
-    let proteine = ''
+    // let meal = ''
+    // let calorie = ''
+    // let times = ''
+    // let glucide = ''
+    // let lipide = ''
+    // let proteine = ''
 
     // On boucle dans localFilter et on retraite l'ensemble des lignes pour créer des variables temporaires
     // qui vont permettre de mettre à jour les paramètres via setFilter puis on remet à 0 les variables temporaires
-    const ApplyFilters = () => {
-        let optionValueWasMin = ''
-        for (const [key, value] of Object.entries(localFilter)) {
-            let option = key.toString()
-            let optionValue = value
-            if(option.includes('meal')) {
-                meal = optionValue
-            }
-            if(option.includes('calorie')) {
-                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-                    optionValueWasMin = optionValue
-                    calorie = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    calorie = `${optionValueWasMin}-${optionValue}`
-                    optionValueWasMin = ''
-                } else if(optionValue === '0'){
-                    optionValue =''
-                    optionValueWasMin = ''
-                }  else {
-                    calorie = calorie+`${optionValue}`
-                    optionValueWasMin = ''
-                }
-            }
-            if(option.includes('time')) {
-                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-                    optionValueWasMin = optionValue
-                    times = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    times = `${optionValueWasMin}-${optionValue}`
-                    optionValueWasMin = ''
-                } else if(optionValue === '0'){
-                    optionValue =''
-                    optionValueWasMin = ''
-                }  else {
-                    times = times+`${optionValue}`
-                    optionValueWasMin = ''
-                }
-            }
-            if(option.includes('carbohydrate')) {
-                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-                    optionValueWasMin = optionValue
-                    glucide = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    glucide = `${optionValueWasMin}-${optionValue}`
-                    optionValueWasMin = ''
-                } else if(optionValue === '0'){
-                    optionValue =''
-                    optionValueWasMin = ''
-                } else {
-                    glucide = glucide+`${optionValue}`
-                    optionValueWasMin = ''
-                }
-            }
-            if(option.includes('lipid')) {
-                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-                    optionValueWasMin = optionValue
-                    lipide = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    lipide = `${optionValueWasMin}-${optionValue}`
-                    optionValueWasMin = ''
-                } else if(optionValue === '0'){
-                    optionValue =''
-                    optionValueWasMin = ''
-                } else {
-                    lipide = lipide+`${optionValue}`
-                    optionValueWasMin = ''
-                }
-            }
-            if(option.includes('protein')) {
-                if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-                    optionValueWasMin = optionValue
-                    proteine = `${optionValue}+`
-                } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-                    proteine = `${optionValueWasMin}-${optionValue}`
-                    optionValueWasMin = ''
-                } else if(optionValue === '0'){
-                    optionValue =''
-                    optionValueWasMin = ''
-                } else {
-                    proteine = proteine+`${optionValue}`
-                    optionValueWasMin = ''
-                }
-            }
-        }
+    // const ApplyFilters = () => {
+    //     let optionValueWasMin = ''
+    //     for (const [key, value] of Object.entries(localFilter)) {
+    //         let option = key.toString()
+    //         let optionValue = value
+    //         if(option.includes('meal')) {
+    //             meal = optionValue
+    //         }
+    //         if(option.includes('calorie')) {
+    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+    //                 optionValueWasMin = optionValue
+    //                 calorie = `${optionValue}+`
+    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+    //                 calorie = `${optionValueWasMin}-${optionValue}`
+    //                 optionValueWasMin = ''
+    //             } else if(optionValue === '0'){
+    //                 optionValue =''
+    //                 optionValueWasMin = ''
+    //             }  else {
+    //                 calorie = calorie+`${optionValue}`
+    //                 optionValueWasMin = ''
+    //             }
+    //         }
+    //         if(option.includes('time')) {
+    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+    //                 optionValueWasMin = optionValue
+    //                 times = `${optionValue}+`
+    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+    //                 times = `${optionValueWasMin}-${optionValue}`
+    //                 optionValueWasMin = ''
+    //             } else if(optionValue === '0'){
+    //                 optionValue =''
+    //                 optionValueWasMin = ''
+    //             }  else {
+    //                 times = times+`${optionValue}`
+    //                 optionValueWasMin = ''
+    //             }
+    //         }
+    //         if(option.includes('carbohydrate')) {
+    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+    //                 optionValueWasMin = optionValue
+    //                 glucide = `${optionValue}+`
+    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+    //                 glucide = `${optionValueWasMin}-${optionValue}`
+    //                 optionValueWasMin = ''
+    //             } else if(optionValue === '0'){
+    //                 optionValue =''
+    //                 optionValueWasMin = ''
+    //             } else {
+    //                 glucide = glucide+`${optionValue}`
+    //                 optionValueWasMin = ''
+    //             }
+    //         }
+    //         if(option.includes('lipid')) {
+    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+    //                 optionValueWasMin = optionValue
+    //                 lipide = `${optionValue}+`
+    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+    //                 lipide = `${optionValueWasMin}-${optionValue}`
+    //                 optionValueWasMin = ''
+    //             } else if(optionValue === '0'){
+    //                 optionValue =''
+    //                 optionValueWasMin = ''
+    //             } else {
+    //                 lipide = lipide+`${optionValue}`
+    //                 optionValueWasMin = ''
+    //             }
+    //         }
+    //         if(option.includes('protein')) {
+    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
+    //                 optionValueWasMin = optionValue
+    //                 proteine = `${optionValue}+`
+    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
+    //                 proteine = `${optionValueWasMin}-${optionValue}`
+    //                 optionValueWasMin = ''
+    //             } else if(optionValue === '0'){
+    //                 optionValue =''
+    //                 optionValueWasMin = ''
+    //             } else {
+    //                 proteine = proteine+`${optionValue}`
+    //                 optionValueWasMin = ''
+    //             }
+    //         }
+    //     }
         
-        setFilter({
-            ...filter,
-            mealType: meal,
-            calories: calorie,
-            time: times,
-            'nutrients[CHOCDF]': glucide,
-            'nutrients[FAT]': lipide,
-            'nutrients[PROCNT]': proteine,
-        })
-        meal=''
-        calorie =''
-        times =''
-        glucide =''
-        lipide=''
-        proteine=''
-    }
+    //     setFilter({
+    //         ...filter,
+    //         mealType: meal,
+    //         calories: calorie,
+    //         time: times,
+    //         'nutrients[CHOCDF]': glucide,
+    //         'nutrients[FAT]': lipide,
+    //         'nutrients[PROCNT]': proteine,
+    //     })
+    //     meal=''
+    //     calorie =''
+    //     times =''
+    //     glucide =''
+    //     lipide=''
+    //     proteine=''
+    // }
     //
     const apply = () => {
         console.log(localFilter)
@@ -221,30 +221,33 @@ export default function FilterParams({filter, setFilter}) {
                     </NumberInputStepper>
                 </NumberInput>
                 <FormLabel>
-                    Intolerances
+                    Meal Type
                 </FormLabel>
-                <Select name='intolerances' value={localFilter.intolerances} placeholder='Dairy, Egg, ...' bgColor='green.50' borderColor='gray.800' onChange={e => handleSelect(e)}>
-                    <option value='Dairy'>Dairy</option>
-                    <option value='Egg'>Egg</option>
-                    <option value='Gluten'>Gluten</option>
-                    <option value='Grain'>Grain</option>
-                    <option value='Peanut'>Peanut</option>
-                    <option value='Seafood'>Seafood</option>
-                    <option value='Sesame'>Sesame</option>
-                    <option value='Shellfish'>Shellfish</option>
-                    <option value='Soy'>Soy</option>
-                    <option value='Sulfite'>Sulfite</option>
-                    <option value='Tree Nut'>Tree Nut</option>
-                    <option value='Wheat'>Wheat</option>
+                <Select name='type' value={localFilter.type} placeholder='Main course, salad...' bgColor='green.50' borderColor='gray.800' onChange={e => handleSelect(e)}>
+                    <option value='Appetizer'>Appetizer</option>
+                    <option value='Beverage'>Beverage</option>
+                    <option value='Bread'>Bread</option>
+                    <option value='Breakfast'>Breakfast</option>
+                    <option value='Dessert'>Dessert</option>
+                    <option value='Drink'>Drink</option>
+                    <option value='Fingerfood'>Fingerfood</option>
+                    <option value='Main course'>Main course</option>
+                    <option value='Marinade'>Marinade</option>
+                    <option value='Salad'>Salad</option>
+                    <option value='Sauce'>Sauce</option>
+                    <option value='Side dish'>Side dish</option>
+                    <option value='Snack'>Snack</option>
+                    <option value='Soup'>Soup</option>
                 </Select>
                 <FormLabel>
-                    Diet type
+                    Diet Type
                 </FormLabel>
                 <Select name='diet' value={localFilter.diet} placeholder='Gluten Free, paleo...' bgColor='green.50' borderColor='gray.800' onChange={e => handleSelect(e)}>
                     <option value='Dairy Free'>Dairy Free</option>
                     <option value='Gluten Free'>Gluten Free</option>
                     <option value='Ketogenic'>Ketogenic</option>
                     <option value='Low Fodmap'>Low Fodmap</option>
+                    <option value='Ovo Vegetarian'>Ovo Vegetarian</option>
                     <option value='Paleo'>Paleolithic</option>
                     <option value='Pescatarian'>Pescatarian</option>
                     <option value='Primal'>Primal</option>
