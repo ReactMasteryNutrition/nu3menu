@@ -18,10 +18,6 @@ const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/M
 const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CreateMenu'))
 const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
 
-// import SearchAndFilter from './components/SearchAndFilter/SearchAndFilter';
-// import DayMeal from './components/meal/dayMeal';
-// import MenuCreator from './components/menuCreator/menuCreator'; 
-
 const UserApp = () => {
     return (
         <Box display='flex' flexDirection='column' minH='100vh'>
@@ -35,13 +31,9 @@ const UserApp = () => {
                         <Route path='/login' element={<Login />} />
                         <Route element={<PrivateRoute />}>
                             <Route path='/myaccount' element={<MyAccount />} />
-                            <Route path='/createMenu' element={<CreateMenu />} />
+                            <Route path='/createmenu' element={<CreateMenu />} />
                             <Route path='/menu' element={<CurrentMenu />} />
                         </Route>
-                        {/* <Route path='/findRecipe' element={<SearchAndFilter />} /> */}
-                        {/*<Route path='/menu' element={<UserMenu/>} />*/}
-                        {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
-                        {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
                         <Route path='*' element={<Error404 />} />
                     </Routes>
                 </ErrorBoundary>
