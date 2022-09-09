@@ -2,13 +2,14 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Button, useToast } from "@chakra-ui/react";
 import React from "react";
 
-export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMenu, setWeekMenu, onClose}){
+export default function ButtonToAddRecipeWithSpoon({ recipeToAdd, onClose, index, category, weekMenu, setWeekMenu}){
     // import du toast
     const toast = useToast()
     // fonction pour mettre à jours le menu avec Switch Case 
     // afin de mettre à jours l'objet weekMenu au bon endroit
     // on ferme ensuite la modal et on affiche un succes toast
     const addToThisMealDay = () => {
+        console.log('On ajoute cette recette au menu : ', recipeToAdd)
         switch (index) {
             case 0:
                 switch (category) {
@@ -253,7 +254,17 @@ export default function ButtonToAddRecipe({ index, category, recipeToAdd, weekMe
         })
     }
 
-    
+    // const addFromSpoon = () => {
+    //     console.log('On ajoute cette recette au menu : ', recipeToAdd)
+    //     onClose()
+    //     toast({
+    //         title: 'Recipe added',
+    //         status: 'success',
+    //         isClosable: true,
+    //         position: 'top'
+    //     })
+    // }
+
     return (
         <Button leftIcon={<AddIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={addToThisMealDay}>
         Add
