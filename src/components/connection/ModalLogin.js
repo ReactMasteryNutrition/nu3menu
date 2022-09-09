@@ -12,10 +12,7 @@ const ModalLogin = () => {
             <Link to="/login" onClick={onOpen}>
                 {ResponsiveWidth() ? <Box
                     bg="#1A202C"
-                    _hover={{
-                        color: "#f0fff4",
-                        bg: "#1A202C"
-                    }}
+                    _hover={{ color: "#f0fff4", bg: "#1A202C" }}
                     _active={{ bg: "#1A202C" }}
                     fontSize="1.2rem"
                     fontWeight="700"
@@ -23,10 +20,7 @@ const ModalLogin = () => {
                     <IoLogInSharp
                         size="50"
                         bg="#1A202C"
-                        _hover={{
-                            color: "#f0fff4",
-                            bg: "#1A202C"
-                        }}
+                        _hover={{ color: "#f0fff4", bg: "#1A202C" }}
                         _active={{ bg: "#1A202C" }}
                         fontSize="1.2rem"
                         fontWeight="700"

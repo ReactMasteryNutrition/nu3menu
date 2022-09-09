@@ -12,20 +12,14 @@ const ModalRegister = () => {
             <Link to="/register" onClick={onOpen}>
                 {ResponsiveWidth() ? <Box
                     bg="#1A202C"
-                    _hover={{
-                        color: "#f0fff4",
-                        bg: "#1A202C"
-                    }}
+                    _hover={{ color: "#f0fff4", bg: "#1A202C" }}
                     _active={{ bg: "#1A202C" }}
                     fontSize="1.2rem"
                     fontWeight="700"
                     color="#48bb78">S'inscrire</Box> :
                     <BsFillPersonPlusFill
                         bg="#1A202C"
-                        _hover={{
-                            color: "#1A202C",
-                            bg: "#1A202C"
-                        }}
+                        _hover={{ color: "#1A202C", bg: "#1A202C" }}
                         _active={{ bg: "#1A202C" }}
                         fontSize="1.4rem"
                         fontWeight="700"
@@ -68,9 +62,7 @@ const ModalRegister = () => {
                         borderTopRightRadius={ResponsiveWidth() ? null : 0}
                         bg="#48bb78"
                         cursor="pointer"
-                        _hover={{
-                            transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
-                        }}
+                        _hover={{ transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null }}
                     >
                         <CloseIcon color="#1A202C" />
                     </Button>
