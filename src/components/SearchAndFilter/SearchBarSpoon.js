@@ -2,20 +2,25 @@
 import React from 'react'
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, Flex, FormControl, IconButton, Input, InputGroup, InputLeftElement, Tooltip, useDisclosure } from '@chakra-ui/react'
 import { IoFunnel, IoSearch } from 'react-icons/io5'
-import Filter from './Filter'
+//import Filter from './Filter'
+import FilterParams from './FilterParams'
 // Functions
-export default function SearchBarSpoon({searched, setSearched}){
+export default function SearchBarSpoon({thingSearched, handleSearch, params, setParams}){
     // gestion ouverture et fermeture de la modal avec les filtres
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-    //
-    const [truc, setTruc] = React.useState(searched)
+    // variable locale de la recette recherchée
+    const [spoonSearched, setSpoonSearched] = React.useState(thingSearched)
 
     // Submit de la search bar avec mise à jour des paramètres
     const submit = (e) => {
         e.preventDefault();
-        setSearched(truc)
-        console.log(`On lance la requête pour ${truc}`)
+        setParams({
+            ...params,
+            query: thingSearched
+        })
+        handleSearch(spoonSearched)
+        console.log(`On lance la requête pour : ${spoonSearched}`)
     }
 
     return(
@@ -31,7 +36,7 @@ export default function SearchBarSpoon({searched, setSearched}){
                                 color='green.400'
                                 children={<IoSearch />}
                             />
-                            <Input type='search' placeholder='A tester ici...' color='green.50' focusBorderColor='green.400' value={truc} onChange={e => setTruc(e.target.value)}/>
+                            <Input type='search' placeholder='A tester ici...' color='green.50' focusBorderColor='green.400' value={spoonSearched} onChange={e => setSpoonSearched(e.target.value)}/>
                         </InputGroup>
                     </FormControl>
                 </form>
@@ -44,14 +49,13 @@ export default function SearchBarSpoon({searched, setSearched}){
                             color='gray.400'
                             icon={<IoFunnel/>}
                             onClick={onOpen}
-
                         />
                     </Tooltip>
                 </Flex>
             </Flex>
-            {/* <Drawer
+            <Drawer
             isOpen={isOpen}
-            placement={'left'}
+            placement={'right'}
             onClose={onClose}
             finalFocusRef={btnRef}
             size={['full', 'xs']}
@@ -59,9 +63,9 @@ export default function SearchBarSpoon({searched, setSearched}){
                 <DrawerOverlay/>
                 <DrawerContent bgColor='gray.400' w='100%' overflow='scroll' >
                     <DrawerCloseButton />
-                    <Filter filter={filter} setFilter={setFilter}/>
+                    <FilterParams filter={params} setFilter={setParams}/>
                 </DrawerContent>
-            </Drawer> */}
+            </Drawer>
         </>
         
     )

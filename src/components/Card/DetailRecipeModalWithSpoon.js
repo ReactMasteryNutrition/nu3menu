@@ -1,5 +1,5 @@
 import { Badge, Box, CircularProgress, CircularProgressLabel, Divider, Flex, Grid, GridItem, HStack, Image, ListItem, ModalBody, OrderedList, Text, Tooltip, UnorderedList, VStack } from '@chakra-ui/react'
-import { IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
+import { IoFlash, IoPeople, IoTimer, IoStatsChart } from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Function
@@ -8,9 +8,6 @@ export default function DetailRecipeModalWithSpoon({detail}) {
     let caloriesPerPerson = detail?.nutrition?.nutrients[0]?.amount/detail?.servings
 
     let counterForList = 0
-
-    let stringToSplit = detail?.summary
-    let firstCut = ''
 
     return(
         <ModalBody color='green.50'>
@@ -47,7 +44,8 @@ export default function DetailRecipeModalWithSpoon({detail}) {
                                 <Text marginLeft='0.5rem'>{caloriesPerPerson.toFixed(2)} Kcal / person</Text>
                             </Flex>
                             <Flex>
-                                <Text>Glycemic Index : {detail?.nutrition?.properties[0]?.amount}</Text>
+                                <IoStatsChart/>
+                                <Text marginLeft='0.5rem'>Glycemic Index : {detail?.nutrition?.properties[0]?.amount}</Text>
                             </Flex>
                         </VStack>
                     </GridItem>

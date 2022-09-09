@@ -6,28 +6,28 @@ import FetchAxiosWithSpoon from '../../utils/FetchAxiosWithSpoon'
 import CardRecipeWithSpoon from '../Card/CardRecipeWithSpoon';
 //import CardWithGrid from '../Card/CardWithGrid';
 // Function
-export default function QuerySpoon({searched, setSearched}) {
+export default function QuerySpoon({index, category, setWeekMenu, weekMenu, thingSearched, filter}) {
     const [data, setData] = React.useState();
     const [error, setError] = React.useState(null);
     
     React.useEffect(() => {
         const controller = new AbortController();
-        if (!searched) {
+        if (!thingSearched) {
             return
         }
         setData()
-        FetchAxiosWithSpoon(searched)
+        FetchAxiosWithSpoon(thingSearched, filter)
         .then(response => {
             setData(response)
         })
         .catch(error => setError(error))
         .finally( ()=> controller.abort())
-    }, [searched])
+    }, [thingSearched, filter])
 
     if (error) {
         throw error
     }
-    if(!searched) {
+    if(!thingSearched) {
         return (
             <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
         )
@@ -41,6 +41,6 @@ export default function QuerySpoon({searched, setSearched}) {
         )
     }
     return (
-        <CardRecipeWithSpoon datas={data}/>
+        <CardRecipeWithSpoon indexOfDay={index} categoryOfMeal={category} weekMenu={weekMenu} setWeekMenu={setWeekMenu} datas={data}/>
     )
 }

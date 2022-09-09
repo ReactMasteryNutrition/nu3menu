@@ -27,14 +27,36 @@ export default function SearchAndFilter({ index, category, weekMenu, setWeekMenu
         })
     }
 
-    // TRUC AVEC SPOONACULAR //
+    //SPOONACULAR //
+    // Init Params
+    const [params, setParams] = React.useState({
+        apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
+        fillIngredients: true, 
+        addRecipeInformation: true, 
+        addRecipeNutrition: true, 
+        number: 20,
+        query: '' //recipe => mot clé recherché
+    })
+    // Recette recherchée //
     const [spoonRecipe, setSpoonRecipe] = React.useState('')
+    // Mise à jour de PARAMS en fonction des filtres renseignés et de la recette recherchée
+    const handleSpoon = recipeName => {
+        setSpoonRecipe(recipeName)
+        setParams({
+            ...params,
+            query: recipeName,
+        })
+    }
+    //
+    React.useEffect(()=>{
+        console.log('Params : ', params)
+    }, [params])
 
     return (
         <Box w="100%" h='auto' display='flex' flexDir={['column', 'row']}>
             <Box w="100%" color='green.50' >
-                <SearchBarSpoon searched={spoonRecipe} setSearched={setSpoonRecipe}/>
-                <QuerySpoon searched={spoonRecipe} setSearched={setSpoonRecipe}/>
+                <SearchBarSpoon thingSearched={spoonRecipe} handleSearch={handleSpoon} params={params} setParams={setParams}/>
+                <QuerySpoon index={index} category={category} setWeekMenu={setWeekMenu} weekMenu={weekMenu} thingSearched={spoonRecipe} filter={params}/>
                 <Divider my='3rem'/>
                 <SearchBar thingSearched={recipe} handleSearch={handleSearch} filter={filter} setFilter={setFilter} />
                 <Query index={index} category={category} setWeekMenu={setWeekMenu} weekMenu={weekMenu} thingSearched={recipe} filter={filter} />

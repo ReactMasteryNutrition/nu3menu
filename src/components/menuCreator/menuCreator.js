@@ -5,6 +5,7 @@ import SearchAndFilter from "../SearchAndFilter/SearchAndFilter";
 import MealCategory from "./mealCategory";
 import WeekTable from "./weekTable";
 import CarouselWithChecked from "../Carousel/CarouselWithChecked";
+import CarouselWithCheckedSpoon from "../Carousel/CarouselWithCheckedSpoon";
 
 export default function MenuCreator(){
     // Gestion du type de repas sélectionné
@@ -63,7 +64,7 @@ export default function MenuCreator(){
                 </Center>
                 :
                 <Center w='100%' p='2rem'>
-                    <CarouselWithChecked />
+                    <CarouselWithCheckedSpoon />
                 </Center>
             }
                 

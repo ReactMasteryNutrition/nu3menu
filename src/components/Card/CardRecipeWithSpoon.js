@@ -3,13 +3,13 @@ import React from 'react'
 import { Box, Button, Flex, Grid, GridItem, Image, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Tooltip, useDisclosure, VStack } from '@chakra-ui/react'
 import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
-import { IoEnter, IoFlash, IoPeople, IoTimer } from 'react-icons/io5'
+import { IoEnter, IoFlash, IoPeople, IoStatsChart, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 import DetailRecipeModalWithSpoon from './DetailRecipeModalWithSpoon'
 import ButtonToAddRecipeWithSpoon from '../menuCreator/buttonToAddRecipeSpoon'
 // Functions //
 
-export default function CardRecipeWithSpoon({datas}) {
+export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMenu, setWeekMenu, datas}) {
     // gestion ouverture et fermeture de la modal avec le detail de LA recette
     const { isOpen, onOpen, onClose } = useDisclosure()
     // stockage de l'object qui contient les recettes de l'API
@@ -66,6 +66,10 @@ export default function CardRecipeWithSpoon({datas}) {
                                         <IoFlash/>
                                         <Text marginLeft='0.5rem'>{recipe.nutrition.nutrients[0].amount.toFixed(2)} Kcal</Text>
                                     </Flex>
+                                    <Flex>
+                                        <IoStatsChart/>
+                                        <Text marginLeft='0.5rem'>Glycemic Index : {recipe.nutrition.properties[0].amount}</Text>
+                                    </Flex>
                                 </IconContext.Provider>
                             </VStack>
                         </GridItem>
@@ -88,7 +92,7 @@ export default function CardRecipeWithSpoon({datas}) {
                         <ModalCloseButton onClick={()=>closeAndClear()}/>
                         <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                         <ModalFooter flexDir={['column', 'row']}>
-                            <ButtonToAddRecipeWithSpoon recipeToAdd={detailRecipe} onClose={onClose}/>
+                            <ButtonToAddRecipeWithSpoon recipeToAdd={detailRecipe} onClose={onClose} index={indexOfDay} category={categoryOfMeal} weekMenu={weekMenu} setWeekMenu={setWeekMenu} />
                             <Link href={detailRecipe?.sourceUrl} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
                                 <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
                             </Link>

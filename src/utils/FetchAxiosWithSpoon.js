@@ -4,18 +4,10 @@ import axios from 'axios'
 const qs = require('qs')
 
 
-async function FetchAxiosWithSpoon(searched) {
+async function FetchAxiosWithSpoon(thingSearched, filter) {
 
     let urlInit = 'https://api.spoonacular.com/recipes/complexSearch?'
-    let apiKey = '12c558bccb4f43a3b13072870c7183e9'
-    let params = {
-        apiKey: '12c558bccb4f43a3b13072870c7183e9',
-        fillIngredients: true, 
-        addRecipeInformation: true, 
-        addRecipeNutrition: true, 
-        number: 20,
-        query: searched
-    }
+    let params = filter
 
     //let endOfParams = Object.fromEntries(Object.entries(filter).filter(([key, value]) => value !==''))
     
