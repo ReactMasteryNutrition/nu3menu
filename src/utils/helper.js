@@ -6,7 +6,7 @@ import { useReducer, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query'
-import FetchAxios from './FetchAxios'
+import FetchAxiosWithSpoon from './FetchAxiosWithSpoon';
 import Home from '../pages/Home';
 
 const ResponsiveWidth = () => {
@@ -139,12 +139,12 @@ const useLoading = () => {
   return { data, error, status, execute, setData }
 }
 
-const useEdamam = (thingSearched, filter) => {
-  const { data } = useQuery([thingSearched, filter], () => FetchAxios(thingSearched, filter))
+const useSpoon = (thingSearched, filter) => {
+  const { data } = useQuery([thingSearched, filter], () => FetchAxiosWithSpoon(thingSearched, filter))
   return data
 }
 
-useEdamam.propTypes = {
+useSpoon.propTypes = {
   thingSearched: PropTypes.string.isRequired,
   filter: PropTypes.object.isRequired
 }
@@ -154,4 +154,4 @@ const PrivateRoute = () => {
   return currentUser ? <Outlet /> : <Home />
 }
 
-export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, useEdamam, PrivateRoute }
+export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, useSpoon, PrivateRoute }
