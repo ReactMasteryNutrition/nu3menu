@@ -20,7 +20,6 @@ export default function AuthContextProvider(props) {
     const [authError, setAuthError] = useState()
     const [currentUser, setCurrentUser] = useState(null)
     const { status } = useLoading()
-    // const [loading, setLoading] = useState(true)
     const register = useCallback((email, password) => {
         createUserWithEmailAndPassword(auth, email, password)
             .catch(err => setAuthError(err))
@@ -36,7 +35,6 @@ export default function AuthContextProvider(props) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setCurrentUser(currentUser)
-            // setLoading(false)
         })
         return () => {
             unsubscribe()
@@ -63,8 +61,6 @@ export default function AuthContextProvider(props) {
         currentUser,
         status,
         authError,
-        // loading,
-        // setLoading,
         register,
         login,
         logout,
