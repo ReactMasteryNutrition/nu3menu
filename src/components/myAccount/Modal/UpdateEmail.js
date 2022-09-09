@@ -49,6 +49,7 @@ const ModalEmail = () => {
             currentUser?.email,
             inputs?.current[0]?.value
         )
+        // create a Google provider
         const provider = new GoogleAuthProvider()
         try {
             // reauthenticate directly on the site or with Google

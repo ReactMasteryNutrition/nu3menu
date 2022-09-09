@@ -20,6 +20,7 @@ const FormRegister = () => {
     const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth();
     const formRef = useRef();
     const inputs = useRef([])
+    // add values in current object
     const addInputs = el => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
@@ -52,6 +53,7 @@ const FormRegister = () => {
             navigate("/")
 
         } catch (err) {
+            // handle errors validation
             setValidation(err.message)
             switch (err.code) {
                 case "auth/email-already-in-use":
@@ -72,6 +74,7 @@ const FormRegister = () => {
     }
 
     const handleGoogle = () => {
+        // register with Google
         setAuthing(true)
         signInWithGoogle()
             .then((UserCredential) => {
@@ -79,6 +82,7 @@ const FormRegister = () => {
                 navigate("/")
             })
             .catch(err => {
+                // handle errors validation
                 setValidation(err.code)
                 switch (err.code) {
                     case "auth/account-exists-with-different-credential":

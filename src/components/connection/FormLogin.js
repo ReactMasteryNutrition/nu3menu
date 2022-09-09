@@ -20,6 +20,7 @@ const FormLogin = () => {
     const navigate = useNavigate()
     const formRef = useRef();
     const inputs = useRef([]);
+    // add values in current object
     const addInputs = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el);
@@ -47,6 +48,7 @@ const FormLogin = () => {
         }
     }
     const handleGoogle = () => {
+        // login with Google
         setAuthing(true)
         signInWithGoogle()
             .then((UserCredential) => {
@@ -54,6 +56,7 @@ const FormLogin = () => {
                 navigate("/")
             })
             .catch(err => {
+                // handle errors validation
                 setValidation(err.code)
                 switch (err.code) {
                     case "auth/account-exists-with-different-credential":

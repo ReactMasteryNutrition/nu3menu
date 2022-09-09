@@ -7,7 +7,9 @@ import PropTypes from 'prop-types'
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
     const navigate = useNavigate()
     const handleClick = () => {
+        // redirection to homepage 
         navigate('/')
+        // reset error
         resetErrorBoundary()
     }
     return (

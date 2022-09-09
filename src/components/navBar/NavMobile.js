@@ -4,7 +4,7 @@ import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom'
 import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
-import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
+import { BsPlusCircle, /* BsBookmarkFill */ } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
 import { useContext } from "react";
@@ -59,9 +59,9 @@ const NavUser = () => {
                 <Link to="/createmenu">
                     <BsPlusCircle size="33" color="#48BB78" />
                 </Link>
-                <Link to="/bookmark">
+                {/* <Link to="/bookmark">
                     <BsBookmarkFill size="33" color="#48BB78" />
-                </Link>
+                </Link> */}
                 {ResponsiveWidth() ? null : <NavUserDrawer />}
             </Flex>
         </Flex >

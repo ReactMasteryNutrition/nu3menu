@@ -13,17 +13,18 @@ import {
     Box,
     Button
 } from '@chakra-ui/react'
-import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
+// import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
 import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
-import { MdOutlineMenuBook } from "react-icons/md"
+// import { MdOutlineMenuBook } from "react-icons/md"
 
 const NavUserDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const navigate = useNavigate()
     const { logout, currentUser } = useAuth()
     const handleClick = async () => {
+        // logout the current user
         try {
             await logout(auth)
             setTimeout(() => {
@@ -77,7 +78,7 @@ const NavUserDrawer = () => {
                                 <IoMdSettings color='#48BB78' margin-right='0.5rem' /> Mon compte
                             </Flex>
                         </Link>
-                        <Link to='/allmenus' onClick={onClose}>
+                        {/* <Link to='/allmenus' onClick={onClose}>
                             <Flex flexDirection="row" gap="1rem">
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
                             </Flex>
@@ -90,7 +91,7 @@ const NavUserDrawer = () => {
                         </Link>
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
-                        </Link>
+                        </Link> */}
                         <Link to='/' onClick={handleClick}>
                             <Flex flexDirection="row" gap="0.5rem">
                                 <IoLogOut color='#48BB78' margin-right='0.5rem' /> Se déconnecter

@@ -47,9 +47,9 @@ const NavUser = () => {
             <Link to="/menu">
               <Box _hover={{ color: "#f0fff4" }}>Mon menu</Box>
             </Link>
-            <Link to="/bookmark">
+            {/* <Link to="/bookmark">
               <Box _hover={{ color: "#f0fff4" }}>Favoris</Box>
-            </Link>
+            </Link> */}
           </Flex>
           <Flex flexDirection="row" gap="1rem" with="5rem">
             <Link to="/createmenu">

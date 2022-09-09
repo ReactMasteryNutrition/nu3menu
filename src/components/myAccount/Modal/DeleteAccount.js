@@ -30,6 +30,7 @@ const DeleteAccount = () => {
     const inputs = useRef([])
     const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    // add value in current object
     const addData = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
@@ -51,6 +52,7 @@ const DeleteAccount = () => {
             currentUser?.email,
             inputs?.current[0]?.value
         )
+        // create a Google provider
         const provider = new GoogleAuthProvider()
         try {
             // reauthenticate directly on the site or with Google
@@ -59,7 +61,9 @@ const DeleteAccount = () => {
             } else {
                 await reauthenticateWithPopup(currentUser, provider)
             }
+            // delete the user account
             deleteUser(currentUser)
+            // redirection to homepage
             navigate('/')
             toast({
                 description: "Votre compte a bien été supprimé !",
@@ -130,9 +134,7 @@ const DeleteAccount = () => {
                         borderTopRightRadius={ResponsiveWidth() ? null : 0}
                         bg="#48bb78"
                         cursor="pointer"
-                        _hover={{
-                            transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
-                        }}
+                        _hover={{ transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null }}
                     />
                     <ModalBody>
                         <Box

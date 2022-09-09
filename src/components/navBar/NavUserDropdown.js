@@ -7,6 +7,7 @@ const NavUserDropdown = () => {
   const navigate = useNavigate()
   const { logout, currentUser } = useAuth()
   const handleClick = async () => {
+    // logout the current user
     try {
       await logout(auth)
       setTimeout(() => {
@@ -36,7 +37,7 @@ const NavUserDropdown = () => {
             Mon compte
           </MenuItem>
         </Link>
-        <Link to="/allmenus">
+        {/* <Link to="/allmenus">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Tous mes menus
           </MenuItem>
@@ -56,7 +57,7 @@ const NavUserDropdown = () => {
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Aide et support
           </MenuItem>
-        </Link>
+        </Link> */}
         <Link to="/" onClick={handleClick}>
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Se déconnecter

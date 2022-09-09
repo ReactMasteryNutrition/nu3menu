@@ -74,7 +74,9 @@ const UploadImage = (file, filePath, setProgress) => {
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on('state_changed',
       (snapshot) => {
+        // progress in percent
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // get progress value
         setProgress(progress)
       },
       (error) => {

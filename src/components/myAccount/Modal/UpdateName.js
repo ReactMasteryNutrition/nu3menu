@@ -17,6 +17,7 @@ const ModalName = () => {
     const { currentUser } = useAuth()
     const toast = useToast()
     const input = useRef([])
+    // add value in current object
     const addData = (el) => {
         if (el && !input.current.includes(el)) {
             input.current.push(el);

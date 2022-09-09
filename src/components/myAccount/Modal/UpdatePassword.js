@@ -31,6 +31,7 @@ const ModalPassword = () => {
   const { currentUser } = useAuth()
   const toast = useToast()
   const inputs = useRef([])
+  // add values in current object
   const addData = (el) => {
     if (el && !inputs.current.includes(el)) {
       inputs.current.push(el);
@@ -51,6 +52,7 @@ const ModalPassword = () => {
       currentUser?.email,
       inputs?.current[0]?.value
     )
+    // create a Google provider
     const provider = new GoogleAuthProvider()
     try {
       // reauthenticate directly on the site or with Google
