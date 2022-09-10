@@ -31,42 +31,38 @@ const DayMeal = () => {
   //console.log(`teste recupération week  ${week}`)
   //console.log(`${weekParse.lundi.matin.data.recipe.label} on est parser`)
   return (
-    <Box w='100%' p={4} color={"green.50"}>
-      <Center>
-        <Heading as='h1' size='xl' mb='2rem'>MENU DE LA SEMAINE</Heading>
+    <Box w='100%' px='4rem' color={"green.50"}>
+      <Center mb='2rem'>
+        <Heading as='h1' size='xl' >MENU DE LA SEMAINE</Heading>
       </Center>
       <Divider />
-      {
-        Object.entries(weekParse).map(entry => {
-          //console.log(entry)
-          return (
-            <>
-              <Center mt='2rem'>
-                <VStack>
-                  <Heading>{entry[0]}</Heading>
-                  <Stack w='100%' direction={['column', 'row']} spacing={'24px'}>
-                    {Object.entries(entry[1]).map(meal => {
-                      //console.log(meal)
-                      return (
-                        <Oneday
-                          categorykey={meal[0]}
-                          sourceImg={meal[1]?.image}
-                          title={meal[1]?.title}
-                          urlData={meal[1]?.sourceUrl}
-                          buttonToOpenModal={<Link isExternal my='1rem' mx={['0', '0.5rem']} onClick={() => openDetailModal(meal[1])}><IoEnter /></Link>}
-                        />
-                      )
-                    })}
-                  </Stack>
-                </VStack>
-              </Center>
-              <Divider mt='1rem' />
-            </>
-          )
-
+      <VStack>
+        {
+          Object.entries(weekParse).map(entry => {
+            //console.log(entry)
+            return (
+              <Stack w='100%' justifyContent='center'>
+                <Heading>{entry[0]}</Heading>
+                <Stack w='100%' direction={['column', 'column', 'row']} justifyContent={['center', 'center', 'space-around']}>
+                  {Object.entries(entry[1]).map(meal => {
+                    //console.log(meal)
+                    return (
+                      <Oneday
+                        categorykey={meal[0]}
+                        sourceImg={meal[1]?.image}
+                        title={meal[1]?.title}
+                        urlData={meal[1]?.sourceUrl}
+                        buttonToOpenModal={<Link isExternal my='1rem' mx={['0', '0.5rem']} onClick={() => openDetailModal(meal[1])}><IoEnter /></Link>}
+                      />
+                    )
+                  })}
+                </Stack>
+                <Divider mt='1rem' />
+              </Stack>
+            )
+          })
         }
-        )
-      }
+      </VStack>
       {
         detailRecipe != null ?
           <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
@@ -90,5 +86,6 @@ const DayMeal = () => {
   )
 
 }
+
 
 export default DayMeal;
