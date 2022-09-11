@@ -4,6 +4,7 @@ import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import AuthContextProvider from './authContext'
 import PropTypes from 'prop-types'
 
+// handle cached data
 const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
