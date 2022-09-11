@@ -140,7 +140,7 @@ const useLoading = () => {
 }
 
 const useSpoon = (thingSearched, filter) => {
-  const { data } = useQuery([thingSearched, filter], () => FetchAxiosWithSpoon(thingSearched, filter))
+  const { data } = useQuery([thingSearched, filter], () => FetchAxiosWithSpoon(filter))
   return data
 }
 
