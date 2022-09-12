@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { db  } from "../../firebase-config";
 import { serverTimestamp,  collection, doc, setDoc } from "firebase/firestore";
 // Function
-export default function CarouselWithCheckedSpoon(){
+export default function CarouselWithCheckedSpoon(weekMenu){
     // On récupère les datas liées au menu dans la localStorage
     const localStorageData = JSON.parse(localStorage.getItem('week'))
     // On crée des variables pour contenir l'image de couverture et le titre du menu
@@ -62,8 +62,11 @@ export default function CarouselWithCheckedSpoon(){
     }
 
     //ajout dans fierbase
+    const menuWhichShouldBeSaved = weekMenu
     const week =  localStorage.getItem('week')
     const weekParse = JSON.parse(localStorage.getItem('weekMenuHeader'))
+
+    
 
     const newMenuSaved = async () => {
         try{
@@ -75,7 +78,13 @@ export default function CarouselWithCheckedSpoon(){
             isPublic : true ,
             title : weekParse.weekMenuTitle,
             cover : weekParse.weekMenuCover ,
-            detail : week ,
+            Lundi : menuWhichShouldBeSaved.weekMenu.Lundi,
+            Mardi : menuWhichShouldBeSaved.weekMenu.Mardi,
+            Mercredi : menuWhichShouldBeSaved.weekMenu.Mercredi,
+            Jeudi : menuWhichShouldBeSaved.weekMenu.Jeudi,
+            Vendredi : menuWhichShouldBeSaved.weekMenu.Vendredi,
+            Samedi : menuWhichShouldBeSaved.weekMenu.Samedi,
+            Dimanche : menuWhichShouldBeSaved.weekMenu.Dimanche,
             reviews : [],
             }
         await setDoc(menuRef, dataMenu)  
@@ -85,6 +94,7 @@ export default function CarouselWithCheckedSpoon(){
     }
 
     const addFirebase = () => {
+        console.log('weekMenu from Carousel : ', menuWhichShouldBeSaved)
         newMenuSaved()
         setRedirect(true)
     }

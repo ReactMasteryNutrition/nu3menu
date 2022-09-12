@@ -63,7 +63,7 @@ export default function MenuCreator(){
                 </Center>
                 :
                 <Center w='100%' p='2rem'>
-                    <CarouselWithCheckedSpoon />
+                    <CarouselWithCheckedSpoon weekMenu={weekMenu} />
                 </Center>
             }
         </Flex>
