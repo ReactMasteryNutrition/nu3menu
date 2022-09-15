@@ -33,7 +33,7 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
             {recipesDatas.map(recipe => {
                 // on boucle sur l'ensemble des recettes afin d'afficher une Card par recette et on l'hydrate des données souhaitées
                 return(
-                    <Box key={recipe.id} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                    <Box key={recipe.id} w={['90%', 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
                     <Grid 
                         templateAreas={[`"image image stats stats"
                                         "title title title openDetails"`, 

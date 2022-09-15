@@ -1,7 +1,11 @@
 // Imports //
-import { Box, Image, Link, Text } from '@chakra-ui/react'
+import React from 'react';
+import { Box, Grid, GridItem, Image, Link, Text, Tooltip } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoStar } from 'react-icons/io5'
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { db } from "../../firebase-config";
+import { writeTheDate } from '../../utils/HoursAndMinutes';
 
 // Functions //
 
@@ -50,34 +54,132 @@ export function CardMenu() {
             description: 'Eum voluptas voluptas sed pariatur aperiam rem veniam beatae quo Quis libero et quia nobis. Aut voluptates architecto hic voluptas maxime non sint voluptas cum vero fugiat et itaque fugit!',
         },
     ]
+    //
+    const [lastMenus, setLastMenus] = React.useState([])
+    const [menuAsAnObject, setMenuAsAnObject]= React.useState([])
+    //
+    React.useEffect(()=>{
+        const q = query(collection(db, 'menus'), where("isPublic", "==", true), orderBy("dateCreation", "desc"))
+        onSnapshot(q, (querySnapshot)=> {
+            const lastPublicMenus = []
+            querySnapshot.forEach((doc)=> {
+                lastPublicMenus.push(doc.data())
+            })
+            console.log('CURRENT DATA :', lastPublicMenus)
+            setLastMenus(lastPublicMenus)
+            const testArray = lastPublicMenus.sort()
+        },
+        (error) => {
+            console.log(error);
+        })
+    },[])
+    //
+    React.useEffect(()=>{
+        console.log('Last Menus : ', lastMenus)
+        //const menuEnLocal = lastMenus
+        let detailMenu = []
+        lastMenus.map(truc => detailMenu.push(JSON.parse(truc.detail)))
+        //menuEnLocal.map(truc => detailMenu.push(JSON.parse(truc.detail)))
+        console.log('detailMenu [] : ', detailMenu)
+
+        //Lecture de l'auteur
+
+    },[lastMenus])
+
     return(
+        // <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
+        //     {falseResponseApi.map(recipe => {
+        //         return(
+        //             <Box key={falseResponseApi.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+        //                 <IconContext.Provider value={{ color: '#F0FFF4', margin: '1rem', size: '2rem'}}>
+        //                     <Box position='absolute' top='0' left='0' display='flex' alignItems='center' p='0.5rem' minW='33%' minH='20%' borderBottomRightRadius='full' color='green.50' bg='green.700' opacity='0.72'>
+        //                         <IoStar/>
+        //                         <Text pl='0.5rem' fontSize='lg'>{recipe.gradeReview}</Text>
+        //                     </Box>
+        //                 </IconContext.Provider>
+        //                 <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
+        //                     <Box display='flex' flexDirection={['row', 'column', 'column', 'column']}>
+        //                         <Image src={recipe.imageUrl} alt={recipe.imageAlt} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
+        //                         <Box>
+        //                             <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' textAlign='center'>{recipe.title}</Text>
+        //                             <Text noOfLines={2} ml={['0.5rem', 0]}>{recipe.description}</Text>
+        //                             <Box display='flex' justifyContent='right'>
+        //                                 <Link>
+        //                                     <IoEnter/>
+        //                                 </Link>
+        //                             </Box>
+        //                         </Box>
+        //                     </Box>
+        //                 </IconContext.Provider>
+        //             </Box>
+        //         )
+        //     })}
+        // </Box>
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
-            {falseResponseApi.map(recipe => {
-                return(
-                    <Box key={falseResponseApi.indexOf(recipe)} w={[280, 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
-                        <IconContext.Provider value={{ color: '#F0FFF4', margin: '1rem', size: '2rem'}}>
-                            <Box position='absolute' top='0' left='0' display='flex' alignItems='center' p='0.5rem' minW='33%' minH='20%' borderBottomRightRadius='full' color='green.50' bg='green.700' opacity='0.72'>
+        {lastMenus.map(menu => {
+            // let author = readTheAuthor(menu.idCreator)
+            // console.log(author)
+            return(
+                <Box key={lastMenus.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                    <Grid
+                        templateAreas={[`"image image image image"
+                                        "title title title title"
+                                        "auteur auteur auteur linkDetail"
+                                        "date date date linkDetail"`]}
+                        gridTemplateColumns='1fr 1fr 1.5fr 0.5fr'
+                        w='100%'
+                    >
+                        <GridItem position='absolute' top='0' left='0' display='flex' alignItems='center' p='0.5rem' minW='33%' minH='20%' borderBottomRightRadius='full' color='green.50' bg='green.700' opacity='0.72'>
+                            <IconContext.Provider value={{ color: '#F0FFF4', margin: '1rem', size: '2rem'}}>
                                 <IoStar/>
-                                <Text pl='0.5rem' fontSize='lg'>{recipe.gradeReview}</Text>
-                            </Box>
-                        </IconContext.Provider>
-                        <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
-                            <Box display='flex' flexDirection={['row', 'column', 'column', 'column']}>
-                                <Image src={recipe.imageUrl} alt={recipe.imageAlt} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
-                                <Box>
-                                    <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' textAlign='center'>{recipe.title}</Text>
-                                    <Text noOfLines={2} ml={['0.5rem', 0]}>{recipe.description}</Text>
-                                    <Box display='flex' justifyContent='right'>
-                                        <Link>
-                                            <IoEnter/>
-                                        </Link>
-                                    </Box>
+                                <Text pl='0.5rem' fontSize='lg'>5</Text>
+                            </IconContext.Provider>
+                        </GridItem>
+                        <GridItem area='image' display='flex' justifyContent='center'>
+                            <Image src={menu.cover} alt={menu.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
+                        </GridItem>
+                        <GridItem area='title' display='flex' alignItems='center' paddingY='0.5rem' >
+                            <Tooltip label={menu.title} placement='top'>
+                                <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{menu.title}</Text>
+                            </Tooltip>
+                        </GridItem>
+                        <GridItem area='auteur'>
+                            <Text>Author : {menu.author && menu.author}</Text>
+                        </GridItem>
+                        <GridItem area='date'>
+                            <Text fontSize='xs'>Created on : {writeTheDate(menu.dateCreation)}</Text>
+                        </GridItem>
+                        <GridItem area='linkDetail'>
+                            <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
+                                <Link onClick={()=> console.log('Open detail of menu')}>
+                                    <IoEnter/>
+                                </Link>
+                            </IconContext.Provider>
+                        </GridItem>
+                    </Grid>
+                    {/* <IconContext.Provider value={{ color: '#F0FFF4', margin: '1rem', size: '2rem'}}>
+                        <Box position='absolute' top='0' left='0' display='flex' alignItems='center' p='0.5rem' minW='33%' minH='20%' borderBottomRightRadius='full' color='green.50' bg='green.700' opacity='0.72'>
+                            <IoStar/>
+                            <Text pl='0.5rem' fontSize='lg'>5</Text>
+                        </Box>
+                    </IconContext.Provider>
+                    <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
+                        <Box display='flex' flexDirection={['row', 'column', 'column', 'column']}>
+                            <Image src={menu.cover} alt={menu.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
+                            <Box>
+                                <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' textAlign='center' noOfLines={1} maxW='100%'>{menu.title}</Text>
+                                <Text noOfLines={2} ml={['0.5rem', 0]}>{recipe.description}</Text>
+                                <Box display='flex' justifyContent='right'>
+                                    <Link>
+                                        <IoEnter/>
+                                    </Link>
                                 </Box>
                             </Box>
-                        </IconContext.Provider>
-                    </Box>
-                )
-            })}
-        </Box>
+                        </Box>
+                    </IconContext.Provider> */}
+                </Box>
+            )
+        })}
+    </Box>
     )
 }

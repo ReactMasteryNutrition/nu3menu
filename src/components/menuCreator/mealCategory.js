@@ -74,7 +74,7 @@ export default function MealCategory({onCategoryChange, weekMenu, index}){
     },[weekMenu, index])
 
     return (
-        <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"} px={['','1rem']}>
+        <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"} px={['','1rem']} w={['100%', '100%', '60%']}>
             <FormLabel>Category</FormLabel>
             <Select w='100%' value={category} onChange={handleCategoryChange} placeholder='Select your meal choice'>
                 {matinChecked ? <option value="Matin">Petit-déjeuner &#x2713;</option> : <option value="Matin">Petit-déjeuner</option>}
