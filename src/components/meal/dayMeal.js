@@ -3,7 +3,6 @@ import { Box, Button, Center, Divider, Grid, GridItem, Heading, HStack, Link, Mo
 import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
-import DetailRecipeModal from "../Card/DetailRecipeModal"
 import DetailRecipeModalWithSpoon from "../Card/DetailRecipeModalWithSpoon";
 
 

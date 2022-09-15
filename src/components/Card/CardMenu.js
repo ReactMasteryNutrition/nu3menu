@@ -13,7 +13,7 @@ export function CardMenu() {
     
     const [lastMenus, setLastMenus] = React.useState([])
     const [menuAsAnObject, setMenuAsAnObject]= React.useState([])
-    //
+    // UseEffect pour récupérer les derniers menus public par ordre chronologique décroissant (donc du plus récent au plus vieux)
     React.useEffect(()=>{
         const q = query(collection(db, 'menus'), where("isPublic", "==", true), orderBy("dateCreation", "desc"))
         onSnapshot(q, (querySnapshot)=> {
@@ -28,7 +28,7 @@ export function CardMenu() {
             console.log(error);
         })
     },[])
-    //
+    // UseEffect pour retraiter le détail de chaque menu et pouvoir manipuler les données
     React.useEffect(()=>{
         console.log('Last Menus : ', lastMenus)
         //const menuEnLocal = lastMenus
@@ -37,7 +37,11 @@ export function CardMenu() {
         //menuEnLocal.map(truc => detailMenu.push(JSON.parse(truc.detail)))
         console.log('detailMenu [] : ', detailMenu)
     },[lastMenus])
-
+    // Fonction pour suivre un menu (Be on this diet)
+    const beOn = () => {
+        
+    }
+    //
     return(
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
         {lastMenus.map(menu => {
