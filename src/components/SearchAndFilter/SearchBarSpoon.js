@@ -25,7 +25,7 @@ export default function SearchBarSpoon({thingSearched, handleSearch, params, set
 
     return(
         <>  
-            <Flex justify='center' w='100%'>
+            <Flex justify='center' w={['100%', '100%', '60%']}>
                 <Flex w='100%' px={['','1rem']} marginTop='1em'>
                 <form style={{width: '100%'}} onSubmit={submit}>
                     <FormControl>
