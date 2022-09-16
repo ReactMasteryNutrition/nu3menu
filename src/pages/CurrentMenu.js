@@ -5,8 +5,8 @@ import DayMeal from '../components/meal/dayMeal';
 const CreateMenu = () => {
     return (
         <Box w="100%" display='flex' flexDir={['column', 'row']} flexGrow='1'>
-            <Bookmark/>
-            {/* <DayMeal/> */}
+            {/* <Bookmark/> */}
+            <DayMeal/>
         </Box>
     );
 }
