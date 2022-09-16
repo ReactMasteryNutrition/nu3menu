@@ -1,5 +1,12 @@
 import { createContext, useCallback, useMemo, useState, useEffect, useContext } from 'react'
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider } from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithPopup,
+    signInWithEmailAndPassword,
+    signOut,
+    GoogleAuthProvider
+} from 'firebase/auth'
 import { auth, db } from '../firebase-config'
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { FieldValue } from "@firebase/firestore";

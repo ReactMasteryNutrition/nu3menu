@@ -13,7 +13,7 @@ const NavVisitor = () => {
     <Box>
       <Flex flexDirection="row" justifyContent={ResponsiveWidth() ? "space-between" : "center"} alignItems="center" margin="1rem">
         <Link to="/">
-          <Image src="./images/logo_nu3menu.svg" alt="Logo du site" width="12rem"/>
+          <Image src="./images/logo_nu3menu.svg" alt="Logo du site" width="12rem" />
         </Link>
         <Box display={ResponsiveWidth() ? "flex" : "none"} gap="4rem">
           <ModalLogin />
@@ -40,20 +40,28 @@ const NavUser = () => {
     <>
       <Flex flexDirection="row" justifyContent={ResponsiveWidth() ? "space-between" : "center"} alignItems="center" margin="1rem">
         <Link to="/">
-          <Image src="./images/logo_nu3menu.svg" alt="Logo du site" width="12rem"/>
+          <Image src="./images/logo_nu3menu.svg" alt="Logo du site" width="12rem" />
         </Link>
         <Box display={ResponsiveWidth() ? "flex" : "none"} flexDirection="row" alignItems="center" color="#48bb78" gap="1.5rem">
           <Flex flexDirection="row" gap="1rem" fontSize="1.1rem" fontWeight="700">
             <Link to="/menu">
               <Box _hover={{ color: "#f0fff4" }}>Mon menu</Box>
             </Link>
-            {/* <Link to="/bookmark">
+            <Link to="/bookmark">
               <Box _hover={{ color: "#f0fff4" }}>Favoris</Box>
-            </Link> */}
+            </Link>
           </Flex>
           <Flex flexDirection="row" gap="1rem" with="5rem">
             <Link to="/createmenu">
-              <Tooltip label='Créer mon menu' width="6.5rem" textAlign="center" fontSize="0.7rem" borderRadius="0.3rem" bg="#f0fff4" color="#1a202c">
+              <Tooltip
+                label='Créer mon menu'
+                width="6.5rem"
+                textAlign="center"
+                fontSize="0.7rem"
+                borderRadius="0.3rem"
+                bg="#f0fff4"
+                color="#1a202c"
+                >
                 <Box as="span"><BsPlusCircle size="33" /></Box >
               </Tooltip>
             </Link>

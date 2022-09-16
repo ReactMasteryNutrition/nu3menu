@@ -2,7 +2,18 @@ import FormLogin from './FormLogin';
 import { ResponsiveWidth } from "../../utils/helper"
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Button, Box, Image, useDisclosure } from '@chakra-ui/react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    Button,
+    Box,
+    Image,
+    useDisclosure
+} from '@chakra-ui/react'
 import { IoLogInSharp } from "react-icons/io5"
 
 const ModalLogin = () => {

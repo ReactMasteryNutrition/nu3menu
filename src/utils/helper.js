@@ -1,4 +1,15 @@
-import { Button, useMediaQuery, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton, Box, useDisclosure } from '@chakra-ui/react'
+import {
+  Button,
+  useMediaQuery,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Box,
+  useDisclosure
+} from '@chakra-ui/react'
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../firebase-config';
 import PropTypes from 'prop-types'
@@ -18,7 +29,15 @@ const ModalMyAccount = ({ ariaLabel, header, content, footer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box>
-      <Button onClick={onOpen} padding="0.5rem 1.5rem" aria-label={ariaLabel} bg='#48bb78' color="#f0fff4" width="100%" _hover={{ bgColor: "#a0aec0" }}>
+      <Button
+        onClick={onOpen}
+        padding="0.5rem 1.5rem"
+        aria-label={ariaLabel}
+        bg='#48bb78'
+        color="#f0fff4"
+        width="100%"
+        _hover={{ bgColor: "#a0aec0" }}
+      >
         Modifier
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>

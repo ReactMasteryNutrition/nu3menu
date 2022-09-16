@@ -20,12 +20,13 @@ const NavUserDropdown = () => {
   return (
     <Menu isLazy>
       <MenuButton aria-label='dropdown'>
-        {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
+        {currentUser?.photoURL ?
+          <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
           : <Avatar size="sm" />}
       </MenuButton>
       <MenuList bg='#f0fff4'>
         {currentUser?.displayName ? (<>
-          <Link to="/">
+          <Link to="/menu">
             <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
               {currentUser?.displayName}
             </MenuItem>

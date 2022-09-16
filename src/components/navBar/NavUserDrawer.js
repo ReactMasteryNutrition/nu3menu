@@ -37,7 +37,8 @@ const NavUserDrawer = () => {
     return (
         <Box>
             <Button onClick={onOpen} bg="#1A202C" _hover={{ bg: "#1A202C" }} _active={{ bg: "#1A202C" }}>
-                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
+                {currentUser?.photoURL ?
+                    <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
                     : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">
@@ -66,7 +67,7 @@ const NavUserDrawer = () => {
                         fontSize="1.2rem"
                     >
                         {currentUser?.displayName ? (<>
-                            <Link to='/' onClick={onClose}>
+                            <Link to='/menu' onClick={onClose}>
                                 <Flex flexDirection="row" gap="1rem">
                                     <CgProfile color='#48BB78' margin-right='0.5rem' />
                                     {currentUser?.displayName}
