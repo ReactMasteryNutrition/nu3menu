@@ -1,11 +1,12 @@
 // Imports //
 import React from 'react';
-import { Box, Grid, GridItem, Image, Link, Text, Tooltip } from '@chakra-ui/react'
+import { Box, Button, Grid, GridItem, Image, Link, Text, Tooltip } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
-import { IoEnter, IoStar } from 'react-icons/io5'
-import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { IoEnter, IoStar, IoPin } from 'react-icons/io5'
+import { collection, doc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { db } from "../../firebase-config";
 import { writeTheDate } from '../../utils/HoursAndMinutes';
+import {useAuth} from "../../context/authContext";
 
 // Functions //
 
@@ -37,9 +38,15 @@ export function CardMenu() {
         //menuEnLocal.map(truc => detailMenu.push(JSON.parse(truc.detail)))
         console.log('detailMenu [] : ', detailMenu)
     },[lastMenus])
+    // Récupération du Current User
+    const { currentUser } = useAuth()
     // Fonction pour suivre un menu (Be on this diet)
-    const beOn = () => {
-        
+    const beOn = (idMenu) => {
+        console.log('On lance beOn pour dire qu on va suivre ce menu')
+        const currentMenuRef = doc(db, "users", currentUser?.uid)
+        updateDoc(currentMenuRef, {
+            currentMenu: idMenu
+        });
     }
     //
     return(
@@ -51,7 +58,8 @@ export function CardMenu() {
                         templateAreas={[`"image image image image"
                                         "title title title title"
                                         "auteur auteur auteur linkDetail"
-                                        "date date date linkDetail"`]}
+                                        "date date date linkDetail"
+                                        "fav fav beOn beOn"`]}
                         gridTemplateColumns='1fr 1fr 1.5fr 0.5fr'
                         w='100%'
                     >
@@ -80,6 +88,16 @@ export function CardMenu() {
                                 <Link onClick={()=> console.log('Open detail of menu')}>
                                     <IoEnter/>
                                 </Link>
+                            </IconContext.Provider>
+                        </GridItem>
+                        <GridItem area='fav'>
+
+                        </GridItem>
+                        <GridItem area='beOn'>
+                            <IconContext.Provider value={{ color: '#fff'}}>
+                                <Button leftIcon={<IoPin />} w='100%' color='green.50' bgColor='green.700'onClick={()=>beOn(menu.idMenu)}>
+                                    Be on this diet
+                                </Button>
                             </IconContext.Provider>
                         </GridItem>
                     </Grid>
