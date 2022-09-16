@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Button, Grid, GridItem, Image, Link, Text, Tooltip } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoStar, IoPin } from 'react-icons/io5'
-import { collection, doc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
+import { arrayUnion, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
 import { db } from "../../firebase-config";
 import { writeTheDate } from '../../utils/HoursAndMinutes';
 import {useAuth} from "../../context/authContext";
@@ -44,9 +44,41 @@ export function CardMenu() {
     const beOn = (idMenu) => {
         console.log('On lance beOn pour dire qu on va suivre ce menu')
         const currentMenuRef = doc(db, "users", currentUser?.uid)
+        //console.log(currentMenuRef)
         updateDoc(currentMenuRef, {
             currentMenu: idMenu
         });
+    }
+    // Fonction pour ajouter un menu en favori
+    const addFavorite = (idMenu) => {
+        console.log('On ajoute ce menu aux favoris')
+        let isInMyFav = false
+        const favoriteRef = doc(db, "menus", idMenu)
+        //console.log(favoriteRef)
+        updateDoc(favoriteRef, {
+            favorite: arrayUnion(currentUser?.uid)
+        })
+        // const menuWithFav = getDoc(favoriteRef).then(
+        //     ()=>{
+        //         if(menuWithFav.exists()){
+        //             console.log('do that')
+        //         }
+        //     }
+        // )
+        
+        // console.log(menuWithFav)
+        //const thisMenu = query(favoriteRef, where("idMenu", "==", idMenu))
+        //console.log(thisMenu)
+        // getDoc(favoriteRef, where("favorite", "array-contains", currentUser?.uid)).then((doc)=>{
+        //     if(doc.exists()){
+        //         console.log("Document data:", doc.data());
+        //     } else {
+        //         // doc.data() will be undefined in this case
+        //         console.log("No such document!");
+        //     }
+        // }).catch((error)=> {
+        //     console.log("Error getting document:", error);
+        // });   
     }
     //
     return(
@@ -91,7 +123,11 @@ export function CardMenu() {
                             </IconContext.Provider>
                         </GridItem>
                         <GridItem area='fav'>
-
+                            <IconContext.Provider value={{ color: '#276749'}}>
+                                <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={()=>addFavorite(menu.idMenu)}>
+                                    Add in Fav
+                                </Button>
+                            </IconContext.Provider>
                         </GridItem>
                         <GridItem area='beOn'>
                             <IconContext.Provider value={{ color: '#fff'}}>
