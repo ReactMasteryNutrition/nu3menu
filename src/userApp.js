@@ -8,6 +8,7 @@ import NavDesktop from './components/navBar/NavDesktop';
 import NavMobile from './components/navBar/NavMobile';
 import NutriFooter from './components/footer/nutriFooter'
 import { PrivateRoute } from './utils/helper';
+import Bookmark from './pages/Bookmark';
 // pages loaded immediately
 const Home = React.lazy(() => import('./pages/Home'))
 const Register = React.lazy(() => import('./pages/Register'))
@@ -33,6 +34,7 @@ const UserApp = () => {
                             <Route path='/myaccount' element={<MyAccount />} />
                             <Route path='/createmenu' element={<CreateMenu />} />
                             <Route path='/menu' element={<CurrentMenu />} />
+                            <Route path='/bookmark' element={<Bookmark />} />
                         </Route>
                         <Route path='*' element={<Error404 />} />
                     </Routes>
