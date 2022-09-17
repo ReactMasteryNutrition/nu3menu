@@ -1,50 +1,17 @@
-// Imports //
-import React from 'react';
+// Imports 
 import { Box, Button, Grid, GridItem, Image, Link, Text, Tooltip } from '@chakra-ui/react'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoStar, IoPin } from 'react-icons/io5'
-import { arrayUnion, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import { db } from "../../firebase-config";
-import { writeTheDate } from '../../utils/HoursAndMinutes';
-import {useAuth} from "../../context/authContext";
+import { writeTheDate } from '../../utils/HoursAndMinutes'
+import { db } from "../../firebase-config"
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
-// Functions //
-
-export function CardMenu() {
-    
-    const [lastMenus, setLastMenus] = React.useState([])
-    const [menuAsAnObject, setMenuAsAnObject]= React.useState([])
-    // UseEffect pour récupérer les derniers menus public par ordre chronologique décroissant (donc du plus récent au plus vieux)
-    React.useEffect(()=>{
-        const q = query(collection(db, 'menus'), where("isPublic", "==", true), orderBy("dateCreation", "desc"))
-        onSnapshot(q, (querySnapshot)=> {
-            const lastPublicMenus = []
-            querySnapshot.forEach((doc)=> {
-                lastPublicMenus.push(doc.data())
-            })
-            console.log('CURRENT DATA :', lastPublicMenus)
-            setLastMenus(lastPublicMenus)
-        },
-        (error) => {
-            console.log(error);
-        })
-    },[])
-    // UseEffect pour retraiter le détail de chaque menu et pouvoir manipuler les données
-    React.useEffect(()=>{
-        console.log('Last Menus : ', lastMenus)
-        //const menuEnLocal = lastMenus
-        let detailMenu = []
-        lastMenus.map(truc => detailMenu.push(JSON.parse(truc.detail)))
-        //menuEnLocal.map(truc => detailMenu.push(JSON.parse(truc.detail)))
-        console.log('detailMenu [] : ', detailMenu)
-    },[lastMenus])
-    // Récupération du Current User
-    const { currentUser } = useAuth()
+// Functions
+export default function CardComponent({listOfMenu, currentUser}){
     // Fonction pour suivre un menu (Be on this diet)
     const beOn = (idMenu) => {
         console.log('On lance beOn pour dire qu on va suivre ce menu')
         const currentMenuRef = doc(db, "users", currentUser?.uid)
-        //console.log(currentMenuRef)
         updateDoc(currentMenuRef, {
             currentMenu: idMenu
         });
@@ -52,40 +19,22 @@ export function CardMenu() {
     // Fonction pour ajouter un menu en favori
     const addFavorite = (idMenu) => {
         console.log('On ajoute ce menu aux favoris')
-        let isInMyFav = false
         const favoriteRef = doc(db, "menus", idMenu)
         //console.log(favoriteRef)
         updateDoc(favoriteRef, {
             favorite: arrayUnion(currentUser?.uid)
+        }) 
+        const haveFavoriteRef = doc(db, "users", currentUser?.uid)
+        updateDoc(haveFavoriteRef, {
+            haveFavorite: true
         })
-        // const menuWithFav = getDoc(favoriteRef).then(
-        //     ()=>{
-        //         if(menuWithFav.exists()){
-        //             console.log('do that')
-        //         }
-        //     }
-        // )
-        
-        // console.log(menuWithFav)
-        //const thisMenu = query(favoriteRef, where("idMenu", "==", idMenu))
-        //console.log(thisMenu)
-        // getDoc(favoriteRef, where("favorite", "array-contains", currentUser?.uid)).then((doc)=>{
-        //     if(doc.exists()){
-        //         console.log("Document data:", doc.data());
-        //     } else {
-        //         // doc.data() will be undefined in this case
-        //         console.log("No such document!");
-        //     }
-        // }).catch((error)=> {
-        //     console.log("Error getting document:", error);
-        // });   
     }
-    //
+    
     return(
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
-        {lastMenus.map(menu => {
+        {listOfMenu.map(menu => {
             return(
-                <Box key={lastMenus.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                <Box key={listOfMenu.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
                     <Grid
                         templateAreas={[`"image image image image"
                                         "title title title title"
@@ -117,9 +66,11 @@ export function CardMenu() {
                         </GridItem>
                         <GridItem area='linkDetail'>
                             <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
-                                <Link onClick={()=> console.log('Open detail of menu')}>
-                                    <IoEnter/>
-                                </Link>
+                                <Tooltip label='See detail' placement='top' bg='green.700'>
+                                    <Link onClick={()=> console.log('Open detail of menu')}>
+                                        <IoEnter/>
+                                    </Link>
+                                </Tooltip>
                             </IconContext.Provider>
                         </GridItem>
                         <GridItem area='fav'>

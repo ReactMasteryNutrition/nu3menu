@@ -82,7 +82,7 @@ const NavUser = () => {
                 color: "#f0fff4"
               }}>Mon menu</Box>
             </Link>
-            <Link to="/bookmark"
+            <Link to="/favorite"
             >
               <Box
                 _hover={{

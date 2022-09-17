@@ -1,15 +1,16 @@
 //Import
 import React from 'react';
 import { Box } from '@chakra-ui/react'
-import { IconContext } from 'react-icons/lib/esm/iconContext'
-import { IoEnter, IoStar, IoPin } from 'react-icons/io5'
-import { arrayUnion, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc, where } from 'firebase/firestore';
-import { db } from "../../firebase-config";
-import { writeTheDate } from '../../utils/HoursAndMinutes';
-import {useAuth} from "../../context/authContext";
+import { db } from "../../firebase-config"
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import {useAuth} from "../../context/authContext"
+import CardComponent from '../Card/CardComponent';
 
 // Function
 export default function HomeCard(){
+    // Récupération du Current User
+    const { currentUser } = useAuth()
+    // States
     const [lastMenus, setLastMenus] = React.useState([])
     const [menuAsAnObject, setMenuAsAnObject]= React.useState([])
     // UseEffect pour récupérer les derniers menus public par ordre chronologique décroissant (donc du plus récent au plus vieux)
@@ -36,28 +37,8 @@ export default function HomeCard(){
         //menuEnLocal.map(truc => detailMenu.push(JSON.parse(truc.detail)))
         console.log('detailMenu [] : ', detailMenu)
     },[lastMenus])
-    // Récupération du Current User
-    const { currentUser } = useAuth()
-    // Fonction pour suivre un menu (Be on this diet)
-    const beOn = (idMenu) => {
-        console.log('On lance beOn pour dire qu on va suivre ce menu')
-        const currentMenuRef = doc(db, "users", currentUser?.uid)
-        //console.log(currentMenuRef)
-        updateDoc(currentMenuRef, {
-            currentMenu: idMenu
-        });
-    }
-    // Fonction pour ajouter un menu en favori
-    const addFavorite = (idMenu) => {
-        console.log('On ajoute ce menu aux favoris')
-        let isInMyFav = false
-        const favoriteRef = doc(db, "menus", idMenu)
-        //console.log(favoriteRef)
-        updateDoc(favoriteRef, {
-            favorite: arrayUnion(currentUser?.uid)
-        })
-    }
+
     return(
-        <Box>Je mets mes cartes ici</Box>
+        <CardComponent listOfMenu={lastMenus} currentUser={currentUser} />
     )
 }
