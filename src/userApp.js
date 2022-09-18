@@ -8,7 +8,6 @@ import NavDesktop from './components/navBar/NavDesktop';
 import NavMobile from './components/navBar/NavMobile';
 import NutriFooter from './components/footer/nutriFooter'
 import { PrivateRoute } from './utils/helper';
-import Bookmark from './pages/Bookmark';
 // pages loaded immediately
 const Home = React.lazy(() => import('./pages/Home'))
 const Register = React.lazy(() => import('./pages/Register'))
@@ -18,6 +17,7 @@ const Error404 = React.lazy(() => import('./pages/Error404'))
 const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MyAccount'))
 const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CreateMenu'))
 const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
+const Bookmark = React.lazy(() => import(/* webpackPrefetch: true */ './pages/Bookmark'))
 
 const UserApp = () => {
     return (
