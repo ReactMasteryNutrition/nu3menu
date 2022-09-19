@@ -7,7 +7,7 @@ const PageNotFound = () => {
     return (
         <Flex flexDirection='column' justifyContent="center" alignItems='center' margin={ResponsiveWidth() ? '15rem 0' : '10rem 0'}>
             <Heading as='h1' size='xl' color="red" textAlign="center">
-                Erreur 404 - Page non trouvé
+                Erreur 404 - Page non trouvée
             </Heading>
             <Box aria-label='text' color='#48BB78' textAlign="center" fontSize="1.2rem" fontWeight="bold" margin="3rem 0 1.5rem 0">
                 Il n'y a rien d'intéressant ici !

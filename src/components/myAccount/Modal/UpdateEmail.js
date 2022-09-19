@@ -22,8 +22,6 @@ import {
     EmailAuthProvider,
     sendEmailVerification
 } from 'firebase/auth'
-import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
-import {db} from "../../../firebase-config";
 
 const ModalEmail = () => {
     const { currentUser } = useAuth()
@@ -38,26 +36,36 @@ const ModalEmail = () => {
     const handlePassword = () => setPasswordVerify(!passwordVerify)
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (!(inputs?.current[0]?.value && inputs?.current[1]?.value)) {
+            return toast({
+                description: "Veuillez remplir tous les champs !",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
         // data for reauthentication
         const credential = EmailAuthProvider.credential(
             currentUser?.email,
             inputs?.current[0]?.value
         )
+        // create a Google provider
         const provider = new GoogleAuthProvider()
         try {
+            // reauthenticate directly on the site or with Google
             if (currentUser?.providerData[0]?.providerId !== 'google.com') {
                 await reauthenticateWithCredential(currentUser, credential)
             } else {
                 await reauthenticateWithPopup(currentUser, provider)
             }
-            await updateEmail(currentUser, inputs?.current[1]?.value)
+            updateEmail(currentUser, inputs?.current[1]?.value)
             toast({
                 description: "Votre adresse e-mail a bien été modifié !",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
             })
-            await sendEmailVerification(currentUser)
+            sendEmailVerification(currentUser)
             if (currentUser?.emailVerified === true) {
                 setTimeout(() => {
                     toast({
@@ -68,15 +76,6 @@ const ModalEmail = () => {
                     })
                 }, 3000);
             }
-            const UserInFirestoreDatabase = async () => {
-                const userRef = doc(db, `users/${currentUser?.uid}`);
-                const userDoc = await getDoc(userRef)
-                await updateDoc(userRef, {
-                    email: inputs?.current[1]?.value,
-                    dateLogin: serverTimestamp()
-                })
-            }
-            await UserInFirestoreDatabase() // Update user in Firestore database
         } catch (error) {
             toast({
                 description: "Il y a eu une erreur lors de la modification de votre adresse e-mail !",

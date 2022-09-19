@@ -13,7 +13,7 @@ import {
     Box,
     Button
 } from '@chakra-ui/react'
-import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
+// import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
 import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
@@ -24,6 +24,7 @@ const NavUserDrawer = () => {
     const navigate = useNavigate()
     const { logout, currentUser } = useAuth()
     const handleClick = async () => {
+        // logout the current user
         try {
             await logout(auth)
             setTimeout(() => {
@@ -35,13 +36,9 @@ const NavUserDrawer = () => {
     }
     return (
         <Box>
-            <Button
-                onClick={onOpen}
-                bg="#1A202C"
-                _hover={{ bg: "#1A202C" }}
-                _active={{ bg: "#1A202C" }}
-            >
-                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
+            <Button onClick={onOpen} bg="#1A202C" _hover={{ bg: "#1A202C" }} _active={{ bg: "#1A202C" }}>
+                {currentUser?.photoURL ?
+                    <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
                     : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">
@@ -69,23 +66,14 @@ const NavUserDrawer = () => {
                         fontWeight="bold"
                         fontSize="1.2rem"
                     >
-                        <Link to='/' onClick={onClose}>
-                            <Flex
-                                flexDirection="row"
-                                gap="1rem">
-                                <CgProfile color='#48BB78' margin-right='0.5rem' />
-                                {currentUser?.displayName ? (<>
-                                        <Link to='/' onClick={onClose}>
-                                            <Flex
-                                                flexDirection="row"
-                                                gap="1rem">
-                                                <CgProfile color='#48BB78' margin-right='0.5rem' />
-                                                {currentUser?.displayName}
-                                            </Flex>
-                                        </Link></>)
-                                    : null}
-                            </Flex>
-                        </Link>
+                        {currentUser?.displayName ? (<>
+                            <Link to='/menu' onClick={onClose}>
+                                <Flex flexDirection="row" gap="1rem">
+                                    <CgProfile color='#48BB78' margin-right='0.5rem' />
+                                    {currentUser?.displayName}
+                                </Flex>
+                            </Link></>)
+                            : null}
                         <Link to='/myaccount' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
@@ -100,7 +88,7 @@ const NavUserDrawer = () => {
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
                             </Flex>
                         </Link>
-                        <Link to='/alladvices' onClick={onClose}>
+                        {/* <Link to='/alladvices' onClick={onClose}>
                             <ChatIcon color="#48BB78" marginRight='0.5rem' /> Tous mes avis
                         </Link>
                         <Link to='/notifications' onClick={onClose}>
@@ -108,7 +96,7 @@ const NavUserDrawer = () => {
                         </Link>
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
-                        </Link>
+                        </Link>  */}
                         <Link to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"

@@ -22,16 +22,15 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { reauthenticateWithCredential, reauthenticateWithPopup, GoogleAuthProvider, EmailAuthProvider, deleteUser } from "firebase/auth"
-import {doc, getDoc, deleteDoc} from "firebase/firestore";
-import {db} from "../../../firebase-config";
 
 const DeleteAccount = () => {
     const { currentUser } = useAuth()
     const navigate = useNavigate()
     const [passwordVerify, setPasswordVerify] = useState(false)
+    const inputs = useRef([])
     const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const inputs = useRef([])
+    // add value in current object
     const addData = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
@@ -53,6 +52,7 @@ const DeleteAccount = () => {
             currentUser?.email,
             inputs?.current[0]?.value
         )
+        // create a Google provider
         const provider = new GoogleAuthProvider()
         try {
             // reauthenticate directly on the site or with Google
@@ -61,13 +61,9 @@ const DeleteAccount = () => {
             } else {
                 await reauthenticateWithPopup(currentUser, provider)
             }
-            const UserInFirestoreDatabase = async () => {
-                const userRef = doc(db, `users/${currentUser?.uid}`);
-                const userDoc = await getDoc(userRef)
-                await deleteDoc(userRef)
-            }
-            await UserInFirestoreDatabase()
-            await deleteUser(currentUser)
+            // delete the user account
+            deleteUser(currentUser)
+            // redirection to homepage
             navigate('/')
             toast({
                 description: "Votre compte a bien été supprimé !",
@@ -119,11 +115,7 @@ const DeleteAccount = () => {
                             width={ResponsiveWidth() ? "15rem" : "18rem"}
                             margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 2rem auto'}
                         />
-                        <ModalHeader
-                            textAlign="center"
-                            fontSize="1.5rem"
-                            marginBottom="1rem"
-                        >
+                        <ModalHeader textAlign="center" fontSize="1.5rem" marginBottom="1rem">
                             Supprimer mon compte
                         </ModalHeader>
                     </Box>
@@ -142,9 +134,7 @@ const DeleteAccount = () => {
                         borderTopRightRadius={ResponsiveWidth() ? null : 0}
                         bg="#48bb78"
                         cursor="pointer"
-                        _hover={{
-                            transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
-                        }}
+                        _hover={{ transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null }}
                     />
                     <ModalBody>
                         <Box
@@ -163,6 +153,7 @@ const DeleteAccount = () => {
                                     color="#1A202C"
                                     padding={ResponsiveWidth() ? null : '1.3rem 0 1.3rem 1rem'}
                                     ref={addData}
+                                    aria-label='delete'
                                 />
                                 <InputRightElement width='4.5rem' padding={ResponsiveWidth() ? null : '1.3rem 0'}>
                                     <Box size='sm' bg='#f0fff4' onClick={handlePassword}>

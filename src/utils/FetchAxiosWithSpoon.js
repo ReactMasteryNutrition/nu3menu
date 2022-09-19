@@ -1,14 +1,12 @@
-// Import
 import axios from 'axios'
 
 const qs = require('qs')
-
 
 async function FetchAxiosWithSpoon(filter) {
 
     let urlInit = 'https://api.spoonacular.com/recipes/complexSearch?'
     let params = filter
-    
+    const controller = new AbortController();
     try {
         const response = await axios.get(urlInit, {
             params,
@@ -18,7 +16,7 @@ async function FetchAxiosWithSpoon(filter) {
         })
         return response
     } catch (error) {
-        if(error.response) {
+        if (error.response) {
             console.log(error.response.data)
             console.log(error.response.statuts)
             console.log(error.response.headers)
@@ -28,7 +26,10 @@ async function FetchAxiosWithSpoon(filter) {
             console.log('Error : ', error.message)
         }
         console.log(error.config)
+        throw error
+    } finally {
+        controller.abort()
     }
 }
 
-export default  FetchAxiosWithSpoon ;
+export default FetchAxiosWithSpoon;
