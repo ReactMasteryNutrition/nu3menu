@@ -73,9 +73,8 @@ const NavUserDrawer = () => {
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
-                                <CgProfile color='#48BB78' margin-right='0.5rem' />
                                 {currentUser?.displayName ? (<>
-                                        <Link to='/' onClick={onClose}>
+                                        <Link to='/menu' onClick={onClose}>
                                             <Flex
                                                 flexDirection="row"
                                                 gap="1rem">
@@ -100,7 +99,7 @@ const NavUserDrawer = () => {
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
                             </Flex>
                         </Link>
-                        <Link to='/alladvices' onClick={onClose}>
+                        {/* <Link to='/alladvices' onClick={onClose}>
                             <ChatIcon color="#48BB78" marginRight='0.5rem' /> Tous mes avis
                         </Link>
                         <Link to='/notifications' onClick={onClose}>
@@ -108,7 +107,7 @@ const NavUserDrawer = () => {
                         </Link>
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
-                        </Link>
+                        </Link> */}
                         <Link to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"
