@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
 import Bookmark from '../components/Bookmark/Bookmark';
 import DayMeal from '../components/meal/dayMeal';
 
-const CreateMenu = () => {
+const CurrentMenu = () => {
     return (
         <Box w="100%" display='flex' flexDir={['column', 'row']} flexGrow='1'>
             {/* <Bookmark/> */}
@@ -11,4 +11,4 @@ const CreateMenu = () => {
     );
 }
 
-export default CreateMenu;
+export default CurrentMenu;

@@ -3,48 +3,48 @@ import { IoFlash, IoPeople, IoTimer, IoStatsChart } from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 // Function
-export default function DetailRecipeModalWithSpoon({detail}) {
+export default function DetailRecipeModalWithSpoon({ detail }) {
     // Calcul des calories par personne
-    let caloriesPerPerson = detail?.nutrition?.nutrients[0]?.amount/detail?.servings
+    let caloriesPerPerson = detail?.nutrition?.nutrients[0]?.amount / detail?.servings
 
     let counterForList = 0
 
-    return(
+    return (
         <ModalBody color='green.50'>
-            <IconContext.Provider value={{ size: '1.5rem', color: '#48BB78'}}>
-                <Grid 
-                    w='100%' 
+            <IconContext.Provider value={{ size: '1.5rem', color: '#48BB78' }}>
+                <Grid
+                    w='100%'
                     templateAreas={[`"image"
                                     "stats"
                                     "donuts"
                                     "ingredients"
                                     "instructions"`,
-                                    `"image stats"
+                        `"image stats"
                                     "donuts donuts"
                                     "ingredients ingredients"
                                     "instructions instructions"`
-                                ]}
+                    ]}
                     gap={4}
                 >
                     <GridItem area='image' display='flex' justifyContent={['center', 'center', 'start']}>
-                        <Image src={detail?.image} alt={detail?.title} boxSize='280' objectFit='cover' borderRadius='md'/>
+                        <Image src={detail?.image} alt={detail?.title} boxSize='280' objectFit='cover' borderRadius='md' />
                     </GridItem>
                     <GridItem area='stats'>
-                        <VStack spacing='1' align={['center','start']} justify='space-around' h='100%'>
+                        <VStack spacing='1' align={['center', 'start']} justify='space-around' h='100%'>
                             <Flex>
-                                <IoTimer/>
+                                <IoTimer />
                                 <Text marginLeft='0.5rem'>{toHoursAndMinutes(detail?.readyInMinutes)}</Text>
                             </Flex>
                             <Flex>
-                                <IoPeople/>
+                                <IoPeople />
                                 <Text marginLeft='0.5rem'>{detail?.servings}</Text>
                             </Flex>
                             <Flex>
-                                <IoFlash/>
+                                <IoFlash />
                                 <Text marginLeft='0.5rem'>{caloriesPerPerson.toFixed(2)} Kcal / person</Text>
                             </Flex>
                             <Flex>
-                                <IoStatsChart/>
+                                <IoStatsChart />
                                 <Text marginLeft='0.5rem'>Glycemic Index : {detail?.nutrition?.properties[0]?.amount}</Text>
                             </Flex>
                         </VStack>
@@ -74,22 +74,22 @@ export default function DetailRecipeModalWithSpoon({detail}) {
                     <GridItem area='ingredients'>
                         <Text fontSize='2xl' mb='0.5rem'>List of ingredients : </Text>
                         <UnorderedList>
-                            {   
+                            {
                                 detail?.nutrition.ingredients.map(ingredient => {
                                     let textConcat = `${ingredient?.amount} ${ingredient?.unit} of ${ingredient?.name}`
-                                return (
-                                    <ListItem key={`ingredient_${ingredient?.id}`} mb='0.5rem'>&bull;  {textConcat}</ListItem>
-                                )
-                            })}
+                                    return (
+                                        <ListItem key={`ingredient_${ingredient?.id}`} mb='0.5rem'>&bull;  {textConcat}</ListItem>
+                                    )
+                                })}
                         </UnorderedList>
                     </GridItem>
                     <GridItem area='instructions'>
                         <Text fontSize='lg'>Instructions : </Text>
                         <OrderedList>
                             {detail?.analyzedInstructions[0].steps.map(step => {
-                                    counterForList+=1
-                                    let instructionConcat =`${counterForList}.  ${step.step}`
-                                return(
+                                counterForList += 1
+                                let instructionConcat = `${counterForList}.  ${step.step}`
+                                return (
                                     <ListItem key={`ingredient_${counterForList}`} mb='0.5rem'>{instructionConcat}</ListItem>
                                 )
                             })}

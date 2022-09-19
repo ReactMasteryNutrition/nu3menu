@@ -15,6 +15,10 @@ A large selection of recipes according to nutritional values.
 - Axios
 - Qs
 - UUID
+- Faker
+- Jest 
+- Cypress
+- React testing library
 - Chakra UI
 - React hooks
 - React icons
@@ -22,11 +26,13 @@ A large selection of recipes according to nutritional values.
 - React router dom
 - Error boundary
 - PropTypes
+- React query
 - Firebase auth
 - Firestore
 - Firebase storage
 - Dotenv
 - Netlify
+- Notion
 
 # Getting started
 
