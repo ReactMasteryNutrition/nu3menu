@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { auth } from "../../firebase-config";
 import { useAuth } from "../../context/authContext";
 import {
@@ -17,7 +17,7 @@ import {
 import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
-// import { MdOutlineMenuBook } from "react-icons/md"
+import { MdOutlineMenuBook } from "react-icons/md"
 
 const NavUserDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -75,16 +75,20 @@ const NavUserDrawer = () => {
                             </Link></>)
                             : null}
                         <Link to='/myaccount' onClick={onClose}>
-                            <Flex flexDirection="row" gap="1rem">
+                            <Flex
+                                flexDirection="row"
+                                gap="1rem">
                                 <IoMdSettings color='#48BB78' margin-right='0.5rem' /> Mon compte
                             </Flex>
                         </Link>
-                        {/* <Link to='/allmenus' onClick={onClose}>
-                            <Flex flexDirection="row" gap="1rem">
+                        <Link to='/allmenus' onClick={onClose}>
+                            <Flex
+                                flexDirection="row"
+                                gap="1rem">
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
                             </Flex>
                         </Link>
-                        <Link to='/alladvices' onClick={onClose}>
+                        {/* <Link to='/alladvices' onClick={onClose}>
                             <ChatIcon color="#48BB78" marginRight='0.5rem' /> Tous mes avis
                         </Link>
                         <Link to='/notifications' onClick={onClose}>
@@ -92,9 +96,11 @@ const NavUserDrawer = () => {
                         </Link>
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
-                        </Link> */}
+                        </Link>  */}
                         <Link to='/' onClick={handleClick}>
-                            <Flex flexDirection="row" gap="0.5rem">
+                            <Flex
+                                flexDirection="row"
+                                gap="0.5rem">
                                 <IoLogOut color='#48BB78' margin-right='0.5rem' /> Se déconnecter
                             </Flex>
                         </Link>

@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react"
 
 const MyAccount = () => {
     return (
-        < Box flexGrow='1'>
+        <Box flexGrow='1'>
             <FormDataUser />
         </Box>
     )

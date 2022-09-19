@@ -15,15 +15,21 @@ import {
     useDisclosure
 } from '@chakra-ui/react'
 import { IoLogInSharp } from "react-icons/io5"
+import { BsFillPersonPlusFill } from "react-icons/bs"
+import {useAuth} from "../../context/authContext";
 
 const ModalLogin = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { currentUser } = useAuth()
     return (
         <Box>
             <Link to="/login" onClick={onOpen}>
                 {ResponsiveWidth() ? <Box
                     bg="#1A202C"
-                    _hover={{ color: "#f0fff4", bg: "#1A202C" }}
+                    _hover={{
+                        color: "#f0fff4",
+                        bg: "#1A202C"
+                    }}
                     _active={{ bg: "#1A202C" }}
                     fontSize="1.2rem"
                     fontWeight="700"
@@ -31,7 +37,10 @@ const ModalLogin = () => {
                     <IoLogInSharp
                         size="50"
                         bg="#1A202C"
-                        _hover={{ color: "#f0fff4", bg: "#1A202C" }}
+                        _hover={{
+                            color: "#f0fff4",
+                            bg: "#1A202C"
+                        }}
                         _active={{ bg: "#1A202C" }}
                         fontSize="1.2rem"
                         fontWeight="700"
@@ -81,7 +90,7 @@ const ModalLogin = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormLogin />
+                        <FormLogin currentUser={currentUser} />
                     </ModalBody>
                     <ModalFooter></ModalFooter>
                 </ModalContent>

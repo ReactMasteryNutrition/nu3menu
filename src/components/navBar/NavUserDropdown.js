@@ -1,11 +1,21 @@
-import { Menu, MenuButton, MenuList, MenuItem, MenuDivider, Avatar } from '@chakra-ui/react'
-import { auth } from "../../firebase-config";
+import {
+  useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  Avatar,
+} from '@chakra-ui/react'
+import {auth, db} from "../../firebase-config";
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from '../../context/authContext'
 
+
 const NavUserDropdown = () => {
   const navigate = useNavigate()
-  const { logout, currentUser } = useAuth()
+  const { logout, currentUser} = useAuth()
+
   const handleClick = async () => {
     // logout the current user
     try {
@@ -38,12 +48,12 @@ const NavUserDropdown = () => {
             Mon compte
           </MenuItem>
         </Link>
-        {/* <Link to="/allmenus">
+        <Link to="/allmenus">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Tous mes menus
           </MenuItem>
         </Link>
-        <Link to="/alladvices">
+        {/* <Link to="/alladvices">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Tous mes avis
           </MenuItem>

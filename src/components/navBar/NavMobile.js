@@ -7,8 +7,8 @@ import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
 import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
-import { useContext } from "react";
-import { AuthContext } from "../../context/authContext";
+import {useContext} from "react";
+import {AuthContext} from "../../context/authContext";
 
 const NavVisitor = () => {
     return (
@@ -32,7 +32,12 @@ const NavVisitor = () => {
                 bg="#48bb78"
             ></Box>
             {ResponsiveWidth() ? null : (<>
-                <Flex gap="4rem" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
+                <Flex
+                    gap="4rem"
+                    position="absolute"
+                    top="50%"
+                    left="50%"
+                    transform="translate(-50%, -50%)">
                     <ModalLogin />
                     <ModalRegister />
                 </Flex>
@@ -81,15 +86,15 @@ const NavUser = () => {
                 </Link>
                 {ResponsiveWidth() ? null : <NavUserDrawer />}
             </Flex>
-        </Flex >
+        </Flex>
     )
 }
 
 const NavMobile = () => {
-    const { currentUser } = useContext(AuthContext)
+    const {currentUser} = useContext(AuthContext)
     return (
         <>
-            {currentUser ? <NavUser /> : <NavVisitor />}
+            {currentUser ? <NavUser/> : <NavVisitor/>}
         </>
     )
 }

@@ -1,6 +1,5 @@
-import FormRegister  from './FormRegister';
+import { FormForgetPassword } from './Form';
 import { ResponsiveWidth } from "../../utils/helper"
-import { Link } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
 import {
     Modal,
@@ -14,39 +13,19 @@ import {
     Image,
     useDisclosure
 } from '@chakra-ui/react'
+import { IoLogInSharp } from "react-icons/io5"
 import { BsFillPersonPlusFill } from "react-icons/bs"
-import {useAuth} from "../../context/authContext";
+import {Link} from "react-router-dom";
 
-const ModalRegister = () => {
+const ModalForgetPassword = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { currentUser } = useAuth()
+
     return (
         <Box>
-            <Link to="/register" onClick={onOpen}>
-                {ResponsiveWidth() ? <Box
-                    bg="#1A202C"
-                    _hover={{
-                        color: "#f0fff4",
-                        bg: "#1A202C"
-                    }}
-                    _active={{ bg: "#1A202C" }}
-                    fontSize="1.2rem"
-                    fontWeight="700"
-                    color="#48bb78">S'inscrire</Box> :
-                    <BsFillPersonPlusFill
-                        bg="#1A202C"
-                        _hover={{
-                            color: "#1A202C",
-                            bg: "#1A202C"
-                        }}
-                        _active={{ bg: "#1A202C" }}
-                        fontSize="1.4rem"
-                        fontWeight="700"
-                        size='50' color="#48BB78" 
-                        aria-label='register'/>
-                        }
+            <Link to='/forgetpassword' size="xs" color='gray.500' _hover={{ textDecoration:"none" }} onClick={onOpen}>
+                Mot de passe oublié ?
             </Link>
-            <Modal isOpen={isOpen} isCentered>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
                 <ModalContent
                     position={ResponsiveWidth() ? null : "fixed"}
@@ -88,7 +67,7 @@ const ModalRegister = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormRegister currentUser={currentUser} />
+                        <FormForgetPassword />
                     </ModalBody>
                     <ModalFooter/>
                 </ModalContent>
@@ -97,4 +76,6 @@ const ModalRegister = () => {
     );
 }
 
-export default ModalRegister
+
+
+export {ModalForgetPassword}

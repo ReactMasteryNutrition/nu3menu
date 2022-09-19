@@ -1,39 +1,40 @@
 import { ResponsiveWidth } from "../../utils/helper"
-import { useRef, useState } from 'react';
+import { useRef, useState} from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { FormControl, Input, InputRightElement, InputGroup, Button, Box, useDisclosure} from '@chakra-ui/react'
+import {
+    FormControl,
+    Input,
+    InputRightElement,
+    InputGroup,
+    Button,
+    Box,
+    Text,
+    useToast,
+    useDisclosure,
+} from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
-import { useNavigate } from 'react-router-dom'
-
-function Text(props) {
-    return null;
-}
+import { useNavigate } from 'react-router-dom';
+import {doc, getDoc, serverTimestamp, setDoc} from "firebase/firestore";
+import {db} from "../../firebase-config";
 
 const FormRegister = () => {
     const [show, setShow] = useState(false)
     const { onClose } = useDisclosure()
     const [validation, setValidation] = useState("")
-    const [authing, setAuthing] = useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
-    const { register, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth();
+    const {register, signInWithGoogle, verifyEmail, currentUser, newCreateUserInFirestoreDatabase} = useAuth();
     const formRef = useRef();
+    const toast = useToast();
     const inputs = useRef([])
-    // add values in current object
     const addInputs = el => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el)
         }
     }
-    const removeInputs = el => {
-        if (el && inputs.current.includes(el)) {
-            inputs.current = inputs.current.filter(i => i !== el)
-        }
-    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValid = inputs.current.every(i => i.validity.valid)
         if (inputs.current[0].value === "") {
             setValidation("Veuillez indiquer une adresse email")
             return;
@@ -44,17 +45,46 @@ const FormRegister = () => {
         }
         try {
             const cred = await register(
-                inputs.current[0].value,
-                inputs.current[1].value
+                inputs?.current[0]?.value,
+                inputs?.current[1]?.value
             )
-            formRef.current.reset();
+            const NewCreateUserInFirestoreDatabase = async (cred) => {
+                const userRef = doc(db, `users/${cred.user.uid}`)
+                const userDoc = await getDoc(userRef)
+                if (!userDoc.exists()) {
+                    await setDoc(userRef, {
+                        email: inputs?.current[0]?.value,
+                        displayName: cred.user.displayName,
+                        id: cred.user.uid,
+                        photoURL: cred.user.photoURL,
+                        createdAt: serverTimestamp(),
+                        dateLogin: serverTimestamp(),
+                        isVerified: cred.user.emailVerified ? false : true
+                    })
+                }
+            }
+            await NewCreateUserInFirestoreDatabase(cred)
+            await verifyEmail(currentUser)
+            if (currentUser?.emailVerified === true) {
+                setTimeout(() => {
+                    toast({
+                        description: "Un e-mail de vérification vous a été envoyé !",
+                        status: 'success',
+                        duration: 4000,
+                        isClosable: true
+                    })
+                }, 3000)
+            }
+            //formRef.current.reset();
             setValidation("")
-            closeModal(onClose)
-            navigate("/")
-
+            const closeModal = () => {
+                setValidation("")
+                onClose();
+                navigate("/")
+            }
+            closeModal()
         } catch (err) {
-            // handle errors validation
-            setValidation(err.message)
+            setValidation(err.code)
             switch (err.code) {
                 case "auth/email-already-in-use":
                     setValidation("Cette adresse e-mail est déjà utilisée")
@@ -66,53 +96,58 @@ const FormRegister = () => {
                     setValidation("Le mot de passe doit contenir au moins 6 caractères")
                     break;
                 default:
-                    throw new Error("Erreur non prise en compte")
+                    setValidation("Une erreur est survenue")
+                    break
             }
-            //console.dir(err)
-            // setError(err.message);
+            if (currentUser?.emailVerified === false) {
+                toast({
+                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true
+                })
+            }
         }
     }
 
-    const handleGoogle = () => {
-        // register with Google
-        setAuthing(true)
-        signInWithGoogle()
-            .then((UserCredential) => {
-                NewCreateUserInFirestoreDatabase(UserCredential)
-                navigate("/")
+    const handleGoogleSignIn = async () => {
+        try {
+            signInWithGoogle().then((UserCredential) => {
+                newCreateUserInFirestoreDatabase(UserCredential)
+                verifyEmail(UserCredential)
+                navigate('/')
             })
-            .catch(err => {
-                // handle errors validation
-                setValidation(err.code)
-                switch (err.code) {
-                    case "auth/account-exists-with-different-credential":
-                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
-                        break;
-                    case "auth/invalid-credential":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/operation-not-allowed":
-                        setValidation("Opération non autorisée")
-                        break;
-                    case "auth/user-disabled":
-                        setValidation("Ce compte est désactivé")
-                        break;
-                    case "auth/user-not-found":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/wrong-password":
-                        setValidation("Mauvais mot de passe")
-                        break;
-                    default:
-                        setValidation("Erreur inconnue")
-                        break;
-                }
-            })
+        } catch (err) {
+            console.log(err)
+            setValidation(err.code)
+            switch (err.code) {
+                case "auth/invalid-email":
+                    setValidation("Cette adresse e-mail n'est pas valide")
+                    break;
+                case "auth/user-disabled":
+                    setValidation("Cet utilisateur est désactivé")
+                    break;
+                case "auth/wrong-password":
+                    setValidation("Le mot de passe est incorrect")
+                    break;
+                case "auth/email-already-in-use":
+                    setValidation("Cet email est déjà utilisé")
+                    break;
+                default:
+                    throw new Error("Erreur non prise en compte")
+            }
+            if (currentUser?.emailVerified === false) {
+                toast({
+                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: true
+                });
+            }
+        }
     }
-    const closeModal = () => {
-        setValidation("")
-        onClose()
-    }
+
+
     return (
         <Box
             position="absolute"
@@ -157,7 +192,7 @@ const FormRegister = () => {
                         width="100%"
                         bg="#48BB78"
                         _hover={{ bgColor: "#a0aec0" }}
-                        onClick={handleGoogle}
+                        onClick={handleGoogleSignIn}
                     >
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>S'inscrire avec Google</Box>
@@ -169,4 +204,4 @@ const FormRegister = () => {
     )
 }
 
-export default FormRegister
+export default FormRegister;

@@ -14,14 +14,13 @@ import {
     ModalBody,
     ModalCloseButton,
     useDisclosure,
-    Flex,
-    CircularProgress,
-    CircularProgressLabel
 } from '@chakra-ui/react'
-import { EditIcon, CheckIcon } from '@chakra-ui/icons'
+import { EditIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
+import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const ModalAvatar = () => {
     const { currentUser } = useAuth()
@@ -32,9 +31,9 @@ const ModalAvatar = () => {
     const handleChange = (e) => {
         // get the image data
         if (e.target.files[0]) {
-            setImage(e.target.files[0])
+            setImage(e.target.files[0]);
         }
-    }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault()
         // limit the image type
@@ -47,15 +46,24 @@ const ModalAvatar = () => {
             })
         }
         try {
+            // create the image path 
             let urlProfile = ''
             if (image) {
-                // create the image path 
                 const imageName = uuidv4() + '.' + image?.name?.split('.')?.pop();
                 // upload the image to Firestore
                 urlProfile = await UploadImage(image, `${currentUser?.email}/${imageName}`, setProgress);
             }
             // update the user avatar
             await updateProfile(currentUser, { photoURL: urlProfile });
+            const UserInFirestoreDatabase = async () => {
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const userDoc = await getDoc(userRef)
+                await updateDoc(userRef, {
+                    photoURL: urlProfile,
+                    dateLogin: serverTimestamp()
+                })
+            }
+            await UserInFirestoreDatabase()
             // close the modal
             onClose()
             toast({
@@ -64,8 +72,8 @@ const ModalAvatar = () => {
                 duration: 4000,
                 isClosable: true,
             })
-
         } catch (error) {
+            console.log(error)
             toast({
                 description: "Il y a eu une erreur lors de la modification de votre avatar !",
                 status: 'error',
@@ -73,7 +81,7 @@ const ModalAvatar = () => {
                 isClosable: true,
             })
         }
-    }
+    };
     return (
         <Box>
             <Box position='relative'>
@@ -139,9 +147,7 @@ const ModalAvatar = () => {
                         }}
                     />
                     <ModalBody>
-                        <Flex
-                            alignItems='center'
-                            gap={ResponsiveWidth() ? '0.5rem' : '0.5rem'}
+                        <Box
                             position={ResponsiveWidth() ? null : "absolute"}
                             left={ResponsiveWidth() ? null : "50%"}
                             top={ResponsiveWidth() ? null : "50%"}
@@ -149,12 +155,7 @@ const ModalAvatar = () => {
                             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                         >
                             <input type="file" onChange={handleChange} />
-                            {progress >= 1 && progress < 100 ? (
-                                <CircularProgress value={progress} color='green.400'>
-                                    <CircularProgressLabel>{`${Math.round(progress)} %`}</CircularProgressLabel>
-                                </CircularProgress>
-                            ) : progress === 100 ? <CheckIcon color='green.400' /> : null}
-                        </Flex>
+                        </Box>
                     </ModalBody>
                     <ModalFooter>
                         <Button

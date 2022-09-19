@@ -1,26 +1,30 @@
 import { ResponsiveWidth } from "../../utils/helper"
-import { useRef, useState } from 'react';
+import {useRef, useState} from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { FormControl, Input, InputRightElement, InputGroup, Button, Box, FormHelperText, useDisclosure } from '@chakra-ui/react'
+import {
+    FormControl,
+    Input,
+    InputRightElement,
+    InputGroup,
+    Button,
+    Box,
+    Text,
+    useDisclosure,
+} from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
-import { useNavigate } from 'react-router-dom'
-
-function Text(props) {
-    return null;
-}
+import { useNavigate } from 'react-router-dom';
+import {ModalForgetPassword} from "../forgetPwd/Modal";
 
 const FormLogin = () => {
-    const { login, signInWithGoogle, NewCreateUserInFirestoreDatabase } = useAuth();
+    const { login, signInWithGoogle, newCreateUserInFirestoreDatabase} = useAuth();
     const { onClose } = useDisclosure()
     const [show, setShow] = useState(false)
     const [validation, setValidation] = useState("")
-    const [authing, setAuthing] = useState(false)
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
     const formRef = useRef();
     const inputs = useRef([]);
-    // add values in current object
     const addInputs = (el) => {
         if (el && !inputs.current.includes(el)) {
             inputs.current.push(el);
@@ -32,6 +36,10 @@ const FormLogin = () => {
         }
     }
     const handleSubmit = async (e) => {
+        const closeModal = () => {
+            onClose()
+            navigate("/")
+        }
         e.preventDefault();
         try {
             const cred = await login(
@@ -40,54 +48,68 @@ const FormLogin = () => {
             )
             //formRef.current.reset();
             setValidation("")
-            closeModal(onClose)
-            navigate("/")
+            closeModal()
         } catch (err) {
-            setValidation(err.message)
-
+            setValidation(err.code)
+            switch (err.code) {
+                case "auth/user-not-found":
+                    setValidation("Cet utilisateur n'existe pas")
+                    break;
+                case "auth/wrong-password":
+                    setValidation("Mot de passe incorrect")
+                    break;
+                case "auth/too-many-requests":
+                    setValidation("Trop de tentatives de connexion")
+                    break;
+                case "auth/user-disabled":
+                    setValidation("Cet utilisateur est désactivé")
+                    break;
+                case "auth/invalid-email":
+                    setValidation("Adresse email invalide")
+                    break;
+                default:
+                    setValidation("Erreur inconnue")
+                    break;
+            }
         }
     }
-    const handleGoogle = () => {
-        // login with Google
-        setAuthing(true)
-        signInWithGoogle()
-            .then((UserCredential) => {
-                NewCreateUserInFirestoreDatabase(UserCredential)
-                navigate("/")
+    const handleGoogleSignIn = async (UserCredential) => {
+        try {
+            signInWithGoogle().then((UserCredential) => {
+                newCreateUserInFirestoreDatabase(UserCredential)
+                navigate('/')
             })
-            .catch(err => {
-                // handle errors validation
-                setValidation(err.code)
-                switch (err.code) {
-                    case "auth/account-exists-with-different-credential":
-                        setValidation("Ce compte existe déjà avec un autre méthode de connexion")
-                        break;
-                    case "auth/invalid-credential":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/operation-not-allowed":
-                        setValidation("Opération non autorisée")
-                        break;
-                    case "auth/user-disabled":
-                        setValidation("Ce compte est désactivé")
-                        break;
-                    case "auth/user-not-found":
-                        setValidation("Ce compte n'existe pas")
-                        break;
-                    case "auth/wrong-password":
-                        setValidation("Mauvais mot de passe")
-                        break;
-                    default:
-                        setValidation("Erreur inconnue")
-                        break;
-                }
-            })
+        }
+        catch (err) {
+            setValidation(err.code)
+            switch (err.code) {
+                case "auth/account-exists-with-different-credential":
+                    setValidation("Ce compte existe déjà avec un autre identifiant")
+                    break;
+                case "auth/credential-already-in-use":
+                    setValidation("Cette identifiant est déjà utilisé")
+                    break;
+                case "auth/operation-not-allowed":
+                    setValidation("Opération non autorisée")
+                    break;
+                case "auth/user-disabled":
+                    setValidation("Cet utilisateur est désactivé")
+                    break;
+                case "auth/wrong-password":
+                    setValidation("Le mot de passe est incorrect")
+                    break;
+                case "auth/email-already-in-use":
+                    setValidation("Cet email est déjà utilisé")
+                    break;
+                case "auth/invalid-email":
+                    setValidation("Cet email n'est pas valide")
+                    break;
+                default:
+                    setValidation("Erreur inconnue")
+                    break;
+            }
+        }
     }
-    const closeModal = () => {
-        setValidation("")
-        onClose()
-    }
-
     return (
         <Box
             position="absolute"
@@ -118,15 +140,25 @@ const FormLogin = () => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl textAlign='start'>
-                    <FormHelperText>Mot de passe oublié ?</FormHelperText>
+                    <ModalForgetPassword/>
                 </FormControl>
                 <FormControl margin="1rem 0">
-                    <Button width="100%" bg="#48BB78" _hover={{ bgColor: "#a0aec0" }} onClick={handleSubmit}>
+                    <Button
+                        width="100%"
+                        bg="#48BB78"
+                        _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleSubmit}
+                    >
                         Se connecter
                     </Button>
                 </FormControl>
                 <FormControl>
-                    <Button width="100%" bg="#48BB78" _hover={{ bgColor: "#a0aec0" }} onClick={handleGoogle}>
+                    <Button
+                        width="100%"
+                        bg="#48BB78"
+                        _hover={{ bgColor: "#a0aec0" }}
+                        onClick={handleGoogleSignIn}
+                    >
                         <AiOutlineGoogle size="20" />
                         <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
                     </Button>

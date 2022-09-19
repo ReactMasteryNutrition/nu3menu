@@ -22,15 +22,15 @@ export default function QuerySpoon({ index, category, setWeekMenu, weekMenu, thi
             <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
         )
     }
-    if (!data) {
+    if(!data) {
         return (
             <Center paddingY='2rem'>
-                <Spinner color='green.400' />
+                <Spinner color='green.400'/>
                 <Text marginLeft='1rem'>Chargement...</Text>
             </Center>
         )
     }
     return (
-        <CardRecipeWithSpoon indexOfDay={index} categoryOfMeal={category} weekMenu={weekMenu} setWeekMenu={setWeekMenu} datas={data} />
+        <CardRecipeWithSpoon indexOfDay={index} categoryOfMeal={category} weekMenu={weekMenu} setWeekMenu={setWeekMenu} datas={data}/>
     )
 }

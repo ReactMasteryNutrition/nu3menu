@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import AllMyMenus from '../components/AllMyMenus/AllMyMenus';
+import AllMyMenus from '../components/AllMyMenu/AllMyMenus';
 
 const AllMenus = () => {
     return (
