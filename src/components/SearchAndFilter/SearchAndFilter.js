@@ -1,9 +1,9 @@
 // Imports
 import React from 'react'
 import { Box, Center, Divider } from '@chakra-ui/react'
-import Query from '../../components/SearchAndFilter/Query'
+
 import QuerySpoon from '../../components/SearchAndFilter/QuerySpoon'
-import SearchBar from '../../components/SearchAndFilter/SearchBar'
+
 import SearchBarSpoon from './SearchBarSpoon'
 // Functions
 export default function SearchAndFilter({ index, category, weekMenu, setWeekMenu }) {
