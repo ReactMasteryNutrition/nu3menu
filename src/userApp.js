@@ -11,6 +11,7 @@ import CreateMenu from './pages/CreateMenu';
 import CurrentMenu from './pages/CurrentMenu';
 import { PrivateRoute } from './utils/helper';
 import Favorite from './pages/Favorite';
+import AllMenus from './pages/AllMenus'
 // pages loaded immediately
 const Home = React.lazy(() => import('./pages/Home'))
 const Register = React.lazy(() => import('./pages/Register'))
@@ -39,6 +40,7 @@ const UserApp = () => {
                         <Route path='/menu' element={<PrivateRoute><CurrentMenu/></PrivateRoute>} />
                         <Route path='/createMenu' element={<PrivateRoute><CreateMenu/></PrivateRoute>} />
                         <Route path='/favorite' element={<PrivateRoute><Favorite/></PrivateRoute>} />
+                        <Route path='/allmenus' element={<PrivateRoute><AllMenus/></PrivateRoute>} />
                         {/*<Route path='/menu' element={<UserMenu/>} />*/}
                         {/*<Route path='/menu/:id' element={<MenuDetail/>} />*/}
                         {/*<Route path='/recipe/:id' element={<Recipe/>} />*/}
