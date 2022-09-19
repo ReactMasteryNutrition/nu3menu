@@ -66,14 +66,22 @@ const NavUserDrawer = () => {
                         fontWeight="bold"
                         fontSize="1.2rem"
                     >
-                        {currentUser?.displayName ? (<>
-                            <Link to='/menu' onClick={onClose}>
-                                <Flex flexDirection="row" gap="1rem">
-                                    <CgProfile color='#48BB78' margin-right='0.5rem' />
-                                    {currentUser?.displayName}
-                                </Flex>
-                            </Link></>)
-                            : null}
+                        <Link to='/' onClick={onClose}>
+                            <Flex
+                                flexDirection="row"
+                                gap="1rem">
+                                {currentUser?.displayName ? (<>
+                                        <Link to='/menu' onClick={onClose}>
+                                            <Flex
+                                                flexDirection="row"
+                                                gap="1rem">
+                                                <CgProfile color='#48BB78' margin-right='0.5rem' />
+                                                {currentUser?.displayName}
+                                            </Flex>
+                                        </Link></>)
+                                    : null}
+                            </Flex>
+                        </Link>
                         <Link to='/myaccount' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
@@ -96,7 +104,7 @@ const NavUserDrawer = () => {
                         </Link>
                         <Link to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
-                        </Link>  */}
+                        </Link> */}
                         <Link to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"

@@ -50,7 +50,7 @@ export default function Bookmark(){
         <VStack w='100%' minH='100%' justifyContent='center'>
             <Text fontSize='2xl' color='green.50' mb='3rem'>You don't have favorite menu yet</Text>
             <Link to='/'>
-                <Button leftIcon={<FaHome size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
+                <Button leftIcon={<FaHome size="3em" color="green.50" />} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
                     Go Home
                 </Button>
             </Link>

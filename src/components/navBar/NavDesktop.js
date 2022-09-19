@@ -95,7 +95,7 @@ const NavUser = () => {
             gap="1rem"
             with="5rem"
           >
-            <Link to="/createmenu"
+            <Link to="/createMenu"
             >
               <Tooltip
                 label='Créer mon menu'

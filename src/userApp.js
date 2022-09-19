@@ -16,10 +16,11 @@ const Error404 = React.lazy(() => import('./pages/Error404'))
 const ForgetPassword = React.lazy(() => import('./pages/ForgetPassword'))
 // pages prefetch then loaded after connection
 const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MyAccount'))
-const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CreateMenu'))
 const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
+const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CreateMenu'))
 const Favorite = React.lazy(() => import(/* webpackPrefetch: true */ './pages/Favorite'))
 const AllMenus = React.lazy(() => import(/* webpackPrefetch: true */ './pages/AllMenus'))
+const DetailsMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/DetailsMenu'))
 
 const UserApp = () => {
     return (
@@ -33,20 +34,20 @@ const UserApp = () => {
                         <Route path='/register' element={<Register />} />
                         <Route path='/login' element={<Login />} />
                         <Route path='/forgetpassword' element={<ForgetPassword />} />
-                        <Route element={<PrivateRoute />}>
-
+                        <Route element={<PrivateRoute />} >
                             <Route path='/myaccount' element={<MyAccount />} />
-                            <Route path='/createmenu' element={<CreateMenu />} />
+                            <Route path='/createMenu' element={<CreateMenu />} />
                             <Route path='/menu' element={<CurrentMenu />} />
-                            <Route path='/favorite' element={<Favorite />} />
+                            <Route path="/:menuId" element={<DetailsMenu />} />
                             <Route path='/allmenus' element={<AllMenus />} />
+                            <Route path='/favorite' element={<Favorite />} />
                         </Route>
                         <Route path='*' element={<Error404 />} />
                     </Routes>
                 </ErrorBoundary>
                 <NutriFooter />
             </React.Suspense>
-        </Box>
+        </Box >
     )
 }
 

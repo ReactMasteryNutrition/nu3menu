@@ -36,13 +36,13 @@ const NavUserDropdown = () => {
       </MenuButton>
       <MenuList bg='#f0fff4'>
         {currentUser?.displayName ? (<>
-          <Link to="/menu">
-            <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              {currentUser?.displayName}
-            </MenuItem>
-          </Link>
-          <MenuDivider /></>)
-          : null}
+              <Link to="/menu">
+                <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
+                  {currentUser?.displayName}
+                </MenuItem>
+              </Link>
+              <MenuDivider /></>)
+            : null}
         <Link to="/myaccount">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Mon compte
@@ -53,7 +53,7 @@ const NavUserDropdown = () => {
             Tous mes menus
           </MenuItem>
         </Link>
-        {/* <Link to="/alladvices">
+       {/*  <Link to="/alladvices">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Tous mes avis
           </MenuItem>
