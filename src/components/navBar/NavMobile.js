@@ -76,7 +76,7 @@ const NavUser = () => {
                 <Link to="/createmenu">
                     <BsPlusCircle size="33" color="#48BB78" />
                 </Link>
-                <Link to="/bookmark">
+                <Link to="/favorite">
                     <BsBookmarkFill size="33" color="#48BB78" />
                 </Link>
                 {ResponsiveWidth() ? null : <NavUserDrawer />}
