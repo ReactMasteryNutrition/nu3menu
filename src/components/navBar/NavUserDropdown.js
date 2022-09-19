@@ -34,7 +34,7 @@ const NavUserDropdown = () => {
       </MenuButton>
       <MenuList bg='#f0fff4'>
         {currentUser?.displayName ? (<>
-              <Link to="/">
+              <Link to="/menu">
                 <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
                   {currentUser?.displayName}
                 </MenuItem>
@@ -51,7 +51,7 @@ const NavUserDropdown = () => {
             Tous mes menus
           </MenuItem>
         </Link>
-        <Link to="/alladvices">
+       {/*  <Link to="/alladvices">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Tous mes avis
           </MenuItem>
@@ -66,7 +66,7 @@ const NavUserDropdown = () => {
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Aide et support
           </MenuItem>
-        </Link>
+        </Link> */}
         <Link to="/" onClick={handleClick}>
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
             Se déconnecter
