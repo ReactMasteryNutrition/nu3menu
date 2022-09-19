@@ -1,9 +1,12 @@
 import React from "react"
-import { FormControl, FormLabel, Select } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons"
+
+import { FormControl, FormLabel, Select, Text } from "@chakra-ui/react";
 
 export default function MealCategory({ onCategoryChange, weekMenu, index }) {
 
     const [category, setCategory] = React.useState("")
+
     const [matinChecked, setMatinChecked] = React.useState(false)
     const [midiChecked, setMidiChecked] = React.useState(false)
     const [soirChecked, setSoirChecked] = React.useState(false)
@@ -71,7 +74,7 @@ export default function MealCategory({ onCategoryChange, weekMenu, index }) {
     }, [weekMenu, index])
 
     return (
-        <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"} px={['', '1rem']}>
+        <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"} px={['', '1rem']} w={['100%', '100%', '60%']}>
             <FormLabel>Category</FormLabel>
             <Select w='100%' value={category} onChange={handleCategoryChange} placeholder='Select your meal choice'>
                 {matinChecked ? <option value="Matin">Petit-déjeuner &#x2713;</option> : <option value="Matin">Petit-déjeuner</option>}
