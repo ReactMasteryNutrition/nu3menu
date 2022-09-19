@@ -13,7 +13,7 @@ import {
     Box,
     Button
 } from '@chakra-ui/react'
-import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
+// import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
 import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
@@ -24,6 +24,7 @@ const NavUserDrawer = () => {
     const navigate = useNavigate()
     const { logout, currentUser } = useAuth()
     const handleClick = async () => {
+        // logout the current user
         try {
             await logout(auth)
             setTimeout(() => {
@@ -35,13 +36,9 @@ const NavUserDrawer = () => {
     }
     return (
         <Box>
-            <Button
-                onClick={onOpen}
-                bg="#1A202C"
-                _hover={{ bg: "#1A202C" }}
-                _active={{ bg: "#1A202C" }}
-            >
-                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
+            <Button onClick={onOpen} bg="#1A202C" _hover={{ bg: "#1A202C" }} _active={{ bg: "#1A202C" }}>
+                {currentUser?.photoURL ?
+                    <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
                     : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">

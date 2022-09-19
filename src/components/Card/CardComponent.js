@@ -34,11 +34,11 @@ export default function CardComponent({ listOfMenu, currentUser }) {
 
     return (
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
-            {listOfMenu.map(menu => {
-                return (
-                    <Box key={listOfMenu.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
-                        <Grid
-                            templateAreas={[`"image image image image"
+        {listOfMenu.map(menu => {
+            return(
+                <Box key={listOfMenu.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX='2rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                    <Grid
+                        templateAreas={[`"image image image image"
                                         "title title title title"
                                         "auteur auteur auteur linkDetail"
                                         "date date date linkDetail"

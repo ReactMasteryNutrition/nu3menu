@@ -2,32 +2,22 @@
 import React from 'react'
 import { Center, Spinner, Text } from '@chakra-ui/react'
 // import test
-import FetchAxiosWithSpoon from '../../utils/FetchAxiosWithSpoon'
 import CardRecipeWithSpoon from '../Card/CardRecipeWithSpoon';
+import { useSpoon } from '../../utils/helper';
 //import CardWithGrid from '../Card/CardWithGrid';
 // Function
-export default function QuerySpoon({index, category, setWeekMenu, weekMenu, thingSearched, filter}) {
+
+export default function QuerySpoon({ index, category, setWeekMenu, weekMenu, thingSearched, filter }) {
     const [data, setData] = React.useState();
-    const [error, setError] = React.useState(null);
-    
+    const fetchAxios = useSpoon(thingSearched, filter)
+
     React.useEffect(() => {
-        const controller = new AbortController();
         if (!thingSearched) {
             return
         }
-        setData()
-        FetchAxiosWithSpoon(filter)
-        .then(response => {
-            setData(response)
-        })
-        .catch(error => setError(error))
-        .finally( ()=> controller.abort())
-    }, [thingSearched, filter])
-
-    if (error) {
-        throw error
-    }
-    if(!thingSearched) {
+        setData(fetchAxios)
+    }, [thingSearched, fetchAxios])
+    if (!thingSearched) {
         return (
             <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
         )

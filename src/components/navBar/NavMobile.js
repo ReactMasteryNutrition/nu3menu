@@ -71,7 +71,7 @@ const NavUser = () => {
                 transform="translate(-50%, -50%)"
                 bg="#48bb78"
             ></Box>
-            <Flex gap={maxWidth375 ? "1.5rem":"2.5rem"} alignItems="center">
+            <Flex gap={maxWidth375 ? "1.5rem" : "2.5rem"} alignItems="center">
                 <Link to="/" >
                     <FaHome size="33" color="#48BB78" />
                 </Link>

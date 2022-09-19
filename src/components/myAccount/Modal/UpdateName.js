@@ -12,13 +12,12 @@ import {
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { updateProfile } from "firebase/auth"
-import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
-import {db} from "../../../firebase-config";
 
 const ModalName = () => {
     const { currentUser } = useAuth()
     const toast = useToast()
     const input = useRef([])
+    // add value in current object
     const addData = (el) => {
         if (el && !input.current.includes(el)) {
             input.current.push(el);
@@ -26,18 +25,17 @@ const ModalName = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(!input?.current[0]?.value){
+            return toast({
+                description: "Veuillez remplir ce champ !",
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
         try {
             // update the user displayname
             await updateProfile(currentUser, { displayName: input?.current[0]?.value });
-            const UserInFirestoreDatabase = async () => {
-                const userRef = doc(db, `users/${currentUser?.uid}`);
-                const userDoc = await getDoc(userRef)
-                await updateDoc(userRef, {
-                    displayName: input?.current[0]?.value,
-                    dateLogin: serverTimestamp()
-                })
-            }
-            await UserInFirestoreDatabase()
             toast({
                 description: "Votre prénom a bien été modifié !",
                 status: 'success',
@@ -46,7 +44,7 @@ const ModalName = () => {
             })
         } catch (error) {
             toast({
-                //description: "Il y a eu une erreur lors de la modification de votre prénom !",
+                description: "Il y a eu une erreur lors de la modification de votre prénom !",
                 status: error.message,
                 duration: 4000,
                 isClosable: true,
@@ -86,7 +84,7 @@ const ModalName = () => {
                 >
                     <FormLabel>Nouveau prénom</FormLabel>
                     <FormControl marginBottom="1rem">
-                        <Input type="text" bg='#f0fff4' color="#1A202C" ref={addData}
+                        <Input type="text" bg='#f0fff4' color="#1A202C" ref={addData} aria-label="new name"
                         />
                     </FormControl>
                 </Box>}

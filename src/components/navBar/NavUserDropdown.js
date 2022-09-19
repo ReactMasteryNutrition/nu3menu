@@ -17,6 +17,7 @@ const NavUserDropdown = () => {
   const { logout, currentUser} = useAuth()
 
   const handleClick = async () => {
+    // logout the current user
     try {
       await logout(auth)
       setTimeout(() => {
@@ -28,9 +29,10 @@ const NavUserDropdown = () => {
   }
   return (
     <Menu isLazy>
-      <MenuButton>
-        {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C"/>
-            : <Avatar size="sm" />}
+      <MenuButton aria-label='dropdown'>
+        {currentUser?.photoURL ?
+          <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
+          : <Avatar size="sm" />}
       </MenuButton>
       <MenuList bg='#f0fff4'>
         {currentUser?.displayName ? (<>

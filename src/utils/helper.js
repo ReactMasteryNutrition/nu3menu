@@ -1,10 +1,23 @@
-import { Button, useMediaQuery, Modal, ModalOverlay, ModalContent, ModalFooter, ModalBody, ModalCloseButton, Box, useDisclosure } from '@chakra-ui/react'
+import {
+  Button,
+  useMediaQuery,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Box,
+  useDisclosure
+} from '@chakra-ui/react'
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../firebase-config';
 import PropTypes from 'prop-types'
 import { useReducer, useCallback } from 'react';
-import { useAuth } from '../context/authContext';
 import { Outlet } from 'react-router-dom';
+import { useAuth } from '../context/authContext';
+import { useQuery } from '@tanstack/react-query'
+import FetchAxiosWithSpoon from './FetchAxiosWithSpoon';
 import Home from '../pages/Home';
 
 const ResponsiveWidth = () => {
@@ -16,7 +29,15 @@ const ModalMyAccount = ({ ariaLabel, header, content, footer }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box>
-      <Button onClick={onOpen} padding="0.5rem 1.5rem" aria-label={ariaLabel} bg='#48bb78' color="#f0fff4" width="100%" _hover={{ bgColor: "#a0aec0" }}>
+      <Button
+        onClick={onOpen}
+        padding="0.5rem 1.5rem"
+        aria-label={ariaLabel}
+        bg='#48bb78'
+        color="#f0fff4"
+        width="100%"
+        _hover={{ bgColor: "#a0aec0" }}
+      >
         Modifier
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -72,7 +93,9 @@ const UploadImage = (file, filePath, setProgress) => {
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on('state_changed',
       (snapshot) => {
+        // progress in percent
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // get progress value
         setProgress(progress)
       },
       (error) => {
@@ -135,9 +158,19 @@ const useLoading = () => {
   return { data, error, status, execute, setData }
 }
 
+const useSpoon = (thingSearched, filter) => {
+  const { data } = useQuery([thingSearched, filter], () => FetchAxiosWithSpoon(filter))
+  return data
+}
+
+useSpoon.propTypes = {
+  thingSearched: PropTypes.string.isRequired,
+  filter: PropTypes.object.isRequired
+}
+
 const PrivateRoute = () => {
   const { currentUser } = useAuth()
   return currentUser ? <Outlet /> : <Home />
 }
 
-export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, PrivateRoute }
+export { ResponsiveWidth, ModalMyAccount, UploadImage, useLoading, useSpoon, PrivateRoute }

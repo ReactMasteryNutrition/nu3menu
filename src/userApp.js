@@ -13,6 +13,7 @@ const Home = React.lazy(() => import('./pages/Home'))
 const Register = React.lazy(() => import('./pages/Register'))
 const Login = React.lazy(() => import('./pages/Login'))
 const Error404 = React.lazy(() => import('./pages/Error404'))
+const ForgetPassword = React.lazy(() => import('./pages/ForgetPassword'))
 // pages prefetch then loaded after connection
 const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MyAccount'))
 const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
@@ -32,6 +33,7 @@ const UserApp = () => {
                         <Route path='/' element={<Home />} />
                         <Route path='/register' element={<Register />} />
                         <Route path='/login' element={<Login />} />
+                        <Route path='/forgetpassword' element={<ForgetPassword />} />
                         <Route element={<PrivateRoute />} >
                             <Route path='/myaccount' element={<MyAccount />} />
                             <Route path='/createMenu' element={<CreateMenu />} />

@@ -19,7 +19,6 @@ export default function AuthContextProvider(props) {
     const [authError, setAuthError] = useState()
     const [currentUser, setCurrentUser] = useState(null)
     const { status } = useLoading()
-    //const [loading, setLoading] = useState(true)
     const register = useCallback((email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
             .catch(err => setAuthError(err))
@@ -80,8 +79,8 @@ export default function AuthContextProvider(props) {
 
     const value = useMemo(() => ({
         currentUser,
-        //loading,
-        //setLoading,
+        status,
+        authError,
         register,
         login,
         logout,

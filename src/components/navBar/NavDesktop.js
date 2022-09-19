@@ -5,8 +5,8 @@ import NavUserDropdown from "./NavUserDropdown"
 import { Link } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
 import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
-import {useContext} from "react";
-import {AuthContext} from "../../context/authContext";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const NavVisitor = () => {
   return (
@@ -37,7 +37,7 @@ const NavVisitor = () => {
         top={ResponsiveWidth() ? null : "50%"}
         left={ResponsiveWidth() ? null : "50%"}
         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-        
+
         height="0.3rem"
         width={ResponsiveWidth() ? "100%" : "80%"}
         borderRadius={ResponsiveWidth() ? null : "3rem"}
@@ -134,7 +134,7 @@ const NavDesktop = () => {
   const { currentUser } = useContext(AuthContext)
   return (
     <>
-      {currentUser ? <NavUser/> : <NavVisitor/>}
+      {currentUser ? <NavUser /> : <NavVisitor />}
     </>
   )
 }

@@ -31,6 +31,7 @@ const ModalPassword = () => {
   const { currentUser } = useAuth()
   const toast = useToast()
   const inputs = useRef([])
+  // add values in current object
   const addData = (el) => {
     if (el && !inputs.current.includes(el)) {
       inputs.current.push(el);
@@ -38,11 +39,20 @@ const ModalPassword = () => {
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!(inputs?.current[0]?.value && inputs?.current[1]?.value && inputs?.current[2]?.value)) {
+      return toast({
+        description: "Veuillez remplir tous les champs !",
+        status: 'error',
+        duration: 4000,
+        isClosable: true,
+      })
+    }
     // data for reauthentication
     const credential = EmailAuthProvider.credential(
       currentUser?.email,
       inputs?.current[0]?.value
     )
+    // create a Google provider
     const provider = new GoogleAuthProvider()
     try {
       // reauthenticate directly on the site or with Google
@@ -52,7 +62,7 @@ const ModalPassword = () => {
         await reauthenticateWithPopup(currentUser, provider)
       }
       if (inputs?.current[1]?.value === inputs?.current[2]?.value) {
-        await updatePassword(currentUser, inputs?.current[1]?.value)
+        updatePassword(currentUser, inputs?.current[1]?.value)
         toast({
           description: "Votre mot de passe a bien été modifié !",
           status: 'success',
