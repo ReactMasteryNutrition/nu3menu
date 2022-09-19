@@ -1,9 +1,11 @@
 import React from "react";
-import { Box, Button, Center, Divider, Heading, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Divider, Grid, GridItem, Heading, HStack, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure, VStack } from "@chakra-ui/react";
 import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
 import DetailRecipeModalWithSpoon from "../Card/DetailRecipeModalWithSpoon";
+
+
 
 const DayMeal = () => {
   // gestion ouverture et fermeture de la modal avec le detail de LA recette
