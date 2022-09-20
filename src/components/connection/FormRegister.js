@@ -1,5 +1,5 @@
 import { ResponsiveWidth } from "../../utils/helper"
-import { useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
     FormControl,
@@ -15,8 +15,8 @@ import {
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import {doc, getDoc, serverTimestamp, setDoc} from "firebase/firestore";
-import {db} from "../../firebase-config";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 const FormRegister = () => {
     const [show, setShow] = useState(false)
@@ -24,7 +24,7 @@ const FormRegister = () => {
     const [validation, setValidation] = useState("")
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
-    const {register, signInWithGoogle, verifyEmail, currentUser, newCreateUserInFirestoreDatabase} = useAuth();
+    const { register, signInWithGoogle, verifyEmail, currentUser, newCreateUserInFirestoreDatabase } = useAuth();
     const formRef = useRef();
     const toast = useToast();
     const inputs = useRef([])
@@ -77,12 +77,7 @@ const FormRegister = () => {
             }
             //formRef.current.reset();
             setValidation("")
-            const closeModal = () => {
-                setValidation("")
-                onClose();
-                navigate("/")
-            }
-            closeModal()
+            navigate("/")
         } catch (err) {
             setValidation(err.code)
             switch (err.code) {
