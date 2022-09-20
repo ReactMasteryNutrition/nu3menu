@@ -36,7 +36,7 @@ export default function AllMyMenus(){
         <CardComponent listOfMenu={myMenus} currentUser={currentUser} />
         :
         <VStack w='100%' minH='100%' justifyContent='center'>
-            <Text fontSize='2xl' color='green.50' mb='3rem'>You don't have any menu registered</Text>
+            <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered</Text>
             <Link to='/createMenu'>
                 <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
                     Add menu
