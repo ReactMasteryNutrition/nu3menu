@@ -86,7 +86,7 @@ export default function DetailRecipeModalWithSpoon({ detail }) {
                     <GridItem area='instructions'>
                         <Text fontSize='lg'>Instructions : </Text>
                         <OrderedList>
-                            {detail?.analyzedInstructions[0].steps.map(step => {
+                            {detail?.analyzedInstructions[0]?.steps?.map(step => {
                                 counterForList += 1
                                 let instructionConcat = `${counterForList}.  ${step.step}`
                                 return (
