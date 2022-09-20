@@ -1,5 +1,5 @@
 import { ResponsiveWidth } from "../../utils/helper"
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
     FormControl,
@@ -9,16 +9,13 @@ import {
     Button,
     Box,
     Text,
-    useDisclosure,
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
-import { useNavigate } from 'react-router-dom';
-import {ModalForgetPassword} from "../forgetPwd/Modal";
+import { useNavigate, Link } from 'react-router-dom';
 
 const FormLogin = () => {
-    const { login, signInWithGoogle, newCreateUserInFirestoreDatabase} = useAuth();
-    const { onClose } = useDisclosure()
+    const { login, signInWithGoogle, newCreateUserInFirestoreDatabase } = useAuth();
     const [show, setShow] = useState(false)
     const [validation, setValidation] = useState("")
     const handleClick = () => setShow(!show)
@@ -36,11 +33,15 @@ const FormLogin = () => {
         }
     }
     const handleSubmit = async (e) => {
-        const closeModal = () => {
-            onClose()
-            navigate("/")
-        }
         e.preventDefault();
+        if (inputs.current[0].value === "") {
+            setValidation("Veuillez indiquer une adresse email")
+            return;
+        }
+        if ((inputs.current[1].value.length) < 6) {
+            setValidation("6 characters min")
+            return;
+        }
         try {
             const cred = await login(
                 inputs.current[0].value,
@@ -48,7 +49,7 @@ const FormLogin = () => {
             )
             //formRef.current.reset();
             setValidation("")
-            closeModal()
+            navigate("/")
         } catch (err) {
             setValidation(err.code)
             switch (err.code) {
@@ -140,7 +141,9 @@ const FormLogin = () => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl textAlign='start'>
-                    <ModalForgetPassword/>
+                    <Link to='/forgetpassword' target="_blank" size="xs" color='gray.500' _hover={{ textDecoration: "none" }}>
+                        Mot de passe oublié ?
+                    </Link>
                 </FormControl>
                 <FormControl margin="1rem 0">
                     <Button

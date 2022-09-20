@@ -1,6 +1,6 @@
 import FormRegister  from './FormRegister';
 import { ResponsiveWidth } from "../../utils/helper"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
 import {
     Modal,
@@ -20,6 +20,13 @@ import {useAuth} from "../../context/authContext";
 const ModalRegister = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { currentUser } = useAuth()
+    const navigate = useNavigate()
+    const handleClose = () => {
+        onClose()
+        setTimeout(() => {
+            navigate('/')
+        }, 100)
+    }
     return (
         <Box>
             <Link to="/register" onClick={onOpen}>
@@ -67,7 +74,7 @@ const ModalRegister = () => {
                         />
                     </ModalHeader>
                     <Button
-                        onClick={onClose}
+                        onClick={handleClose}
                         position="absolute"
                         right="0"
                         top="0"

@@ -88,7 +88,7 @@ export default function AuthContextProvider(props) {
         resetPassword,
         newCreateUserInFirestoreDatabase,
         verifyEmail,
-    }),[currentUser, status, register, login, logout, resetPassword, signInWithGoogle, newCreateUserInFirestoreDatabase, verifyEmail])
+    }),[currentUser, status, authError, register, login, logout, signInWithGoogle, resetPassword, verifyEmail])
 
     // display a loading component waiting for the connection
     if (status === 'fetching') {
