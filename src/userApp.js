@@ -38,7 +38,7 @@ const UserApp = () => {
                             <Route path='/myaccount' element={<MyAccount />} />
                             <Route path='/createMenu' element={<CreateMenu />} />
                             <Route path='/menu' element={<CurrentMenu />} />
-                            <Route path="/:menuId" element={<DetailsMenu />} />
+                            <Route path='/:menuId' element={<DetailsMenu />} />
                             <Route path='/allmenus' element={<AllMenus />} />
                             <Route path='/favorite' element={<Favorite />} />
                         </Route>
