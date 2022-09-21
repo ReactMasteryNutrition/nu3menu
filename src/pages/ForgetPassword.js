@@ -1,10 +1,12 @@
 import {Box} from "@chakra-ui/react";
-import React from 'react';
+import { FormForgetPassword } from "../components/forgetPwd/Form";
 
 const ForgetPassword = () => {
     return (
-        <Box w="100%" display='flex' flexDir={['column', 'row']} flexGrow='1'/>
+        <Box w="100%" display='flex' flexDir={['column', 'row']} flexGrow='1'>
+            <FormForgetPassword/>
+        </Box>
     );
 }
 
-export {ForgetPassword};
+export default ForgetPassword;

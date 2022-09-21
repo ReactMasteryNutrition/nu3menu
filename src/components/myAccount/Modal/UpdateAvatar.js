@@ -19,15 +19,15 @@ import { EditIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
-import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
-import {db} from "../../../firebase-config";
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase-config";
 
 const ModalAvatar = () => {
     const { currentUser } = useAuth()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast()
     const [image, setImage] = useState(null);
-    const [progress, setProgress] = useState(0)
+    const [, setProgress] = useState(0)
     const handleChange = (e) => {
         // get the image data
         if (e.target.files[0]) {
@@ -57,7 +57,7 @@ const ModalAvatar = () => {
             await updateProfile(currentUser, { photoURL: urlProfile });
             const UserInFirestoreDatabase = async () => {
                 const userRef = doc(db, `users/${currentUser?.uid}`);
-                const userDoc = await getDoc(userRef)
+                await getDoc(userRef)
                 await updateDoc(userRef, {
                     photoURL: urlProfile,
                     dateLogin: serverTimestamp()
