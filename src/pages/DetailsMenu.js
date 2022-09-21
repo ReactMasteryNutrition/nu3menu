@@ -22,7 +22,7 @@ import {
 import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "../components/meal/oneDay";
-import DetailRecipeModalWithSpoon from "../components/Card/CardRecipeWithSpoon"
+import DetailRecipeModalWithSpoon from "../components/Card/DetailRecipeModalWithSpoon"
 
 const DetailsMenu = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
