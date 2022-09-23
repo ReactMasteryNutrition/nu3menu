@@ -1,7 +1,6 @@
 import React from "react"
-import {CheckIcon} from "@chakra-ui/icons"
 
-import { FormControl, FormLabel, Select, Text } from "@chakra-ui/react";
+import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 
 export default function MealCategory({onCategoryChange, weekMenu, index}){
 
@@ -17,10 +16,7 @@ export default function MealCategory({onCategoryChange, weekMenu, index}){
     
     React.useEffect(() => {
         onCategoryChange(category)
-        //console.log('useEffect pour mettre à jour le MEAL dans MenuCreator via onCategoryChange()')
     }, [category, onCategoryChange])
-
-    //onCategoryChange(category)
 
     React.useEffect(()=>{
         setMatinChecked(false)
@@ -29,43 +25,39 @@ export default function MealCategory({onCategoryChange, weekMenu, index}){
         let day = null
         switch (index) {
             case 0:
-                day = "Lundi"
+                day = "Monday"
                 break;
             case 1:
-                day = "Mardi"
+                day = "Tuesday"
                 break;
             case 2:
-                day = "Mercredi"
+                day = "Wednesday"
                 break;
             case 3:
-                day = "Jeudi"
+                day = "Thursday"
                 break;
             case 4:
-                day = "Vendredi"
+                day = "Friday"
                 break;
             case 5:
-                day = "Samedi"
+                day = "Saturday"
                 break;
             case 6:
-                day = "Dimanche"
+                day = "Sunday"
                 break;
             default:
                 break;
         }
-        // console.log(day)
-        // console.log('on essaie de lire weekMenu + day : ',weekMenu[day])
+        
         Object.entries(weekMenu[day]).map(meal => {
             if(meal[1] !== ''){
-                if(meal[0] === 'Matin'){
-                    // console.log('Matin est OK ; ', meal[0])
+                if(meal[0] === 'Breakfast'){
                     setMatinChecked(true)
                 }
-                if(meal[0] === 'Déjeuner'){
-                    // console.log('Déjeuner est OK ; ', meal[0])
+                if(meal[0] === 'Lunch'){
                     setMidiChecked(true)
                 }
-                if(meal[0] === 'Dîner'){
-                    // console.log('Dîner est OK ; ', meal[0])
+                if(meal[0] === 'Diner'){
                     setSoirChecked(true)
                 }
             }
@@ -77,9 +69,9 @@ export default function MealCategory({onCategoryChange, weekMenu, index}){
         <FormControl display={"flex"} flexDirection={"column"} alignItems={"center"} marginBottom={"3"} color={"green.400"} px={['','1rem']} w={['100%', '100%', '60%']}>
             <FormLabel>Category</FormLabel>
             <Select w='100%' value={category} onChange={handleCategoryChange} placeholder='Select your meal choice'>
-                {matinChecked ? <option value="Matin">Petit-déjeuner &#x2713;</option> : <option value="Matin">Petit-déjeuner</option>}
-                {midiChecked ? <option value="Déjeuner">Déjeuner &#x2713;</option> : <option value="Déjeuner">Déjeuner</option>}
-                {soirChecked ? <option value="Dîner">Dîner &#x2713;</option> : <option value="Dîner">Dîner</option>}
+                {matinChecked ? <option value="Breakfast">Breakfast &#x2713;</option> : <option value="Breakfast">Breakfast</option>}
+                {midiChecked ? <option value="Lunch">Lunch &#x2713;</option> : <option value="Lunch">Lunch</option>}
+                {soirChecked ? <option value="Diner">Diner &#x2713;</option> : <option value="Diner">Diner</option>}
             </Select>
         </FormControl>
     )

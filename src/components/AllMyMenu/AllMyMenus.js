@@ -21,7 +21,6 @@ export default function AllMyMenus(){
             querySnapshot.forEach((doc)=> {
                 lastPublicMenus.push(doc.data())
             })
-            console.log('CURRENT DATA :', lastPublicMenus)
             lastPublicMenus.length === 0 && setUserCreatedMenu(false)
             setMyMenus(lastPublicMenus)
         },

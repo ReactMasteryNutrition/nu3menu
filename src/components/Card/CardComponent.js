@@ -1,12 +1,11 @@
 // Imports 
 import React from 'react'
-import { Box, Button, Grid, GridItem, Image, Text, Toast, Tooltip, useToast } from '@chakra-ui/react'
+import { Box, Button, Grid, GridItem, Image, Text, Tooltip, useToast } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoStar, IoPin } from 'react-icons/io5'
 import { writeTheDate } from '../../utils/HoursAndMinutes'
 import { db } from "../../firebase-config"
-import { getDoc, onSnapshot } from 'firebase/firestore'
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
 // Functions
@@ -17,19 +16,16 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
     const toast = useToast()
     // Fonction pour suivre un menu (Select it)
     const beOn = (idMenu) => {
-        console.log('On lance Select it pour dire qu on va suivre ce menu')
         const currentMenuRef = doc(db, "users", currentUser?.uid)
         updateDoc(currentMenuRef, {
             currentMenu: idMenu
         });
     }
-    let isInMyFavorite = false
     // Fonction pour ajouter un menu en favori
     const addFavorite = (menu) => {
         //console.log('On ajoute ce menu aux favoris')
         const isAlreadyHere = menu.favorite.includes(currentUser?.uid)
         if(isAlreadyHere === true){
-            console.log('TRUE - Already in Favorite')
             toast({
                 title: "It's already in your favorite",
                 status: 'warning',
@@ -37,7 +33,6 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                 position: 'top'
             })
         } else {
-            console.log('FALSE - Add a new Favorite')
             const favoriteRef = doc(db, "menus", menu.idMenu)
             updateDoc(favoriteRef, {
                 favorite: arrayUnion(currentUser?.uid)
@@ -58,7 +53,6 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
     let counterLength = sumOfFav
     // Fonction pour supprimer un menu en favori
     const removeFavorite = (idMenu) => {
-        console.log('on cherche à supprimer un menu des favoris')
         const favoriteRef = doc(db, "menus", idMenu)
         updateDoc(favoriteRef, {
             favorite: arrayRemove(currentUser?.uid)
@@ -69,10 +63,8 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                 haveFavorite: false
             })
             setUserWithFavorite(false)
-            console.log('on est sensé avoir passé le state a FALSE')
         } else {
             setUserWithFavorite(true)
-            console.log('on est sensé maintenir le state a TRUE')
         }
         if(listOfMenu.length !== 0){
             setSumOfFav(counterLength-1)
@@ -85,12 +77,10 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
         })
     }
 
-    console.log('list of menu ',listOfMenu.length)
-    console.log(typeof(listOfMenu.length))
     return (
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
         {listOfMenu.map(menu => {
-            let machin = menu.favorite.includes(currentUser.uid) 
+            let machin = menu?.favorite?.includes(currentUser.uid) 
             let ButtonToAdd = undefined
             // machin ? isInMyFavorite=true : isInMyFavorite=false
             machin ? 
@@ -154,9 +144,6 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                             Remove Fav
                                         </Button>
                                         :
-                                        // <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => addFavorite(menu)}>
-                                        //     Add in Fav
-                                        // </Button>
                                         ButtonToAdd
                                     }
                                     

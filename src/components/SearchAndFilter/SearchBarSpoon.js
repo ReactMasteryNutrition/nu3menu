@@ -20,7 +20,6 @@ export default function SearchBarSpoon({ thingSearched, handleSearch, params, se
             query: thingSearched
         })
         handleSearch(spoonSearched)
-        //console.log(`On lance la requête pour : ${spoonSearched}`)
     }
 
     return (
@@ -67,6 +66,5 @@ export default function SearchBarSpoon({ thingSearched, handleSearch, params, se
                 </DrawerContent>
             </Drawer>
         </>
-
     )
 }
