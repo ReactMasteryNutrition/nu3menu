@@ -68,6 +68,7 @@ export default function MyDetailsMenu(){
                 <VStack mb='2rem' textAlign='center'>
                     <Heading as='h1' size='xl' >{currentMenu[0]?.title}</Heading>
                     <Text>Created by : {currentMenu[0]?.author}</Text>
+                    {/* <Text>{writeTheDate(currentMenu[0]?.dateCreation)}</Text> */}
                 </VStack>
                 <Divider />
                 <VStack>
