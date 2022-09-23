@@ -9,6 +9,6 @@ export const  socialIconLink = [
 export const linkListFooter = [
     { id: "PP", url: "https://dietplannerapp.com/privacy-policy/", label: "Privacy" },
     { id: "T", url: "https://dietplannerapp.com/terms/", label: "Terms" },
-    { id: "C", url: "", label: "Contact" }
+    { id: "C", to: "/contact", label: "Contact" }
 
 ]

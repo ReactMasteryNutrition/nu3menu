@@ -7,8 +7,6 @@ import { Flex, Image, Link, List, ListIcon, ListItem, Wrap, WrapItem } from '@ch
 
 const FooterDestop = () => {
     return (
-
-
         <Wrap bg='gray.800' justify='space-between' paddingX='1rem' paddingY='2rem' align='center' spacing='2rem'>
             <WrapItem>
                 <Image w='12rem' src='./images/logo_nu3menu.svg' alt="NU3MENU" />
@@ -23,12 +21,11 @@ const FooterDestop = () => {
                 <List display={'flex'} alignItems={'center'} gap={'0.5em'} >
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link href={data.url}>{data.label}</Link>
+                        <Link href={data.to}>{data.label}</Link>
                     </ListItem>)}
                 </List>
             </WrapItem>
         </Wrap>
-
     )
 }
 
