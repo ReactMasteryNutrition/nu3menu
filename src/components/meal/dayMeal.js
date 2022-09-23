@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Button, Center, Divider, Heading, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure, VStack} from "@chakra-ui/react";
-import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
+import { Box, Button, Center, Divider, Heading, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, VStack} from "@chakra-ui/react";
+import { AddIcon, CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
 import DetailRecipeModalWithSpoon from "../Card/DetailRecipeModalWithSpoon"
@@ -116,7 +116,14 @@ const DayMeal = () =>{
               }
       </Box> 
         : 
-      <Box color='green.50'>NO MENU</Box>
+        <VStack w='100%' minH='100%' justifyContent='center'>
+        <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered as your current menu</Text>
+        <Link to='/createMenu'>
+            <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
+                Add menu
+            </Button>
+        </Link>
+    </VStack>
     
   )
 }
