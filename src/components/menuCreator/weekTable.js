@@ -4,8 +4,6 @@ import {  Box, Center, Tabs, TabList, Tab, CircularProgress, CircularProgressLab
 import { CheckCircleIcon} from '@chakra-ui/icons'
 
 export default function WeekTable({onIndexChange, weekMenu}){
-    console.log('WEEKMENU ==== >',weekMenu)
-
     // Gestion du jour de la semaine sélectionné en local
     const [tabIndex, setTabIndex] = React.useState(0)
     // Mise à jour du jour de la semaine sélectionné en local
@@ -50,37 +48,37 @@ export default function WeekTable({onIndexChange, weekMenu}){
                     numberValue += 1
                     let updatedNumber = numberValue/21*100
                     setNumber(updatedNumber)
-                    if(day === 'Lundi'){
+                    if(day === 'Monday'){
                         mondayValue +=1
                         let updatedMonday = mondayValue/3*100
                         setMondayNumber(updatedMonday)
                     }
-                    if(day === 'Mardi'){
+                    if(day === 'Tuesday'){
                         tuesdayValue +=1
                         let updatedTuesday = tuesdayValue/3*100
                         setTuesdayNumber(updatedTuesday)
                     }
-                    if(day === 'Mercredi'){
+                    if(day === 'Wednesday'){
                         wednesdayValue +=1
                         let updatedWednesday = wednesdayValue/3*100
                         setWednesdayNumber(updatedWednesday)
                     }
-                    if(day === 'Jeudi'){
+                    if(day === 'Thursday'){
                         thursdayValue +=1
                         let updatedThursday = thursdayValue/3*100
                         setThursdayNumber(updatedThursday)
                     }
-                    if(day === 'Vendredi'){
+                    if(day === 'Friday'){
                         fridayValue +=1
                         let updatedFriday = fridayValue/3*100
                         setFridayNumber(updatedFriday)
                     }
-                    if(day === 'Samedi'){
+                    if(day === 'Saturday'){
                         saturdayValue +=1
                         let updatedSaturday = saturdayValue/3*100
                         setSaturdayNumber(updatedSaturday)
                     }
-                    if(day === 'Dimanche'){
+                    if(day === 'Sunday'){
                         sundayValue +=1
                         let updatedSunday = sundayValue/3*100
                         setSundayNumber(updatedSunday)
@@ -100,31 +98,31 @@ export default function WeekTable({onIndexChange, weekMenu}){
             <Tabs orientation="vertical" index={tabIndex}  onChange={handleTabsChange} >
                 <TabList >
                     <Tab value={0} justifyContent='space-between'>
-                        Lundi
+                        Monday
                         {mondayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={mondayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                     <Tab value={1} justifyContent='space-between'>
-                        Mardi
+                        Tuesday
                         {tuesdayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={tuesdayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                     <Tab value={2} justifyContent='space-between'>
-                        Mercredi
+                        Wednesday
                         {wednesdayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={wednesdayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                     <Tab value={3} justifyContent='space-between'>
-                        Jeudi
+                        Thursday
                         {thursdayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={thursdayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                     <Tab value={4} justifyContent='space-between'>
-                        Vendredi
+                        Friday
                         {fridayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={fridayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                     <Tab value={5} justifyContent='space-between'>
-                        Samedi
+                        Saturday
                         {saturdayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={saturdayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                     <Tab value={6} justifyContent='space-between'>
-                        Dimanche
+                        Sunday
                         {sundayNumber === 100 ? <CheckCircleIcon ml='1rem'/> : <CircularProgress value={sundayNumber} color='green.600' size='2rem' ml='1rem'/>}
                     </Tab>
                 </TabList>

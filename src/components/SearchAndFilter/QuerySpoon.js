@@ -1,10 +1,9 @@
 // Imports
 import React from 'react'
 import { Center, Spinner, Text } from '@chakra-ui/react'
-// import test
 import CardRecipeWithSpoon from '../Card/CardRecipeWithSpoon';
 import { useSpoon } from '../../utils/helper';
-//import CardWithGrid from '../Card/CardWithGrid';
+
 // Function
 
 export default function QuerySpoon({ index, category, setWeekMenu, weekMenu, thingSearched, filter }) {

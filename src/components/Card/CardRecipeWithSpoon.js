@@ -14,7 +14,6 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
     const { isOpen, onOpen, onClose } = useDisclosure()
     // stockage de l'object qui contient les recettes de l'API
     const recipesDatas = datas?.data?.results
-    console.log('Datas from Spoonacular in Card component : ', recipesDatas)
     // stockage de LA recette que l'on souhaite voir en détail et peut-être ajouter au menu
     const [detailRecipe, setDetailRecipe] = React.useState({});
     // Ouverture de la modal après lui avoir envoyé les données de LA recette pour l'hydrater

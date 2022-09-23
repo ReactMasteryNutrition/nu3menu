@@ -50,7 +50,6 @@ export default function CarouselWithCheckedSpoon(){
     }
     // Gestion du statut du menu Public ou Privé
     const [ switchStatus, setSwitchStatus ] = React.useState(true)
-    const [ menuIsPublic, setMenuIsPublic ] = React.useState('Public')
 
     // On récupère l'image visible pour la couverture et l'input pour le titre, on met à jour le state
     const finalizeMenu = () => {
@@ -66,19 +65,14 @@ export default function CarouselWithCheckedSpoon(){
         )
     }
 
-    //on récupère l'ID du User
     const { currentUser } = useAuth()
 
     //ajout dans fierbase
-    //const menuWhichShouldBeSaved = weekMenu
     const week =  localStorage.getItem('week')
     const weekParse = JSON.parse(localStorage.getItem('weekMenuHeader'))
 
-    
-
     const newMenuSaved = async () => {
         try{
-            //console.log('week ===> ', week)
         const menuRef = doc(collection(db, "menus"))
         const dataMenu = {
             idMenu : menuRef.id,
@@ -98,28 +92,17 @@ export default function CarouselWithCheckedSpoon(){
     }
 
     const addFirebase = () => {
-        //console.log('weekMenu from Carousel : ', menuWhichShouldBeSaved)
         newMenuSaved()
         setRedirect(true)
     }
 
-
     const changeSwitch = (e) => {
-        console.log('e :', e)
         setSwitchStatus(!switchStatus)
     }
-    React.useEffect(()=>{
-        console.log('IS PUBLIC : ', switchStatus)
-        if(switchStatus === true){
-            setMenuIsPublic("Public")
-        } else {
-            setMenuIsPublic("Pirvate")
-        }
-    }, [switchStatus])
 
     return( 
             <>
-                {redirect && <Navigate to={'/menu'} /> }
+                {redirect && <Navigate to={'/allmenus'} /> }
                 <VStack>
                     <Text color='green.50' fontSize='2xl'>Choose your cover</Text>
                     <Image id="currentImage" src={imagesRegister[valueSelected-1]} alt={imagesTitle[valueSelected-1]} borderRadius='md'/>

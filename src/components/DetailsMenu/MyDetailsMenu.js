@@ -6,7 +6,6 @@ import { db } from '../../firebase-config'
 import {
     Box,
     Button,
-    Center,
     Divider,
     Heading,
     Link,
@@ -25,7 +24,6 @@ import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from '../meal/oneDay'
 import DetailRecipeModalWithSpoon from '../Card/DetailRecipeModalWithSpoon'
-import { writeTheDate } from '../../utils/HoursAndMinutes'
 // function
 export default function MyDetailsMenu(){
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -60,8 +58,7 @@ export default function MyDetailsMenu(){
         onClose()
     }
     //
-    console.log('currentMenu : ', currentMenu)
-    //
+    
     return (
         menuId ? (
             <Box w='100%' px='4rem' color={"green.50"}>
@@ -85,6 +82,7 @@ export default function MyDetailsMenu(){
                                             Object.entries(key[1])?.map(meal => {
                                                 return (
                                                     <Oneday
+                                                        key={meal[0]}
                                                         categorykey={meal[0]}
                                                         sourceImg={meal[1]?.image}
                                                         title={meal[1]?.title}
