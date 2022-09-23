@@ -61,7 +61,6 @@ export default function CarouselWithCheckedSpoon(){
             {...weekMenuHeader, 
                 weekMenuTitle: titleMenuToRegister, 
                 weekMenuCover : finalCoverImage, 
-
                 submitted: true
             }
         )

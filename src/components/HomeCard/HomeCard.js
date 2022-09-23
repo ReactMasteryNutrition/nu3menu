@@ -2,7 +2,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react'
 import { db } from "../../firebase-config"
-import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import { collection, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import {useAuth} from "../../context/authContext"
 import CardComponent from '../Card/CardComponent';
 
@@ -15,7 +15,7 @@ export default function HomeCard(){
     const [menuAsAnObject, setMenuAsAnObject]= React.useState([])
     // UseEffect pour récupérer les derniers menus public par ordre chronologique décroissant (donc du plus récent au plus vieux)
     React.useEffect(()=>{
-        const q = query(collection(db, 'menus'), where("isPublic", "==", true), orderBy("dateCreation", "desc"))
+        const q = query(collection(db, 'menus'), where("isPublic", "==", true), orderBy("dateCreation", "desc"),  limit(10))
         onSnapshot(q, (querySnapshot)=> {
             const lastPublicMenus = []
             querySnapshot.forEach((doc)=> {

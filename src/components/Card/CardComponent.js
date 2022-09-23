@@ -1,4 +1,5 @@
 // Imports 
+import React from 'react'
 import { Box, Button, Grid, GridItem, Image, Text, Tooltip } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
@@ -10,7 +11,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
 // Functions
-export default function CardComponent({ listOfMenu, currentUser }) {
+export default function CardComponent({ listOfMenu, currentUser, setUserWithFavorite, sumOfFav, setSumOfFav }) {
     // Gestion du bouton Add/Remove from Favorite
     let location = window.location.pathname
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function CardComponent({ listOfMenu, currentUser }) {
     const addFavorite = (idMenu) => {
         console.log('On ajoute ce menu aux favoris')
         const favoriteRef = doc(db, "menus", idMenu)
+        //.then(console.log(doc(db, "menus", idMenu).data()))
         //console.log(favoriteRef)
         updateDoc(favoriteRef, {
             favorite: arrayUnion(currentUser?.uid)
@@ -36,6 +38,7 @@ export default function CardComponent({ listOfMenu, currentUser }) {
             haveFavorite: true
         })
     }
+    let counterLength = sumOfFav
 
     const removeFavorite = (idMenu) => {
         console.log('on cherche à supprimer un menu des favoris')
@@ -43,9 +46,25 @@ export default function CardComponent({ listOfMenu, currentUser }) {
         updateDoc(favoriteRef, {
             favorite: arrayRemove(currentUser?.uid)
         })
-        navigate("/favorite")
+        const haveFavoriteRef = doc(db, "users", currentUser?.uid)
+        if(listOfMenu.length === 1){
+            updateDoc(haveFavoriteRef, {
+                haveFavorite: false
+            })
+            setUserWithFavorite(false)
+            console.log('on est sensé avoir passé le state a FALSE')
+        } else {
+            setUserWithFavorite(true)
+            console.log('on est sensé maintenir le state a TRUE')
+        }
+        if(listOfMenu.length !== 0){
+            setSumOfFav(counterLength-1)
+        }
+        //navigate("/favorite")
     }
 
+    console.log('list of menu ',listOfMenu.length)
+    console.log(typeof(listOfMenu.length))
     return (
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
         {listOfMenu.map(menu => {
