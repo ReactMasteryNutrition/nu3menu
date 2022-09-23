@@ -1,7 +1,7 @@
 // Imports
 import React from 'react'
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Button, Flex, IconButton, Image, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Text, VStack } from "@chakra-ui/react"
+import { Button, Flex, IconButton, Image, Input, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Switch, Text, VStack } from "@chakra-ui/react"
 import { Navigate } from 'react-router-dom';
 import { db } from "../../firebase-config";
 import { serverTimestamp,  collection, doc, setDoc } from "firebase/firestore";
@@ -48,6 +48,10 @@ export default function CarouselWithCheckedSpoon(){
             setValueSelected(valueSelected-1)
         }
     }
+    // Gestion du statut du menu Public ou Privé
+    const [ switchStatus, setSwitchStatus ] = React.useState(true)
+    const [ menuIsPublic, setMenuIsPublic ] = React.useState('Public')
+
     // On récupère l'image visible pour la couverture et l'input pour le titre, on met à jour le state
     const finalizeMenu = () => {
         //console.log('On enregistre le menu avec...')
@@ -57,6 +61,7 @@ export default function CarouselWithCheckedSpoon(){
             {...weekMenuHeader, 
                 weekMenuTitle: titleMenuToRegister, 
                 weekMenuCover : finalCoverImage, 
+
                 submitted: true
             }
         )
@@ -81,7 +86,7 @@ export default function CarouselWithCheckedSpoon(){
             idCreator : currentUser?.uid || "noUser",
             author : currentUser?.displayName || "noName",
             dateCreation : serverTimestamp(),
-            isPublic : true ,
+            isPublic : switchStatus ,
             title : weekParse.weekMenuTitle,
             cover : weekParse.weekMenuCover ,
             detail : week,
@@ -98,6 +103,20 @@ export default function CarouselWithCheckedSpoon(){
         newMenuSaved()
         setRedirect(true)
     }
+
+
+    const changeSwitch = (e) => {
+        console.log('e :', e)
+        setSwitchStatus(!switchStatus)
+    }
+    React.useEffect(()=>{
+        console.log('IS PUBLIC : ', switchStatus)
+        if(switchStatus === true){
+            setMenuIsPublic("Public")
+        } else {
+            setMenuIsPublic("Pirvate")
+        }
+    }, [switchStatus])
 
     return( 
             <>
@@ -135,6 +154,11 @@ export default function CarouselWithCheckedSpoon(){
                         />
                     </Flex>
                     <Input id='titleMenu' color='green.50' focusBorderColor='green.400' placeholder={`Menu's title`} onChange={()=>finalizeMenu()}/>
+                    <Flex w='100%' justifyContent='center'>
+                        <Text color='green.50' mr='2rem'>Public</Text>
+                        <Switch size='md' colorScheme='green' alignSelf='center' defaultChecked onChange={changeSwitch}/>
+                    </Flex>
+                    
                     <Button leftIcon={<CheckCircleIcon />} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='green' onClick={addFirebase}>
                         Save this menu
                     </Button>
