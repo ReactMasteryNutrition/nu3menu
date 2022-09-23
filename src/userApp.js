@@ -14,6 +14,7 @@ const Register = React.lazy(() => import('./pages/Register'))
 const Login = React.lazy(() => import('./pages/Login'))
 const Error404 = React.lazy(() => import('./pages/Error404'))
 const ForgetPassword = React.lazy(() => import('./pages/ForgetPassword'))
+const Contact = React.lazy(() => import('./pages/Contact'))
 // pages prefetch then loaded after connection
 const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MyAccount'))
 const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
@@ -21,6 +22,7 @@ const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/
 const Favorite = React.lazy(() => import(/* webpackPrefetch: true */ './pages/Favorite'))
 const AllMenus = React.lazy(() => import(/* webpackPrefetch: true */ './pages/AllMenus'))
 const DetailsMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/DetailsMenu'))
+
 
 const UserApp = () => {
     return (
@@ -34,6 +36,7 @@ const UserApp = () => {
                         <Route path='/register' element={<Register />} />
                         <Route path='/login' element={<Login />} />
                         <Route path='/forgetpassword' element={<ForgetPassword />} />
+                        <Route path='/contact' element={<Contact />} />
                         <Route element={<PrivateRoute />} >
                             <Route path='/myaccount' element={<MyAccount />} />
                             <Route path='/createMenu' element={<CreateMenu />} />
