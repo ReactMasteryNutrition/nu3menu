@@ -10,7 +10,6 @@ import {
     Box,
     Text,
     useToast,
-    useDisclosure,
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
@@ -20,7 +19,6 @@ import { db } from "../../firebase-config";
 
 const FormRegister = () => {
     const [show, setShow] = useState(false)
-    const { onClose } = useDisclosure()
     const [validation, setValidation] = useState("")
     const handleClick = () => setShow(!show)
     const navigate = useNavigate()
