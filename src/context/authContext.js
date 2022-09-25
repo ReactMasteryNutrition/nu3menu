@@ -10,7 +10,7 @@ export const AuthContext = createContext( null );
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {
-        throw new Error("useAuth() s'utilise avec <AuthContext.provider>")
+        throw new Error("useAuth() is used with <AuthContext.Provider>")
     }
     return context
 }

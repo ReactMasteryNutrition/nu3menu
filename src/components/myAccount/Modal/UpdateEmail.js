@@ -38,7 +38,7 @@ const ModalEmail = () => {
         e.preventDefault()
         if (!(inputs?.current[0]?.value && inputs?.current[1]?.value)) {
             return toast({
-                description: "Veuillez remplir tous les champs !",
+                description: "Please fill in all the fields !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
@@ -60,7 +60,7 @@ const ModalEmail = () => {
             }
             updateEmail(currentUser, inputs?.current[1]?.value)
             toast({
-                description: "Votre adresse e-mail a bien été modifié !",
+                description: "Your email address has been modified !",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
@@ -69,7 +69,7 @@ const ModalEmail = () => {
             if (currentUser?.emailVerified === true) {
                 setTimeout(() => {
                     toast({
-                        description: "Un e-mail de vérification vous a été envoyé !",
+                        description: "A verification email has been sent to you !",
                         status: 'success',
                         duration: 4000,
                         isClosable: true,
@@ -78,14 +78,14 @@ const ModalEmail = () => {
             }
         } catch (error) {
             toast({
-                description: "Il y a eu une erreur lors de la modification de votre adresse e-mail !",
+                description: "There was an error while modifying your email address !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
             })
             if (currentUser?.emailVerified === false) {
                 toast({
-                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    description: "There was an error sending the verification email !",
                     status: 'error',
                     duration: 4000,
                     isClosable: true,
@@ -98,7 +98,7 @@ const ModalEmail = () => {
         <Box>
             <form onSubmit={handleSubmit}>
                 <ModalMyAccount
-                    ariaLabel={"e-mail"}
+                    ariaLabel={"email"}
                     header={<Box
                         position={ResponsiveWidth() ? null : "absolute"}
                         left={ResponsiveWidth() ? null : "50%"}
@@ -107,7 +107,7 @@ const ModalEmail = () => {
                         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                     >
                         <Image
-                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            src="./images/logo_nu3menu.svg" alt="Site logo"
                             width={ResponsiveWidth() ? "15rem" : "18rem"}
                             margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 3rem auto'}
                         />
@@ -116,7 +116,7 @@ const ModalEmail = () => {
                             fontSize="1.5rem"
                             marginBottom="1rem"
                         >
-                            Modifier mon adresse e-mail
+                            Edit my email address
                         </ModalHeader>
                     </Box>}
                     content={<Box
@@ -127,7 +127,7 @@ const ModalEmail = () => {
                         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                     >
                         <FormControl>
-                            <FormLabel>Veuillez-vous authentifier avec votre mot de passe</FormLabel>
+                            <FormLabel>Please log in with your password</FormLabel>
                             <InputGroup size='md' marginBottom="1rem" >
                                 <Input
                                     id='reauthentifyEmail'
@@ -144,7 +144,7 @@ const ModalEmail = () => {
                             </InputGroup>
                         </FormControl>
                         <FormControl marginBottom="1rem">
-                            <FormLabel>Nouvelle adresse e-mail</FormLabel>
+                            <FormLabel>New email address</FormLabel>
                             <Input type='email' bg='#f0fff4' color="#1A202C"
                                 ref={addData}
                             />
@@ -161,7 +161,7 @@ const ModalEmail = () => {
                             top={ResponsiveWidth() ? null : "75%"}
                             width={ResponsiveWidth() ? null : "90%"}
                             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                        >Valider
+                        >Confirm
                         </Button>}
                 />
             </form>

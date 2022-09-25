@@ -38,7 +38,7 @@ const ModalMyAccount = ({ ariaLabel, header, content, footer }) => {
         width="100%"
         _hover={{ bgColor: "#a0aec0" }}
       >
-        Modifier
+        Edit
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />

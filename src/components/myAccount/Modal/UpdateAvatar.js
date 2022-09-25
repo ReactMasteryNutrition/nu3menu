@@ -39,7 +39,7 @@ const ModalAvatar = () => {
         // limit the image type
         if (!["image/svg/xml", "image/png", "image/jpeg"].includes(image?.type)) {
             return toast({
-                description: "Veuillez choisir une image au format jpeg, jpg, png ou svg !",
+                description: "Please choose an image in jpeg, jpg, png or svg format !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
@@ -67,7 +67,7 @@ const ModalAvatar = () => {
             // close the modal
             onClose()
             toast({
-                description: "Votre avatar a bien été modifié !",
+                description: "Your avatar has been modified !",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
@@ -75,7 +75,7 @@ const ModalAvatar = () => {
         } catch (error) {
             console.log(error)
             toast({
-                description: "Il y a eu une erreur lors de la modification de votre avatar !",
+                description: "There was an error while editing your avatar !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
@@ -115,7 +115,7 @@ const ModalAvatar = () => {
                         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                     >
                         <Image
-                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            src="./images/logo_nu3menu.svg" alt="Site logo"
                             width={ResponsiveWidth() ? "15rem" : "18rem"}
                             margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 2rem auto'}
                         />
@@ -124,7 +124,7 @@ const ModalAvatar = () => {
                             fontSize="1.5rem"
                             marginBottom="1rem"
                         >
-                            Modifier mon avatar
+                        Edit my avatar
                         </ModalHeader>
                     </Box>
                     <ModalCloseButton
@@ -169,7 +169,7 @@ const ModalAvatar = () => {
                             top={ResponsiveWidth() ? null : "70%"}
                             width={ResponsiveWidth() ? null : "90%"}
                             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                        >Valider
+                        >Confirm
                         </Button>
                     </ModalFooter>
                 </ModalContent>

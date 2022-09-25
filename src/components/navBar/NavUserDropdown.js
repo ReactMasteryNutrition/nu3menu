@@ -41,15 +41,16 @@ const NavUserDropdown = () => {
             </MenuItem>
           </Link>
           <MenuDivider /></>)
-          : null}
+          : null
+        }
         <Link to="/myaccount">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-            Mon compte
+            My account
           </MenuItem>
         </Link>
         <Link to="/allmenus">
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-            Tous mes menus
+            All my menus
           </MenuItem>
         </Link>
         {/*  <Link to="/alladvices">
@@ -70,7 +71,7 @@ const NavUserDropdown = () => {
         </Link> */}
         <Link to="/" onClick={handleClick}>
           <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-            Se déconnecter
+            Log out
           </MenuItem>
         </Link>
       </MenuList>

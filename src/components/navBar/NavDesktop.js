@@ -20,7 +20,7 @@ const NavVisitor = () => {
         <Link to="/">
           <Image
             src="./images/logo_nu3menu.svg"
-            alt="Logo du site"
+            alt="Site logo"
             width="12rem"
           />
         </Link>
@@ -59,7 +59,7 @@ const NavUser = () => {
         <Link to="/">
           <Image
             src="./images/logo_nu3menu.svg"
-            alt="Logo du site"
+            alt="Site logo"
             width="12rem"
           />
         </Link>
@@ -80,14 +80,14 @@ const NavUser = () => {
             >
               <Box _hover={{
                 color: "#f0fff4"
-              }}>Mon menu</Box>
+              }}>My menu</Box>
             </Link>
             <Link to="/favorite"
             >
               <Box
                 _hover={{
                   color: "#f0fff4"
-                }}>Favoris</Box>
+                }}>Favorites</Box>
             </Link>
           </Flex>
           <Flex
@@ -98,7 +98,7 @@ const NavUser = () => {
             <Link to="/createMenu"
             >
               <Tooltip
-                label='Créer mon menu'
+                label='Create my menu'
                 width="6.5rem"
                 textAlign="center"
                 fontSize="0.7rem"

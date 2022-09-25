@@ -15,11 +15,9 @@ import {
     useDisclosure
 } from '@chakra-ui/react'
 import { BsFillPersonPlusFill } from "react-icons/bs"
-import {useAuth} from "../../context/authContext";
 
 const ModalRegister = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { currentUser } = useAuth()
     const navigate = useNavigate()
     const handleClose = () => {
         onClose()
@@ -39,7 +37,7 @@ const ModalRegister = () => {
                     _active={{ bg: "#1A202C" }}
                     fontSize="1.2rem"
                     fontWeight="700"
-                    color="#48bb78">S'inscrire</Box> :
+                    color="#48bb78">Sign up</Box> :
                     <BsFillPersonPlusFill
                         bg="#1A202C"
                         _hover={{
@@ -65,7 +63,7 @@ const ModalRegister = () => {
                 >
                     <ModalHeader>
                         <Image
-                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            src="./images/logo_nu3menu.svg" alt="Site logo"
                             position="absolute"
                             top={ResponsiveWidth() ? "4rem" : "11rem"}
                             left="50%"
@@ -95,7 +93,7 @@ const ModalRegister = () => {
                         <CloseIcon color="#1A202C" />
                     </Button>
                     <ModalBody>
-                        <FormRegister currentUser={currentUser} />
+                        <FormRegister  />
                     </ModalBody>
                     <ModalFooter/>
                 </ModalContent>
