@@ -37,7 +37,7 @@ const ModalLogin = () => {
                     _active={{ bg: "#1A202C" }}
                     fontSize="1.2rem"
                     fontWeight="700"
-                    color="#48bb78">Se connecter</Box> :
+                    color="#48bb78">Log in</Box> :
                     <IoLogInSharp
                         size="50"
                         bg="#1A202C"
@@ -64,7 +64,7 @@ const ModalLogin = () => {
                 >
                     <ModalHeader>
                         <Image
-                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            src="./images/logo_nu3menu.svg" alt="Site logo"
                             position="absolute"
                             top={ResponsiveWidth() ? "4rem" : "10rem"}
                             left="50%"

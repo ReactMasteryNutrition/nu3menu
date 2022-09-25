@@ -36,11 +36,11 @@ const FormRegister = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (inputs.current[0].value === "") {
-            setValidation("Veuillez indiquer une adresse email")
+            setValidation("Please enter an email address")
             return;
         }
         if ((inputs.current[1].value.length) < 6) {
-            setValidation("6 characters min")
+            setValidation("Your password must contain at least 6 characters")
             return;
         }
         try {
@@ -68,7 +68,7 @@ const FormRegister = () => {
             if (currentUser?.emailVerified === true) {
                 setTimeout(() => {
                     toast({
-                        description: "Un e-mail de vérification vous a été envoyé !",
+                        description: "A verification email has been sent to you",
                         status: 'success',
                         duration: 4000,
                         isClosable: true
@@ -82,21 +82,18 @@ const FormRegister = () => {
             setValidation(err.code)
             switch (err.code) {
                 case "auth/email-already-in-use":
-                    setValidation("Cette adresse e-mail est déjà utilisée")
+                    setValidation("This email address is already used")
                     break;
                 case "auth/invalid-email":
-                    setValidation("Cette adresse e-mail n'est pas valide")
-                    break;
-                case "auth/weak-password":
-                    setValidation("Le mot de passe doit contenir au moins 6 caractères")
+                    setValidation("This email address is invalid")
                     break;
                 default:
-                    setValidation("Une erreur est survenue")
+                    setValidation("Unknown error")
                     break
             }
             if (currentUser?.emailVerified === false) {
                 toast({
-                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    description: "There was an error sending the verification email",
                     status: 'error',
                     duration: 4000,
                     isClosable: true
@@ -117,23 +114,23 @@ const FormRegister = () => {
             setValidation(err.code)
             switch (err.code) {
                 case "auth/invalid-email":
-                    setValidation("Cette adresse e-mail n'est pas valide")
+                    setValidation("This email address is invalid")
                     break;
                 case "auth/user-disabled":
-                    setValidation("Cet utilisateur est désactivé")
+                    setValidation("This user is disabled")
                     break;
                 case "auth/wrong-password":
-                    setValidation("Le mot de passe est incorrect")
+                    setValidation("Wrong password")
                     break;
                 case "auth/email-already-in-use":
-                    setValidation("Cet email est déjà utilisé")
+                    setValidation("This email address is already used")
                     break;
                 default:
-                    throw new Error("Erreur non prise en compte")
+                    throw new Error("Unknown error")
             }
             if (currentUser?.emailVerified === false) {
                 toast({
-                    description: "Il y a eu une erreur lors de l'envoi de l'e-mail de vérification !",
+                    description: "There was an error sending the verification email",
                     status: 'error',
                     duration: 4000,
                     isClosable: true
@@ -141,7 +138,6 @@ const FormRegister = () => {
             }
         }
     }
-
 
     return (
         <Box
@@ -153,13 +149,13 @@ const FormRegister = () => {
         >
             <form ref={formRef} onSubmit={handleSubmit}>
                 <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" name="email" ref={addInputs} />
+                    <Input type='email' placeholder='Email address' bg='#f0fff4' color="#1A202C" name="email" ref={addInputs} />
                 </FormControl >
                 <InputGroup size='md'>
                     <Input
                         pr='4.5rem'
                         type={show ? 'text' : 'password'}
-                        placeholder='Mot de passe'
+                        placeholder='Password'
                         bg='#f0fff4'
                         isRequired
                         color="#1A202C"
@@ -179,7 +175,7 @@ const FormRegister = () => {
                         _hover={{ bgColor: "#a0aec0" }}
                         onClick={handleSubmit}
                     >
-                        S'inscrire
+                        Sign up
                     </Button>
                 </FormControl>
                 <FormControl>
@@ -190,7 +186,7 @@ const FormRegister = () => {
                         onClick={handleGoogleSignIn}
                     >
                         <AiOutlineGoogle size="20" />
-                        <Box marginLeft='0.5rem'>S'inscrire avec Google</Box>
+                        <Box marginLeft='0.5rem'>Sign up with Google</Box>
                     </Button>
                 </FormControl>
                 <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>
