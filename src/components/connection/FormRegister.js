@@ -110,7 +110,6 @@ const FormRegister = () => {
                 navigate('/')
             })
         } catch (err) {
-            console.log(err)
             setValidation(err.code)
             switch (err.code) {
                 case "auth/invalid-email":

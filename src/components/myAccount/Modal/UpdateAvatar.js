@@ -73,7 +73,6 @@ const ModalAvatar = () => {
                 isClosable: true,
             })
         } catch (error) {
-            console.log(error)
             toast({
                 description: "There was an error while editing your avatar !",
                 status: 'error',
