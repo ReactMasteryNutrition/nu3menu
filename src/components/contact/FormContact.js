@@ -15,23 +15,7 @@ import { ResponsiveWidth } from "../../utils/helper";
 import {useForm} from "react-hook-form";
 
 const FormContact = () => {
-  const { handleSubmit, errors, register, formState } = useForm();
-  const validateEmail = (value) => {
-    let error;
-    if (!value) {
-      error = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(value)) {
-      error = "Email address is invalid";
-    }
-    return error || true;
-  }
-  const validateName = (value) => {
-    let error;
-    if (!value) {
-      error = "Name is required";
-    }
-    return error || true;
-  }
+  const { handleSubmit} = useForm();
 
   const onSubmit = (values) => {
     return new Promise((resolve) => {
@@ -68,20 +52,13 @@ const FormContact = () => {
               <FormControl display="flex" flexDir="column" gap="4">
                 <HStack spacing="6">
                   <Box w="100%">
-                    <FormControl id="first-name" isInvalid={errors.name} isRequired>
+                    <FormControl id="first-name" isRequired>
                       <FormLabel color={"green.50"}>First-name</FormLabel>
                       <Input
                         type="text"
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
-                        ref={register({
-                          pattern: {
-                            value: /[A-Za-z]/,
-                            message:
-                                "Please enter a valid first name",
-                          }
-                        })}
                       />
                     </FormControl>
                   </Box>
@@ -93,13 +70,6 @@ const FormContact = () => {
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
-                        ref={register({
-                          pattern: {
-                            value: /[A-Za-z]/,
-                            message:
-                                "Last name must contain only letters",
-                          }
-                        })}
                       />
                     </FormControl>
                   </Box>
@@ -113,9 +83,6 @@ const FormContact = () => {
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
-                        ref={register({
-                          pattern: /^\S+@\S+$/
-                        })}
                       />
                     </FormControl>
                   </Box>

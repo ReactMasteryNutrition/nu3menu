@@ -21,7 +21,7 @@ const FooterDestop = () => {
                 <List display={'flex'} alignItems={'center'} gap={'0.5em'} >
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link href={data.to}>{data.label}</Link>
+                        <Link href={data.url}>{data.label}</Link>
                     </ListItem>)}
                 </List>
             </WrapItem>
