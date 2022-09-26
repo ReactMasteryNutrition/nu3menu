@@ -19,7 +19,13 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
         const currentMenuRef = doc(db, "users", currentUser?.uid)
         updateDoc(currentMenuRef, {
             currentMenu: idMenu
-        });
+        })
+        toast({
+            title: "Menu added as your new current menu",
+            status: 'success',
+            isClosable: true,
+            position: 'top'
+        })
     }
     // Fonction pour ajouter un menu en favori
     const addFavorite = (menu) => {
