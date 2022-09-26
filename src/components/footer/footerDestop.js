@@ -16,7 +16,7 @@ const FooterDestop = () => {
             <WrapItem>
                 <Flex>
                     {socialIconLink.map((data) =>
-                        <Link key={data.id} to={data.to} rel= "noreferrer noopener" target="_blank">
+                        <Link key={data.id} to={{ pathname:data.to }} rel= "noreferrer noopener" target="_blank">
                             <IconButton aria-label='Details' icon={data.label} marginX='0.5rem' color={data.colori} bgColor='gray.800'/>
                         </Link>)}
                 </Flex>
@@ -25,7 +25,7 @@ const FooterDestop = () => {
                 <List display={'flex'} alignItems={'center'} gap={'0.5em'} >
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link to={data.url} rel= "noreferrer noopener" target="_blank">{data.label}</Link>
+                        <Link to={{pathname:data.url}} rel= "noreferrer noopener" target="_blank">{data.label}</Link>
                     </ListItem>)}
                 </List>
             </WrapItem>

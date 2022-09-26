@@ -32,7 +32,7 @@ const FooterMobile = () => {
                 <List spacing={3}>
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link to={data.url} rel= "noreferrer noopener" target="_blank">{data.label}</Link>
+                        <Link to={{pathname:data.url}} rel= "noreferrer noopener" target="_blank">{data.label}</Link>
                     </ListItem>)}
                 </List>
             </Box>
