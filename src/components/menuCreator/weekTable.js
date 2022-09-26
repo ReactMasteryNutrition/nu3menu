@@ -41,8 +41,6 @@ export default function WeekTable({onIndexChange, weekMenu}){
     // Cela va alimenter les progress bar
     React.useEffect(()=>{
         for (const [day, meals] of Object.entries(weekMenu)) {
-            //console.log(day)
-            //console.log(typeof(day))
             for( const [meal, thereIsARecipe] of Object.entries(meals)) {
                 if(thereIsARecipe !== '') {
                     numberValue += 1

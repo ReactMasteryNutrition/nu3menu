@@ -6,7 +6,6 @@ import { Navigate } from 'react-router-dom';
 
 
 const Oneday = ({ key, categorykey, sourceImg, title, urlData, buttonToOpenModal }) => {
-    console.log(key)
     return (
         
         <>

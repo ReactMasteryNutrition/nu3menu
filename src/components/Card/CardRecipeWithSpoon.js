@@ -93,7 +93,7 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
                         <ModalFooter flexDir={['column', 'row']}>
                             <ButtonToAddRecipeWithSpoon recipeToAdd={detailRecipe} onClose={onClose} index={indexOfDay} category={categoryOfMeal} weekMenu={weekMenu} setWeekMenu={setWeekMenu} />
                             <Link href={detailRecipe?.sourceUrl} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
-                                <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
+                                <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800'>How cook it ?</Button>
                             </Link>
                             <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
                             Close

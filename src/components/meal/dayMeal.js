@@ -75,7 +75,6 @@ const DayMeal = () =>{
                           {
                             Object.entries(key[1])?.map(meal => {
                               return (
-                                //console.log(meal)
                                 <Oneday
                                 key={meal[0]}
                                 categorykey={meal[0]}
@@ -104,7 +103,7 @@ const DayMeal = () =>{
                     <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
                         <Link href={detailRecipe?.sourceUrl} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
-                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
+                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800'>How cook it ?</Button>
                         </Link>
                         <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
                         Close

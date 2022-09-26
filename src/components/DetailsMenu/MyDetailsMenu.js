@@ -73,7 +73,6 @@ export default function MyDetailsMenu(){
                         Object.entries(detailMenu[0]).map(keyNumber => {
                             return (
                                 <Stack w='100%' justifyContent='center' key={`${keyNumber[0]}${Math.floor(Math.random() * 100)}`}>
-                                    {console.log(`${keyNumber[0]}${Math.floor(Math.random() * 100)}`)}
                                     <Heading>{keyNumber[0]}</Heading>
                                     <Stack
                                         w='100%'

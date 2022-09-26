@@ -90,7 +90,7 @@ export default function DetailRecipeModalWithSpoon({ detail }) {
                                 counterForList += 1
                                 let instructionConcat = `${counterForList}.  ${step.step}`
                                 return (
-                                    <ListItem key={`ingredient_${counterForList}`} mb='0.5rem'>{instructionConcat}</ListItem>
+                                    <ListItem key={`instruction_${Math.random()}`} mb='0.5rem'>{instructionConcat}</ListItem>
                                 )
                             })}
                         </OrderedList>
