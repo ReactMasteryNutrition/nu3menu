@@ -24,7 +24,7 @@ const FormForgetPassword = () => {
     const formRef = useRef();
     const formSubmit = async () => {
         try {
-            const cred = await resetPassword(
+            await resetPassword(
                 inputs?.current[0]?.value
             )
             toast({
