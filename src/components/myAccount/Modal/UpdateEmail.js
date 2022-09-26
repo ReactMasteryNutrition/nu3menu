@@ -22,6 +22,8 @@ import {
     EmailAuthProvider,
     sendEmailVerification
 } from 'firebase/auth'
+import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '../../../firebase-config'
 
 const ModalEmail = () => {
     const { currentUser } = useAuth()
@@ -58,14 +60,14 @@ const ModalEmail = () => {
             } else {
                 await reauthenticateWithPopup(currentUser, provider)
             }
-            updateEmail(currentUser, inputs?.current[1]?.value)
+            await updateEmail(currentUser, inputs?.current[1]?.value)
             toast({
                 description: "Your email address has been modified !",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
             })
-            sendEmailVerification(currentUser)
+            await sendEmailVerification(currentUser)
             if (currentUser?.emailVerified === true) {
                 setTimeout(() => {
                     toast({
@@ -76,6 +78,16 @@ const ModalEmail = () => {
                     })
                 }, 3000);
             }
+            const UserInFirestoreDatabase = async () => {
+                // get the user's data from the database
+                const mailRef = doc(db, `users/${currentUser?.uid}`);
+                const mailDoc = await getDoc(mailRef)
+                await updateDoc(mailRef, {
+                    email: inputs?.current[1]?.value,
+                    dateLogin: serverTimestamp()
+                })
+            }
+            await UserInFirestoreDatabase() // update the user's data in the database
         } catch (error) {
             toast({
                 description: "There was an error while modifying your email address !",
