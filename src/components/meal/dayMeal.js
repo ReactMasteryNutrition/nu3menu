@@ -115,7 +115,7 @@ const DayMeal = () =>{
               }
       </Box> 
         : 
-        <VStack w='100%' minH='100%' justifyContent='center'>
+        <VStack w='100%' minH='100%' justifyContent='center' px='2rem'>
         <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered as your current menu</Text>
         <Link to='/createMenu'>
             <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>

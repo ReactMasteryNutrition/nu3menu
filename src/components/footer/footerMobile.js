@@ -1,7 +1,8 @@
 import React from "react";
-import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link } from '@chakra-ui/react';
+import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem } from '@chakra-ui/react';
 import { socialIconLink, linkListFooter } from '../data/dataLink';
 import { MdSettings } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const FooterMobile = () => {
     //const postition = {
@@ -32,7 +33,7 @@ const FooterMobile = () => {
                 <List spacing={3}>
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link href={data.url}>{data.label}</Link>
+                        <Link to={data.url} rel= "noreferrer noopener" target="_blank">{data.label}</Link>
                     </ListItem>)}
                 </List>
             </Box>
