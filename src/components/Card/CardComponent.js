@@ -23,8 +23,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
     }
     // Fonction pour ajouter un menu en favori
     const addFavorite = (menu) => {
-        //console.log('On ajoute ce menu aux favoris')
-        const isAlreadyHere = menu.favorite.includes(currentUser?.uid)
+        const isAlreadyHere = menu?.favorite?.includes(currentUser?.uid)
         if(isAlreadyHere === true){
             toast({
                 title: "It's already in your favorite",

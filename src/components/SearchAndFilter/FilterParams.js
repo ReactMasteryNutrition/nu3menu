@@ -28,7 +28,6 @@ export default function FilterParams({filter, setFilter}) {
     }
     // Fonction pour utiliser le flèche vers le haut pour augmenter la valeur de l'input
     const incrementLocalFilter = e => {
-        //console.log('+')
         let here = e.target
         let thisInputValue = here.closest('.chakra-numberinput').firstChild.value
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
@@ -36,7 +35,6 @@ export default function FilterParams({filter, setFilter}) {
     }
     // Fonction pour utiliser le flèche vers le bas pour diminuer la valeur de l'input
     const decrementLocalFilter = e => {
-        //console.log('-')
         let here = e.target
         let thisInputValue = here.closest('.chakra-numberinput').firstChild.value
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')

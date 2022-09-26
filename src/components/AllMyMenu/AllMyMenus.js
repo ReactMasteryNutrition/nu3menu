@@ -25,8 +25,9 @@ export default function AllMyMenus(){
             setMyMenus(lastPublicMenus)
         },
         (error) => {
-            console.log(error);
+            throw error;
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     
 

@@ -36,14 +36,12 @@ export default function CarouselWithCheckedSpoon(){
     const [valueSelected, setValueSelected] = React.useState(valueMin)
     // regarder l'image suivante
     const increment = () => {
-        //console.log('INCREMENT')
         if(valueSelected !== valueMax){
             setValueSelected(valueSelected+1)
         }
     }
     // regarder l'image précédente
     const decrement = () => {
-        //console.log('DECREMENT')
         if(valueSelected !== valueMin){
             setValueSelected(valueSelected-1)
         }
@@ -53,7 +51,6 @@ export default function CarouselWithCheckedSpoon(){
 
     // On récupère l'image visible pour la couverture et l'input pour le titre, on met à jour le state
     const finalizeMenu = () => {
-        //console.log('On enregistre le menu avec...')
         let titleMenuToRegister = document?.getElementById("titleMenu")?.value
         let finalCoverImage = document?.getElementById("currentImage")?.getAttribute('src')
         setWeekMenuHeader(
@@ -87,7 +84,7 @@ export default function CarouselWithCheckedSpoon(){
             }
         await setDoc(menuRef, dataMenu)  
         } catch (error){
-            console.log(`c'est une erreur  ${error}`)
+            throw error
         }
     }
 

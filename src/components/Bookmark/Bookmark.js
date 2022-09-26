@@ -13,7 +13,6 @@ export default function Bookmark(){
     // On vérifie que le user possède des menus favoris
     const [userWithFavorite, setUserWithFavorite] = React.useState()
     const [sumOfFav, setSumOfFav] = React.useState()
-    console.log('userWithFavorite == <> ', userWithFavorite)
     const { currentUser } = useAuth()
     const thisUserRef = doc(db, "users", currentUser?.uid)
     getDoc(thisUserRef).then((doc)=>{doc && setUserWithFavorite(doc.data().haveFavorite)})
@@ -32,8 +31,9 @@ export default function Bookmark(){
             setSumOfFav(favoritesMenus.length)
         },
         (error) => {
-            console.log(error);
+            throw error;
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userWithFavorite, sumOfFav])
 
     return(

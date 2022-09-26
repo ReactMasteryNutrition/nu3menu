@@ -66,17 +66,15 @@ const DayMeal = () =>{
                 <Divider/>
                 <VStack>  
                   {
-                    //console.log('LALLLALAA',detailMenu[0])
                     detailMenu[0] &&
                     Object.entries(detailMenu[0]).map(key => {
                       return (
-                        <Stack w='100%' justifyContent='center'>
+                        <Stack w='100%' justifyContent='center' key={key[0]}>
                           <Heading>{key[0]}</Heading>
                           <Stack w='100%' direction={['column', 'column', 'row' ]} justifyContent={['center', 'center', 'space-around']}>
                           {
                             Object.entries(key[1])?.map(meal => {
                               return (
-                                //console.log(meal)
                                 <Oneday
                                 key={meal[0]}
                                 categorykey={meal[0]}
@@ -105,7 +103,7 @@ const DayMeal = () =>{
                     <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
                         <Link href={detailRecipe?.sourceUrl} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
-                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' onClick={()=> console.log('On va voir la recette')}>How cook it ?</Button>
+                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800'>How cook it ?</Button>
                         </Link>
                         <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
                         Close

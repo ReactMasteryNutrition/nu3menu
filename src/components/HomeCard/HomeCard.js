@@ -23,7 +23,7 @@ export default function HomeCard(){
             setLastMenus(lastPublicMenus)
         },
         (error) => {
-            console.log(error);
+            throw error;
         })
     },[])
     // UseEffect pour retraiter le détail de chaque menu et pouvoir manipuler les données

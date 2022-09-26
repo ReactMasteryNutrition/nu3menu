@@ -70,26 +70,30 @@ export default function MyDetailsMenu(){
                 <Divider />
                 <VStack>
                     {detailMenu[0] &&
-                        Object.entries(detailMenu[0]).map(key => {
+                        Object.entries(detailMenu[0]).map(keyNumber => {
                             return (
-                                <Stack w='100%' justifyContent='center'>
-                                    <Heading>{key[0]}</Heading>
+                                <Stack w='100%' justifyContent='center' key={`${keyNumber[0]}${Math.floor(Math.random() * 100)}`}>
+                                    <Heading>{keyNumber[0]}</Heading>
                                     <Stack
                                         w='100%'
                                         direction={['column', 'column', 'row']}
                                         justifyContent={['center', 'center', 'space-around']}>
                                         {
-                                            Object.entries(key[1])?.map(meal => {
+                                            Object.entries(keyNumber[1])?.map(meal => {
                                                 return (
                                                     <Oneday
-                                                        key={meal[0]}
+                                                        key={`${keyNumber[0]}${meal[0]}`}
                                                         categorykey={meal[0]}
                                                         sourceImg={meal[1]?.image}
                                                         title={meal[1]?.title}
                                                         urlData={meal[1]?.sourceUrl}
                                                         buttonToOpenModal={
-                                                            <Link isExternal my='1rem' mx={['0', '0.5rem']}
-                                                                onClick={() => openDetailModal(meal[1])}>
+                                                            <Link 
+                                                                isExternal 
+                                                                my='1rem' 
+                                                                mx={['0', '0.5rem']}
+                                                                onClick={() => openDetailModal(meal[1])}
+                                                            >
                                                                 <IoEnter />
                                                             </Link>}
                                                     />
