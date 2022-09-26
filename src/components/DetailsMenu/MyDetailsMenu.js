@@ -112,7 +112,7 @@ export default function MyDetailsMenu(){
                             <ModalCloseButton onClick={() => closeAndClear()} />
                             <DetailRecipeModalWithSpoon detail={detailRecipe} />
                             <ModalFooter flexDir={['column', 'row']}>
-                                <Link to={detailRecipe?.sourceUrl} target="_blank">
+                                <Link to={{ pathname: detailRecipe?.sourceUrl }} target="_blank">
                                     <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
                                 </Link>
                                 <Button
