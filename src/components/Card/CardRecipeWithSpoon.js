@@ -78,8 +78,8 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
                                     <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.400' onClick={()=> openDetailModal(recipe)}/>
                                 </IconContext.Provider>
                             </GridItem>
-                        </Grid>
-                    </Box>
+                     </Grid>
+                     </Box>
                 )
             })}
             { detailRecipe != null ?

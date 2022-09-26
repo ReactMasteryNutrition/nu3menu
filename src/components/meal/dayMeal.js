@@ -65,66 +65,65 @@ const DayMeal = () =>{
                     <Heading as='h1' size='xl' >MENU OF THE WEEK</Heading>
                 </Center>
                 <Divider/>
-                <VStack>
-                    {
-                        detailMenu[0] &&
-                        Object.entries(detailMenu[0]).map(key => {
-                            return (
-                                <Stack w='100%' justifyContent='center' key={key[0]}>
-                                    <Heading>{key[0]}</Heading>
-                                    <Stack w='100%' direction={['column', 'column', 'row' ]} justifyContent={['center', 'center', 'space-around']}>
-                                        {
-                                            Object.entries(key[1])?.map(meal => {
-                                                return (
-                                                    <Oneday
-                                                        key={meal[0]}
-                                                        categorykey={meal[0]}
-                                                        sourceImg={meal[1]?.image}
-                                                        title={meal[1]?.title}
-                                                        urlData={meal[1]?.sourceUrl}
-                                                        buttonToOpenModal={<IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])}/>}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </Stack>
-                                </Stack>
-                            )
-                        })
-
+                <VStack>  
+                  {
+                    detailMenu[0] &&
+                    Object.entries(detailMenu[0]).map(key => {
+                      return (
+                        <Stack w='100%' justifyContent='center' key={key[0]}>
+                          <Heading>{key[0]}</Heading>
+                          <Stack w='100%' direction={['column', 'column', 'row' ]} justifyContent={['center', 'center', 'space-around']}>
+                          {
+                            Object.entries(key[1])?.map(meal => {
+                              return (
+                                <Oneday
+                                key={meal[0]}
+                                categorykey={meal[0]}
+                                sourceImg={meal[1]?.image}
+                                title={meal[1]?.title}
+                                urlData={meal[1]?.sourceUrl}
+                                buttonToOpenModal={<IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])}/>}
+                              />
+                                )
+                            })
+                          }
+                        </Stack>
+                        </Stack>
+                      )
+                    })
                     }
                 </VStack>
                 {
-                    detailRecipe != null ?
-                        <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
-                            <ModalOverlay />
-                            <ModalContent bg='gray.800' color='green.50'>
-                                <ModalHeader textAlign={['center']}>{ detailRecipe?.title }</ModalHeader>
-                                <ModalCloseButton onClick={()=>closeAndClear()}/>
-                                <DetailRecipeModalWithSpoon detail={detailRecipe}/>
-                                <ModalFooter flexDir={['column', 'row']}>
-                                    <Link to={detailRecipe?.sourceUrl} target="_blank">
-                                        <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
-                                    </Link>
-                                    <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
-                                        Close
-                                    </Button>
-                                </ModalFooter>
-                            </ModalContent>
-                        </Modal> : null
-                }
-            </Box>
-            :
-            <VStack w='100%' minH='100%' justifyContent='center' px='2rem'>
-                <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered as your current menu</Text>
-                <Link to='/createMenu'>
-                    <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
-                        Add menu
-                    </Button>
-                </Link>
-            </VStack>
-
-    )
+                detailRecipe != null ?
+                <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} size='xl'>
+                    <ModalOverlay />
+                    <ModalContent bg='gray.800' color='green.50'>
+                    <ModalHeader textAlign={['center']}>{ detailRecipe?.title }</ModalHeader>
+                    <ModalCloseButton onClick={()=>closeAndClear()}/>
+                    <DetailRecipeModalWithSpoon detail={detailRecipe}/>
+                    <ModalFooter flexDir={['column', 'row']}>
+                        <Link to={detailRecipe?.sourceUrl} target="_blank">
+                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
+                        </Link>
+                        <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
+                        Close
+                        </Button>
+                    </ModalFooter>
+                    </ModalContent>
+                </Modal> : null
+              }
+      </Box> 
+        : 
+        <VStack w='100%' minH='100%' justifyContent='center' px='2rem'>
+        <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered as your current menu</Text>
+        <Link to='/createMenu'>
+            <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
+                Add menu
+            </Button>
+        </Link>
+    </VStack>
+    
+  )
 }
 
 
