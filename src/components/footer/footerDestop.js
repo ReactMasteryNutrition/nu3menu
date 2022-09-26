@@ -11,7 +11,9 @@ const FooterDestop = () => {
 
         <Wrap bg='gray.800' justify='space-between' paddingX='1rem' paddingY='2rem' align='center' spacing='2rem'>
             <WrapItem>
-                <Image w='12rem' src='./images/logo_nu3menu.svg' alt="NU3MENU" />
+                <Link to="/">
+                    <Image w='12rem' src='./images/logo_nu3menu.svg' alt="Site logo" />
+                </Link>
             </WrapItem>
             <WrapItem>
                 <Flex>

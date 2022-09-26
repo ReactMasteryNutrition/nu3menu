@@ -14,7 +14,9 @@ const FooterMobile = () => {
 
         <VStack padding='2rem' paddingBottom='6rem' spacing='2rem'>
             <Box>
-                <Image width='12rem' src='./images/logo_nu3menu.svg' alt="NU3MENU" />
+                <Link to='/'>
+                    <Image width='12rem' src='./images/logo_nu3menu.svg' alt="Site logo" />
+                </Link>
             </Box>
             <Box>
                 <ButtonGroup variant="ghost">
