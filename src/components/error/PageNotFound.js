@@ -1,6 +1,6 @@
-import { Flex, Heading, Button, Box } from "@chakra-ui/react"
+import { Flex, Heading, Button, Box, Link } from "@chakra-ui/react"
 import { FaHome } from "react-icons/fa"
-import { Link } from 'react-router-dom'
+import { Link as ReachLink } from 'react-router-dom'
 import { ResponsiveWidth } from "../../utils/helper"
 
 const PageNotFound = () => {
@@ -14,7 +14,7 @@ const PageNotFound = () => {
                 <br />
                 Go back to the home page
             </Box>
-            <Link to='/'>
+            <Link as={ReachLink} to='/'>
                 <Button leftIcon={<FaHome size="20" color="#F0FFF4" />} bg="#48BB78" color="#F0FFF4" _hover={{ bgColor: "#a0aec0" }} >
                     Home
                 </Button>

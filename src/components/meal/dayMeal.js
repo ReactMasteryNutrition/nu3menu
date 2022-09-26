@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from 'react-router-dom'
-import { Box, Button, Center, Divider, IconButton, Heading, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, VStack} from "@chakra-ui/react";
+import { Link as ReachLink } from 'react-router-dom'
+import { Box, Button, Center, Divider, IconButton, Heading, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, VStack} from "@chakra-ui/react";
 import { AddIcon, CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
@@ -102,10 +102,10 @@ const DayMeal = () =>{
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <Link to={{ pathname:detailRecipe?.sourceUrl}} target="_blank">
+                        <Link href={ detailRecipe?.sourceUrl} rel= "noreferrer noopener" target="_blank">
                             <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
                         </Link>
-                        <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
+                        <Button leftIcon={<CloseIcon/>} my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
                         Close
                         </Button>
                     </ModalFooter>
@@ -116,7 +116,7 @@ const DayMeal = () =>{
         : 
         <VStack w='100%' minH='100%' justifyContent='center' px='2rem'>
         <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered as your current menu</Text>
-        <Link to='/createMenu'>
+        <Link as={ReachLink} to='/createMenu'>
             <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
                 Add menu
             </Button>

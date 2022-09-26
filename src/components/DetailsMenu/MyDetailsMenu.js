@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '../../firebase-config'
-import { Link } from 'react-router-dom'
 import {
     Box,
     Button,
     Divider,
     Heading,
     IconButton,
+    Link, 
     Modal,
     ModalCloseButton,
     ModalContent,
@@ -112,8 +112,8 @@ export default function MyDetailsMenu(){
                             <ModalCloseButton onClick={() => closeAndClear()} />
                             <DetailRecipeModalWithSpoon detail={detailRecipe} />
                             <ModalFooter flexDir={['column', 'row']}>
-                                <Link to={{ pathname: detailRecipe?.sourceUrl }} target="_blank">
-                                    <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
+                                <Link href={ detailRecipe?.sourceUrl } rel= "noreferrer noopener" target="_blank" w='100%' my='1rem' mx={['0', '0.5rem']}>
+                                    <Button leftIcon={<LinkIcon/>} colorScheme='gray' color='gray.800' w='100%' _hover={{textDecoration: 'none'}}>How cook it ?</Button>
                                 </Link>
                                 <Button
                                     leftIcon={<CloseIcon />}

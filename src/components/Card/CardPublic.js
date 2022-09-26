@@ -1,6 +1,6 @@
 // imports
-import { Box, Grid, GridItem, Image, Text, Tooltip } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Box, Grid, GridItem, Image, Link, Text, Tooltip } from '@chakra-ui/react'
+import { Link as ReachLink} from 'react-router-dom'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter } from 'react-icons/io5'
 import { writeTheDate } from '../../utils/HoursAndMinutes'
@@ -49,7 +49,7 @@ export default function CardPublic({listOfMenu}){
                             <GridItem area='linkDetail'>
                                 <IconContext.Provider value={{ size: '3rem', color: '#276749' }}>
                                     <Tooltip label='See detail' placement='top' bg='green.700'>
-                                        <Link to={`/${menu.idMenu}`}>
+                                        <Link as={ReachLink} to={`/${menu.idMenu}`}>
                                             <IoEnter />
                                         </Link>
                                     </Tooltip>

@@ -1,8 +1,9 @@
 import FormRegister  from './FormRegister';
 import { ResponsiveWidth } from "../../utils/helper"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link as ReachLink, useNavigate } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
 import {
+    Link,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -27,7 +28,7 @@ const ModalRegister = () => {
     }
     return (
         <Box>
-            <Link to="/register" onClick={onOpen}>
+            <Link as={ReachLink} to="/register" onClick={onOpen}>
                 {ResponsiveWidth() ? <Box
                     bg="#1A202C"
                     _hover={{

@@ -1,7 +1,7 @@
 // Imports 
 import React from 'react'
-import { Box, Button, Grid, GridItem, Image, Text, Tooltip, useToast } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Box, Button, Grid, GridItem, Image, Link, Text, Tooltip, useToast } from '@chakra-ui/react'
+import { Link as ReachLink } from 'react-router-dom'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoStar, IoPin } from 'react-icons/io5'
 import { writeTheDate } from '../../utils/HoursAndMinutes'
@@ -11,7 +11,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 // Functions
 export default function CardComponent({ listOfMenu, currentUser, setUserWithFavorite, sumOfFav, setSumOfFav }) {
     // Gestion du bouton Add/Remove from Favorite
-    let location = window.location.pathname
+    let location = window?.location?.pathname
     //
     const toast = useToast()
     // Fonction pour suivre un menu (Select it)
@@ -135,7 +135,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                             <GridItem area='linkDetail'>
                                 <IconContext.Provider value={{ size: '3rem', color: '#276749' }}>
                                     <Tooltip label='See detail' placement='top' bg='green.700'>
-                                        <Link to={`/${menu.idMenu}`}>
+                                        <Link as={ReachLink} to={`/${menu.idMenu}`}>
                                             <IoEnter />
                                         </Link>
                                     </Tooltip>

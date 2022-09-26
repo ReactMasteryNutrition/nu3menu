@@ -9,10 +9,11 @@ import {
     Button,
     Box,
     Text,
+    Link
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link as ReachLink } from 'react-router-dom';
 
 const FormLogin = () => {
     const { login, signInWithGoogle, newCreateUserInFirestoreDatabase } = useAuth();
@@ -137,7 +138,7 @@ const FormLogin = () => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl textAlign='start'>
-                    <Link to='/forgetpassword' target="_blank" size="xs" color='gray.500' _hover={{ textDecoration: "none" }}>
+                    <Link as={ReachLink} to='/forgetpassword' target="_blank" size="xs" color='gray.500' _hover={{ textDecoration: "none" }}>
                         Forgot your password ?
                     </Link>
                 </FormControl>
