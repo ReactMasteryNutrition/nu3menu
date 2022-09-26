@@ -14,7 +14,9 @@ const FooterMobile = () => {
 
         <VStack padding='2rem' paddingBottom='6rem' spacing='2rem'>
             <Box>
-                <Image width='12rem' src='./images/logo_nu3menu.svg' alt="NU3MENU" />
+                <Link to='/'>
+                    <Image width='12rem' src='./images/logo_nu3menu.svg' alt="Site logo" />
+                </Link>
             </Box>
             <Box>
                 <ButtonGroup variant="ghost">
@@ -32,7 +34,7 @@ const FooterMobile = () => {
                 <List spacing={3}>
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link to={data.url} rel= "noreferrer noopener" target="_blank">{data.label}</Link>
+                        <Link to={data.url} rel="noreferrer noopener" target="_blank">{data.label}</Link>
                     </ListItem>)}
                 </List>
             </Box>
