@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link as ReachLink, useNavigate } from 'react-router-dom'
 import { auth } from "../../firebase-config";
 import { useAuth } from "../../context/authContext";
 import {
@@ -11,7 +11,8 @@ import {
     Avatar,
     Flex,
     Box,
-    Button
+    Button, 
+    Link
 } from '@chakra-ui/react'
 // import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
 import { CgProfile } from 'react-icons/cg'
@@ -67,7 +68,7 @@ const NavUserDrawer = () => {
                         fontSize="1.2rem"
                     >
                         {currentUser?.displayName ? (<>
-                            <Link to='/menu' onClick={onClose}>
+                            <Link as={ReachLink} to='/menu' onClick={onClose}>
                                 <Flex
                                     flexDirection="row"
                                     gap="1rem">
@@ -77,30 +78,30 @@ const NavUserDrawer = () => {
                             </Link></>)
                             : null
                         }
-                        <Link to='/myaccount' onClick={onClose}>
+                        <Link as={ReachLink} to='/myaccount' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
                                 <IoMdSettings color='#48BB78' margin-right='0.5rem' /> My account
                             </Flex>
                         </Link>
-                        <Link to='/allmenus' onClick={onClose}>
+                        <Link as={ReachLink} to='/allmenus' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
                                 < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> All my menus
                             </Flex>
                         </Link>
-                        {/* <Link to='/alladvices' onClick={onClose}>
+                        {/* <Link as={ReachLink} to='/alladvices' onClick={onClose}>
                             <ChatIcon color="#48BB78" margin-right='0.5rem' /> Tous mes avis
                         </Link>
-                        <Link to='/notifications' onClick={onClose}>
+                        <Link as={ReachLink} to='/notifications' onClick={onClose}>
                             <BellIcon color="#48BB78" margin-right='0.5rem' /> Notifications
                         </Link>
-                        <Link to='/helpandsupport' onClick={onClose}>
+                        <Link as={ReachLink} to='/helpandsupport' onClick={onClose}>
                             <QuestionIcon color="#48BB78" margin-right='0.5rem' /> Aide et support
                         </Link> */}
-                        <Link to='/' onClick={handleClick}>
+                        <Link as={ReachLink} to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"
                                 gap="0.5rem">

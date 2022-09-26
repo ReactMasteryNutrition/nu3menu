@@ -1,8 +1,9 @@
 import FormLogin from './FormLogin';
 import { ResponsiveWidth } from "../../utils/helper"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link as ReachLink, useNavigate } from 'react-router-dom';
 import { CloseIcon } from '@chakra-ui/icons';
 import {
+    Link,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -27,7 +28,7 @@ const ModalLogin = () => {
     }
     return (
         <Box>
-            <Link to="/login" onClick={onOpen}>
+            <Link as={ReachLink} to="/login" onClick={onOpen}>
                 {ResponsiveWidth() ? <Box
                     bg="#1A202C"
                     _hover={{

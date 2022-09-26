@@ -2,9 +2,9 @@ import ModalRegister from "../connection/ModalRegister"
 import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
 import NavUserDropdown from "./NavUserDropdown"
-import { Link } from "react-router-dom"
+import { Link as ReachLink } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
-import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
+import { Box, Flex, Image, Tooltip, Link } from '@chakra-ui/react'
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
@@ -17,7 +17,7 @@ const NavVisitor = () => {
         alignItems="center"
         margin="1rem"
       >
-        <Link to="/">
+        <Link as={ReachLink} to="/">
           <Image
             src="./images/logo_nu3menu.svg"
             alt="Site logo"
@@ -56,7 +56,7 @@ const NavUser = () => {
         alignItems="center"
         margin="1rem"
       >
-        <Link to="/">
+        <Link as={ReachLink} to="/">
           <Image
             src="./images/logo_nu3menu.svg"
             alt="Site logo"
@@ -76,13 +76,13 @@ const NavUser = () => {
             fontSize="1.1rem"
             fontWeight="700"
           >
-            <Link to="/menu"
+            <Link as={ReachLink} to="/menu"
             >
               <Box _hover={{
                 color: "#f0fff4"
               }}>My menu</Box>
             </Link>
-            <Link to="/favorite"
+            <Link as={ReachLink} to="/favorite"
             >
               <Box
                 _hover={{
@@ -95,7 +95,7 @@ const NavUser = () => {
             gap="1rem"
             with="5rem"
           >
-            <Link to="/createMenu"
+            <Link as={ReachLink} to="/createMenu"
             >
               <Tooltip
                 label='Create my menu'

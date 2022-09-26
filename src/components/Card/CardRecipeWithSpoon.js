@@ -1,13 +1,12 @@
 // Imports //
 import React from 'react'
-import { Box, Button, Flex, Grid, GridItem, IconButton, Image, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Tooltip, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, GridItem, IconButton, Image, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Tooltip, useDisclosure, VStack } from '@chakra-ui/react'
 import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoFlash, IoPeople, IoStatsChart, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
 import DetailRecipeModalWithSpoon from './DetailRecipeModalWithSpoon'
 import ButtonToAddRecipeWithSpoon from '../menuCreator/buttonToAddRecipeSpoon'
-import { Link } from 'react-router-dom'
 // Functions //
 
 export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMenu, setWeekMenu, datas}) {
@@ -91,10 +90,10 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
                         <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                         <ModalFooter flexDir={['column', 'row']}>
                             <ButtonToAddRecipeWithSpoon recipeToAdd={detailRecipe} onClose={onClose} index={indexOfDay} category={categoryOfMeal} weekMenu={weekMenu} setWeekMenu={setWeekMenu} />
-                            <Link to={detailRecipe?.sourceUrl} rel= "noreferrer noopener" target="_blank" >
-                                <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
+                            <Link href={detailRecipe?.sourceUrl} rel= "noreferrer noopener" target="_blank" w='100%' my='1rem' mx={['0', '0.5rem']}>
+                                <Button leftIcon={<LinkIcon/>} colorScheme='gray' color='gray.800' w='100%'>How cook it ?</Button>
                             </Link>
-                            <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
+                            <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} px='1rem' colorScheme='red' onClick={()=>closeAndClear()}>
                                 Close
                             </Button>
                         </ModalFooter>
