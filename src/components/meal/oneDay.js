@@ -21,7 +21,7 @@ const Oneday = ({ key, categorykey, sourceImg, title, urlData, buttonToOpenModal
                     <Box w={'100%'}>
                         <Text fontSize={['lg']} fontWeight='bold' noOfLines={1} mx='1rem'>{ title }</Text>
                         <Flex  w={'100%'} flexDir={['column', 'row']} alignItems={['', 'center']} justifyContent={['center', 'space-between']}>
-                            <Link to={{pathname:urlData}} target="_blank" >
+                            <Link to={urlData} target="_blank" >
                                 <Button leftIcon={<LinkIcon />} color='green.600' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
                             </Link>
                             <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>

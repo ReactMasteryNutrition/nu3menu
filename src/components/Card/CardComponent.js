@@ -11,7 +11,7 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 // Functions
 export default function CardComponent({ listOfMenu, currentUser, setUserWithFavorite, sumOfFav, setSumOfFav }) {
     // Gestion du bouton Add/Remove from Favorite
-    let location = window.location.pathname
+    let location = window?.location?.pathname
     //
     const toast = useToast()
     // Fonction pour suivre un menu (Select it)
