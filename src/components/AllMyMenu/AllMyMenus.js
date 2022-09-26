@@ -13,35 +13,35 @@ export default function AllMyMenus(){
     const [userCreatedMenu, setUserCreatedMenu] = React.useState(true)
     const [myMenus, setMyMenus] = React.useState([])
     const { currentUser } = useAuth()
-    
+
     React.useEffect(()=>{
         const q = query(collection(db, 'menus'), where("idCreator", "==", currentUser?.uid), orderBy("dateCreation", "desc"))
         onSnapshot(q, (querySnapshot)=> {
-            const lastPublicMenus = []
-            querySnapshot.forEach((doc)=> {
-                lastPublicMenus.push(doc.data())
+                const lastPublicMenus = []
+                querySnapshot.forEach((doc)=> {
+                    lastPublicMenus.push(doc.data())
+                })
+                lastPublicMenus.length === 0 && setUserCreatedMenu(false)
+                setMyMenus(lastPublicMenus)
+            },
+            (error) => {
+                throw error;
             })
-            lastPublicMenus.length === 0 && setUserCreatedMenu(false)
-            setMyMenus(lastPublicMenus)
-        },
-        (error) => {
-            throw error;
-        })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    
+
 
     return(
         userCreatedMenu ?
-        <CardComponent listOfMenu={myMenus} currentUser={currentUser} />
-        :
-        <VStack w='100%' minH='100%' justifyContent='center'>
-            <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered</Text>
-            <Link to='/createMenu'>
-                <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
-                    Add menu
-                </Button>
-            </Link>
-        </VStack>
+            <CardComponent listOfMenu={myMenus} currentUser={currentUser} />
+            :
+            <VStack w='100%' minH='100%' justifyContent='center' px='2rem'>
+                <Text fontSize='2xl' color='green.50' mb='3rem' textAlign='center'>You don't have any menu registered</Text>
+                <Link to='/createmenu'>
+                    <Button leftIcon={<AddIcon size="3em" color="green.50" margin/>} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>
+                        Add menu
+                    </Button>
+                </Link>
+            </VStack>
     )
 }

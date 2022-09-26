@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '../../firebase-config'
+import { Link } from 'react-router-dom'
 import {
     Box,
     Button,
     Divider,
-    Heading,
-    Link,
+    Heading, IconButton,
     Modal,
     ModalCloseButton,
     ModalContent,
@@ -16,7 +16,7 @@ import {
     ModalHeader,
     ModalOverlay,
     Stack,
-    Text, 
+    Text,
     useDisclosure,
     VStack
 } from '@chakra-ui/react'
@@ -88,14 +88,8 @@ export default function MyDetailsMenu(){
                                                         title={meal[1]?.title}
                                                         urlData={meal[1]?.sourceUrl}
                                                         buttonToOpenModal={
-                                                            <Link 
-                                                                isExternal 
-                                                                my='1rem' 
-                                                                mx={['0', '0.5rem']}
-                                                                onClick={() => openDetailModal(meal[1])}
-                                                            >
-                                                                <IoEnter />
-                                                            </Link>}
+                                                            <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])}/>
+                                                    }
                                                     />
                                                 )
                                             })
@@ -115,19 +109,8 @@ export default function MyDetailsMenu(){
                             <ModalCloseButton onClick={() => closeAndClear()} />
                             <DetailRecipeModalWithSpoon detail={detailRecipe} />
                             <ModalFooter flexDir={['column', 'row']}>
-                                <Link
-                                    href={detailRecipe?.sourceUrl}
-                                    isExternal
-                                    w='100%'
-                                    my='1rem'
-                                    mx={['0', '0.5rem']}>
-                                    <Button
-                                        leftIcon={<LinkIcon />}
-                                        w='100%'
-                                        colorScheme='gray'
-                                        color='gray.800'
-                                    >How cook it ?
-                                    </Button>
+                                <Link to={detailRecipe?.sourceUrl} target="_blank">
+                                    <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
                                 </Link>
                                 <Button
                                     leftIcon={<CloseIcon />}
