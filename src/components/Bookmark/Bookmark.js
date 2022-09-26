@@ -40,7 +40,7 @@ export default function Bookmark(){
         userWithFavorite ? 
         <CardComponent listOfMenu={lastMenus} currentUser={currentUser} setUserWithFavorite={setUserWithFavorite} sumOfFav={sumOfFav} setSumOfFav={setSumOfFav}/> 
         : 
-        <VStack w='100%' minH='100%' justifyContent='center'>
+        <VStack w='100%' minH='100%' justifyContent='center' px='2rem'>
             <Text fontSize='2xl' color='green.50' mb='3rem'>You don't have favorite menu yet</Text>
             <Link to='/'>
                 <Button leftIcon={<FaHome size="3em" color="green.50" />} bg="#48BB78" color="green.50" _hover={{ bgColor: "#a0aec0", textDecoration: 'none'}} p='2em'>

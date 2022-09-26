@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button, Center, Divider, Heading, Link, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, VStack} from "@chakra-ui/react";
+import { Link } from 'react-router-dom'
+import { Box, Button, Center, Divider, IconButton, Heading, Modal, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, useDisclosure, VStack} from "@chakra-ui/react";
 import { AddIcon, CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
@@ -81,7 +82,7 @@ const DayMeal = () =>{
                                 sourceImg={meal[1]?.image}
                                 title={meal[1]?.title}
                                 urlData={meal[1]?.sourceUrl}
-                                buttonToOpenModal={<Link isExternal my='1rem' mx={['0', '0.5rem']} onClick={()=> openDetailModal(meal[1])}><IoEnter /></Link>}
+                                buttonToOpenModal={<IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])}/>}
                               />
                                 )
                             })
@@ -102,8 +103,8 @@ const DayMeal = () =>{
                     <ModalCloseButton onClick={()=>closeAndClear()}/>
                     <DetailRecipeModalWithSpoon detail={detailRecipe}/>
                     <ModalFooter flexDir={['column', 'row']}>
-                        <Link href={detailRecipe?.sourceUrl} isExternal w='100%' my='1rem' mx={['0', '0.5rem']}>
-                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800'>How cook it ?</Button>
+                        <Link to={detailRecipe?.sourceUrl} target="_blank">
+                            <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
                         </Link>
                         <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
                         Close
