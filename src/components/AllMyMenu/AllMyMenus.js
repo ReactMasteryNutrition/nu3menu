@@ -13,23 +13,23 @@ export default function AllMyMenus(){
     const [userCreatedMenu, setUserCreatedMenu] = React.useState(true)
     const [myMenus, setMyMenus] = React.useState([])
     const { currentUser } = useAuth()
-    
+
     React.useEffect(()=>{
         const q = query(collection(db, 'menus'), where("idCreator", "==", currentUser?.uid), orderBy("dateCreation", "desc"))
         onSnapshot(q, (querySnapshot)=> {
-            const lastPublicMenus = []
-            querySnapshot.forEach((doc)=> {
-                lastPublicMenus.push(doc.data())
+                const lastPublicMenus = []
+                querySnapshot.forEach((doc)=> {
+                    lastPublicMenus.push(doc.data())
+                })
+                lastPublicMenus.length === 0 && setUserCreatedMenu(false)
+                setMyMenus(lastPublicMenus)
+            },
+            (error) => {
+                throw error;
             })
-            lastPublicMenus.length === 0 && setUserCreatedMenu(false)
-            setMyMenus(lastPublicMenus)
-        },
-        (error) => {
-            throw error;
-        })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    
+
 
     return(
         userCreatedMenu ?

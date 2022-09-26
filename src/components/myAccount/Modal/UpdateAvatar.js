@@ -56,9 +56,9 @@ const ModalAvatar = () => {
             // update the user avatar
             await updateProfile(currentUser, { photoURL: urlProfile });
             const UserInFirestoreDatabase = async () => {
-                const userRef = doc(db, `users/${currentUser?.uid}`);
-                await getDoc(userRef)
-                await updateDoc(userRef, {
+                const avatarRef = doc(db, `users/${currentUser?.uid}`);
+                const userSnap = await getDoc(avatarRef);
+                await updateDoc(avatarRef, {
                     photoURL: urlProfile,
                     dateLogin: serverTimestamp()
                 })

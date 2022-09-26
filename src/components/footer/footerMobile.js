@@ -10,7 +10,6 @@ const FooterMobile = () => {
     //}
     //style={postition}
 
-
     return (
 
         <VStack padding='2rem' paddingBottom='6rem' spacing='2rem'>

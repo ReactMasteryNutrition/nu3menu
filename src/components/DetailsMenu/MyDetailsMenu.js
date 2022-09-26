@@ -17,7 +17,7 @@ import {
     ModalHeader,
     ModalOverlay,
     Stack,
-    Text, 
+    Text,
     useDisclosure,
     VStack
 } from '@chakra-ui/react'
@@ -90,7 +90,9 @@ export default function MyDetailsMenu(){
                                                         urlData={meal[1]?.sourceUrl}
                                                         buttonToOpenModal={
                                                             <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])}/>
+
                                                         }
+
                                                     />
                                                 )
                                             })

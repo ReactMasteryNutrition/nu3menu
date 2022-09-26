@@ -34,52 +34,52 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
                 // on boucle sur l'ensemble des recettes afin d'afficher une Card par recette et on l'hydrate des données souhaitées
                 return(
                     <Box key={recipe.id} w={['90%', 300]} mt='1.5em' marginX='0.5rem' p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
-                    <Grid 
-                        templateAreas={[`"image image stats stats"
-                                        "title title title openDetails"`, 
-                                        `"image image image image"
+                        <Grid
+                            templateAreas={[`"image image stats stats"
+                                        "title title title openDetails"`,
+                                `"image image image image"
                                         "title title title title"
                                         "stats stats stats openDetails"`]}
-                        gridTemplateColumns='1fr 1fr 1.5fr 0.5fr'
-                        w='100%'
-                    >
-                        <GridItem area='image' display='flex' justifyContent={['start', 'center']}>
-                            <Image src={recipe.image} alt={recipe.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
-                        </GridItem>
-                        <GridItem display='flex' alignItems='center' paddingY='0.5rem' area='title'>
-                            <Tooltip label={recipe.title} placement='top'>
-                                <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{recipe.title}</Text>
-                            </Tooltip>
-                        </GridItem>
-                        <GridItem area='stats' paddingLeft='0.5rem'>
-                            <VStack spacing='0.5' align='left'>
-                                <IconContext.Provider value={{ size: '1.5rem', color: '#276749'}}>
-                                    <Flex>
-                                        <IoTimer/>
-                                        <Text marginLeft='0.5rem'>{toHoursAndMinutes(recipe.readyInMinutes)}</Text>
-                                    </Flex>
-                                    <Flex>
-                                        <IoPeople/>
-                                        <Text marginLeft='0.5rem'>{recipe.servings}</Text>
-                                    </Flex>
-                                    <Flex>
-                                        <IoFlash/>
-                                        <Text marginLeft='0.5rem'>{recipe.nutrition.nutrients[0].amount.toFixed(2)} Kcal</Text>
-                                    </Flex>
-                                    <Flex>
-                                        <IoStatsChart/>
-                                        <Text marginLeft='0.5rem'>Glycemic Index : {recipe.nutrition.properties[0].amount}</Text>
-                                    </Flex>
+                            gridTemplateColumns='1fr 1fr 1.5fr 0.5fr'
+                            w='100%'
+                        >
+                            <GridItem area='image' display='flex' justifyContent={['start', 'center']}>
+                                <Image src={recipe.image} alt={recipe.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
+                            </GridItem>
+                            <GridItem display='flex' alignItems='center' paddingY='0.5rem' area='title'>
+                                <Tooltip label={recipe.title} placement='top'>
+                                    <Text fontSize={['lg', 'lg', 'xl','xl']} fontWeight='bold' noOfLines={1}>{recipe.title}</Text>
+                                </Tooltip>
+                            </GridItem>
+                            <GridItem area='stats' paddingLeft='0.5rem'>
+                                <VStack spacing='0.5' align='left'>
+                                    <IconContext.Provider value={{ size: '1.5rem', color: '#276749'}}>
+                                        <Flex>
+                                            <IoTimer/>
+                                            <Text marginLeft='0.5rem'>{toHoursAndMinutes(recipe.readyInMinutes)}</Text>
+                                        </Flex>
+                                        <Flex>
+                                            <IoPeople/>
+                                            <Text marginLeft='0.5rem'>{recipe.servings}</Text>
+                                        </Flex>
+                                        <Flex>
+                                            <IoFlash/>
+                                            <Text marginLeft='0.5rem'>{recipe.nutrition.nutrients[0].amount.toFixed(2)} Kcal</Text>
+                                        </Flex>
+                                        <Flex>
+                                            <IoStatsChart/>
+                                            <Text marginLeft='0.5rem'>Glycemic Index : {recipe.nutrition.properties[0].amount}</Text>
+                                        </Flex>
+                                    </IconContext.Provider>
+                                </VStack>
+                            </GridItem>
+                            <GridItem area='openDetails' display='flex' alignItems='end' justifyContent='end'>
+                                <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
+                                    <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.400' onClick={()=> openDetailModal(recipe)}/>
                                 </IconContext.Provider>
-                            </VStack>
-                        </GridItem>
-                        <GridItem area='openDetails' display='flex' alignItems='end' justifyContent='end'>
-                            <IconContext.Provider value={{ size: '3rem', color: '#276749'}}>
-                                <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.400' onClick={()=> openDetailModal(recipe)}/>
-                            </IconContext.Provider>
-                        </GridItem>
-                    </Grid>
-                    </Box>
+                            </GridItem>
+                     </Grid>
+                     </Box>
                 )
             })}
             { detailRecipe != null ?
@@ -95,7 +95,7 @@ export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMen
                                 <Button leftIcon={<LinkIcon/>}  w='100%' colorScheme='gray' color='gray.800' my='1rem' mx={['0', '0.5rem']}>How cook it ?</Button>
                             </Link>
                             <Button leftIcon={<CloseIcon/>} w='100%' my='1rem' mx={['0', '0.5rem']} colorScheme='red' onClick={()=>closeAndClear()}>
-                            Close
+                                Close
                             </Button>
                         </ModalFooter>
                     </ModalContent>

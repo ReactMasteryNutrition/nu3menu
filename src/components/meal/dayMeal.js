@@ -12,58 +12,58 @@ import {useAuth} from "../../context/authContext"
 
 
 const DayMeal = () =>{
-  // gestion ouverture et fermeture de la modal avec le detail de LA recette
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  // On vérifie que le user possède des menus favoris
-  const [userHaveCurrentMenu, setUserHaveCurrentMenu] = React.useState(false)
-  const [idCurrentMenu, setIdCurrentMenu] = React.useState("")
-  const { currentUser } = useAuth()
-  const thisUserRef = doc(db, "users", currentUser?.uid)
-  getDoc(thisUserRef).then((doc)=>{doc.data().currentMenu && 
+    // gestion ouverture et fermeture de la modal avec le detail de LA recette
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    // On vérifie que le user possède des menus favoris
+    const [userHaveCurrentMenu, setUserHaveCurrentMenu] = React.useState(false)
+    const [idCurrentMenu, setIdCurrentMenu] = React.useState("")
+    const { currentUser } = useAuth()
+    const thisUserRef = doc(db, "users", currentUser?.uid)
+    getDoc(thisUserRef).then((doc)=>{doc.data().currentMenu &&
     setUserHaveCurrentMenu(true)
-    setIdCurrentMenu(doc.data().currentMenu)
-  })
+        setIdCurrentMenu(doc.data().currentMenu)
+    })
 
 
-  const [currentMenu,setCurrentMenu] = React.useState([])
-  React.useEffect(()=>{
-    if(userHaveCurrentMenu){
-      const q = query(collection(db, 'menus'), where('idMenu', '==', idCurrentMenu))
-      onSnapshot(q, (querySnapshot)=> {
-        const thisCurrentMenu = []
-        querySnapshot.forEach((doc)=> {
-          thisCurrentMenu.push(doc.data())
-        })
-        setCurrentMenu(thisCurrentMenu)
-      })
+    const [currentMenu,setCurrentMenu] = React.useState([])
+    React.useEffect(()=>{
+        if(userHaveCurrentMenu){
+            const q = query(collection(db, 'menus'), where('idMenu', '==', idCurrentMenu))
+            onSnapshot(q, (querySnapshot)=> {
+                const thisCurrentMenu = []
+                querySnapshot.forEach((doc)=> {
+                    thisCurrentMenu.push(doc.data())
+                })
+                setCurrentMenu(thisCurrentMenu)
+            })
+        }
+    },[idCurrentMenu, userHaveCurrentMenu])
+
+    const [detailMenu, setDetailMenu] = React.useState([])
+    React.useEffect(()=>{
+        let detailAParse = []
+        currentMenu.map((item) => detailAParse.push(JSON.parse(item.detail)))
+        setDetailMenu(detailAParse)
+    },[currentMenu])
+
+    const [detailRecipe, setDetailRecipe] = React.useState({});
+    // Ouverture de la modal après lui avoir envoyé les données de LA recette pour l'hydrater
+    const openDetailModal = (truc) => {
+        setDetailRecipe(truc)
+        onOpen()
     }
-  },[idCurrentMenu, userHaveCurrentMenu])
+    // Fermeture de la modal avec remise à 0 du détail de LA recette sinon les données persistes et sont visibles au prochain affichage
+    const closeAndClear = () => {
+        onClose()
+        setDetailRecipe()
+    }
 
-  const [detailMenu, setDetailMenu] = React.useState([])
-  React.useEffect(()=>{
-    let detailAParse = []
-    currentMenu.map((item) => detailAParse.push(JSON.parse(item.detail)))
-    setDetailMenu(detailAParse)
-  },[currentMenu])
-
-  const [detailRecipe, setDetailRecipe] = React.useState({});
-  // Ouverture de la modal après lui avoir envoyé les données de LA recette pour l'hydrater
-  const openDetailModal = (truc) => {
-      setDetailRecipe(truc)
-      onOpen()
-  }
-  // Fermeture de la modal avec remise à 0 du détail de LA recette sinon les données persistes et sont visibles au prochain affichage
-  const closeAndClear = () => {
-    onClose()
-    setDetailRecipe()
-  }
-  
-  return(
-    userHaveCurrentMenu ? 
-    <Box  w='100%' px='4rem' color={"green.50"}>
+    return(
+        userHaveCurrentMenu ?
+            <Box  w='100%' px='4rem' color={"green.50"}>
                 <Center mb='2rem'>
-                  <Heading as='h1' size='xl' >MENU OF THE WEEK</Heading>
-                </Center>   
+                    <Heading as='h1' size='xl' >MENU OF THE WEEK</Heading>
+                </Center>
                 <Divider/>
                 <VStack>  
                   {
@@ -91,8 +91,7 @@ const DayMeal = () =>{
                         </Stack>
                       )
                     })
-
-                  }
+                    }
                 </VStack>
                 {
                 detailRecipe != null ?

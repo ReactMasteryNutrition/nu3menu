@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { updateProfile } from "firebase/auth"
+import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const ModalName = () => {
     const { currentUser } = useAuth()
@@ -36,6 +38,15 @@ const ModalName = () => {
         try {
             // update the user displayname
             await updateProfile(currentUser, { displayName: input?.current[0]?.value });
+            const UserInFirestoreDatabase = async () => {
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const userSnap = await getDoc(userRef);
+                await updateDoc(userRef, {
+                    displayName: input?.current[0]?.value,
+                    dateLogin: serverTimestamp()
+                });
+            }
+            await UserInFirestoreDatabase();
             toast({
                 description: "Your name has been modified !",
                 status: 'success',

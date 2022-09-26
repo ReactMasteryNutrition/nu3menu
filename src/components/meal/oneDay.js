@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 
 const Oneday = ({ key, categorykey, sourceImg, title, urlData, buttonToOpenModal }) => {
     return (
-        
+
         <>
             {   !sourceImg || !title || !urlData ?
                 <Navigate to={'/'} />
@@ -31,7 +31,7 @@ const Oneday = ({ key, categorykey, sourceImg, title, urlData, buttonToOpenModal
                     </Box>
                 </Flex>
             }
-            
+
         </>
     )
 }
