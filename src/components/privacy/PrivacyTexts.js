@@ -1,5 +1,4 @@
 import {Box, Center, Flex, Heading, Text} from "@chakra-ui/react";
-import {ResponsiveWidth} from "../../utils/helper";
 
 const PrivacyTexts = () => {
     return (
@@ -19,8 +18,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         1. Introduction
@@ -38,8 +37,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         2. Intellectual Property Rights
@@ -54,10 +53,10 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
-                    <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
+                    <Heading as={"h2"} size='md' color={"#9faec0"} marginBottom={3}>
                         3. Restrictions
                     </Heading>
                     <Text color={"green.50"}>
@@ -94,8 +93,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         4. Your Content
@@ -110,8 +109,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         5. No warranties
@@ -123,8 +122,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         6. Limitation of liability
@@ -136,8 +135,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         7. Indemnification
@@ -149,8 +148,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         8. Severability
@@ -162,8 +161,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         9. Variation of Terms
@@ -175,8 +174,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         10. Assignment
@@ -188,8 +187,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         11. Entire Agreement
@@ -201,8 +200,8 @@ const PrivacyTexts = () => {
                 <Box
                     display="flex"
                     flexDirection="column"
-                    margin="0 2rem"
-                    width={ResponsiveWidth() ? null : "100%"}
+                    width={"100%"}
+                    px={8}
                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         12. Governing Law & Jurisdiction
@@ -212,7 +211,6 @@ const PrivacyTexts = () => {
                     </Text>
                 </Box>
             </Flex>
-
         </>
     )
 }
