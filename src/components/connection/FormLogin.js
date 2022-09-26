@@ -27,11 +27,7 @@ const FormLogin = () => {
             inputs.current.push(el);
         }
     };
-    const removeInputs = (el) => {
-        if (el && inputs.current.includes(el)) {
-            inputs.current = inputs.current.filter(i => i !== el);
-        }
-    }
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (inputs.current[0].value === "") {
@@ -43,7 +39,7 @@ const FormLogin = () => {
             return;
         }
         try {
-            const cred = await login(
+             await login(
                 inputs.current[0].value,
                 inputs.current[1].value
             )
