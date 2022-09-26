@@ -66,11 +66,10 @@ const DayMeal = () =>{
                 <Divider/>
                 <VStack>  
                   {
-                    //console.log('LALLLALAA',detailMenu[0])
                     detailMenu[0] &&
                     Object.entries(detailMenu[0]).map(key => {
                       return (
-                        <Stack w='100%' justifyContent='center'>
+                        <Stack w='100%' justifyContent='center' key={key[0]}>
                           <Heading>{key[0]}</Heading>
                           <Stack w='100%' direction={['column', 'column', 'row' ]} justifyContent={['center', 'center', 'space-around']}>
                           {
