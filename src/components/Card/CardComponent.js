@@ -130,7 +130,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                 <Text>Author : {menu.author && menu.author}</Text>
                             </GridItem>
                             <GridItem area='date'>
-                                <Text fontSize='xs'>Created on : {writeTheDate(menu.dateCreation)}</Text>
+                                <Text fontSize='xs'>Created on : {menu?.dateCreation!== null ? writeTheDate(menu?.dateCreation) : 'Less than a minute ago'}</Text>
                             </GridItem>
                             <GridItem area='linkDetail'>
                                 <IconContext.Provider value={{ size: '3rem', color: '#276749' }}>
