@@ -29,8 +29,6 @@ export default function AllMyMenus(){
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-
-
     return(
         userCreatedMenu ?
         <CardComponent listOfMenu={myMenus} currentUser={currentUser} />
