@@ -1,4 +1,4 @@
-import { Link, useNavigate} from 'react-router-dom'
+import { Link as ReachLink, useNavigate } from 'react-router-dom'
 import { auth } from "../../firebase-config";
 import { useAuth } from "../../context/authContext";
 import {
@@ -11,7 +11,8 @@ import {
     Avatar,
     Flex,
     Box,
-    Button
+    Button, 
+    Link
 } from '@chakra-ui/react'
 // import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
 import { CgProfile } from 'react-icons/cg'
@@ -66,50 +67,45 @@ const NavUserDrawer = () => {
                         fontWeight="bold"
                         fontSize="1.2rem"
                     >
-                        <Link to='/' onClick={onClose}>
+                        {currentUser?.displayName ? (<>
+                            <Link as={ReachLink} to='/menu' onClick={onClose}>
+                                <Flex
+                                    flexDirection="row"
+                                    gap="1rem">
+                                    <CgProfile color='#48BB78' margin-right='0.5rem' />
+                                    {currentUser?.displayName}
+                                </Flex>
+                            </Link></>)
+                            : null
+                        }
+                        <Link as={ReachLink} to='/myaccount' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
-                                {currentUser?.displayName ? (<>
-                                        <Link to='/menu' onClick={onClose}>
-                                            <Flex
-                                                flexDirection="row"
-                                                gap="1rem">
-                                                <CgProfile color='#48BB78' margin-right='0.5rem' />
-                                                {currentUser?.displayName}
-                                            </Flex>
-                                        </Link></>)
-                                    : null}
+                                <IoMdSettings color='#48BB78' margin-right='0.5rem' /> My account
                             </Flex>
                         </Link>
-                        <Link to='/myaccount' onClick={onClose}>
+                        <Link as={ReachLink} to='/allmenus' onClick={onClose}>
                             <Flex
                                 flexDirection="row"
                                 gap="1rem">
-                                <IoMdSettings color='#48BB78' margin-right='0.5rem' /> Mon compte
+                                < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> All my menus
                             </Flex>
                         </Link>
-                        <Link to='/allmenus' onClick={onClose}>
-                            <Flex
-                                flexDirection="row"
-                                gap="1rem">
-                                < MdOutlineMenuBook color='#48BB78' margin-right='0.5rem' /> Tous mes menus
-                            </Flex>
+                        {/* <Link as={ReachLink} to='/alladvices' onClick={onClose}>
+                            <ChatIcon color="#48BB78" margin-right='0.5rem' /> Tous mes avis
                         </Link>
-                        {/* <Link to='/alladvices' onClick={onClose}>
-                            <ChatIcon color="#48BB78" marginRight='0.5rem' /> Tous mes avis
+                        <Link as={ReachLink} to='/notifications' onClick={onClose}>
+                            <BellIcon color="#48BB78" margin-right='0.5rem' /> Notifications
                         </Link>
-                        <Link to='/notifications' onClick={onClose}>
-                            <BellIcon color="#48BB78" marginRight='0.5rem' /> Notifications
-                        </Link>
-                        <Link to='/helpandsupport' onClick={onClose}>
-                            <QuestionIcon color="#48BB78" marginRight='0.5rem' /> Aide et support
+                        <Link as={ReachLink} to='/helpandsupport' onClick={onClose}>
+                            <QuestionIcon color="#48BB78" margin-right='0.5rem' /> Aide et support
                         </Link> */}
-                        <Link to='/' onClick={handleClick}>
+                        <Link as={ReachLink} to='/' onClick={handleClick}>
                             <Flex
                                 flexDirection="row"
                                 gap="0.5rem">
-                                <IoLogOut color='#48BB78' margin-right='0.5rem' /> Se déconnecter
+                                <IoLogOut color='#48BB78' margin-right='0.5rem' /> Log out
                             </Flex>
                         </Link>
                     </DrawerBody>

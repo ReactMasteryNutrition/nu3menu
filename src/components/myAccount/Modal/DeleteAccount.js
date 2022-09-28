@@ -22,6 +22,8 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { reauthenticateWithCredential, reauthenticateWithPopup, GoogleAuthProvider, EmailAuthProvider, deleteUser } from "firebase/auth"
+import {doc, getDoc, deleteDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const DeleteAccount = () => {
     const { currentUser } = useAuth()
@@ -41,7 +43,7 @@ const DeleteAccount = () => {
         e.preventDefault();
         if (!(inputs?.current[0]?.value)) {
             return toast({
-                description: "Veuillez remplir ce champ !",
+                description: "Please fill in this field !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
@@ -61,19 +63,27 @@ const DeleteAccount = () => {
             } else {
                 await reauthenticateWithPopup(currentUser, provider)
             }
+            const UserInFirestoreDatabase = async () => {
+                // delete user in firestore database
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const docSnap = await getDoc(userRef);
+                await deleteDoc(userRef);
+            }
+            // delete user in firebase authentication
+            await UserInFirestoreDatabase();
             // delete the user account
-            deleteUser(currentUser)
+            await deleteUser(currentUser)
             // redirection to homepage
             navigate('/')
             toast({
-                description: "Votre compte a bien été supprimé !",
+                description: "Your account has been deleted !",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
             })
         } catch (error) {
             toast({
-                description: "Il y a eu une erreur lors de la suppression de votre compte !",
+                description: "There was an error while deleting your account !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
@@ -91,7 +101,7 @@ const DeleteAccount = () => {
                 color="#f0fff4"
                 _hover={{ bgColor: "#a0aec0" }}
             >
-                Supprimer mon compte
+                Delete my account
             </Button>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
@@ -111,12 +121,12 @@ const DeleteAccount = () => {
                         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                     >
                         <Image
-                            src="./images/logo_nu3menu.svg" alt="Logo du site"
+                            src="./images/logo_nu3menu.svg" alt="Site logo"
                             width={ResponsiveWidth() ? "15rem" : "18rem"}
                             margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 2rem auto'}
                         />
                         <ModalHeader textAlign="center" fontSize="1.5rem" marginBottom="1rem">
-                            Supprimer mon compte
+                            Delete my account
                         </ModalHeader>
                     </Box>
                     <ModalCloseButton
@@ -144,7 +154,7 @@ const DeleteAccount = () => {
                             width={ResponsiveWidth() ? null : '90%'}
                             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                         >
-                            <FormLabel>Veuillez-vous authentifier avec votre mot de passe</FormLabel>
+                            <FormLabel>Please log in with your password</FormLabel>
                             <InputGroup size='md' marginBottom="1rem" >
                                 <Input
                                     id='reauthentifyName'
@@ -175,7 +185,7 @@ const DeleteAccount = () => {
                             top={ResponsiveWidth() ? null : "70%"}
                             width={ResponsiveWidth() ? null : "90%"}
                             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                        >Valider
+                        >Confirm
                         </Button>
                     </ModalFooter>
                 </ModalContent>

@@ -23,11 +23,11 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
             margin={ResponsiveWidth() ? null : '10rem 0'}
         >
             <Heading as='h1' size='xl' color="#48BB78" textAlign="center">
-                Une erreur est survenue !
+                An error has occurred !
             </Heading>
             <Box color='red' textAlign="center" margin="3rem 0">{error.message}</Box>
             <Box color='#48BB78' textAlign="center" fontSize="1.2rem" fontWeight="bold" marginBottom="1rem">
-                Revenez à la page d'accueil
+                Return to the home page
             </Box>
             <Button
                 leftIcon={<FaHome size="20" color="#F0FFF4" />}
@@ -36,7 +36,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
                 _hover={{ bgColor: "#a0aec0" }}
                 onClick={handleClick}
             >
-                Accueil
+                Home
             </Button>
         </Flex>
     )

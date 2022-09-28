@@ -9,10 +9,11 @@ import {
     Button,
     Box,
     Text,
+    Link
 } from '@chakra-ui/react'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { useAuth } from '../../context/authContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link as ReachLink } from 'react-router-dom';
 
 const FormLogin = () => {
     const { login, signInWithGoogle, newCreateUserInFirestoreDatabase } = useAuth();
@@ -27,23 +28,19 @@ const FormLogin = () => {
             inputs.current.push(el);
         }
     };
-    const removeInputs = (el) => {
-        if (el && inputs.current.includes(el)) {
-            inputs.current = inputs.current.filter(i => i !== el);
-        }
-    }
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (inputs.current[0].value === "") {
-            setValidation("Veuillez indiquer une adresse email")
+            setValidation("Please enter an email address")
             return;
         }
         if ((inputs.current[1].value.length) < 6) {
-            setValidation("6 characters min")
+            setValidation("Your password must contain at least 6 characters")
             return;
         }
         try {
-            const cred = await login(
+             await login(
                 inputs.current[0].value,
                 inputs.current[1].value
             )
@@ -54,22 +51,22 @@ const FormLogin = () => {
             setValidation(err.code)
             switch (err.code) {
                 case "auth/user-not-found":
-                    setValidation("Cet utilisateur n'existe pas")
+                    setValidation("This user doesn't found")
                     break;
                 case "auth/wrong-password":
-                    setValidation("Mot de passe incorrect")
+                    setValidation("Wrong password")
                     break;
                 case "auth/too-many-requests":
-                    setValidation("Trop de tentatives de connexion")
+                    setValidation("Too many requests")
                     break;
                 case "auth/user-disabled":
-                    setValidation("Cet utilisateur est désactivé")
+                    setValidation("This user is disabled")
                     break;
                 case "auth/invalid-email":
-                    setValidation("Adresse email invalide")
+                    setValidation("This Invalid email address")
                     break;
                 default:
-                    setValidation("Erreur inconnue")
+                    setValidation("Unknown error")
                     break;
             }
         }
@@ -85,28 +82,28 @@ const FormLogin = () => {
             setValidation(err.code)
             switch (err.code) {
                 case "auth/account-exists-with-different-credential":
-                    setValidation("Ce compte existe déjà avec un autre identifiant")
+                    setValidation("This account exists with different credential")
                     break;
                 case "auth/credential-already-in-use":
-                    setValidation("Cette identifiant est déjà utilisé")
+                    setValidation("This credential is already in used")
                     break;
                 case "auth/operation-not-allowed":
-                    setValidation("Opération non autorisée")
+                    setValidation("Operation not allowed")
                     break;
                 case "auth/user-disabled":
-                    setValidation("Cet utilisateur est désactivé")
+                    setValidation("This user is disabled")
                     break;
                 case "auth/wrong-password":
-                    setValidation("Le mot de passe est incorrect")
+                    setValidation("Wrong password")
                     break;
                 case "auth/email-already-in-use":
-                    setValidation("Cet email est déjà utilisé")
+                    setValidation("This email address is already used")
                     break;
                 case "auth/invalid-email":
-                    setValidation("Cet email n'est pas valide")
+                    setValidation("This email address is invalid")
                     break;
                 default:
-                    setValidation("Erreur inconnue")
+                    setValidation("Unknown error")
                     break;
             }
         }
@@ -121,13 +118,13 @@ const FormLogin = () => {
         >
             <form ref={formRef} onSubmit={handleSubmit}>
                 <FormControl isRequired marginBottom="1rem">
-                    <Input type='email' placeholder='E-mail' bg='#f0fff4' color="#1A202C" ref={addInputs} />
+                    <Input type='email' placeholder='Email address' bg='#f0fff4' color="#1A202C" ref={addInputs} />
                 </FormControl >
                 <InputGroup size='md'>
                     <Input
                         pr='4.5rem'
                         type={show ? 'text' : 'password'}
-                        placeholder='Mot de passe'
+                        placeholder='Password'
                         bg='#f0fff4'
                         isRequired
                         color="#1A202C"
@@ -141,8 +138,8 @@ const FormLogin = () => {
                     </InputRightElement>
                 </InputGroup>
                 <FormControl textAlign='start'>
-                    <Link to='/forgetpassword' target="_blank" size="xs" color='gray.500' _hover={{ textDecoration: "none" }}>
-                        Mot de passe oublié ?
+                    <Link as={ReachLink} to='/forgetpassword' target="_blank" size="xs" color='gray.500' _hover={{ textDecoration: "none" }}>
+                        Forgot your password ?
                     </Link>
                 </FormControl>
                 <FormControl margin="1rem 0">
@@ -152,7 +149,7 @@ const FormLogin = () => {
                         _hover={{ bgColor: "#a0aec0" }}
                         onClick={handleSubmit}
                     >
-                        Se connecter
+                        Log in
                     </Button>
                 </FormControl>
                 <FormControl>
@@ -163,7 +160,7 @@ const FormLogin = () => {
                         onClick={handleGoogleSignIn}
                     >
                         <AiOutlineGoogle size="20" />
-                        <Box marginLeft='0.5rem'>Se connecter avec Google</Box>
+                        <Box marginLeft='0.5rem'>Log in with Google</Box>
                     </Button>
                 </FormControl>
                 <Text m={3} fontSize='sm' color='tomato'>{validation}</Text>

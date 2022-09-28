@@ -1,4 +1,4 @@
-import { Badge, Box, CircularProgress, CircularProgressLabel, Divider, Flex, Grid, GridItem, HStack, Image, ListItem, ModalBody, OrderedList, Text, Tooltip, UnorderedList, VStack } from '@chakra-ui/react'
+import { Box, CircularProgress, CircularProgressLabel, Flex, Grid, GridItem, HStack, Image, ListItem, ModalBody, OrderedList, Text, UnorderedList, VStack } from '@chakra-ui/react'
 import { IoFlash, IoPeople, IoTimer, IoStatsChart } from 'react-icons/io5'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
@@ -90,7 +90,7 @@ export default function DetailRecipeModalWithSpoon({ detail }) {
                                 counterForList += 1
                                 let instructionConcat = `${counterForList}.  ${step.step}`
                                 return (
-                                    <ListItem key={`ingredient_${counterForList}`} mb='0.5rem'>{instructionConcat}</ListItem>
+                                    <ListItem key={`instruction_${Math.random()}`} mb='0.5rem'>{instructionConcat}</ListItem>
                                 )
                             })}
                         </OrderedList>

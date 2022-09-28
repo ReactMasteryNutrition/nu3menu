@@ -41,7 +41,7 @@ const ModalPassword = () => {
     e.preventDefault()
     if (!(inputs?.current[0]?.value && inputs?.current[1]?.value && inputs?.current[2]?.value)) {
       return toast({
-        description: "Veuillez remplir tous les champs !",
+        description: "Please fill in all the fields !",
         status: 'error',
         duration: 4000,
         isClosable: true,
@@ -64,7 +64,7 @@ const ModalPassword = () => {
       if (inputs?.current[1]?.value === inputs?.current[2]?.value) {
         updatePassword(currentUser, inputs?.current[1]?.value)
         toast({
-          description: "Votre mot de passe a bien été modifié !",
+          description: "Your password has been changed !",
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -73,14 +73,14 @@ const ModalPassword = () => {
     } catch (error) {
       if (inputs?.current[1]?.value !== inputs?.current[2]?.value) {
         toast({
-          description: "Votre nouveau mot de passe et votre mot de passe de confirmation ne correspondent pas !",
+          description: "Your new password and confirmation password do not match !",
           status: 'error',
           duration: 4000,
           isClosable: true,
         })
       }
       toast({
-        description: "Il y a eu une erreur lors de la modification de votre mot de passe !",
+        description: "There was an error while changing your password !",
         status: 'error',
         duration: 4000,
         isClosable: true,
@@ -100,7 +100,7 @@ const ModalPassword = () => {
             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
           >
             <Image
-              src="./images/logo_nu3menu.svg" alt="Logo du site"
+              src="./images/logo_nu3menu.svg" alt="Site logo"
               width={ResponsiveWidth() ? "15rem" : "18rem"}
               margin={ResponsiveWidth() ? '1rem auto' : '1rem auto'}
             />
@@ -109,7 +109,7 @@ const ModalPassword = () => {
               fontSize="1.5rem"
               marginBottom={ResponsiveWidth() ? "2rem" : "3rem"}
             >
-              Modifier mon mot de passe
+              Edit my password
             </ModalHeader>
           </Box>}
           content={<Box
@@ -119,7 +119,7 @@ const ModalPassword = () => {
             width={ResponsiveWidth() ? null : '90%'}
             transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
           >
-            <FormLabel>Veuillez-vous authentifier avec votre mot de passe</FormLabel>
+            <FormLabel>Please log in with your password</FormLabel>
             <InputGroup size='md' marginBottom="1rem" >
               <Input
                 type={oldPassword ? 'text' : 'password'}
@@ -133,7 +133,7 @@ const ModalPassword = () => {
                 </Box>
               </InputRightElement>
             </InputGroup>
-            <FormLabel>Nouveau mot de passe</FormLabel>
+            <FormLabel>New password</FormLabel>
             <InputGroup size='md' marginBottom="1rem" >
               <Input
                 type={newPassword ? 'text' : 'password'}
@@ -147,7 +147,7 @@ const ModalPassword = () => {
                 </Box>
               </InputRightElement>
             </InputGroup>
-            <FormLabel>Confirmer votre mot de passe</FormLabel>
+            <FormLabel>Confirm your password</FormLabel>
             <InputGroup size='md' marginBottom="1rem" >
               <Input
                 type={confirmPassword ? 'text' : 'password'}
@@ -173,7 +173,7 @@ const ModalPassword = () => {
               top={ResponsiveWidth() ? null : "75%"}
               width={ResponsiveWidth() ? null : "90%"}
               transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-            >Valider
+            >Confirm
             </Button>}
         />
       </form>

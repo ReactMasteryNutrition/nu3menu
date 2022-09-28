@@ -22,7 +22,7 @@ const FormDataUser = () => {
                     flexDirection={ResponsiveWidth() ? "row" : "column"}
                 >
                     <Input
-                        placeholder={currentUser?.displayName?currentUser?.displayName : 'Mon prénom'}
+                        placeholder={currentUser?.displayName?currentUser?.displayName : 'My name'}
                         bg='#f0fff4'
                         readOnly />
                     <ModalName />

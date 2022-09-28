@@ -24,11 +24,11 @@ const FormForgetPassword = () => {
     const formRef = useRef();
     const formSubmit = async () => {
         try {
-            const cred = await resetPassword(
+            await resetPassword(
                 inputs?.current[0]?.value
             )
             toast({
-                description: "Un email de réinitialisation de mot de passe vous a été envoyé",
+                description: "A password reset email has been sent to you",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
@@ -41,7 +41,7 @@ const FormForgetPassword = () => {
             switch (err.code) {
                 case "auth/user-not-found":
                     toast({
-                        description: "Cet utilisateur n'existe pas",
+                        description: "This user doesn't exist",
                         status: 'error',
                         duration: 4000,
                         isClosable: true,
@@ -49,7 +49,7 @@ const FormForgetPassword = () => {
                     break;
                 case "auth/invalid-email":
                     toast({
-                        description: "Cet email n'est pas valide",
+                        description: "This email is invalid",
                         status: 'error',
                         duration: 4000,
                         isClosable: true,
@@ -57,7 +57,7 @@ const FormForgetPassword = () => {
                     break;
                 case "auth/user-disabled":
                     toast({
-                        description: "Cet utilisateur est désactivé",
+                        description: "This user is disabled",
                         status: 'error',
                         duration: 4000,
                         isClosable: true,
@@ -65,7 +65,7 @@ const FormForgetPassword = () => {
                     break;
                 case "auth/missing-email":
                     toast({
-                        description: "Veuillez indiquer une adresse email !",
+                        description: "Please provide an email address",
                         status: 'error',
                         duration: 4000,
                         isClosable: true,
@@ -73,7 +73,7 @@ const FormForgetPassword = () => {
                     break;
                 default:
                     toast({
-                        description: "Une erreur est survenue",
+                        description: "Unknown error",
                         status: 'error',
                         duration: 4000,
                         isClosable: true,
@@ -100,7 +100,7 @@ const FormForgetPassword = () => {
                     margin='0 auto 2rem auto'>
                     <Input
                         type='email'
-                        placeholder='E-mail'
+                        placeholder='Email address'
                         bg='#f0fff4'
                         color="#1A202C"
                         name="email"

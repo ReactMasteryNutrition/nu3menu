@@ -2,8 +2,8 @@ import NavUserDrawer from './NavUserDrawer'
 import ModalRegister from "../connection/ModalRegister"
 import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
-import { Link } from 'react-router-dom'
-import { Flex, Box, useMediaQuery } from '@chakra-ui/react'
+import { Link as ReachLink } from 'react-router-dom'
+import { Flex, Box, useMediaQuery, Link } from '@chakra-ui/react'
 import { BsPlusCircle, BsBookmarkFill } from 'react-icons/bs'
 import { FaHome } from "react-icons/fa"
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
@@ -72,16 +72,16 @@ const NavUser = () => {
                 bg="#48bb78"
             ></Box>
             <Flex gap={maxWidth375 ? "1.5rem" : "2.5rem"} alignItems="center">
-                <Link to="/" >
+                <Link as={ReachLink} to="/" >
                     <FaHome size="33" color="#48BB78" />
                 </Link>
-                <Link to="/menu">
+                <Link as={ReachLink} to="/menu">
                     <AiOutlineMenuUnfold size="33" color="#48BB78" />
                 </Link>
-                <Link to="/createmenu">
+                <Link as={ReachLink} to="/createmenu">
                     <BsPlusCircle size="33" color="#48BB78" />
                 </Link>
-                <Link to="/favorite">
+                <Link as={ReachLink} to="/favorite">
                     <BsBookmarkFill size="33" color="#48BB78" />
                 </Link>
                 {ResponsiveWidth() ? null : <NavUserDrawer />}

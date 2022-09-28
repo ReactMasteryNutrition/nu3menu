@@ -24,13 +24,7 @@ const readTheAuthor = (numUser) => {
         const docRef = doc(db, "users", numUser)
         getDoc(docRef).then(docSnap => {
             if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
-                console.log("Author :", docSnap.data().displayName);
-                authorName = docSnap.data().displayName
-                console.log(typeof(authorName))
-                console.log('authorName variable :', authorName)
-            } else {
-                console.log("No such document!");
+                authorName = docSnap?.data()?.displayName
             }
         })
     }

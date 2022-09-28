@@ -10,5 +10,4 @@ export const linkListFooter = [
     { id: "PP", url: "/privacy", label: "Privacy" },
     { id: "T", url: "/terms", label: "Terms" },
     { id: "C", url: "/contact", label: "Contact" }
-
 ]

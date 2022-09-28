@@ -19,14 +19,25 @@ const Login = React.lazy(() => import('./pages/Login'))
 const Error404 = React.lazy(() => import('./pages/Error404'))
 const ForgetPassword = React.lazy(() => import('./pages/ForgetPassword'))
 
-
 // pages prefetch then loaded after connection
-const MyAccount = React.lazy(() => import(/* webpackPrefetch: true */ './pages/MyAccount'))
-const CurrentMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CurrentMenu'))
-const CreateMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/CreateMenu'))
-const Favorite = React.lazy(() => import(/* webpackPrefetch: true */ './pages/Favorite'))
-const AllMenus = React.lazy(() => import(/* webpackPrefetch: true */ './pages/AllMenus'))
-const DetailsMenu = React.lazy(() => import(/* webpackPrefetch: true */ './pages/DetailsMenu'))
+const MyAccount = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/MyAccount")
+);
+const CurrentMenu = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/CurrentMenu")
+);
+const CreateMenu = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/CreateMenu")
+);
+const Favorite = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/Favorite")
+);
+const AllMenus = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/AllMenus")
+);
+const DetailsMenu = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "./pages/DetailsMenu")
+);
 
 
 const UserApp = () => {
@@ -44,11 +55,11 @@ const UserApp = () => {
                         <Route path='/contact' element={<Contact />} />
                         <Route path='/privacy' element={<Privacy />} />
                         <Route path='/terms' element={<Terms />} />
+                        <Route path='/:menuId' element={<DetailsMenu />} />
                         <Route element={<PrivateRoute />} >
                             <Route path='/myaccount' element={<MyAccount />} />
                             <Route path='/createMenu' element={<CreateMenu />} />
                             <Route path='/menu' element={<CurrentMenu />} />
-                            <Route path='/:menuId' element={<DetailsMenu />} />
                             <Route path='/allmenus' element={<AllMenus />} />
                             <Route path='/favorite' element={<Favorite />} />
                         </Route>

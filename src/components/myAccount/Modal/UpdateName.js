@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { updateProfile } from "firebase/auth"
+import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
+import {db} from "../../../firebase-config";
 
 const ModalName = () => {
     const { currentUser } = useAuth()
@@ -25,9 +27,9 @@ const ModalName = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!input?.current[0]?.value){
+        if (!input?.current[0]?.value) {
             return toast({
-                description: "Veuillez remplir ce champ !",
+                description: "Please fill in this field !",
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
@@ -36,15 +38,24 @@ const ModalName = () => {
         try {
             // update the user displayname
             await updateProfile(currentUser, { displayName: input?.current[0]?.value });
+            const UserInFirestoreDatabase = async () => {
+                const userRef = doc(db, `users/${currentUser?.uid}`);
+                const userSnap = await getDoc(userRef);
+                await updateDoc(userRef, {
+                    displayName: input?.current[0]?.value,
+                    dateLogin: serverTimestamp()
+                });
+            }
+            await UserInFirestoreDatabase();
             toast({
-                description: "Votre prénom a bien été modifié !",
+                description: "Your name has been modified !",
                 status: 'success',
                 duration: 4000,
                 isClosable: true,
             })
         } catch (error) {
             toast({
-                description: "Il y a eu une erreur lors de la modification de votre prénom !",
+                description: "There was an error while modifying your name !",
                 status: error.message,
                 duration: 4000,
                 isClosable: true,
@@ -63,7 +74,7 @@ const ModalName = () => {
                     transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                 >
                     <Image
-                        src="./images/logo_nu3menu.svg" alt="Logo du site"
+                        src="./images/logo_nu3menu.svg" alt="Site logo"
                         width={ResponsiveWidth() ? "15rem" : "18rem"}
                         margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 3rem auto'}
                     />
@@ -72,7 +83,7 @@ const ModalName = () => {
                         fontSize="1.5rem"
                         marginBottom="1rem"
                     >
-                        Modifier mon prénom
+                        Edit my name
                     </ModalHeader>
                 </Box>}
                 content={<Box
@@ -82,7 +93,7 @@ const ModalName = () => {
                     width={ResponsiveWidth() ? null : '90%'}
                     transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                 >
-                    <FormLabel>Nouveau prénom</FormLabel>
+                    <FormLabel>New name</FormLabel>
                     <FormControl marginBottom="1rem">
                         <Input type="text" bg='#f0fff4' color="#1A202C" ref={addData} aria-label="new name"
                         />
@@ -99,7 +110,7 @@ const ModalName = () => {
                         top={ResponsiveWidth() ? null : "75%"}
                         width={ResponsiveWidth() ? null : "90%"}
                         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                    >Valider
+                    >Confirm
                     </Button>}
             />
         </Box>

@@ -24,12 +24,10 @@ export default function FilterParams({filter, setFilter}) {
     }
     // Mise à jour d'un des paramètres
     const handleChangeLocalFilter = e => {
-        //console.log(e)
         setLocalFilter({...localFilter, [e.target.name]: e.target.value})
     }
     // Fonction pour utiliser le flèche vers le haut pour augmenter la valeur de l'input
     const incrementLocalFilter = e => {
-        //console.log('+')
         let here = e.target
         let thisInputValue = here.closest('.chakra-numberinput').firstChild.value
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
@@ -37,142 +35,19 @@ export default function FilterParams({filter, setFilter}) {
     }
     // Fonction pour utiliser le flèche vers le bas pour diminuer la valeur de l'input
     const decrementLocalFilter = e => {
-        //console.log('-')
         let here = e.target
         let thisInputValue = here.closest('.chakra-numberinput').firstChild.value
         let thisInputName = here.closest('.chakra-numberinput').firstChild.getAttribute('name')
         setLocalFilter({...localFilter, [thisInputName]: thisInputValue})
     }
-    // React.useEffect(() => {
-    //     console.log('LocalFilter : ')
-    //     console.log(localFilter)
-    // },[localFilter])
 
-    // initialisation d'autres variables locales qui vont permettre la construction des valeurs à mettre en paramètres
-    // let meal = ''
-    // let calorie = ''
-    // let times = ''
-    // let glucide = ''
-    // let lipide = ''
-    // let proteine = ''
-
-    // On boucle dans localFilter et on retraite l'ensemble des lignes pour créer des variables temporaires
-    // qui vont permettre de mettre à jour les paramètres via setFilter puis on remet à 0 les variables temporaires
-    // const ApplyFilters = () => {
-    //     let optionValueWasMin = ''
-    //     for (const [key, value] of Object.entries(localFilter)) {
-    //         let option = key.toString()
-    //         let optionValue = value
-    //         if(option.includes('meal')) {
-    //             meal = optionValue
-    //         }
-    //         if(option.includes('calorie')) {
-    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-    //                 optionValueWasMin = optionValue
-    //                 calorie = `${optionValue}+`
-    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-    //                 calorie = `${optionValueWasMin}-${optionValue}`
-    //                 optionValueWasMin = ''
-    //             } else if(optionValue === '0'){
-    //                 optionValue =''
-    //                 optionValueWasMin = ''
-    //             }  else {
-    //                 calorie = calorie+`${optionValue}`
-    //                 optionValueWasMin = ''
-    //             }
-    //         }
-    //         if(option.includes('time')) {
-    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-    //                 optionValueWasMin = optionValue
-    //                 times = `${optionValue}+`
-    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-    //                 times = `${optionValueWasMin}-${optionValue}`
-    //                 optionValueWasMin = ''
-    //             } else if(optionValue === '0'){
-    //                 optionValue =''
-    //                 optionValueWasMin = ''
-    //             }  else {
-    //                 times = times+`${optionValue}`
-    //                 optionValueWasMin = ''
-    //             }
-    //         }
-    //         if(option.includes('carbohydrate')) {
-    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-    //                 optionValueWasMin = optionValue
-    //                 glucide = `${optionValue}+`
-    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-    //                 glucide = `${optionValueWasMin}-${optionValue}`
-    //                 optionValueWasMin = ''
-    //             } else if(optionValue === '0'){
-    //                 optionValue =''
-    //                 optionValueWasMin = ''
-    //             } else {
-    //                 glucide = glucide+`${optionValue}`
-    //                 optionValueWasMin = ''
-    //             }
-    //         }
-    //         if(option.includes('lipid')) {
-    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-    //                 optionValueWasMin = optionValue
-    //                 lipide = `${optionValue}+`
-    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-    //                 lipide = `${optionValueWasMin}-${optionValue}`
-    //                 optionValueWasMin = ''
-    //             } else if(optionValue === '0'){
-    //                 optionValue =''
-    //                 optionValueWasMin = ''
-    //             } else {
-    //                 lipide = lipide+`${optionValue}`
-    //                 optionValueWasMin = ''
-    //             }
-    //         }
-    //         if(option.includes('protein')) {
-    //             if(option.includes('min') && optionValue !== '' && optionValue !== '0') {
-    //                 optionValueWasMin = optionValue
-    //                 proteine = `${optionValue}+`
-    //             } else if(option.includes('max') && optionValueWasMin !== '' && optionValue !== '' && optionValue !== '0') {
-    //                 proteine = `${optionValueWasMin}-${optionValue}`
-    //                 optionValueWasMin = ''
-    //             } else if(optionValue === '0'){
-    //                 optionValue =''
-    //                 optionValueWasMin = ''
-    //             } else {
-    //                 proteine = proteine+`${optionValue}`
-    //                 optionValueWasMin = ''
-    //             }
-    //         }
-    //     }
-        
-    //     setFilter({
-    //         ...filter,
-    //         mealType: meal,
-    //         calories: calorie,
-    //         time: times,
-    //         'nutrients[CHOCDF]': glucide,
-    //         'nutrients[FAT]': lipide,
-    //         'nutrients[PROCNT]': proteine,
-    //     })
-    //     meal=''
-    //     calorie =''
-    //     times =''
-    //     glucide =''
-    //     lipide=''
-    //     proteine=''
-    // }
-    //
     const apply = () => {
-        console.log(localFilter)
-        // let filterFinal = {}
         for (const [key, value] of Object.entries(localFilter)) {
             if(value !=='' && value !=='0'){
-                console.log('NON vide pour : ', key)
-                console.log(value)
                 setFilter(prevState => ({
                     ...prevState,
                     [key] : value
                 }))
-            } else {
-                console.log('Cette clé est vide : ', key)
             }
         }
     }

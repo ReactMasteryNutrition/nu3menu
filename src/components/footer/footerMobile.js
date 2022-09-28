@@ -1,7 +1,8 @@
 import React from "react";
-import { VStack, Box, Image, ButtonGroup, IconButton, List, ListIcon, ListItem, Link } from '@chakra-ui/react';
+import { VStack, Box, Image, ButtonGroup, IconButton, Link, List, ListIcon, ListItem } from '@chakra-ui/react';
 import { socialIconLink, linkListFooter } from '../data/dataLink';
 import { MdSettings } from 'react-icons/md'
+import { Link as ReachLink } from 'react-router-dom'
 
 const FooterMobile = () => {
     //const postition = {
@@ -9,12 +10,13 @@ const FooterMobile = () => {
     //}
     //style={postition}
 
-
     return (
 
         <VStack padding='2rem' paddingBottom='6rem' spacing='2rem'>
             <Box>
-                <Image width='12rem' src='./images/logo_nu3menu.svg' alt="NU3MENU" />
+                <Link as={ReachLink} to='/'>
+                    <Image width='12rem' src='./images/logo_nu3menu.svg' alt="Site logo" />
+                </Link>
             </Box>
             <Box>
                 <ButtonGroup variant="ghost">
@@ -25,6 +27,8 @@ const FooterMobile = () => {
                         href={data.to}
                         aria-label={data.aLabel}
                         icon={data.label}
+                        rel= "noreferrer noopener"
+                        target='_blank'
                     />)}
                 </ButtonGroup>
             </Box>
@@ -32,7 +36,7 @@ const FooterMobile = () => {
                 <List spacing={3}>
                     {linkListFooter.map((data) => <ListItem key={data.id} color={"green.500"}>
                         <ListIcon as={MdSettings} color='green.500' />
-                        <Link href={data.url}>{data.label}</Link>
+                        <Link as={ReachLink} to={data.url} target="_blank">{data.label}</Link>
                     </ListItem>)}
                 </List>
             </Box>

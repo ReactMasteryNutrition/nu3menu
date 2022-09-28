@@ -2,9 +2,9 @@ import ModalRegister from "../connection/ModalRegister"
 import ModalLogin from "../connection/ModalLogin"
 import { ResponsiveWidth } from "../../utils/helper"
 import NavUserDropdown from "./NavUserDropdown"
-import { Link } from "react-router-dom"
+import { Link as ReachLink } from "react-router-dom"
 import { BsPlusCircle } from 'react-icons/bs'
-import { Box, Flex, Image, Tooltip } from '@chakra-ui/react'
+import { Box, Flex, Image, Tooltip, Link } from '@chakra-ui/react'
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
@@ -17,10 +17,10 @@ const NavVisitor = () => {
         alignItems="center"
         margin="1rem"
       >
-        <Link to="/">
+        <Link as={ReachLink} to="/">
           <Image
             src="./images/logo_nu3menu.svg"
-            alt="Logo du site"
+            alt="Site logo"
             width="12rem"
           />
         </Link>
@@ -56,10 +56,10 @@ const NavUser = () => {
         alignItems="center"
         margin="1rem"
       >
-        <Link to="/">
+        <Link as={ReachLink} to="/">
           <Image
             src="./images/logo_nu3menu.svg"
-            alt="Logo du site"
+            alt="Site logo"
             width="12rem"
           />
         </Link>
@@ -76,18 +76,18 @@ const NavUser = () => {
             fontSize="1.1rem"
             fontWeight="700"
           >
-            <Link to="/menu"
+            <Link as={ReachLink} to="/menu"
             >
               <Box _hover={{
                 color: "#f0fff4"
-              }}>Mon menu</Box>
+              }}>My menu</Box>
             </Link>
-            <Link to="/favorite"
+            <Link as={ReachLink} to="/favorite"
             >
               <Box
                 _hover={{
                   color: "#f0fff4"
-                }}>Favoris</Box>
+                }}>Favorites</Box>
             </Link>
           </Flex>
           <Flex
@@ -95,10 +95,10 @@ const NavUser = () => {
             gap="1rem"
             with="5rem"
           >
-            <Link to="/createMenu"
+            <Link as={ReachLink} to="/createMenu"
             >
               <Tooltip
-                label='Créer mon menu'
+                label='Create my menu'
                 width="6.5rem"
                 textAlign="center"
                 fontSize="0.7rem"
