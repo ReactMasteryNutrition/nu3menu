@@ -7,8 +7,6 @@ import { Link as ReachLink} from 'react-router-dom'
 
 const FooterDestop = () => {
     return (
-
-
         <Wrap bg='gray.800' justify='space-between' paddingX='1rem' paddingY='2rem' align='center' spacing='2rem'>
             <WrapItem>
                 <Link as={ReachLink} to="/">
@@ -35,7 +33,6 @@ const FooterDestop = () => {
                 </List>
             </WrapItem>
         </Wrap>
-
     )
 }
 

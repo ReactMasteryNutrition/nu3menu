@@ -7,8 +7,7 @@ export const  socialIconLink = [
 ]
 
 export const linkListFooter = [
-    { id: "PP", url: "/", label: "Privacy" },
-    { id: "T", url: "/", label: "Terms" },
-    { id: "C", url: "/", label: "Contact" }
-
+    { id: "PP", url: "/privacy", label: "Privacy" },
+    { id: "T", url: "/terms", label: "Terms" },
+    { id: "C", url: "/contact", label: "Contact" }
 ]
