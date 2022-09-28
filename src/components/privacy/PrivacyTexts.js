@@ -29,10 +29,7 @@ const PrivacyTexts = () => {
                     </Text>
                     <Text color={"green.50"}>
                         These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.
-                    </Text>
-                    <Text color={"green.50"}>
-                        Minors or people below 18 years old are not allowed to use this Website.
-                    </Text>
+                    </Text>.
                 </Box>
                 <Box
                     display="flex"
@@ -197,12 +194,12 @@ const PrivacyTexts = () => {
                         These Terms constitute the entire agreement between Nu3Menu and you in relation to your use of this Website, and supersede all prior agreements and understandings.
                     </Text>
                 </Box>
-                <Box
-                    display="flex"
-                    flexDirection="column"
-                    width={"100%"}
-                    px={8}
-                >
+                 <Box
+                     display="flex"
+                     flexDirection="column"
+                     width={"100%"}
+                     px={8}
+                 >
                     <Heading as={"h2"} size={"md"} color={"#9faec0"} marginBottom={3}>
                         12. Governing Law & Jurisdiction
                     </Heading>

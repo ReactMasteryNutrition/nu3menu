@@ -5,27 +5,95 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  FormHelperText,
   Heading,
   HStack,
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import React from "react";
+import React, {useRef, useState} from "react";
 import { ResponsiveWidth } from "../../utils/helper";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import emailjs from '@emailjs/browser';
 
 const FormContact = () => {
-  const { handleSubmit} = useForm();
 
-  const onSubmit = (values) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
+  const data = {
+   name: "",
+   firstname: "",
+   email: "",
+   subject: "",
+   message: "",
+ };
+
+  const [initialData, setInitialData] = useState(data);
+
+  const form = useRef();
+
+  const REQUIRED_VALIDATION = (label) => {
+    return `${label} is Required!`;
+  };
+
+  const schema = yup.object().shape({
+    name: yup.string().required(REQUIRED_VALIDATION("Name")),
+    firstname: yup.string().required(REQUIRED_VALIDATION("Firstname")),
+    email: yup.string().email().required(REQUIRED_VALIDATION("Email")),
+    subject: yup.string().required(REQUIRED_VALIDATION("Subject")),
+    message: yup.string().required(REQUIRED_VALIDATION("Message")),
+
+  }).required();
+
+  const { register, handleSubmit, formState: { errors }
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+    reValidateMode: "onSubmit",
+    defaultValues: initialData
+
+  });
+
+
+
+    {/*const onSubmit = () => {
+    emailjs.sendForm('service_ka9b4ti', 'template_nfwtzhd', variables, 'f0mHaeHctIULC2KCb')
+        .then((result) => {
+            console.log(result);
+        }
+        , (error) => {
+            console.log(error.text);
+            }
+        );
+  } */}
+
+  const onSubmit = (data) => {
+        const templateId = 'template_nfwtzhd';
+        const serviceId = 'service_ka9b4ti';
+        const userId = 'f0mHaeHctIULC2KCb';
+        sendFeedback(serviceId, templateId, {
+            name: data.name,
+            firstname: data.firstname,
+            email: data.email,
+            subject: data.subject,
+            message: data.message,
+        }, userId);
   }
 
+  const sendFeedback = (serviceId, templateId, variables, userId) => {
+        emailjs
+            .send(serviceId, templateId, variables, userId)
+            .then(res => {
+                console.log('Email successfully sent!', res);
+                console.log("variables",variables);
+                console.log("form",form.current)
+            })
+            .catch(err => console.error('There has been an error.  Here some thoughts on the error that occured:', err))
+  };
+
+  const onError = (error) => {
+    console.log(error);
+  }
 
   return (
     <>
@@ -48,67 +116,113 @@ const FormContact = () => {
             alignItems="center"
             width={ResponsiveWidth() ? null : "80%"}
           >
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form ref={form} onSubmit={handleSubmit(onSubmit, onError)}>
               <FormControl display="flex" flexDir="column" gap="4">
                 <HStack spacing="6">
                   <Box w="100%">
-                    <FormControl id="first-name" isRequired>
-                      <FormLabel color={"green.50"}>First-name</FormLabel>
+                    <FormControl id="name" isRequired>
+                      <FormLabel htmlFor="name" color={"green.50"}>Name</FormLabel>
                       <Input
+                        id="name"
+                        name="name"
                         type="text"
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
+                        {...register("name")}
                       />
+                      {errors && errors.name && (
+                          <FormHelperText color="red">
+                            {errors.name.message}
+                          </FormHelperText>
+                      )}
                     </FormControl>
                   </Box>
                   <Box w="100%">
-                    <FormControl id="last-name" isRequired>
-                      <FormLabel color={"green.50"}>Last-name</FormLabel>
+                    <FormControl id="first-name" isRequired>
+                      <FormLabel htmlFor="first-name" color={"green.50"}>First-name</FormLabel>
                       <Input
                         type="text"
+                        id="firstname"
+                        name="firstname"
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
+                        {...register
+                            ("firstname")
+                        }
                       />
+                        {errors && errors.firstname && (
+                            <FormHelperText color="red">
+                                {errors.firstname.message}
+                            </FormHelperText>
+                        )}
                     </FormControl>
                   </Box>
                 </HStack>
                 <HStack spacing="4">
                   <Box w="100%">
                     <FormControl id="email" isRequired>
-                      <FormLabel color={"green.50"}>Email</FormLabel>
+                      <FormLabel htmlFor="email" color={"green.50"}>Email</FormLabel>
                       <Input
                         type="email"
+                        id="email"
+                        name="email"
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
+                        {...register
+                          ("email")
+                        }
                       />
+                        {errors && errors.email && (
+                            <FormHelperText color="red">
+                                {errors.email.message}
+                            </FormHelperText>
+                        )}
                     </FormControl>
                   </Box>
                 </HStack>
                 <HStack spacing="4">
                   <Box w="100%">
-                    <FormControl id="object" isRequired>
-                      <FormLabel color={"green.50"}>Object</FormLabel>
+                    <FormControl id="subject" isRequired>
+                      <FormLabel color={"green.50"}>Subject</FormLabel>
                       <Input
                         type="text"
+                        id="subject"
+                        name="subject"
                         color={"green.50"}
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
+                        {...register
+                            ("subject")
+                        }
                       />
+                        {errors && errors.subject && (
+                            <FormHelperText color="red">
+                                {errors.subject.message}
+                            </FormHelperText>
+                        )}
                     </FormControl>
                   </Box>
                 </HStack>
                 <HStack spacing="4">
                   <Box w="100%">
                     <FormControl id="message" isRequired>
-                      <FormLabel color={"green.50"}>Message</FormLabel>
+                      <FormLabel htmlFor="message"color={"green.50"}>Message</FormLabel>
                       <Textarea
                         color={"green.50"}
+                        id="message"
+                        name="message"
                         borderColor="#48bb78"
                         _focusVisible={{ borderColor: "green.50" }}
+                        {...register("message")}
                       />
+                        {errors && errors.message && (
+                            <FormHelperText color="red">
+                                {errors.message.message}
+                            </FormHelperText>
+                        )}
                     </FormControl>
                   </Box>
                 </HStack>
@@ -125,7 +239,7 @@ const FormContact = () => {
                     mt={4}
                     _hover={{ bg: "#9faec0" }}
                   >
-                    Send
+                    Submit
                   </Button>
                 </HStack>
               </FormControl>
