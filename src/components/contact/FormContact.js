@@ -45,33 +45,20 @@ const FormContact = () => {
 
   }).required();
 
-  const { register, handleSubmit, formState: { errors }
+  const { register, handleSubmit, reset, formState: { errors }
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
     reValidateMode: "onSubmit",
-    defaultValues: initialData
-
+    defaultValues: initialData,
   });
-
-
-
-    {/*const onSubmit = () => {
-    emailjs.sendForm('service_ka9b4ti', 'template_nfwtzhd', variables, 'f0mHaeHctIULC2KCb')
-        .then((result) => {
-            console.log(result);
-        }
-        , (error) => {
-            console.log(error.text);
-            }
-        );
-  } */}
 
   const onSubmit = (data) => {
         const templateId = 'template_nfwtzhd';
         const serviceId = 'service_ka9b4ti';
         const userId = 'f0mHaeHctIULC2KCb';
         sendFeedback(serviceId, templateId, {
+            to_name: "Nu3Menu",
             name: data.name,
             firstname: data.firstname,
             email: data.email,
@@ -80,19 +67,17 @@ const FormContact = () => {
         }, userId);
   }
 
+
   const sendFeedback = (serviceId, templateId, variables, userId) => {
         emailjs
             .send(serviceId, templateId, variables, userId)
-            .then(res => {
-                console.log('Email successfully sent!', res);
-                console.log("variables",variables);
-                console.log("form",form.current)
+            .then((res) => {
+                reset();
             })
-            .catch(err => console.error('There has been an error.  Here some thoughts on the error that occured:', err))
   };
 
   const onError = (error) => {
-    console.log(error);
+      throw error;
   }
 
   return (
@@ -120,26 +105,7 @@ const FormContact = () => {
               <FormControl display="flex" flexDir="column" gap="4">
                 <HStack spacing="6">
                   <Box w="100%">
-                    <FormControl id="name" isRequired>
-                      <FormLabel htmlFor="name" color={"green.50"}>Name</FormLabel>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        color={"green.50"}
-                        borderColor="#48bb78"
-                        _focusVisible={{ borderColor: "green.50" }}
-                        {...register("name")}
-                      />
-                      {errors && errors.name && (
-                          <FormHelperText color="red">
-                            {errors.name.message}
-                          </FormHelperText>
-                      )}
-                    </FormControl>
-                  </Box>
-                  <Box w="100%">
-                    <FormControl id="first-name" isRequired>
+                    <FormControl height={"6rem"} id="first-name" isRequired>
                       <FormLabel htmlFor="first-name" color={"green.50"}>First-name</FormLabel>
                       <Input
                         type="text"
@@ -158,6 +124,25 @@ const FormContact = () => {
                             </FormHelperText>
                         )}
                     </FormControl>
+                  </Box>
+                  <Box w="100%">
+                        <FormControl id="name" height={"6rem"}  isRequired>
+                            <FormLabel htmlFor="name" color={"green.50"}>Last-name</FormLabel>
+                            <Input
+                                id="name"
+                                name="name"
+                                type="text"
+                                color={"green.50"}
+                                borderColor="#48bb78"
+                                _focusVisible={{ borderColor: "green.50" }}
+                                {...register("name")}
+                            />
+                            {errors && errors.name && (
+                                <FormHelperText color="red">
+                                    {errors.name.message}
+                                </FormHelperText>
+                            )}
+                        </FormControl>
                   </Box>
                 </HStack>
                 <HStack spacing="4">
