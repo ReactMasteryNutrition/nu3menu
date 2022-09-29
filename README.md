@@ -30,6 +30,8 @@ A large selection of recipes according to nutritional values.
 - Firebase auth
 - Firestore
 - Firebase storage
+- React hook form
+- Emailjs
 - Dotenv
 - Netlify
 - Notion
