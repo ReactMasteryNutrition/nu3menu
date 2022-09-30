@@ -41,35 +41,37 @@ const DetailsMenu = React.lazy(() =>
 
 
 const UserApp = () => {
-    return (
-        <Box display='flex' flexDirection='column' minH='100vh'>
-            <React.Suspense fallback={<LoadingApp />}>
-                <NavDesktop />
-                <NavMobile />
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                    <Routes>
-                        <Route path='/' element={<Home />} />
-                        <Route path='/register' element={<Register />} />
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/forgetpassword' element={<ForgetPassword />} />
-                        <Route path='/contact' element={<Contact />} />
-                        <Route path='/privacy' element={<Privacy />} />
-                        <Route path='/terms' element={<Terms />} />
-                        <Route path='/:menuId' element={<DetailsMenu />} />
-                        <Route element={<PrivateRoute />} >
-                            <Route path='/myaccount' element={<MyAccount />} />
-                            <Route path='/createMenu' element={<CreateMenu />} />
-                            <Route path='/menu' element={<CurrentMenu />} />
-                            <Route path='/allmenus' element={<AllMenus />} />
-                            <Route path='/favorite' element={<Favorite />} />
-                        </Route>
-                        <Route path='*' element={<Error404 />} />
-                    </Routes>
-                </ErrorBoundary>
-                <NutriFooter />
-            </React.Suspense>
-        </Box >
-    )
+  return (
+    <Box display='flex' flexDirection='column' minH='100vh'>
+      <React.Suspense fallback={<LoadingApp />}>
+        <NavDesktop />
+        <NavMobile />
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/forgetpassword' element={<ForgetPassword />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/privacy' element={<Privacy />} />
+            <Route path='/terms' element={<Terms />} />
+            <Route path='/:menuId' element={<DetailsMenu />} />
+            <Route element={<PrivateRoute />} >
+              <Route path='/myaccount' element={<MyAccount />} />
+              <Route path='/createMenu' element={<CreateMenu />} />
+              <Route path='/menu' element={<CurrentMenu />} />
+              <Route path='/allmenus' element={<AllMenus />} />
+              <Route path='/favorite' element={<Favorite />} />
+              <Route path='/allmenus/:allmenuId' element={<DetailsMenu />} />
+              <Route path='/favorite/:favoriteId' element={<DetailsMenu />} />
+            </Route>
+            <Route path='*' element={<Error404 />} />
+          </Routes>
+        </ErrorBoundary>
+        <NutriFooter />
+      </React.Suspense>
+    </Box >
+  )
 }
 
 export default UserApp;

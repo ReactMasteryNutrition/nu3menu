@@ -18,14 +18,14 @@ export default function QuerySpoon({ index, category, setWeekMenu, weekMenu, thi
     }, [thingSearched, fetchAxios])
     if (!thingSearched) {
         return (
-            <Center color='green.50' paddingY='2rem'>Rechercher une recette</Center>
+            <Center color='green.50' paddingY='2rem'>Search a recipe</Center>
         )
     }
     if(!data) {
         return (
             <Center paddingY='2rem'>
                 <Spinner color='green.400'/>
-                <Text marginLeft='1rem'>Chargement...</Text>
+                <Text marginLeft='1rem'>Loading...</Text>
             </Center>
         )
     }

@@ -35,7 +35,7 @@ export default function SearchBarSpoon({ thingSearched, handleSearch, params, se
                                     color='green.400'
                                     children={<IoSearch />}
                                 />
-                                <Input type='search' placeholder='A tester ici...' color='green.50' focusBorderColor='green.400' value={spoonSearched} onChange={e => setSpoonSearched(e.target.value)} />
+                                <Input type='search' color='green.50' focusBorderColor='green.400' value={spoonSearched} onChange={e => setSpoonSearched(e.target.value)} />
                             </InputGroup>
                         </FormControl>
                     </form>
