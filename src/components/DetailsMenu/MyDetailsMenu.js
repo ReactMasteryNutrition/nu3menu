@@ -10,7 +10,7 @@ import {
     Divider,
     Heading,
     IconButton,
-    Link, 
+    Link,
     Modal,
     ModalCloseButton,
     ModalContent,
@@ -30,15 +30,15 @@ const DetailRecipeModalWithSpoon = React.lazy(() =>
 );
 
 // function
-export default function MyDetailsMenu(){
+export default function MyDetailsMenu() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    let { menuId } = useParams()
+    let { menuId, favoriteId, allmenuId } = useParams()
     const [currentMenu, setCurrentMenu] = useState([])
     const [detailMenu, setDetailMenu] = useState([])
     const [detailRecipe, setDetailRecipe] = useState({})
     // get menu data
     useEffect(() => {
-        const q = query(collection(db, 'menus'), where('idMenu', '==', menuId))
+        const q = query(collection(db, 'menus'), where('idMenu', '==', menuId || favoriteId || allmenuId))
         let thisCurrentMenu = []
         onSnapshot(q, (querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -46,7 +46,7 @@ export default function MyDetailsMenu(){
             })
             setCurrentMenu(thisCurrentMenu)
         })
-    }, [menuId])
+    }, [allmenuId, favoriteId, menuId])
     // parsed menu meal
     useEffect(() => {
         let detailAParse = []
@@ -62,10 +62,9 @@ export default function MyDetailsMenu(){
         setDetailRecipe()
         onClose()
     }
-    //
-    
+
     return (
-        menuId ? (
+        menuId || favoriteId || allmenuId ? (
             <Box w='100%' px='4rem' color={"green.50"}>
                 <VStack mb='2rem' textAlign='center'>
                     <Heading as='h1' size='xl' >{currentMenu[0]?.title}</Heading>
@@ -93,10 +92,9 @@ export default function MyDetailsMenu(){
                                                         title={meal[1]?.title}
                                                         urlData={meal[1]?.sourceUrl}
                                                         buttonToOpenModal={
-                                                            <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])}/>
+                                                            <IconButton aria-label='Details' icon={<IoEnter />} my='1rem' mx={['0', '0.5rem']} bgColor='gray.800' onClick={() => openDetailModal(meal[1])} />
 
                                                         }
-
                                                     />
                                                 )
                                             })
@@ -105,7 +103,6 @@ export default function MyDetailsMenu(){
                                 </Stack>
                             )
                         })
-
                     }
                 </VStack>
                 {detailRecipe != null ?
@@ -116,8 +113,8 @@ export default function MyDetailsMenu(){
                             <ModalCloseButton onClick={() => closeAndClear()} />
                             <DetailRecipeModalWithSpoon detail={detailRecipe} />
                             <ModalFooter flexDir={['column', 'row']}>
-                                <Link href={ detailRecipe?.sourceUrl } rel= "noreferrer noopener" target="_blank" w='100%' my='1rem' mx={['0', '0.5rem']}>
-                                    <Button leftIcon={<LinkIcon/>} colorScheme='gray' color='gray.800' w='100%' _hover={{textDecoration: 'none'}}>How cook it ?</Button>
+                                <Link href={detailRecipe?.sourceUrl} rel="noreferrer noopener" target="_blank" w='100%' my='1rem' mx={['0', '0.5rem']}>
+                                    <Button leftIcon={<LinkIcon />} colorScheme='gray' color='gray.800' w='100%' _hover={{ textDecoration: 'none' }}>How cook it ?</Button>
                                 </Link>
                                 <Button
                                     leftIcon={<CloseIcon />}

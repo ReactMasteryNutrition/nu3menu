@@ -12,7 +12,6 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
 export default function CardComponent({ listOfMenu, currentUser, setUserWithFavorite, sumOfFav, setSumOfFav }) {
     // Gestion du bouton Add/Remove from Favorite
     let location = window?.location?.pathname
-    //
     const toast = useToast()
     // Fonction pour suivre un menu (Select it)
     const beOn = (idMenu) => {
@@ -30,7 +29,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
     // Fonction pour ajouter un menu en favori
     const addFavorite = (menu) => {
         const isAlreadyHere = menu?.favorite?.includes(currentUser?.uid)
-        if(isAlreadyHere === true){
+        if (isAlreadyHere === true) {
             toast({
                 title: "It's already in your favorite",
                 status: 'warning',
@@ -63,7 +62,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
             favorite: arrayRemove(currentUser?.uid)
         })
         const haveFavoriteRef = doc(db, "users", currentUser?.uid)
-        if(listOfMenu.length === 1){
+        if (listOfMenu.length === 1) {
             updateDoc(haveFavoriteRef, {
                 haveFavorite: false
             })
@@ -71,8 +70,8 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
         } else {
             setUserWithFavorite(true)
         }
-        if(listOfMenu.length !== 0){
-            setSumOfFav(counterLength-1)
+        if (listOfMenu.length !== 0) {
+            setSumOfFav(counterLength - 1)
         }
         toast({
             title: "Menu removed",
@@ -84,26 +83,26 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
 
     return (
         <Box w='100%' minH='100%' display='flex' flexDirection={['column', 'row', 'row', 'row']} flexWrap='wrap' justifyContent='center' alignItems='center' paddingBottom='1rem' boxSizing='border-box'>
-        {listOfMenu.map(menu => {
-            let machin = menu?.favorite?.includes(currentUser.uid) 
-            let ButtonToAdd = undefined
-            // machin ? isInMyFavorite=true : isInMyFavorite=false
-            machin ? 
-            ButtonToAdd = <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => addFavorite(menu)} disabled>Add in Fav</Button>
-            :
-            ButtonToAdd = <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => addFavorite(menu)}>Add in Fav</Button>
-            
-            return(
-                <Box key={listOfMenu.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX={['','2rem']} p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
-                    <Grid
-                        templateAreas={[`"image image image image"
+            {listOfMenu.map(menu => {
+                let machin = menu?.favorite?.includes(currentUser.uid)
+                let ButtonToAdd = undefined
+                // machin ? isInMyFavorite=true : isInMyFavorite=false
+                machin ?
+                    ButtonToAdd = <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => addFavorite(menu)} disabled>Add in Fav</Button>
+                    :
+                    ButtonToAdd = <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => addFavorite(menu)}>Add in Fav</Button>
+
+                return (
+                    <Box key={listOfMenu.indexOf(menu)} w={['90%', 300]} mt='1.5em' marginX={['', '2rem']} p='0.5rem' position='relative' display='flex' flexDir='column' alignItems='center' overflow='hidden' borderRadius='md' bg='gray.400'>
+                        <Grid
+                            templateAreas={[`"image image image image"
                                         "title title title title"
                                         "auteur auteur auteur auteur" 
                                         "linkDetail linkDetail linkDetail linkDetail"
                                         "date date date date"
                                         "fav fav fav fav" 
                                         "beOn beOn beOn beOn"`,
-                                        `"image image image image"
+                                `"image image image image"
                                         "title title title title"
                                         "auteur auteur auteur linkDetail"
                                         "date date date linkDetail"
@@ -119,7 +118,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                 </IconContext.Provider>
                             </GridItem> */}
                             <GridItem area='image' display='flex' justifyContent='center'>
-                                <Image src={menu.cover} alt={menu.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md'/>
+                                <Image src={menu.cover} alt={menu.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md' />
                             </GridItem>
                             <GridItem area='title' display='flex' alignItems='center' paddingY='0.5rem' >
                                 <Tooltip label={menu.title} placement='top'>
@@ -130,12 +129,16 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                 <Text>Author : {menu.author && menu.author}</Text>
                             </GridItem>
                             <GridItem area='date'>
-                                <Text fontSize='xs'>Created on : {menu?.dateCreation!== null ? writeTheDate(menu?.dateCreation) : 'Less than a minute ago'}</Text>
+                                <Text fontSize='xs'>Created on : {menu?.dateCreation !== null ? writeTheDate(menu?.dateCreation) : 'Less than a minute ago'}</Text>
                             </GridItem>
                             <GridItem area='linkDetail'>
                                 <IconContext.Provider value={{ size: '3rem', color: '#276749' }}>
                                     <Tooltip label='See detail' placement='top' bg='green.700'>
-                                        <Link as={ReachLink} to={`/${menu.idMenu}`} aria-label='menu details'>
+                                        <Link
+                                            as={ReachLink}
+                                            to={`${['/favorite', '/allmenus'].includes(location) ? location : ''}/${menu.idMenu}`}
+                                            aria-label='menu details'
+                                        >
                                             <IoEnter />
                                         </Link>
                                     </Tooltip>
@@ -145,13 +148,13 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                 <IconContext.Provider value={{ color: '#276749' }}>
                                     {
                                         location === '/favorite' ?
-                                        <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => removeFavorite(menu.idMenu)}>
-                                            Remove Fav
-                                        </Button>
-                                        :
-                                        ButtonToAdd
+                                            <Button leftIcon={<IoStar />} w='100%' color='green.700' bgColor='green.50' onClick={() => removeFavorite(menu.idMenu)}>
+                                                Remove Fav
+                                            </Button>
+                                            :
+                                            ButtonToAdd
                                     }
-                                    
+
                                 </IconContext.Provider>
                             </GridItem>
                             <GridItem area='beOn'>
