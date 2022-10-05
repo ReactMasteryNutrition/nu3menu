@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { extendTheme, ChakraProvider } from '@chakra-ui/react'
 import AuthContextProvider from './authContext'
+import { DataUserProvider } from './dataUserContext'
 import PropTypes from 'prop-types'
 
 // handle cached data
@@ -55,7 +56,9 @@ const AllProvider = ({ children }) => {
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
           <AuthContextProvider>
-            {children}
+            <DataUserProvider>
+              {children}
+            </DataUserProvider>
           </AuthContextProvider>
         </ChakraProvider>
       </QueryClientProvider>
