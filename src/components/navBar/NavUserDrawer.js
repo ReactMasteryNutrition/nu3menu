@@ -1,6 +1,7 @@
 import { Link as ReachLink, useNavigate } from 'react-router-dom'
 import { auth } from "../../firebase-config";
 import { useAuth } from "../../context/authContext";
+import { useDataUser } from '../../context/dataUserContext';
 import {
     useDisclosure,
     Drawer,
@@ -14,7 +15,6 @@ import {
     Button, 
     Link
 } from '@chakra-ui/react'
-// import { ChatIcon, BellIcon, QuestionIcon } from '@chakra-ui/icons'
 import { CgProfile } from 'react-icons/cg'
 import { IoMdSettings } from "react-icons/io"
 import { IoLogOut } from "react-icons/io5"
@@ -24,6 +24,7 @@ const NavUserDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const navigate = useNavigate()
     const { logout, currentUser } = useAuth()
+    const {avatar, name} = useDataUser()
     const handleClick = async () => {
         // logout the current user
         try {
@@ -39,7 +40,7 @@ const NavUserDrawer = () => {
         <Box>
             <Button onClick={onOpen} bg="#1A202C" _hover={{ bg: "#1A202C" }} _active={{ bg: "#1A202C" }}>
                 {currentUser?.photoURL ?
-                    <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
+                    <Avatar src={avatar} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
                     : <Avatar size="sm" />}
             </Button>
             <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} size="full">
@@ -73,7 +74,7 @@ const NavUserDrawer = () => {
                                     flexDirection="row"
                                     gap="1rem">
                                     <CgProfile color='#48BB78' margin-right='0.5rem' />
-                                    {currentUser?.displayName}
+                                    {name}
                                 </Flex>
                             </Link></>)
                             : null
