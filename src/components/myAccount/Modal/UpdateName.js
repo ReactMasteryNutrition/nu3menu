@@ -1,5 +1,8 @@
 import { useAuth } from '../../../context/authContext'
-import { ResponsiveWidth, ModalMyAccount } from '../../../utils/helper'
+import { useUpdateDataUser } from '../../../context/dataUserContext'
+import { ResponsiveWidth } from '../../../utils/helper'
+import { ModalMyAccount } from './Template'
+import { EditButton } from '../EditButton'
 import {
     Button,
     useToast,
@@ -8,14 +11,16 @@ import {
     Input,
     FormControl,
     FormLabel,
-    ModalHeader
+    ModalHeader,
+    useDisclosure
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { updateProfile } from "firebase/auth"
-import {doc, getDoc, serverTimestamp, updateDoc} from "firebase/firestore";
-import {db} from "../../../firebase-config";
+import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase-config";
 
 const ModalName = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const { currentUser } = useAuth()
     const toast = useToast()
     const input = useRef([])
@@ -47,6 +52,8 @@ const ModalName = () => {
                 });
             }
             await UserInFirestoreDatabase();
+            // close the modal
+            onClose()
             toast({
                 description: "Your name has been modified !",
                 status: 'success',
@@ -62,10 +69,14 @@ const ModalName = () => {
             })
         }
     }
+    useUpdateDataUser(currentUser, currentUser?.displayName)
     return (
         <Box>
+            <EditButton onOpen={onOpen} ariaLabel={"name"} />
             <ModalMyAccount
-                ariaLabel={"name"}
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
                 header={<Box
                     position={ResponsiveWidth() ? null : "absolute"}
                     left={ResponsiveWidth() ? null : "50%"}
