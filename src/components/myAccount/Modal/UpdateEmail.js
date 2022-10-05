@@ -1,5 +1,8 @@
 import { useAuth } from '../../../context/authContext'
-import { ResponsiveWidth, ModalMyAccount } from '../../../utils/helper'
+import { useUpdateDataUser } from '../../../context/dataUserContext'
+import { ResponsiveWidth } from '../../../utils/helper'
+import { ModalMyAccount } from './Template'
+import { EditButton } from '../EditButton'
 import { useState, useRef } from 'react'
 import {
     Button,
@@ -11,7 +14,8 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-    FormLabel
+    FormLabel,
+    useDisclosure
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
@@ -26,6 +30,7 @@ import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../firebase-config'
 
 const ModalEmail = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const { currentUser } = useAuth()
     const [passwordVerify, setPasswordVerify] = useState(false)
     const toast = useToast()
@@ -61,6 +66,8 @@ const ModalEmail = () => {
                 await reauthenticateWithPopup(currentUser, provider)
             }
             await updateEmail(currentUser, inputs?.current[1]?.value)
+            // close the modal
+            onClose()
             toast({
                 description: "Your email address has been modified !",
                 status: 'success',
@@ -105,12 +112,15 @@ const ModalEmail = () => {
             }
         }
     }
-
+    useUpdateDataUser(currentUser, currentUser?.email)
     return (
         <Box>
+            <EditButton onOpen={onOpen} ariaLabel={"email"} />
             <form onSubmit={handleSubmit}>
                 <ModalMyAccount
-                    ariaLabel={"email"}
+                    isOpen={isOpen}
+                    onOpen={onOpen}
+                    onClose={onClose}
                     header={<Box
                         position={ResponsiveWidth() ? null : "absolute"}
                         left={ResponsiveWidth() ? null : "50%"}

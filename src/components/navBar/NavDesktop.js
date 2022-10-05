@@ -95,8 +95,7 @@ const NavUser = () => {
             gap="1rem"
             with="5rem"
           >
-            <Link as={ReachLink} to="/createMenu"
-            >
+            <Link as={ReachLink} to="/createMenu" aria-label='menu details'>
               <Tooltip
                 label='Create my menu'
                 width="6.5rem"

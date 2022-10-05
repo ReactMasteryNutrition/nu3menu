@@ -1,4 +1,5 @@
 // import
+import * as React from 'react';
 import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
@@ -24,7 +25,10 @@ import {
 import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from '../meal/oneDay'
-import DetailRecipeModalWithSpoon from '../Card/DetailRecipeModalWithSpoon'
+const DetailRecipeModalWithSpoon = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "../Card/DetailRecipeModalWithSpoon")
+);
+
 // function
 export default function MyDetailsMenu() {
     const { isOpen, onOpen, onClose } = useDisclosure()

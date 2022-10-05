@@ -4,12 +4,12 @@ import { Box, Button, Center, Divider, IconButton, Heading, Link, Modal, ModalCl
 import { AddIcon, CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from "./oneDay";
-import DetailRecipeModalWithSpoon from "../Card/DetailRecipeModalWithSpoon"
 import { db } from "../../firebase-config"
 import { collection, doc, getDoc, onSnapshot, query, where } from 'firebase/firestore'
 import {useAuth} from "../../context/authContext"
-
-
+const DetailRecipeModalWithSpoon = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "../Card/DetailRecipeModalWithSpoon")
+);
 
 const DayMeal = () =>{
     // gestion ouverture et fermeture de la modal avec le detail de LA recette

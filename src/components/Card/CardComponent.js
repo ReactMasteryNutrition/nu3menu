@@ -136,7 +136,9 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                     <Tooltip label='See detail' placement='top' bg='green.700'>
                                         <Link
                                             as={ReachLink}
-                                            to={`${['/favorite', '/allmenus'].includes(location) ? location : ''}/${menu.idMenu}`}>
+                                            to={`${['/favorite', '/allmenus'].includes(location) ? location : ''}/${menu.idMenu}`}
+                                            aria-label='menu details'
+                                        >
                                             <IoEnter />
                                         </Link>
                                     </Tooltip>

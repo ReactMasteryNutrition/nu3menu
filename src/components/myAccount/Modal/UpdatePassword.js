@@ -1,5 +1,7 @@
 import { useAuth } from '../../../context/authContext'
-import { ResponsiveWidth, ModalMyAccount } from '../../../utils/helper'
+import { ResponsiveWidth } from '../../../utils/helper'
+import { ModalMyAccount } from './Template'
+import { EditButton } from '../EditButton'
 import { useState, useRef } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
@@ -11,7 +13,8 @@ import {
   InputRightElement,
   Box,
   ModalHeader,
-  Image
+  Image,
+  useDisclosure
 } from '@chakra-ui/react'
 import {
   reauthenticateWithCredential,
@@ -22,6 +25,7 @@ import {
 } from "firebase/auth"
 
 const ModalPassword = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [oldPassword, setOldPassword] = useState(false)
   const [newPassword, setNewPassword] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState(false)
@@ -63,6 +67,8 @@ const ModalPassword = () => {
       }
       if (inputs?.current[1]?.value === inputs?.current[2]?.value) {
         updatePassword(currentUser, inputs?.current[1]?.value)
+        // close the modal
+        onClose()
         toast({
           description: "Your password has been changed !",
           status: 'success',
@@ -89,9 +95,12 @@ const ModalPassword = () => {
   }
   return (
     <Box>
+      <EditButton onOpen={onOpen} ariaLabel={"password"} />
       <form onSubmit={handleSubmit}>
         <ModalMyAccount
-          ariaLabel={"password"}
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
           header={<Box
             position={ResponsiveWidth() ? null : "absolute"}
             left={ResponsiveWidth() ? null : "50%"}
