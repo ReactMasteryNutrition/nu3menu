@@ -1,4 +1,5 @@
 import { ResponsiveWidth, UploadImage } from '../../../utils/helper'
+import { ModalMyAccount } from './Template';
 import { v4 as uuidv4 } from 'uuid';
 import {
     Button,
@@ -6,13 +7,7 @@ import {
     Box,
     Image,
     Avatar,
-    Modal,
-    ModalOverlay,
-    ModalContent,
     ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     useDisclosure,
 } from '@chakra-ui/react'
 import { EditIcon } from '@chakra-ui/icons'
@@ -21,9 +16,11 @@ import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
 import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
+import { useDataUser, useUpdateDataUser } from '../../../context/dataUserContext';
 
 const ModalAvatar = () => {
     const { currentUser } = useAuth()
+    const { avatar } = useDataUser()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast()
     const [image, setImage] = useState(null);
@@ -37,7 +34,7 @@ const ModalAvatar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         // limit the image type
-        if (!["image/svg/xml", "image/png", "image/jpeg"].includes(image?.type)) {
+        if (!["image/svg+xml", "image/png", "image/jpeg"].includes(image?.type)) {
             return toast({
                 description: "Please choose an image in jpeg, jpg, png or svg format !",
                 status: 'error',
@@ -81,14 +78,15 @@ const ModalAvatar = () => {
             })
         }
     };
+    useUpdateDataUser(currentUser, currentUser?.photoURL)
     return (
         <Box>
             <Box position='relative'>
-                {currentUser?.photoURL ? <Avatar src={currentUser?.photoURL} size="2xl" borderRadius="1rem" backgroundColor="#1A202C" />
+                {currentUser?.photoURL ? <Avatar src={avatar} size="2xl" borderRadius="1rem" backgroundColor="#1A202C" />
                     : <Avatar size="2xl" />}
                 <EditIcon
-                    aria-label='edit'
                     onClick={onOpen}
+                    aria-label='avatar'
                     color="#48bb78"
                     cursor="pointer"
                     boxSize="5"
@@ -96,83 +94,54 @@ const ModalAvatar = () => {
                     top="6.8rem"
                     left="8.5rem" />
             </Box>
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
-                <ModalOverlay bg={ResponsiveWidth() ? "rgba(160, 174, 192, 0.5)" : "inherit"} />
-                <ModalContent
-                    bg="#1A202C"
-                    color="#F0FFF4"
-                    position={ResponsiveWidth() ? null : "fixed"}
-                    minHeight={ResponsiveWidth() ? null : "100vh"}
-                    minWidth={ResponsiveWidth() ? null : "100vw"}
-                    borderRadius={ResponsiveWidth() ? null : 0}
+            <ModalMyAccount
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                header={<Box
+                    position={ResponsiveWidth() ? null : "absolute"}
+                    left={ResponsiveWidth() ? null : "50%"}
+                    top={ResponsiveWidth() ? null : "25%"}
+                    width='100%'
+                    transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                 >
-                    <Box
+                    <Image
+                        src="./images/logo_nu3menu.svg" alt="Site logo"
+                        width={ResponsiveWidth() ? "15rem" : "18rem"}
+                        margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 2rem auto'}
+                    />
+                    <ModalHeader
+                        textAlign="center"
+                        fontSize="1.5rem"
+                        marginBottom="1rem"
+                    >
+                        Edit my avatar
+                    </ModalHeader>
+                </Box>}
+                content={<Box
+                    position={ResponsiveWidth() ? null : "absolute"}
+                    left={ResponsiveWidth() ? null : "50%"}
+                    top={ResponsiveWidth() ? null : "50%"}
+                    width={ResponsiveWidth() ? null : '90%'}
+                    transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
+                >
+                    <input type="file" onChange={handleChange} />
+                </Box>}
+                footer={
+                    <Button
+                        onClick={handleSubmit}
+                        bg='#48bb78'
+                        color="#f0fff4"
+                        _hover={{ bgColor: "#a0aec0" }}
+                        padding={ResponsiveWidth() ? null : '1.3rem 0'}
                         position={ResponsiveWidth() ? null : "absolute"}
                         left={ResponsiveWidth() ? null : "50%"}
-                        top={ResponsiveWidth() ? null : "25%"}
-                        width='100%'
+                        top={ResponsiveWidth() ? null : "70%"}
+                        width={ResponsiveWidth() ? null : "90%"}
                         transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                    >
-                        <Image
-                            src="./images/logo_nu3menu.svg" alt="Site logo"
-                            width={ResponsiveWidth() ? "15rem" : "18rem"}
-                            margin={ResponsiveWidth() ? '1rem auto' : '1rem auto 2rem auto'}
-                        />
-                        <ModalHeader
-                            textAlign="center"
-                            fontSize="1.5rem"
-                            marginBottom="1rem"
-                        >
-                        Edit my avatar
-                        </ModalHeader>
-                    </Box>
-                    <ModalCloseButton
-                        onClick={onClose}
-                        position="absolute"
-                        right="0"
-                        top="0"
-                        transition={ResponsiveWidth() ? "all 0.25s ease" : null}
-                        margin={ResponsiveWidth() ? "-0.5rem -0.4rem 0 0" : null}
-                        padding="0.25rem 0.5rem"
-                        borderRadius={ResponsiveWidth() ? "0.5rem" : null}
-                        borderBottomRightRadius={ResponsiveWidth() ? null : 0}
-                        borderBottomLeftRadius={ResponsiveWidth() ? 'null' : "1rem"}
-                        borderTopLeftRadius={ResponsiveWidth() ? null : 0}
-                        borderTopRightRadius={ResponsiveWidth() ? null : 0}
-                        bg="#48bb78"
-                        cursor="pointer"
-                        _hover={{
-                            transform: ResponsiveWidth() ? "translate(-0.35rem, 0.4rem)" : null
-                        }}
-                    />
-                    <ModalBody>
-                        <Box
-                            position={ResponsiveWidth() ? null : "absolute"}
-                            left={ResponsiveWidth() ? null : "50%"}
-                            top={ResponsiveWidth() ? null : "50%"}
-                            width={ResponsiveWidth() ? null : '90%'}
-                            transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                        >
-                            <input type="file" onChange={handleChange} />
-                        </Box>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            onClick={handleSubmit}
-                            bg='#48bb78'
-                            color="#f0fff4"
-                            _hover={{ bgColor: "#a0aec0" }}
-                            padding={ResponsiveWidth() ? null : '1.3rem 0'}
-                            position={ResponsiveWidth() ? null : "absolute"}
-                            left={ResponsiveWidth() ? null : "50%"}
-                            top={ResponsiveWidth() ? null : "70%"}
-                            width={ResponsiveWidth() ? null : "90%"}
-                            transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
-                        >Confirm
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
+                    >Confirm
+                    </Button>}
+            />
         </Box >
     )
 }
