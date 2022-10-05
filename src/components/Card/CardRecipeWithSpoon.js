@@ -5,10 +5,12 @@ import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IconContext } from 'react-icons/lib/esm/iconContext'
 import { IoEnter, IoFlash, IoPeople, IoStatsChart, IoTimer } from 'react-icons/io5'
 import { toHoursAndMinutes } from '../../utils/HoursAndMinutes'
-import DetailRecipeModalWithSpoon from './DetailRecipeModalWithSpoon'
 import ButtonToAddRecipeWithSpoon from '../menuCreator/buttonToAddRecipeSpoon'
-// Functions //
+const DetailRecipeModalWithSpoon = React.lazy(() =>
+  import(/* webpackPrefetch: true */ "../Card/DetailRecipeModalWithSpoon")
+);
 
+// Functions //
 export default function CardRecipeWithSpoon({indexOfDay, categoryOfMeal, weekMenu, setWeekMenu, datas}) {
     // gestion ouverture et fermeture de la modal avec le detail de LA recette
     const { isOpen, onOpen, onClose } = useDisclosure()
