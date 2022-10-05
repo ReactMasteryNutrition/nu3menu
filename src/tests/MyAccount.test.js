@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event'
 describe('display a modal', () => {
     test('display a modal to modify an avatar when clicking', () => {
         render(<MyAccount />)
-        expect(screen.getByLabelText("edit")).toBeInTheDocument()
-        userEvent.click(screen.getByLabelText("edit"))
+        expect(screen.getByLabelText("avatar")).toBeInTheDocument()
+        userEvent.click(screen.getByLabelText("avatar"))
         expect(screen.getByRole('dialog', { name: "Edit my avatar" })).toBeInTheDocument()
     })
     test('display a modal to modify a name when clicking', () => {
@@ -29,8 +29,8 @@ describe('display a modal', () => {
     })
     test('display a modal to delete an user account when clicking', () => {
         render(<MyAccount />)
-        expect(screen.getByRole('button', { name: "Delete my account" })).toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { name: "Delete my account" }))
+        expect(screen.getByRole('button', { name: "delete" })).toBeInTheDocument()
+        userEvent.click(screen.getByRole('button', { name: "delete" }))
         expect(screen.getByRole("dialog", {name:"Delete my account"})).toBeInTheDocument()
     })
 })
