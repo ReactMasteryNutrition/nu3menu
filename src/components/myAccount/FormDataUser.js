@@ -11,9 +11,11 @@ import {
     InputGroup
 } from '@chakra-ui/react'
 import DeleteAccount from './Modal/DeleteAccount'
+import { useDataUser } from '../../context/dataUserContext'
 
 const FormDataUser = () => {
     const { currentUser } = useAuth()
+    const {name, email} = useDataUser()
     const InputName = () => {
         return (
             <FormControl marginBottom="1rem">
@@ -22,7 +24,7 @@ const FormDataUser = () => {
                     flexDirection={ResponsiveWidth() ? "row" : "column"}
                 >
                     <Input
-                        placeholder={currentUser?.displayName?currentUser?.displayName : 'My name'}
+                        placeholder={currentUser?.displayName?name : 'My name'}
                         bg='#f0fff4'
                         readOnly />
                     <ModalName />
@@ -50,7 +52,7 @@ const FormDataUser = () => {
                         gap="1rem"
                         flexDirection={ResponsiveWidth() ? "row" : "column"}
                     >
-                        <Input type='email' placeholder={currentUser?.email} bg='#f0fff4' readOnly />
+                        <Input type='email' placeholder={email} bg='#f0fff4' readOnly />
                         <ModalEmail />
                     </Flex>
                 </FormControl >
