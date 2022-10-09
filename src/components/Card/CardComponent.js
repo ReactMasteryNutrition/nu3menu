@@ -118,7 +118,7 @@ export default function CardComponent({ listOfMenu, currentUser, setUserWithFavo
                                 </IconContext.Provider>
                             </GridItem> */}
                             <GridItem area='image' display='flex' justifyContent='center'>
-                                <Image src={menu.cover} alt={menu.title} boxSize={[112, 280, 280, 280]} objectFit='cover' borderRadius='md' />
+                                <Image src={menu.cover} alt={menu.title} /* boxSize={[112, 280, 280, 280]} */ objectFit='cover' borderRadius='md' />
                             </GridItem>
                             <GridItem area='title' display='flex' alignItems='center' paddingY='0.5rem' >
                                 <Tooltip label={menu.title} placement='top'>

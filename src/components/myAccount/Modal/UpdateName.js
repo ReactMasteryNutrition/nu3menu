@@ -45,7 +45,7 @@ const ModalName = () => {
             await updateProfile(currentUser, { displayName: input?.current[0]?.value });
             const UserInFirestoreDatabase = async () => {
                 const userRef = doc(db, `users/${currentUser?.uid}`);
-                const userSnap = await getDoc(userRef);
+                await getDoc(userRef);
                 await updateDoc(userRef, {
                     displayName: input?.current[0]?.value,
                     dateLogin: serverTimestamp()

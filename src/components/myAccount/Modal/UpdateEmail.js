@@ -88,7 +88,7 @@ const ModalEmail = () => {
             const UserInFirestoreDatabase = async () => {
                 // get the user's data from the database
                 const mailRef = doc(db, `users/${currentUser?.uid}`);
-                const mailDoc = await getDoc(mailRef)
+                await getDoc(mailRef)
                 await updateDoc(mailRef, {
                     email: inputs?.current[1]?.value,
                     dateLogin: serverTimestamp()
