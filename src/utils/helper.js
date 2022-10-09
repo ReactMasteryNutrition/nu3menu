@@ -2,7 +2,6 @@ import { useMediaQuery } from '@chakra-ui/react'
 import { getDownloadURL, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../firebase-config';
 import PropTypes from 'prop-types'
-import { useReducer, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query'
@@ -51,42 +50,6 @@ UploadImage.propTypes = {
   setProgress: PropTypes.number.isRequired
 }
 
-const useLoading = () => {
-  // handle data status
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'fetching':
-        return { status: 'fetching', data: null, error: null }
-      case 'done':
-        return { status: 'done', data: action.payload, error: null }
-      case 'fail':
-        return { status: 'error', data: null, error: action.payload }
-      default:
-        throw new Error('Action non supporté')
-    }
-  }
-  const initialState = {
-    data: null,
-    error: null,
-    status: 'idle',
-  }
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const { data, error, status } = state
-  // fetch data
-  const execute = useCallback(promise => {
-    dispatch({ type: 'fetching' })
-    promise
-      .then(data => dispatch({ type: 'done', payload: data }))
-      .catch(error => dispatch({ type: 'fail', error: error }))
-  }, [])
-  // memoize data fetched
-  const setData = useCallback(
-    data => dispatch({ type: 'done', payload: data }),
-    [dispatch],
-  )
-  return { data, error, status, execute, setData }
-}
-
 const useSpoon = (thingSearched, filter) => {
   const { data } = useQuery([thingSearched, filter], () => FetchAxiosWithSpoon(filter))
   return data
@@ -102,4 +65,4 @@ const PrivateRoute = () => {
   return currentUser ? <Outlet /> : <Home />
 }
 
-export { ResponsiveWidth, UploadImage, useLoading, useSpoon, PrivateRoute }
+export { ResponsiveWidth, UploadImage, useSpoon, PrivateRoute }
