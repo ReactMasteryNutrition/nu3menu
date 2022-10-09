@@ -8,7 +8,6 @@ test('default values in useAuth()', () => {
     expect(result.current).toEqual({
         currentUser: null,
         status: 'idle',
-        authError: undefined,
         register: expect.any(Function),
         login: expect.any(Function),
         logout: expect.any(Function),
