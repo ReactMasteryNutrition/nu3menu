@@ -9,8 +9,10 @@ import {
     Avatar,
     ModalHeader,
     useDisclosure,
+    CircularProgress,
+    CircularProgressLabel
 } from '@chakra-ui/react'
-import { EditIcon } from '@chakra-ui/icons'
+import { EditIcon, CheckIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
 import { useAuth } from '../../../context/authContext';
 import { updateProfile } from "firebase/auth";
@@ -24,7 +26,7 @@ const ModalAvatar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast()
     const [image, setImage] = useState(null);
-    const [, setProgress] = useState(0)
+    const [progress, setProgress] = useState(0)
     const handleChange = (e) => {
         // get the image data
         if (e.target.files[0]) {
@@ -54,7 +56,7 @@ const ModalAvatar = () => {
             await updateProfile(currentUser, { photoURL: urlProfile });
             const UserInFirestoreDatabase = async () => {
                 const avatarRef = doc(db, `users/${currentUser?.uid}`);
-                const userSnap = await getDoc(avatarRef);
+                await getDoc(avatarRef);
                 await updateDoc(avatarRef, {
                     photoURL: urlProfile,
                     dateLogin: serverTimestamp()
@@ -126,6 +128,12 @@ const ModalAvatar = () => {
                     transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                 >
                     <input type="file" onChange={handleChange} />
+                    {progress >= 1 && progress < 100 ? (
+                        <CircularProgress value={progress} color='green.400'>
+                            <CircularProgressLabel>{`${Math.round(progress)} %`}</CircularProgressLabel>
+                        </CircularProgress>
+                    ) :
+                        progress === 100 ? <CheckIcon color='green.400' /> : null}
                 </Box>}
                 footer={
                     <Button
