@@ -10,7 +10,8 @@ import {
     ModalHeader,
     useDisclosure,
     CircularProgress,
-    CircularProgressLabel
+    CircularProgressLabel,
+    Flex
 } from '@chakra-ui/react'
 import { EditIcon, CheckIcon } from '@chakra-ui/icons'
 import { useState } from 'react'
@@ -120,7 +121,9 @@ const ModalAvatar = () => {
                         Edit my avatar
                     </ModalHeader>
                 </Box>}
-                content={<Box
+                content={<Flex
+                    alignItems='center'
+                    gap='0.5rem'
                     position={ResponsiveWidth() ? null : "absolute"}
                     left={ResponsiveWidth() ? null : "50%"}
                     top={ResponsiveWidth() ? null : "50%"}
@@ -128,13 +131,14 @@ const ModalAvatar = () => {
                     transform={ResponsiveWidth() ? null : "translate(-50%, -50%)"}
                 >
                     <input type="file" onChange={handleChange} />
+                    {/* handle the image download progress */}
                     {progress >= 1 && progress < 100 ? (
                         <CircularProgress value={progress} color='green.400'>
                             <CircularProgressLabel>{`${Math.round(progress)} %`}</CircularProgressLabel>
                         </CircularProgress>
                     ) :
                         progress === 100 ? <CheckIcon color='green.400' /> : null}
-                </Box>}
+                </Flex>}
                 footer={
                     <Button
                         onClick={handleSubmit}
