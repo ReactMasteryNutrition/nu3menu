@@ -1,7 +1,8 @@
 // import
 import * as React from 'react';
 import { useState, useEffect } from 'react'
-import { useParams, Navigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import Error404 from '../../pages/Error404';
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '../../firebase-config'
 import {
@@ -26,7 +27,7 @@ import { CloseIcon, LinkIcon } from '@chakra-ui/icons'
 import { IoEnter } from 'react-icons/io5'
 import Oneday from '../meal/oneDay'
 const DetailRecipeModalWithSpoon = React.lazy(() =>
-  import(/* webpackPrefetch: true */ "../Card/DetailRecipeModalWithSpoon")
+    import(/* webpackPrefetch: true */ "../Card/DetailRecipeModalWithSpoon")
 );
 
 // function
@@ -64,7 +65,7 @@ export default function MyDetailsMenu() {
     }
 
     return (
-        menuId || favoriteId || allmenuId ? (
+        currentMenu[0]?.idMenu ? (
             <Box w='100%' px='4rem' color={"green.50"}>
                 <VStack mb='2rem' textAlign='center'>
                     <Heading as='h1' size='xl' >{currentMenu[0]?.title}</Heading>
@@ -130,7 +131,6 @@ export default function MyDetailsMenu() {
                     </Modal> : null
                 }
             </Box>
-        ) :
-            <Navigate to='*' />
+        ) : <Error404 />
     )
 }
