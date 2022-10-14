@@ -1,4 +1,4 @@
-import {Box, Center, Divider, Flex, Heading, Text} from "@chakra-ui/react";
+import {Box, Center, Divider, Flex, Heading} from "@chakra-ui/react";
 import React from "react";
 
 const TermsTexts = () => {
