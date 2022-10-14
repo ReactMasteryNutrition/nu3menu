@@ -10,12 +10,10 @@ import {
 import { auth } from "../../firebase-config";
 import { Link as ReachLink, useNavigate } from "react-router-dom"
 import { useAuth } from '../../context/authContext'
-import { useDataUser} from '../../context/dataUserContext';
 
 const NavUserDropdown = () => {
   const navigate = useNavigate()
   const { logout, currentUser } = useAuth()
-  const {avatar, name} = useDataUser()
   const handleClick = async () => {
     // logout the current user
     try {
@@ -31,14 +29,14 @@ const NavUserDropdown = () => {
     <Menu isLazy>
       <MenuButton aria-label='dropdown'>
         {currentUser?.photoURL ?
-          <Avatar src={avatar} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
+          <Avatar src={currentUser?.photoURL} size="sm" borderRadius="0.5rem" backgroundColor="#1A202C" />
           : <Avatar size="sm" />}
       </MenuButton>
       <MenuList bg='#f0fff4'>
         {currentUser?.displayName ? (<>
           <Link as={ReachLink} to="/menu">
             <MenuItem fontWeight="bold" color="#1A202C" _hover={{ bgColor: '#48bb78' }}>
-              {name}
+              {currentUser?.displayName}
             </MenuItem>
           </Link>
           <MenuDivider /></>)
