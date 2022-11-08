@@ -88,6 +88,7 @@ const DeleteAccount = () => {
     return (
         <Box>
             <Button
+                aria-label='delete'
                 onClick={onOpen}
                 padding={ResponsiveWidth() ? "0.5rem 7rem" : "0.5rem 1rem"}
                 width="100%"

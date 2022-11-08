@@ -7,11 +7,12 @@ test('default values in useAuth()', () => {
     })
     expect(result.current).toEqual({
         currentUser: null,
-        status: 'idle',
         register: expect.any(Function),
         login: expect.any(Function),
         logout: expect.any(Function),
         signInWithGoogle: expect.any(Function),
-        NewCreateUserInFirestoreDatabase: expect.any(Function)
+        resetPassword: expect.any(Function),
+        newCreateUserInFirestoreDatabase: expect.any(Function),
+        verifyEmail: expect.any(Function),
     })
 })

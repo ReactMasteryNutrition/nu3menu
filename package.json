@@ -59,5 +59,8 @@
     "@testing-library/cypress": "^8.0.3",
     "cypress": "^10.8.0",
     "eslint-plugin-cypress": "^2.12.1"
+  },
+  "jest":{
+    "transformIgnorePatterns": ["/node_modules/(?!react-icons)"]
   }
 }
