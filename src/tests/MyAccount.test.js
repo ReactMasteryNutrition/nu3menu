@@ -7,7 +7,7 @@ describe('display a modal', () => {
         render(<MyAccount />)
         expect(screen.getByRole('button', { name:"avatar" })).toBeInTheDocument()
         userEvent.click(screen.getByRole('button', { name:"avatar" }))
-        expect(screen.getByText("Edit my avatar")).toBeInTheDocument()
+        expect(screen.getByRole('dialog', { name: "Edit my avatar" })).toBeInTheDocument()
     })
     test('display a modal to modify a name when clicking', () => {
         render(<MyAccount />)
