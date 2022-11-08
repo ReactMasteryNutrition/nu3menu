@@ -88,8 +88,9 @@ const ModalAvatar = () => {
                 {currentUser?.photoURL ? <Avatar src={avatar} size="2xl" borderRadius="1rem" backgroundColor="#1A202C" />
                     : <Avatar size="2xl" />}
                 <EditIcon
+                    role='button'
                     onClick={onOpen}
-                    aria-label='avatar'
+                    aria-label="avatar"
                     color="#48bb78"
                     cursor="pointer"
                     boxSize="5"
